@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: RCP程序
+Bundle-SymbolicName: com.primeton.rcp;singleton:=true
+Bundle-Version: 1.0.0.0
+Bundle-Activator: com.primeton.rcp.RCPActivator
+Bundle-Vendor: huangjw
+Bundle-Localization: plugin
+Require-Bundle: org.eclipse.ui,
+ org.eclipse.core.runtime
+Bundle-ActivationPolicy: lazy
