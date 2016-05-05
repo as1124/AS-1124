@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<!--
+	registry of filters
+	sortIdx[optional]: the execution order, the smaller,the soon.
+	pattern: pattern of request url that will be filtered:
+	1) *.xxx, e.g., *.do,*.jsp etc.
+	2) /* all requests; 
+	3) xxx full match, eg. /samples/test.jsp
+	4) xxx/* , xxx must be a full match, e.g./samples/test/*;
+	class：the implementation class, must implement interface com.eos.access.http.WebInterceptor
+	-->
+	<handler id="WSInterceptor" sortIdx="0" pattern="/*" class="com.primeton.sca.host.webapp.SCAWebServiceServletFilter"/>	
+	<handler id="WebI18NInterceptor" sortIdx="1" pattern="/*" class="com.primeton.access.http.impl.WebI18NInterceptor"/>
+	<handler id="UserLoginInterceptor" sortIdx="100" pattern="/*" class="com.eos.access.http.UserLoginCheckedFilter"/>
+	<handler id="AccessedResourceInterceptor" sortIdx="101" pattern="/*" class="com.primeton.access.authorization.impl.AccessedHttpResourceFilter"/>
+</handlers>

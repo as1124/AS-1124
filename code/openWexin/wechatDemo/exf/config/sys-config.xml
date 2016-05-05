@@ -1,0 +1,427 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application xmlns="http://www.primeton.com/xmlns/eos/1.0">
+    <!-- system variables -->
+    <module name="System">
+        <group name="Default">
+            <!-- default datetime format -->
+            <configValue key="DateTimeFormat">yyyy-MM-dd HH:mm:ss</configValue>
+            <!-- default date format -->
+            <configValue key="DateFormat">yyyy-MM-dd</configValue>
+            <!-- the size of thread pool-->
+            <configValue key="ThreadPoolCount">10</configValue>
+            <!--
+            <configValue key="ChannelName"/>
+            <configValue key="McastAddr">228.12.34.56</configValue>
+            <configValue key="McastPort">18888</configValue>
+            -->
+            <configValue key="MaxMsgBlockSize">200</configValue>
+            <configValue key="MaxMsgQueueSize">100000</configValue>
+            <configValue key="TimeoutToProcessMsg">400</configValue>
+            <configValue key="TimeoutToSendMsg">500</configValue>
+        </group>
+    </module>
+    <!-- MBean's configuration-->
+    <module name="Mbean">
+        <!-- System MBean's configuration -->
+        <group name="EnvironmentMBean">
+            <!-- MBean type: config,management,monitor -->
+            <configValue key="Type">config</configValue>
+            <!-- MBean's qualified class name-->
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <!-- ConfigMBean specific parameter: confighandler qualified class name -->
+            <configValue key="Handler">com.eos.common.config.mbean.EnvironmentConfigHandler</configValue>
+            <!-- ConfigMBean specific parameter: files' type matched to thiss confighandler（config,syslog,enginelog,tracelog） -->
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!-- RuntimeMBean configuration -->
+        <group name="RuntimeMBean">
+            <!-- MBean type: config,management,monitor -->
+            <configValue key="Type">config</configValue>
+            <!-- MBean's qualified class name -->
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <!-- ConfigMBean specific parameter: confighandler qualified class name -->
+            <configValue key="Handler">com.eos.common.config.mbean.RuntimeConfigHandler</configValue>
+            <!-- ConfigMBean specific parameter: files' type matched to this confighandler confighandler（config,syslog,enginelog,tracelog） -->
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!-- Cache MBean's configuration -->
+        <group name="CacheMBean">
+            <!-- MBean type: config,management,monitor -->
+            <configValue key="Type">config</configValue>
+            <!-- MBean qualified class name -->
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <!-- ConfigMBean specific parameter: confighandler qualified class name -->
+            <configValue key="Handler">com.eos.common.cache.mbean.AppCacheConfigHandler</configValue>
+            <!-- ConfigMBean specific parameter: files' type matched to this confighandler（config,syslog,enginelog,tracelog） -->
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="MailMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.mail.mbean.MailConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="ServiceVariableMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+            <configValue key="Handler">com.eos.access.client.mbean.ServiceVariableConfigHandler</configValue>
+            <configValue key="Class">com.eos.access.client.mbean.ServiceVariable</configValue>
+        </group>
+        <group name="HandlerAccessMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.access.client.mbean.HandleAccessConfigHandler</configValue>
+            <configValue key="ConfigFileType">handlerAccess</configValue>
+        </group>
+        <group name="ScheduleMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.schedule.mbean.AppScheduleConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="LoggingMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.logging.mbean.AppLoggingConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="DeployLoggerMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.logging.mbean.LogConfigHandler</configValue>
+            <configValue key="ConfigFileType">applog</configValue>
+            <configValue key="LogFile">log4j-deploy.xml</configValue>
+        </group>
+        <group name="SysLoggerMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.logging.mbean.LogConfigHandler</configValue>
+            <configValue key="ConfigFileType">applog</configValue>
+            <configValue key="LogFile">log4j-sys.xml</configValue>
+        </group>
+        <group name="EngineLoggerMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.logging.mbean.LogConfigHandler</configValue>
+            <configValue key="ConfigFileType">applog</configValue>
+            <configValue key="LogFile">log4j-engine.xml</configValue>
+        </group>
+        <group name="TraceLoggerMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.logging.mbean.LogConfigHandler</configValue>
+            <configValue key="ConfigFileType">applog</configValue>
+            <configValue key="LogFile">log4j-trace.xml</configValue>
+        </group>
+        <!--datasouce's mbean configuration  -->
+        <group name="DataSourceMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.connection.mbean.DataSourceConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!-- statisitics's mbean configuration  -->
+        <group name="StatisticParamMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.statistic.mbean.StatisticConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!-- ConnectionMBean's configuration -->
+        <group name="ConnectionMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.connection.mbean.ConnectionConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!--DasMBean configuration -->
+        <group name="DasMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.das.entity.mbean.DASConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!--TransactionMBean configuration -->
+        <group name="TxManagerMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.transaction.mbean.TxManagerConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!--EngineMBean configuration-->
+        <group name="EngineMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.engine.core.mbean.EngineConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!--DictMBean configuration-->
+        <group name="DictMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.server.dict.config.DictConfigHandle</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!--HttpAccessMBean configuration-->
+        <group name="HttpAccessMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.access.http.mbean.AccessHttpConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!--MUOMBean configuration-->
+        <group name="MUOMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.muo.mbean.SessionManagerConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <!-- VirtualUserMBean configuration -->
+        <group name="VirtualUserMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.muo.mbean.VirtualUserObjectConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="AuthorizationMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.access.authorization.mbean.AccessAuthorizationConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="ScehduleManageMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.common.schedule.mbean.ScheduleManager</configValue>
+        </group>
+        <group name="ScheduleTaskFactoryMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.common.schedule.mbean.TaskFactory</configValue>
+        </group>
+        <group name="ScheduleTriggerFactoryMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.common.schedule.mbean.TriggerFactory</configValue>
+        </group>
+        <group name="EnhancedScheduleTriggerFactoryMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.common.schedule.mbean.EnhancedTriggerFactory</configValue>
+        </group>
+        <group name="ContributionMetaDataManagerMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.runtime.resource.mbean.ContributionMetaDataManager</configValue>
+        </group>
+        <group name="ResourceLoadMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.runtime.resource.mbean.ResourceLoad</configValue>
+        </group>
+        <group name="ResourceUpdateMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.runtime.resource.mbean.ResourceUpdate</configValue>
+        </group>
+        <group name="ServiceRegisterMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.access.client.mbean.ServiceRegister</configValue>
+        </group>
+        <group name="DictManagerMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.server.dict.config.DictManager</configValue>
+        </group>
+        <group name="ApplicationMetaDataManagerMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.runtime.metadata.mbean.ApplicationMetaDataManager</configValue>
+        </group>
+        <group name="ConnectionStatMBean">
+            <configValue key="Type">monitor</configValue>
+            <configValue key="Class">com.eos.common.connection.mbean.StatisticManager</configValue>
+        </group>
+        <group name="StatisticMBean">
+            <configValue key="Type">monitor</configValue>
+            <configValue key="Class">com.eos.common.statistic.mbean.Statistic</configValue>
+        </group>
+        <group name="OnlineUserMBean">
+            <configValue key="Type">monitor</configValue>
+            <configValue key="Class">com.eos.access.http.mbean.OnlineUserMonitor</configValue>
+        </group>
+        <group name="SpecialMethodMBean">
+            <configValue key="Type">other</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.SpecialMethod</configValue>
+        </group>
+        <group name="EOSBusinDictDataLoaderMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.eos.server.dict.impl.EOSBusinDictDataLoader</configValue>
+        </group>
+        <!-- MBean for cluster notification -->
+        <group name="ClusterNotifierMBean">
+            <configValue key="Type">management</configValue>
+            <configValue key="Class">com.primeton.common.cache.impl.cluster.mbeannotify.ClusterMessageConsumer</configValue>
+        </group>
+        <group name="JMXSecurityMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.config.mbean.JMXSecurityConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+          <!-- HttpSecurityMBean configuration-->
+        <group name="HttpSecurityMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.config.mbean.HttpSecurityConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+    </module>
+    <!--configuration for runtime enviroment-->
+    <module name="Runtime">
+        <!--
+			whether or not to load lazily:[true|false]. if set false, the runtime will not load resource lazily.
+			if set true and com.primeton.ext.runtime.resource.loader.IModelLoader#isSupportLazyLoading() returns true,
+			then the resource loaded by this IModelLoader will be load lazily.
+		-->
+        <group name="Loading">
+            <configValue key="Lazy">true</configValue>
+        </group>
+        <!--
+			resouce hot update configuration:
+			Interval:the interval of scaning resouce update, <0 not scan;
+			Exclude: ignore specific files and directory,
+			1) for files: *.ext, multiple types are separated by '|'.
+			for example, *.class|*.properties
+
+			2) for directory: those not starts with "*.", mulfiple directory are separated by |, sub directory are not supported.
+			for example:classes,classes|lib
+
+			3) mixed:
+			for example, *.class|classes
+		-->
+        <group name="Monitor">
+            <configValue key="Interval">-1</configValue>
+            <configValue key="Exclude">*.class</configValue>
+        </group>
+    </module>
+    <!--
+		whether or not to log datacontext
+	-->
+    <module name="Logging">
+        <group name="IsPrintContext">
+            <!--whether or not to log datacontext in SysLogger-->
+            <configValue key="SysLogger">false</configValue>
+            <!--whether or not to log datacontext in EngineLogger-->
+            <configValue key="EngineLogger">false</configValue>
+        </group>
+    </module>
+    <!--The database connection monitor configuration-->
+    <!--
+		UnclosedConn[true|false, default false]: whether or not to monitor unclosed database connections;
+		StackConn[true|false, default false]: whether or not to monitor database connection call stack;
+		UnclosedStatement[true|false, default false]: whether or not to monitor unclosed jdbc statements;
+		StackStatement[true|false, default false]: whether or not to monitor jdbc statements call stack;
+		UnclosedResultSet[true|false, default false]:whether or not to monitor unclosed jdbc ResultSet;
+		StackResultSet[true|false, default false]: whether or not to monitor jdbc ResultSet call stack;
+		IsLogSqlExcTimes[true|false, default false]: whether or not to log the run count of a sql;
+		IsLogSqlTime[true|false, default false]: whether or not to log the runtime of a sql;
+		LogSqlWhenTimeout(in milliseconds): log a sql to syslog when its run time exceeds this limit.
+		IsLogActiveConnNum[true|false, default to false]: whether or not to monitor the count of active db connections;
+	-->
+    <module name="Connection">
+        <group name="Monitor">
+            <configValue key="UnclosedConn">true</configValue>
+            <configValue key="StackConn">false</configValue>
+            <configValue key="UnclosedStatement">true</configValue>
+            <configValue key="StackStatement">false</configValue>
+            <configValue key="UnclosedResultSet">true</configValue>
+            <configValue key="StackResultSet">false</configValue>
+            <!-- deprecated
+			<configValue key="IsLogSqlExcTimes">false</configValue>
+			<configValue key="IsLogSqlTime">false</configValue>
+			 -->
+            <configValue key="LogSqlWhenTimeout">1000</configValue>
+            <configValue key="IsLogActiveConnNum">false</configValue>
+            <configValue key="IsLogSqlExcTimes">false</configValue>
+            <configValue key="IsLogSqlTime">false</configValue>
+        </group>
+    </module>
+    <!--
+		LogPojoWhenTimeout（in milliseconds）:
+		when the run time of a method in a POJO execedes this limit, the engine will write a log about this;
+		Default is 1000 ms
+	-->
+    <module name="Engine">
+        <group name="Monitor">
+            <configValue key="LogPojoWhenTimeout">4000</configValue>
+        </group>
+    </module>
+    <!--
+		Transaction Manager's configuration.There is only one TransactionManager instance
+		in a JAVA VM,eos server choose different TransactionManager according to the application
+		server including jboss,weblogic,websphere.for other application server, eos server will
+		choose DataSourceTransactionManagerSetProvider.
+		DataSourceTransactionManagerSetProvider support multiple datasource, but not enssure transaction ammont these
+		datasources.Acutally there will be a DataSourceTransactionManager for each datasouce and those DataSourceTransactionManager
+		will be grouped into a DataSourceTransactionManagerSet. When manager.begin() is called,the begin() of each manager in the managerSet are called.
+		commit(),rollback() are the same.
+
+		Propagation: possible values:[PROPAGATION_REQUIRED|PROPAGATION_SUPPORTS|PROPAGATION_MANDATORY|PROPAGATION_REQUIRES_NEW
+		PROPAGATION_NOT_SUPPORTED|PROPAGATION_NEVER]
+		Isolation: possible values:[ISOLATION_READ_UNCOMMITTED|ISOLATION_READ_COMMITTED|
+		ISOLATION_REPEATABLE_READ|ISOLATION_SERIALIZABLE]
+	-->
+    <module name="TxManager">
+        <group name="Default">
+            <configValue key="Provider">com.primeton.common.transaction.impl.datasource.DataSourceTransactionManagerSetProvider</configValue>
+            <configValue key="Propagation">PROPAGATION_REQUIRED</configValue>
+            <configValue key="Isolation">ISOLATION_DEFAULT</configValue>
+        </group>
+        <group name="Jboss">
+            <configValue key="Provider">com.primeton.common.transaction.impl.jta.JbossJtaTransactionManagerProvider</configValue>
+            <configValue key="TransactionManager">java:/TransactionManager</configValue>
+            <!-- configValue key="UserTransaction">
+				java:comp/UserTransaction
+			</configValue -->
+            <configValue key="Propagation">PROPAGATION_REQUIRED</configValue>
+            <configValue key="Isolation">ISOLATION_DEFAULT</configValue>
+        </group>
+        <group name="Weblogic">
+            <configValue key="Provider">com.primeton.common.transaction.impl.jta.WebLogicJtaTransactionManagerProvider</configValue>
+            <configValue key="Propagation">PROPAGATION_REQUIRED</configValue>
+            <configValue key="Isolation">ISOLATION_DEFAULT</configValue>
+        </group>
+        <group name="Websphere">
+            <configValue key="Provider">com.primeton.common.transaction.impl.jta.WebSphereJtaTransactionManagerProvider</configValue>
+            <configValue key="Propagation">PROPAGATION_REQUIRED</configValue>
+            <configValue key="Isolation">ISOLATION_DEFAULT</configValue>
+        </group>
+    </module>
+    <!--
+		configuration for DAS module
+		ShowSql whether or not to show sql in log;
+		UseScrollableResultSet whether or not to use scrollable resultset.
+		BatchSize the batch size;
+		FetchSize fetch size when reading from ResultSet.
+		GenerateStatistics generate statistics data. disable this option in production enviroment to avoid prformance problems.
+	-->
+    <module name="Das">
+        <group name="Hibernate">
+            <configValue key="ShowSql">false</configValue>
+            <configValue key="UseScrollableResultSet">true</configValue>
+            <configValue key="BatchSize">5</configValue>
+            <configValue key="FetchSize">10</configValue>
+        </group>
+        <group name="PoolSize">
+            <configValue key="PoolSize">20</configValue>
+        </group>
+        <!--
+			a temparay path relative to $EOS_HOME/domain/servers/localServer/applications/yourAppName,
+			that is used to store lob objects' data.
+		-->
+        <group name="Lob">
+            <configValue key="TempDir">lob_temp</configValue>
+        </group>
+        <!-- specify whether or not to throw a exception When a ResultSet's size exceeds this limit-->
+        <group name="ResultSet">
+            <configValue key="ResultSetLimit">-1</configValue>
+            <configValue key="ThrowException">false</configValue>
+        </group>
+        <!-- write log when a ResutSet's size execeeds this limit -->
+        <group name="ResultSetLog">
+            <configValue key="Count">2000</configValue>
+        </group>
+    </module>
+</application>

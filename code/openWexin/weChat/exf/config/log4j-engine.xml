@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="null" threshold="null">
+    <appender class="com.primeton.ext.common.logging.AppRollingFileAppender" name="ROLLING_FILE">
+        <param name="Threshold" value="ALL"/>
+        <param name="Encoding" value="UTF-8"/>
+        <param name="File" value="logs/engine.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="10"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m %n"/>
+        </layout>
+    </appender>
+    <!-- all engine logger -->
+    <logger additivity="false" name="engine_trace">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="engine_trace._pageflow">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="engine_trace._bizlogic">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="engine_trace._handler">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="engine_trace._uploadFile">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="engine_trace._service">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="engine_trace._webservice">
+        <level value="OFF"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="engine_trace._schedule">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="engine_trace._sql">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="engine_trace._spring">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <root>
+        <level value="DEBUG"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </root>
+</log4j:configuration>

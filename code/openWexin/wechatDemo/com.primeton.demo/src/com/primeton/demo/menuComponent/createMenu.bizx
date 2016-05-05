@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<process:tBusinessLogic xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:model="http://com.primeton.emf.core" xmlns:process="http://primeton.com/emf/core/process" name="createMenu.bizx" detailDescription="" demonstration="" urls="" gridVisibility="false" rulerVisibility="true" snapToGeometry="true" productVersion="7.0.0.0">
+  <nodes xsi:type="process:tStart" id="start0" name="开始" displayName="开始" type="start">
+    <sourceConnections xsi:type="process:tLink" id="link1" name="link1" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>start0</sourceNode>
+      <targetNode>assign0</targetNode>
+    </sourceConnections>
+    <location x="100" y="150"/>
+    <size height="28" width="28"/>
+    <nodeLabel>start0label</nodeLabel>
+  </nodes>
+  <nodes xsi:type="process:tEnd" id="end0" name="结束" displayName="结束" type="end">
+    <targetConnections>link0</targetConnections>
+    <location x="887" y="144"/>
+    <size height="28" width="28"/>
+    <nodeLabel>end0label</nodeLabel>
+    <process:returns>
+      <process:return id="0" language="Boolean" name="successed" type="query" valueType="Primitive">successed</process:return>
+    </process:returns>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="start0label" name="label" displayName="label" nodeType="label">
+    <location x="101" y="186"/>
+    <figSize height="19" width="27"/>
+    <node>start0</node>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="end0label" name="label" displayName="label" nodeType="label">
+    <location x="888" y="180"/>
+    <figSize height="19" width="27"/>
+    <node>end0</node>
+  </nodes>
+  <nodes xsi:type="process:tSubprocess" description="" id="subprocess0" name="createMenu" displayName="createMenu" type="subprocess">
+    <sourceConnections xsi:type="process:tLink" id="link0" name="link0" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>subprocess0</sourceNode>
+      <targetNode>end0</targetNode>
+    </sourceConnections>
+    <targetConnections>link2</targetConnections>
+    <location x="600" y="144"/>
+    <size height="27" width="27"/>
+    <nodeLabel>subprocess0label</nodeLabel>
+    <process:flow index="2" synchronization="true" transactionType="join" varArgs="false">
+      <process:partner type="literal">com.primeton.mobile.wechat.MenusComponent.createMenu</process:partner>
+      <process:inputVariables>
+        <process:inputVariable id="0" name="accessToken" type="query" value="String" valueType="Primitive" pattern="reference">token/access_token</process:inputVariable>
+        <process:inputVariable id="1" name="menus" type="query" value="com.primeton.mobile.wechat.model.menu.WechatMenu[]" valueType="Java" pattern="reference">menus</process:inputVariable>
+      </process:inputVariables>
+      <process:outputVariables>
+        <process:outputVariable id="0" name="success" type="query" value="Boolean" valueType="Primitive">successed</process:outputVariable>
+      </process:outputVariables>
+    </process:flow>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="subprocess0label" name="label" nodeType="label">
+    <location x="576" y="179"/>
+    <figSize height="19" width="75"/>
+    <node>subprocess0</node>
+  </nodes>
+  <nodes xsi:type="process:tSubprocess" description="" id="subprocess1" name="getAccessToken" displayName="getAccessToken" type="subprocess">
+    <sourceConnections xsi:type="process:tLink" id="link2" name="link2" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>subprocess1</sourceNode>
+      <targetNode>subprocess0</targetNode>
+    </sourceConnections>
+    <targetConnections>link3</targetConnections>
+    <location x="360" y="150"/>
+    <size height="27" width="27"/>
+    <nodeLabel>subprocess1label</nodeLabel>
+    <process:flow index="2" synchronization="true" transactionType="join" varArgs="false">
+      <process:partner type="literal">com.primeton.mobile.wechat.CommonComponent.getAccessToken</process:partner>
+      <process:inputVariables>
+        <process:inputVariable id="0" name="appID" type="query" value="String" valueType="Primitive" pattern="reference">appID</process:inputVariable>
+        <process:inputVariable id="1" name="appSecret" type="query" value="String" valueType="Primitive" pattern="reference">secret</process:inputVariable>
+      </process:inputVariables>
+      <process:outputVariables>
+        <process:outputVariable id="0" name="token" type="query" value="com.primeton.mobile.wechat.model.AccessToken" valueType="Java">token</process:outputVariable>
+      </process:outputVariables>
+    </process:flow>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="subprocess1label" name="label" nodeType="label">
+    <location x="323" y="185"/>
+    <figSize height="19" width="100"/>
+    <node>subprocess1</node>
+  </nodes>
+  <nodes xsi:type="process:tAssign" description="" id="assign0" name="赋值" displayName="赋值" type="assign">
+    <sourceConnections xsi:type="process:tLink" id="link3" name="link3" displayName="连接线" isDefault="true" type="transition">
+      <sourceNode>assign0</sourceNode>
+      <targetNode>subprocess1</targetNode>
+    </sourceConnections>
+    <targetConnections>link1</targetConnections>
+    <location x="218" y="68"/>
+    <size height="28" width="28"/>
+    <nodeLabel>assign0label</nodeLabel>
+    <process:copy>
+      <process:from type="query" pattern="reference">wxc70c5d9aab4f6a2b</process:from>
+      <process:to type="query">appID</process:to>
+    </process:copy>
+    <process:copy>
+      <process:from type="query" pattern="reference">f3ca23ccf76c301f2158862db65cfdad</process:from>
+      <process:to type="query">secret</process:to>
+    </process:copy>
+  </nodes>
+  <nodes xsi:type="model:NodeElementLabel" id="assign0label" name="label" nodeType="label">
+    <location x="219" y="104"/>
+    <figSize height="19" width="27"/>
+    <node>assign0</node>
+  </nodes>
+  <topRuler/>
+  <leftRuler/>
+  <process:info author="huangjw" createTime="2015-06-16 10:13:24" date="2015-06-16Z" description="" name="createMenu" version="7.0.0.0"/>
+  <process:variables>
+    <process:variable description="" historyStateLocation="client" isArray="false" name="appID" primitiveType="String"/>
+    <process:variable description="" historyStateLocation="client" isArray="false" name="secret" primitiveType="String"/>
+    <process:variable anyType="com.primeton.mobile.wechat.model.AccessToken" description="" historyStateLocation="client" isArray="false" name="token"/>
+  </process:variables>
+  <process:inputs varArgs="false">
+    <process:input anyType="com.primeton.mobile.wechat.model.menu.WechatMenu" description="" isArray="true" name="menus"/>
+  </process:inputs>
+  <process:outputs>
+    <process:output description="" isArray="false" name="successed" primitiveType="Boolean"/>
+  </process:outputs>
+  <process:extAttribute1>public</process:extAttribute1>
+  <process:transactionType>true</process:transactionType>
+</process:tBusinessLogic>

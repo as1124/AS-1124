@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Bundle-Description: 
+Bundle-SymbolicName: com.primeton.demo
+Bundle-Name: com.primeton.demo
+Bundle-Version: 1.0.0.0
+Require-Bundle: com.primeton.mobile.wechat,com.eos.foundation
+Bundle-Vendor: huangjw
+eos-webCtxPath: demo
+

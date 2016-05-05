@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<!--
+	handlers that are added to processors
+	id: the id of the handler, must be unique;
+	suffix: the suffix that this handler will be matched to,this attribute can hold multiple suffix string that
+	   are separated by ','.
+	sortIdx: sort order,when multiple handler are matched to a suffix, the hander with a smaller sortIdx will
+	     be executed first;
+	class：processor impl class;
+	Note: there will be different processor instance for different suffix string.
+	-->
+	<handler id="flowProcessor" suffix=".flow" sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.HttpPageFlowProcessor" />
+
+	<handler id="actionProcessor" suffix=".action" sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.ActionProcessor" />
+
+	<handler id="downloadProcessor" suffix=".download"
+		sortIdx="0"
+		class="com.primeton.access.http.impl.processor.DownloadProcessor" />
+	<!--
+	<handler id="ajaxFlowProcessor" suffix=".flow.ajax,.flowx.ajax"
+		sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.AjaxPageflowProcessor" />
+ 	-->
+
+	<handler id="commonServiceProcessor" suffix=".remote" sortIdx="0"
+		class="com.primeton.access.client.impl.processor.CommonServiceProcessor" />
+
+	<handler id="ajaxBizProcessor" suffix=".biz.ajax"
+		sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.AjaxBizProcessor" />
+
+	<handler id="precompileProcessor" suffix=".precompile"
+		sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.PrecompileProcessor" />
+
+	<handler id="debugBizProcessor" suffix=".bizx.debug,.biz.debug"
+		sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.DebugProcessor" />
+
+	<handler id="gzipProcessor" suffix=".gzip" sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.GzipProcessor" />
+
+	<handler id="jspDebugProcessor" suffix=".jsp.debug" sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.JspDebugProcessor" />
+
+	<handler id="ajaxServiceProcessor" suffix=".service.ajax" sortIdx="0"
+		class="com.primeton.sca.http.service.processor.AjaxServiceProcessor" />
+
+	<handler id="ajaxJavaBeanProcessor" suffix=".java.beanx" sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.BeanCServiceProcessor" />
+
+	<handler id="ajaxSpringBeanProcessor" suffix=".spring.beanx" sortIdx="0"
+		class="com.primeton.spring.processor.SpringCServiceProcessor" />
+
+	<handler id="extBizProcessor" suffix=".biz.ext" sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.ExtBizProcessor" />
+
+	<handler id="ternimateDebugProcessor" suffix=".thread.terminate" sortIdx="0"
+		class="com.primeton.ext.engine.core.processor.TernimateDebugProcessor" />
+</handlers>

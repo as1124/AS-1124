@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false" threshold="null">
+    <appender class="com.primeton.ext.common.logging.AppConsoleAppender" name="CONSOLE">
+        <param name="Target" value="System.out"/>
+        <param name="Threshold" value="DEBUG"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%-5p][%c{1}:%L]  %m%n"/>
+        </layout>
+    </appender>
+    <appender class="com.primeton.ext.common.logging.AppRollingFileAppender" name="ROLLING_FILE">
+        <param name="Encoding" value="UTF-8"/>
+        <param name="File" value="logs/deploy.log"/>
+        <param name="Threshold" value="DEBUG"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="1024KB"/>
+        <param name="MaxBackupIndex" value="3"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%5p][%c{1}:%L]  %m%n"/>
+        </layout>
+    </appender>
+
+    <logger additivity="false" name="com.eos">
+        <level value="INFO"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton">
+        <level value="INFO"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+</log4j:configuration>

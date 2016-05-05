@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<!--
+	This registry holds handlers that listen contributions' load events.
+	The execution order of these handlers are the same as the order they are 
+	defined in this registry file.
+	
+	There can be multiple registry files located in /META-INF/ on classpath.
+	-->
+	<!--
+	<handler handle-class="xxx.yyy.zzz"/>
+	-->
+</handlers>

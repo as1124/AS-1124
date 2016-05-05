@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application xmlns="http://www.primeton.com/xmlns/eos/1.0">
+	<!--the class path used to compile java files\-->
+	<module name="Engine">
+		<group name="Runtime-Java-Build">
+			<!--absolute path,supports only jar,zip files-->
+			<configValue key="Class-Path"/>
+			<!--
+			may be relative to the root path of current web application.
+			$EOS_HOME/domain/servers/localServer/applications/yourAppName
+			-->
+			<configValue key="Source-Path">temp</configValue>
+		</group>
+	</module>
+
+	<!-- Set the Distribute Runtime -->
+	<module name="DistributeRuntime">
+		<group name="DistributeMode">
+			<configValue key="DefaultAppName">default</configValue>
+			<configValue key="ServerIp">127.0.0.1</configValue>
+			<configValue key="ServerPort">6199</configValue>
+			<configValue key="ServerAppName">default</configValue>
+			<!-- LOCAL_UDDI UDDI_LOCAL UDDI -->
+			<configValue key="ServiceLocateMode">LOCAL_UDDI</configValue>
+			<!-- WEB APP -->
+			<configValue key="ServerMode">APP</configValue>
+		</group>
+	</module>
+
+	<!-- Set Ejb Environment -->
+	<module name="JndiTemplate">
+		<!--
+		<group name="JndiTemplate_A">
+           <configValue key="InitialContextFactory">com.ibm.websphere.naming.WsnInitialContextFactory</configValue>
+           <configValue key="ProviderUrl">iiop://localhost:9080</configValue>
+           <configValue key="Principal">user</configValue>
+           <configValue key="Password">pass</configValue>
+        </group>
+		-->
+	 </module>
+
+	<module name="EJBBeans">
+		<!--
+		<group name="BeanName">
+           <configValue key="JndiTemplateName">JndiTemplate_A</configValue>
+           <configValue key="JndiName">Business_Name</configValue>
+           <configValue key="IsRemote">true</configValue>
+		 </group>
+		-->
+	 </module>
+	 <module name="AccessClient">
+		<!--
+		<group name="uddi">
+           <configValue key="impl-class">com.primeton.ext.access.client.ServiceRegistryForXml</configValue>
+		 </group>
+		-->
+	 </module>
+
+	 <module name="SecuritySetting">
+	 <!--
+       <group name="uddiserver">
+        <configValue key="user">test</configValue>
+       <configValue key="password">test</configValue>
+      </group>
+      <group name="http">
+       <configValue key="needAuthention">false</configValue>
+        <configValue key="user">yangbt</configValue>
+        <configValue key="password">primeton</configValue>
+      </group>
+      <group name="userIdentity">
+        <configValue key="isAllowAnonymous">true</configValue>
+      </group>
+      -->
+
+	 
+			    	
+		    			<group name="http">
+				            <configValue key="needAuthention">true</configValue>
+				            <configValue key="user">bps</configValue>
+				            <configValue key="password">000000</configValue>
+				        </group>
+			    	 
+			    </module>
+
+	 <module name="ChannelsSecurity">
+	 	 <!--
+		<group name="channels1">
+           <configValue key="protocol">jms</configValue>
+           <configValue key="appName">default</configValue>
+           <configValue key="providerUrl">iiop://localhost:2809</configValue>
+           <configValue key="user">yangbt</configValue>
+           <configValue key="password">primeton</configValue>
+		 </group>
+		 <group name="channels2">
+           <configValue key="protocol">http</configValue>
+           <configValue key="ip">192.168.0.126</configValue>
+           <configValue key="port">9080</configValue>
+           <configValue key="webContext">default</configValue>
+           <configValue key="user">yangbt</configValue>
+           <configValue key="password">primeton</configValue>
+		 </group>
+     	  -->
+	 </module>
+	  <module name="JMXSecurity">
+        <!--
+		 <group name="jmx">
+		            <configValue key="authorization">true</configValue>
+		            <configValue key="username">primeton</configValue>
+		            <configValue key="password">{3DES}npO5MYMbVf7HCaXdpg5Sb/c=</configValue>
+		 </group>
+		 -->
+    </module>
+	 <module name="CommonService">
+	 	 	 <!--
+		<group name="Dict">
+		   <configValue key="protocol">ejb</configValue>
+		   <configValue key="serviceName">com.eos.server.dict.impl.dictLoader</configValue>
+           <configValue key="appName">default</configValue>
+           <configValue key="context">default/EOS_CMT_SERVICEEJB</configValue>
+           <configValue key="extension1">iiop://localhost:2809</configValue>
+           <configValue key="extension2">com.ibm.websphere.naming.WsnInitialContextFactory</configValue>
+           <configValue key="type">biz</configValue>
+		 </group>
+		 -->
+	 </module>
+</application>

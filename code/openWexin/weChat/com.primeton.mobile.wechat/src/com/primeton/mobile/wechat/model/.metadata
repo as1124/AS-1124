@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<metadata>
+    <model description="" displayName="AccessToken" implementationType="file" modifier="public" name="AccessToken.class" order="32" version=""/>
+    <model description="" displayName="HotlineAccount" implementationType="file" modifier="public" name="HotlineAccount.class" order="32" version=""/>
+    <model description="" displayName="IWechatModel" implementationType="file" modifier="public" name="IWechatModel.class" order="32" version=""/>
+    <model description="" displayName="WechatGrammer" implementationType="file" modifier="public" name="WechatGrammer.class" order="32" version=""/>
+</metadata>

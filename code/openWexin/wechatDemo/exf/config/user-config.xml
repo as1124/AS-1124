@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application xmlns="http://www.primeton.com/xmlns/eos/1.0">
+    <!-- Datasource config -->
+    <!--
+	there can be multiplse DataSource, and the datasouce with name being "default"
+	as the system default datasource.
+	two types of  DataSource are supported:
+	1) jndi DataSource
+	2) c3p0 DataSource
+		Transaction_Isolation as:
+		1)ISOLATION_READ_UNCOMMITTED
+		2)ISOLATION_READ_COMMITTED
+		3)ISOLATION_REPEATABLE_READ
+		4)ISOLATION_SERIALIZABLE
+	-->
+    <module name="DataSource">
+        <!--system default datasouce -->
+		<group name="default">
+			<configValue key="Jndi-Name">DefaultDataSource</configValue>
+			<configValue key="Transaction-Isolation">ISOLATION_READ_COMMITTED</configValue>
+			<configValue key="Test-Connect-Sql">SELECT count(*) from EOS_UNIQUE_TABLE</configValue>
+			<configValue key="Retry-Connect-Count">-1</configValue>
+		</group>
+        <!--
+		C3p0-DriverClass[required],C3p0-Url[required]:
+		1、DB2
+		2、Oracle
+		3、Informix
+		4、MySql
+		5、SqlServer
+		6、Sybase
+		-->
+        <!--
+		<group name="default">
+			<configValue key="C3p0-DriverClass">com.ibm.db2.jcc.DB2Driver</configValue>
+			<configValue key="C3p0-Url">jdbc:db2://192.168.1.251:50000/eos</configValue>
+			<configValue key="C3p0-UserName">eos6si</configValue>
+			<configValue key="C3p0-Password">eos6si</configValue>
+			<configValue key="C3p0-PoolSize">10</configValue>
+			<configValue key="C3p0-MaxPoolSize">50</configValue>
+			<configValue key="C3p0-MinPoolSize">10</configValue>
+			<configValue key="Transaction-Isolation">ISOLATION_READ_COMMITTED</configValue>
+			<configValue key="Database-Type">DB2</configValue>
+			<configValue key="Jdbc-Type">IBM DB2 Driver(Type4)</configValue>
+			<configValue key="Test-Connect-Sql">SELECT count(*) from EOS_UNIQUE_TABLE</configValue>
+			<configValue key="Retry-Connect-Count">-1</configValue>
+		</group>
+		-->
+
+        <!--UDDI storeage datasouce.UDDI of all applications are stored in the same datasouce.-->
+        <!--
+		<group name="UddiServiceDS">
+			<configValue key="Jndi-Name">EOSDefaultDataSource</configValue>
+			<configValue key="Transaction-Isolation">ISOLATION_READ_COMMITTED</configValue>
+			<configValue key="Test-Connect-Sql">SELECT count(*) from EOS_SERVICE_ENDPOINT</configValue>
+			<configValue key="Retry-Connect-Count">-1</configValue>
+		</group>
+ 		-->
+        <!-- data source for EOS_UNIQUE_TABLE  -->
+        <!--
+		<group name="EOS-Unique">
+			<configValue key="C3p0-DriverClass">com.ibm.db2.jcc.DB2Driver</configValue>
+			<configValue key="C3p0-Url">jdbc:db2://192.168.1.251:50000/eos</configValue>
+			<configValue key="C3p0-UserName">eos6si</configValue>
+			<configValue key="C3p0-Password">eos6si</configValue>
+			<configValue key="C3p0-PoolSize">10</configValue>
+			<configValue key="C3p0-MaxPoolSize">10</configValue>
+			<configValue key="C3p0-MinPoolSize">5</configValue>
+			<configValue key="Transaction-Isolation">ISOLATION_DEFAULT</configValue>
+			<configValue key="Database-Type">DB2</configValue>
+			<configValue key="Jdbc-Type">IBM DB2 Driver(Type4)</configValue>
+			<configValue key="Test-Connect-Sql">SELECT count(*) from EOS_UNIQUE_TABLE</configValue>
+			<configValue key="Retry-Connect-Count">-1</configValue>
+		</group>
+		-->
+    </module>
+    <!--System default Mail configuration -->
+    <module name="Email">
+        <group name="Default">
+            <!-- Mail server[required] -->
+            <configValue key="Host">mail.primeton.com</configValue>
+            <!--　Mail port[optional] -->
+            <!-- configValue key="Port">1002</configValue-->
+            <!-- user name[optional] -->
+            <configValue key="UserName">test</configValue>
+            <!-- password [optional] -->
+            <configValue key="Password">test</configValue>
+        </group>
+    </module>
+    <!-- Cache configuration -->
+    <!--
+		CacheProvider: cache provider[optional]
+		CacheLoader: cacheLoader implementation[optional]
+		IsClustered: cache mode[optional], True（cluster mode）
+		IsolationLevel: transaction isolation level[optional](none,serializable,repeatable_read,read_committed,read_uncommitted）
+
+		configuration needed when IsClustered is true:
+		McastAddr: multi cast IP address[optional]（range: 224.0.0.0 to 239.255.255.255）
+		McastPort: multi cast port[optional]
+	-->
+    <module name="Cache">
+        <!-- Cache used by business dictionary -->
+        <!--
+		note: must not change this group.
+		-->
+        <group name="CacheForDict">
+            <configValue key="IsSystemCache">true</configValue>
+            <configValue key="CacheLoader">com.eos.server.dict.impl.EosDictCacheLoaderImpl</configValue>
+        </group>
+        <!-- Cache for uddi-->
+        <!--
+		Note: must not change the name of this group, only the McastAddr and McastPort can be changed.
+		-->
+        <group name="CacheForAccess">
+            <configValue key="IsSystemCache">true</configValue>
+            <configValue key="CacheLoader">com.primeton.access.client.impl.uddi.ServiceCacheLoader</configValue>
+            <configValue key="ClusterName">CacheForAccessGroup</configValue>
+        </group>
+        <!-- cache for online users -->
+        <group name="CacheForUserObject">
+            <configValue key="IsSystemCache">true</configValue>
+            <configValue key="CacheMode">REPL_ASYNC</configValue>
+        </group>
+    </module>
+    <!--
+	timer's configuration.default to not start timer.
+	-->
+    <module name="Schedule">
+        <group name="Default">
+            <!-- IsSchedulerStart[optional,default to "true"], whether to start timer when application starts up -->
+            <configValue key="IsSchedulerStart">true</configValue>
+            <!-- DataSouceName[optional,default to "default"], datasouce name（must be the same as DataSource's Group name） -->
+            <!-- configValue key="DataSouceName">default</configValue-->
+        </group>
+    </module>
+    <!--webui's configuration-->
+    <!--EOSBusinDictFactory: can be configed-->
+    <module name="Dict">
+        <group name="Dict-Factory">
+            <configValue key="EOSBusinDictFactory">com.eos.server.dict.impl.EOSBusinDictFactory</configValue>
+        </group>
+        <!--cache used for business dictionary-->
+        <!--NOTE: CacheName can't be changed-->
+        <group name="Cache">
+            <configValue key="CacheName">CacheForDict</configValue>
+            <configValue key="UseCache">false</configValue>
+        </group>
+    </module>
+    <!-- http access configuration-->
+    <module name="Access-Http">
+        <group name="FileUpload">
+            <configValue key="TempDir">upload</configValue>
+            <configValue key="MaxSize">104857600</configValue>
+            <configValue key="InMemorySize">10240</configValue>
+            <!--files with specified ext names are not accespted when uploading  -->
+            <configValue key="Exclude">exe,java,jsp,html,htm,class,jar</configValue>
+        </group>
+        <group name="Encoding">
+            <!-- the charset of the incoming HttpServletRequest-->
+            <configValue key="Request">UTF-8</configValue>
+        </group>
+        <group name="Suspend">
+            <!-- the time to suspend, waiting for the xsd loading,in seconds.-->
+            <configValue key="TimeOut">60</configValue>
+        </group>
+        <group name="Login-Filter">
+            <!-- pages that can be accessed by any one including those not login -->
+            <configValue key="Exclude">/common/**.jsp,/index.jsp,/common.remote,/common.download</configValue>
+            <configValue key="Include">*.flow,*.flowx,*.jsp,*.html,*.ajax,*.ext,*.action,*.beanx</configValue>
+            <!-- the page to display when user not login -->
+            <configValue key="LoginPage">/index.jsp</configValue>
+        </group>
+        <group name="Accessed-Mode">
+            <configValue key="Portal">false</configValue>
+        </group>
+    </module>
+    <!-- configuraiton of user's access statistics to a resource -->
+    <module name="Accessed-Resource-Checked">
+        <group name="Provider">
+            <!-- user defined resouce access check handler -->
+            <configValue key="CheckedHandler"/>
+            <!-- user defined resource access check factory -->
+            <configValue key="ResourceFactory">com.primeton.ext.access.authorization.DefaultAccessedResourceFactory</configValue>
+        </group>
+    </module>
+    <!--engine configuration-->
+    <module name="Engine">
+        <!--the listeners to the lifecycle of page flow instance -->
+        <group name="Pageflow-InstanceListeners">
+            <!--
+			<configValue key="ListenerA">com.primeton.engine.pageflow.web.CountListener</configValue>
+			-->
+        </group>
+        <!--the time out of pageflow intance, in minutes-->
+        <group name="Pageflow-InstanceTimeout">
+            <configValue key="Timeout">10</configValue>
+        </group>
+        <!-- web pages when error occured-->
+        <group name="Pageflow-ErrorPage">
+            <configValue key="Page">/common/error.jsp</configValue>
+            <!--default page when there are validation errors on action parameters-->
+            <configValue key="ValidateErrorPage">/common/validateErrors.jsp</configValue>
+        </group>
+        <!--the default page when pageflow is finished and no page defined on the end node of this pageflow-->
+        <group name="Pageflow-End">
+            <configValue key="DefaultPage">/common/defaultEnd.jsp</configValue>
+        </group>
+        <!--asynchronus method call mode:JMS or Thread-->
+        <!--if AutoChange is set to true,the engine will decide to user JMS or thread by the type of the application server,if Tomcat use Thread, ohters use JMS-->
+        <!--if AutoChangeis set to false,Thread mode is used-->
+        <group name="Asynchronous-Invoke">
+            <configValue key="AutoChange">true</configValue>
+        </group>
+    </module>
+    <!--business　statistic module, all statistics data are stored in memory-->
+    <module name="Statistic">
+        <!--logic flow execution statistics-->
+        <group name="Bizflow">
+            <!--possible values :openore close,　statistics is enabled only when is open-->
+            <configValue key="Status">open</configValue>
+            <!--the statistics data queue length,range (0,1000],default to 50-->
+            <configValue key="Queue-Length">50</configValue>
+        </group>
+        <!--pageflow execution statistics-->
+        <group name="Pageflow">
+            <!--open|close-->
+            <configValue key="Status">open</configValue>
+            <configValue key="Queue-Length">50</configValue>
+        </group>
+        <!--sql execution statistics-->
+        <group name="Sql">
+            <!--open|close-->
+            <configValue key="Status">open</configValue>
+            <configValue key="Queue-Length">50</configValue>
+        </group>
+        <!--the service call statistics-->
+        <group name="Service">
+            <!--open|close-->
+            <configValue key="Status">open</configValue>
+            <configValue key="Queue-Length">50</configValue>
+        </group>
+        <!--the webService call statistics-->
+        <group name="InvokeWebService">
+            <!--open|close-->
+            <configValue key="Status">open</configValue>
+            <configValue key="Queue-Length">50</configValue>
+        </group>
+        <group name="SpringBean">
+            <!--open|close-->
+            <configValue key="Status">open</configValue>
+            <configValue key="Queue-Length">50</configValue>
+        </group>
+    </module>
+    <module name="Session-Manage">
+        <group name="Managed-User-Object">
+            <!--specify the attributes' name and type of MUO object in Session-->
+        </group>
+        <group name="UserLoginCallback">
+            <configValue key="Impl-Class"/>
+        </group>
+    </module>
+    <module name="Virtual-UserObject">
+        <group name="server">
+            <configValue key="User-Id">0</configValue>
+            <configValue key="User-Name">server</configValue>
+            <configValue key="User-Email"/>
+            <configValue key="User-Org-Id"/>
+            <configValue key="User-Org-Name"/>
+            <configValue key="User-Real-Name"/>
+            <configValue key="User-Remote-Ip">127.0.0.1</configValue>
+        </group>
+        <group name="workflow">
+            <configValue key="User-Id">1</configValue>
+            <configValue key="User-Name">workflow</configValue>
+            <configValue key="User-Email"/>
+            <configValue key="User-Org-Id"/>
+            <configValue key="User-Org-Name"/>
+            <configValue key="User-Real-Name"/>
+            <configValue key="User-Remote-Ip">127.0.0.1</configValue>
+        </group>
+        <group name="portal">
+            <configValue key="User-Id">guest</configValue>
+            <configValue key="User-Name">guest</configValue>
+            <configValue key="User-Email"/>
+            <configValue key="User-Org-Id"/>
+            <configValue key="User-Org-Name"/>
+            <configValue key="User-Real-Name"/>
+            <configValue key="User-Remote-Ip"/>
+        </group>
+    </module>
+    <!-- values for variables in wsdl location -->
+    <module name="WsLocation">
+        <group name="Property">
+            <!--<configValue key="variableName">value</configValue>-->
+        </group>
+    </module>
+    <!-- values for wsdl targetnamespace -->
+    <module name="WebService">
+        <group name="WSDL">
+            <!--<configValue key="DefultNameSpace">http://www.primeton.com/</configValue>-->
+        </group>
+    </module>
+</application>

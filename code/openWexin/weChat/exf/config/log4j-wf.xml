@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/"
+	debug="null" threshold="null">
+
+	<appender class="org.apache.log4j.ConsoleAppender" name="CONSOLE">
+		<param name="Encoding" value="UTF-8" />
+		<param name="Target" value="System.out" />
+		<param name="Threshold" value="INFO" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[BPS Process Server][%d{yyyy-MM-dd HH:mm:ss,SSS}][%p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender
+		class="com.primeton.workflow.service.das.database.logger.WFAuditLoggerForDBAppender"
+		name="AUDITRECORD_DATABASE">
+		<param name="Encoding" value="UTF-8" />
+		<param name="Threshold" value="ALL" />
+		<param name="MaxLevel" value="OFF" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%m %n" />
+		</layout>
+	</appender>
+
+	<appender
+		class="com.primeton.ext.common.logging.AppRollingFileAppender"
+		name="AUDITRECORD_ROLLING_FILE">
+		<param name="Encoding" value="UTF-8" />
+		<param name="Threshold" value="ALL" />
+		<param name="MaxLevel" value="OFF" />
+		<param name="File" value="logs/eos-wfaudit.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[@time][%d{yyyy-MM-dd HH:mm:ss,SSS}]%m %n" />
+		</layout>
+	</appender>
+
+	<appender
+		class="com.primeton.ext.common.logging.AppRollingFileAppender"
+		name="TRACE_ROLLING_FILE">
+		<param name="Encoding" value="UTF-8" />
+		<param name="Threshold" value="ALL" />
+		<param name="MaxLevel" value="OFF" />
+		<param name="File" value="logs/eos-wftrace.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%p][%C][Line:%L] %m%n" />
+		</layout>
+	</appender>
+
+	<appender
+		class="com.primeton.ext.common.logging.AppRollingFileAppender"
+		name="SYS_ROLLING_FILE">
+		<param name="Encoding" value="UTF-8" />
+		<param name="Threshold" value="ALL" />
+		<param name="MaxLevel" value="OFF" />
+		<param name="File" value="logs/eos-wfsys.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[BPS Process Server][%d{yyyy-MM-dd HH:mm:ss,SSS}][%p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender
+		class="com.primeton.ext.common.logging.AppRollingFileAppender"
+		name="MESSAGE_ROLLING_FILE">
+		<param name="Encoding" value="UTF-8" />
+		<param name="Threshold" value="ALL" />
+		<param name="MaxLevel" value="OFF" />
+		<param name="File" value="logs/eos-wfmessage.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%p] %m%n" />
+		</layout>
+	</appender>
+
+	<appender
+		class="com.primeton.ext.common.logging.AppRollingFileAppender"
+		name="REQUEST_ROLLING_FILE">
+		<param name="Encoding" value="UTF-8" />
+		<param name="Threshold" value="ALL" />
+		<param name="MaxLevel" value="OFF" />
+		<param name="File" value="logs/bps-request.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss,SSS}]%m%n" />
+		</layout>
+	</appender>
+
+	<appender
+		class="com.primeton.ext.common.logging.AppRollingFileAppender"
+		name="SQL_ROLLING_FILE">
+		<param name="Encoding" value="UTF-8" />
+		<param name="Threshold" value="ALL" />
+		<param name="MaxLevel" value="OFF" />
+		<param name="File" value="logs/eos-wfsql.log" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="10MB" />
+		<param name="MaxBackupIndex" value="10" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern"
+				value="[%d{yyyy-MM-dd HH:mm:ss,SSS}]%m%n" />
+		</layout>
+	</appender>
+
+	<root>
+		<level value="all" />
+		<appender-ref ref="TRACE_ROLLING_FILE" />
+		<appender-ref ref="CONSOLE" />
+	</root>
+
+	<logger additivity="false" name="wftrace_log">
+		<level value="ERROR" />
+		<appender-ref ref="CONSOLE" />
+		<appender-ref ref="TRACE_ROLLING_FILE" />
+	</logger>
+
+	<logger additivity="false" name="wfaudit_log">
+		<level value="ALL" />
+		<appender-ref ref="AUDITRECORD_ROLLING_FILE" />
+	</logger>
+
+	<logger additivity="false" name="wfsys_log">
+		<level value="ALL" />
+		<appender-ref ref="SYS_ROLLING_FILE" />
+		<appender-ref ref="CONSOLE" />
+	</logger>
+
+	<logger additivity="false" name="wfmessage_log">
+		<level value="ALL" />
+		<appender-ref ref="MESSAGE_ROLLING_FILE" />
+	</logger>
+	
+	<logger additivity="false" name="wfrequest_log">
+		<level value="ALL" />
+		<appender-ref ref="REQUEST_ROLLING_FILE" />
+	</logger>
+	
+	<logger additivity="false" name="wfsql_log">
+		<level value="ALL" />
+		<appender-ref ref="SQL_ROLLING_FILE" />
+	</logger>
+
+</log4j:configuration>

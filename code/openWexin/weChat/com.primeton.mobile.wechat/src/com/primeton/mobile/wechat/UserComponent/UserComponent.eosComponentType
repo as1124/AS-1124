@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<com.primeton.studio.component.core.EosComponentTypeInfo>
+  <description>
+    <version>6.0</version>
+    <displayName>weChatComponent</displayName>
+    <author>jw</author>
+    <createdTime>2015-05-13 11:05:35</createdTime>
+    <description></description>
+    <detailDescription></detailDescription>
+    <demo></demo>
+    <links></links>
+  </description>
+  <serviceReferences/>
+</com.primeton.studio.component.core.EosComponentTypeInfo>

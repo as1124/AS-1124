@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<!--
+	User can add handlers to this registry to enable spcefic process before or after
+	calling a service from eos-access-client interface.A handler class must implements
+	com.eos.access.client.IServiceHandler;
+	-->
+	<!--
+	<handler class="xxx.yyy.zzz"/>
+	-->
+	
+	<handler class="com.primeton.access.client.impl.context.TxManagerPropagationHandler"/>
+	<handler class="com.primeton.access.authorization.impl.AccessedServiceHandler"/>
+</handlers>

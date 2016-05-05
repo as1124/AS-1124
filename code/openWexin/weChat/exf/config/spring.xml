@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:sca="http://www.springframework.org/schema/sca" xmlns:tx="http://www.springframework.org/schema/tx"
+        xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+		http://www.springframework.org/schema/sca http://www.osoa.org/xmlns/sca/1.0/spring-sca.xsd">
+	<!-- default datasource -->
+	<bean id="DefaultDataSource" class="com.eos.spring.DASDataSource">
+		<property name="dataSourceName">
+			<value>default</value>
+		</property>
+	</bean>
+    <!-- default transaction manager -->
+	<bean id="DefaultTransactionManager" class="com.primeton.spring.DASTransactionManager">
+		<property name="dataSource">
+			<ref bean="DefaultDataSource"/>
+		</property>
+	</bean>
+	<!-- default transaction policy -->
+	<bean id="DefaultNamingTransactionAttribute" class="org.springframework.transaction.interceptor.NameMatchTransactionAttributeSource">
+		<property name="properties">
+			<props>
+				<prop key="add*">PROPAGATION_REQUIRED</prop>
+				<prop key="insert*">PROPAGATION_REQUIRED</prop>
+				<prop key="create*">PROPAGATION_REQUIRED</prop>
+				<prop key="update*">PROPAGATION_REQUIRED</prop>
+				<prop key="delete*">PROPAGATION_REQUIRED</prop>
+				<prop key="save*">PROPAGATION_REQUIRED</prop>
+				<prop key="remove*">PROPAGATION_REQUIRED</prop>
+				<prop key="query*">PROPAGATION_REQUIRED,readOnly</prop>
+				<prop key="*">PROPAGATION_REQUIRED,readOnly</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- default transaction proxy -->
+	<bean id="DefaultBaseTransactionProxy" class="org.springframework.transaction.interceptor.TransactionProxyFactoryBean" abstract="true">
+	    <property name="proxyTargetClass">
+   			<value>true</value>
+  		</property>
+		<property name="transactionManager" ref="DefaultTransactionManager"/>
+		<property name="transactionAttributeSource">
+			<ref bean="DefaultNamingTransactionAttribute"/>
+		</property>
+	</bean>
+
+	<!-- system interceptor -->
+	<bean id="BeanInterceptor" class="com.primeton.spring.interceptor.BeanInterceptor"/>
+
+	<!-- auto bean proxy -->
+	<bean class="com.primeton.spring.BeanNameAutoProxy">
+	    <property name="proxyTargetClass">
+   			<value>true</value>
+  		</property>
+		<property name="beanNames">
+			<value>*</value>
+		</property>
+		<property name="interceptorNames">
+			<list>
+				<value>BeanInterceptor</value>
+			</list>
+		</property>
+	</bean>
+</beans>

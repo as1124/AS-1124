@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application xmlns="http://www.primeton.com/xmlns/eos/1.0">
+	<!-- 高性能消息调用配置 -->
+    <module name="wfmessage">
+        <group name="wfcache">
+        	<!-- 启用消息调用 -->
+            <configValue key="message_enable">false</configValue>
+            <!-- 启用前端机 -->
+            <configValue key="frontend_enable">false</configValue>
+            <!-- 消息表名前缀 -->
+            <configValue key="frontend_tablePrefix">WFMESSAGE_</configValue>
+            <!-- 执行机数量 -->
+            <configValue key="frontend_executerCoun">2</configValue>
+            <!-- 前端机发送线程，检查空闲执行机的时间间隔 -->
+            <configValue key="frontend_dispatcher_checkFreeInterval">3000</configValue>            
+            <!-- 前端机发送线程的均衡策略，目前仅支持平均 -->
+            <configValue key="frontend_dispatcher_strategy">average</configValue>
+            <!-- 启用执行机 -->
+            <configValue key="executer_enable">false</configValue>
+            <!--执行机编号 -->
+            <configValue key="executer_loader_nodeIndex">0</configValue>
+            <!-- 执行机批量加载消息数量 -->
+            <configValue key="executer_loader_loadMaxNum">200</configValue>            
+            <!-- 执行机加载消息时间间隔 -->
+            <configValue key="executer_loader_reLoadWaitInterval">1000</configValue>
+            <!-- 执行机消息队列长度 -->
+            <configValue key="executer_thread_maxQueueLength">500</configValue>
+            <!-- 执行机最大线程数 -->
+            <configValue key="executer_thread_maxThreadNum">50</configValue>
+            <!-- 执行机消息队列线程休眠时间间隔 -->
+            <configValue key="executer_thread_retryWaitInterval">300</configValue>
+            <!-- 消息执行完毕自动删除 -->
+            <configValue key="executer_consumer_deleteOnFinished">false</configValue>
+            <!-- 数据迁移线程判断执行机状态的是否宕机的时间间隔 -->
+            <configValue key="executer_assistant_deemedDeadInterval">60000</configValue>
+            <!-- 数据迁移线程判断执行机状态的时间间隔 -->
+            <configValue key="executer_assistant_checkDeadInterval">10000</configValue>
+            <!-- 自检线程检测时间间隔 -->
+            <configValue key="executer_nurse_checkHealthInterval">3000</configValue>
+            <!-- 辅助搬运线程是否运行 -->
+            <configValue key="assistant_thread_enable">true</configValue>
+        </group>
+    </module>
+    <module name="wfcluster">
+        <group name="wfcache">
+            <!-- 集群通知的消息缓存数上限 -->
+            <configValue key="max_message_size">300</configValue>
+            <!-- 集群节点状态维护功能的心跳间隔时间  -->
+            <configValue key="heartbeat_interval">60000</configValue>
+            <!-- SMP: Store Strategy -->
+            <configValue key="def_store_strategy">step</configValue>
+        </group>
+    </module>
+    <!-- 
+		用于RMI调用引擎DTS模块的安全校验
+	-->
+    <module name="access_authorization">
+        <group name="rmi_access">
+            <!-- 是否允许通过Studio提交流程到引擎 -->
+            <configValue key="allow">true</configValue>
+            <!-- 通过Studio提交流程到引擎是是否需要校验用户 -->
+            <configValue key="validate">true</configValue>
+            <!-- 可以通过studio提交流程的账号  -->
+            <configValue key="name">internal</configValue>
+            <!-- 可以通过studio提交流程的账号密码 -->
+            <configValue key="password">primeton</configValue>
+        </group>
+    </module>
+    
+    <module name="server_watcher">
+        <group name="watcher">
+            <!-- Server唯一编号，如果不设置则默认为"IP:AdminPort" -->
+            <configValue key="serverID"></configValue>
+            <!-- 监控时间间隔 -->
+            <configValue key="watcherPeriod">300000</configValue>
+            <!-- Server守护线程启动延时 -->
+            <configValue key="watcherDelay">300000</configValue>
+            <!-- 判断心跳停止宕机时间，默认20分钟  -->
+            <configValue key="judgmentDownTime">1200000</configValue>
+            <!-- 宕机后是否处理宕机节点 -->
+            <configValue key="downtimeServerProcess">true</configValue>
+        </group>
+    </module>
+    
+    <module name="task_pool">
+        <group name="pool">
+            <!-- 缺省任务过滤器实现,通过getOneTask(String qname)方法查询时，使用此filter过滤 -->
+            <configValue key="defaultFilterClass">com.primeton.bps.taskpool.api.DefaultTaskFilter</configValue>
+            <!-- 默认任务队列对应的任务加载实现类 -->
+            <configValue key="defaultTaskLoader">com.primeton.bps.taskpool.schedule.TaskLoader</configValue>
+            <!-- configValue key="defaultTaskLoader_order">priority DESC,createTime ASC,processInstID ASC</configValue-->
+            <!-- 如果有需要，不同的任务队列可以配置不同的任务加载器
+            <configValue key="taskQueue_A">com.primeton.bps.taskpool.schedule.TaskLoaderA</configValue>
+            <configValue key="taskQueue_B">com.primeton.bps.taskpool.schedule.TaskLoaderB</configValue>
+            <configValue key="taskQueue_C">com.primeton.bps.taskpool.schedule.TaskLoaderC</configValue>
+             -->
+            <!-- 单个队列最大任务数 -->
+            <configValue key="maxCapacity">1000</configValue>
+            <!-- 已领取任务是否检测超时  -->
+            <configValue key="checkTimeout">true</configValue>
+            <!-- 任务领取后超时时间值  -->
+            <configValue key="taskTimeout">1200000</configValue>
+            <!-- 当前Server没有任务是否到其他server领取  -->
+            <configValue key="acrossReceive">true</configValue>
+        </group>
+    </module>
+    <module name="wfservice">
+        <group name="DataAccessService">
+            <configValue key="class">com.primeton.workflow.service.das.database.impl.DataAccessServiceImpl</configValue>
+            <configValue key="startup">100</configValue>
+        </group>
+        <group name="NotificationService">
+            <configValue key="class">#com.primeton.workflow.service.notifaction.NotificationServiceChooser</configValue>
+            <configValue key="startup">200</configValue>
+        </group>
+        <group name="TransactionService">
+            <configValue key="class">com.primeton.workflow.commons.txeos.TransactionServiceImpl4EOS</configValue>
+            <configValue key="startup">300</configValue>
+        </group>
+        <group name="EventService">
+            <configValue key="class">com.primeton.workflow.event.framework.event.base.EventServiceImplDefault</configValue>
+            <configValue key="startup">400</configValue>
+        </group>
+        <group name="LockService">
+            <configValue key="class">com.primeton.workflow.commons.lock.LockServiceOptimizer</configValue>
+            <configValue key="startup">500</configValue>
+        </group>
+        <group name="SystemTimerService">
+            <configValue key="class">com.primeton.workflow.service.timer.system.SystemTimerImpl</configValue>
+            <configValue key="startup">600</configValue>
+        </group>
+        <group name="TimerService">
+            <configValue key="class">#com.primeton.workflow.service.timer.TimerServiceChooser</configValue>
+            <configValue key="startup">700</configValue>
+        </group>
+        <group name="DefinationParserService">
+            <configValue key="class">com.primeton.workflow.process.service.def.DefinationParserServiceImpl</configValue>
+            <configValue key="startup">800</configValue>
+        </group>
+        
+        <group name="TenancyCacheService">
+            <configValue key="class">com.primeton.bps.multitenancy.impl.TenancyCacheService</configValue>
+            <configValue key="startup">850</configValue>
+        </group>
+        
+        <group name="ExcludeParticipantsCache">
+            <configValue key="class">com.primeton.bps.taskpool.schedule.ExcludeParticipantsCache</configValue>
+            <configValue key="startup">860</configValue>
+        </group>
+        
+        <group name="WFOMServiceService">
+            <configValue key="class">com.primeton.workflow.service.organization.internal.WFOMServiceInner</configValue>
+            <configValue key="startup">900</configValue>
+        </group>
+        <group name="WFOMModelService">
+            <configValue key="class">com.primeton.workflow.service.organization.studio.WFOMModelServiceImpl</configValue>
+            <configValue key="startup">1000</configValue>
+        </group>
+        <group name="InstancePoolService">
+            <configValue key="class">com.primeton.workflow.instpool.smp.WFInstancePoolImplBasic</configValue>
+            <configValue key="startup">1100</configValue>
+        </group>
+        <group name="DefinationCatcheService">
+            <configValue key="class">com.primeton.workflow.process.service.def.DefinationCatcheServiceImpl</configValue>
+            <configValue key="startup">1200</configValue>
+        </group>
+        <group name="AgentCacheManager">
+            <configValue key="class">com.primeton.workflow.task.service.agent.AgentCacheManager</configValue>
+            <configValue key="startup">1300</configValue>
+        </group>
+        <group name="UniqueService">
+            <configValue key="class">com.primeton.workflow.service.unique.UniqueServiceImpl</configValue>
+            <configValue key="startup">1400</configValue>
+        </group>
+        <group name="KeyTranslatorService">
+            <configValue key="class">com.primeton.workflow.instpool.keytrans.WFKeyTranslatorServiceConcreate</configValue>
+            <configValue key="startup">1500</configValue>
+        </group>
+        <!--group name="HistoryTransportationService">
+	         <configValue key="class">com.primeton.workflow.engine.scheduler.commons.HistoryTransportationService</configValue>
+	         <configValue key="startup">16</configValue>
+        </group-->
+        <group name="BizResourceCacheService">
+            <configValue key="class">com.primeton.workflow.service.bizresource.das.BizResourceCacheServiceImpl</configValue>
+            <configValue key="startup">1600</configValue>
+        </group>
+        <group name="BizResourceDataAccessService">
+            <configValue key="class">com.primeton.workflow.service.bizresource.das.BizResourceDataAccessServiceImpl</configValue>
+            <configValue key="startup">1700</configValue>
+        </group>
+        <group name="BizResourceRunnerService">
+            <configValue key="class">com.primeton.workflow.service.bizresource.runtime.impl.BizResourceRunnerService</configValue>
+            <configValue key="startup">1800</configValue>
+        </group>
+        <group name="BizInfoCacheService">
+            <configValue key="class">com.primeton.workflow.service.bizinfo.WFBizInfoCacheServiceImpl</configValue>
+            <configValue key="startup">1900</configValue>
+        </group>
+        <group name="AutoDeleteShortProcessInstService">
+            <configValue key="class">com.primeton.workflow.engine.transhistory.impl.AutoDeleteShortProcessInstServiceImpl</configValue>
+            <configValue key="startup">2000</configValue>
+        </group>
+        <group name="BPSMessageService">
+            <configValue key="class">com.primeton.workflow.message.service.BPSMessageServiceImpl</configValue>
+            <configValue key="startup">20</configValue>
+        </group>
+        <group name="MultiTenancyService">
+            <configValue key="class">com.primeton.bps.multitenancy.impl.MultiTenancyService</configValue>
+            <configValue key="startup">2012</configValue>
+        </group>
+    </module>
+    <!-- MBean config -->
+    <module name="Mbean">
+        <!-- DataSourceMBean config -->
+        <group name="DatasourceMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.connection.mbean.ContributionDataSourceConfigHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFLoggerMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.eos.common.logging.mbean.LogConfigHandler</configValue>
+            <configValue key="ConfigFileType">applog</configValue>
+            <configValue key="LogFile">log4j-wf.xml</configValue>
+        </group>
+        <group name="WFMailMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFEngineConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFTransportHistoryMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFEngineConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFOmMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFOMServiceConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFRelativeDataMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFEngineConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFClusterMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFClusterConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFConnectionProviderMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFConnectionProviderConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFAuditLogMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFAuditLogConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFComposerMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFComposerConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFLinkColorMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFLinkColorConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFWebServiceMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFWebServiceConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="WFMessageMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFMessageConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+        <group name="MessageConsumerMBean">
+            <configValue key="Type">other</configValue>
+            <configValue key="Class">com.primeton.workflow.commons.notification.notify.MessageConsumer</configValue>
+        </group>
+         <group name="WFMultiTenancyMBean">
+            <configValue key="Type">config</configValue>
+            <configValue key="Class">com.eos.common.config.mbean.Config</configValue>
+            <configValue key="Handler">com.primeton.workflow.commons.config.handler.WFMultiTenancyConfigurationHandler</configValue>
+            <configValue key="ConfigFileType">config</configValue>
+        </group>
+    </module>
+</application>

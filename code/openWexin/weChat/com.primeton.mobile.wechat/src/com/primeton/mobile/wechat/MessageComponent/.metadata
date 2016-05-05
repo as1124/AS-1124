@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<metadata>
+    <model description="" displayName="MessageComponent.eosComponentType" implementationType="file" modifier="public" name="MessageComponent.eosComponentType" order="32" version=""/>
+    <model description="" displayName="sendText2Group" implementationType="file" modifier="public" name="SendImage2Group.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <method description="" displayName="sendText2Group" implementationType="file" modifier="public" name="SendImage2Group" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="groupID" implementationType="Primitive" modifier="public" name="groupID" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="mediaID" implementationType="Primitive" modifier="public" name="mediaID" order="2048" typeName="file:String"/>
+            <result description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.sendImage2Group.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.sendImage2Group.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.sendImage2Group.bizlet_method"/>
+    </model>
+    <model description="" displayName="sendText2Users" implementationType="file" modifier="public" name="SendImage2Users.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.sendImage2Users.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.sendImage2Users.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.sendImage2Users.bizlet_method"/>
+        <method description="" displayName="sendText2Users" implementationType="file" modifier="public" name="SendImage2Users" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="openIDs" implementationType="Primitive" modifier="public" name="openIDs" order="2048" typeName="file:String[]"/>
+            <parameter description="" displayName="mediaID" implementationType="Primitive" modifier="public" name="mediaID" order="2048" typeName="file:String"/>
+            <result description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="sendText2Group" implementationType="file" modifier="public" name="SendVoice2Group.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.sendVoice2Group.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.sendVoice2Group.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.sendVoice2Group.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <method description="" displayName="sendText2Group" implementationType="file" modifier="public" name="SendVoice2Group" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="groupID" implementationType="Primitive" modifier="public" name="groupID" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="mediaID" implementationType="Primitive" modifier="public" name="mediaID" order="2048" typeName="file:String"/>
+            <result description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="sendText2Users" implementationType="file" modifier="public" name="SendVoice2Users.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="sendText2Users" implementationType="file" modifier="public" name="SendVoice2Users" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="openIDs" implementationType="Primitive" modifier="public" name="openIDs" order="2048" typeName="file:String[]"/>
+            <parameter description="" displayName="mediaID" implementationType="Primitive" modifier="public" name="mediaID" order="2048" typeName="file:String"/>
+            <result description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.sendImage2Users.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.sendImage2Users.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.sendImage2Users.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="checkSignature" implementationType="file" modifier="public" name="checkSignature.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.checkSignature.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.checkSignature.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.checkSignature.bizlet_method"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <method description="" displayName="checkSignature" implementationType="file" modifier="public" name="checkSignature" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="signature" implementationType="Primitive" modifier="public" name="signature" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="token" implementationType="Primitive" modifier="public" name="token" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="nonce" implementationType="Primitive" modifier="public" name="nonce" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="timestamp" implementationType="Primitive" modifier="public" name="timestamp" order="2048" typeName="file:String"/>
+            <result description="" displayName="isTrusted" implementationType="Primitive" modifier="public" name="isTrusted" order="1024" typeName="file:Boolean"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="boolean.java" implementationType="java" modifier="public" name="java:boolean.java" order="4096" typeName="java:boolean.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="dealReceivedMessage" implementationType="file" modifier="public" name="dealReceivedMessage.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.util.Map.java" implementationType="java" modifier="public" name="java:java.util.Map.java" order="4096" typeName="java:java.util.Map.java"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <method description="" displayName="dealReceivedMessage" implementationType="file" modifier="public" name="dealReceivedMessage" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="dataPackage" implementationType="Primitive" modifier="public" name="dataPackage" order="2048" typeName="file:String"/>
+            <result description="" displayName="returnData" implementationType="Java" modifier="public" name="returnData" order="1024" typeName="file:java.util.Map"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="java.util.map.java" implementationType="java" modifier="public" name="java:java.util.map.java" order="4096" typeName="java:java.util.map.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.dealReceivedMessage.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.dealReceivedMessage.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.dealReceivedMessage.bizlet_method"/>
+    </model>
+    <model description="" displayName="deleteSendBatchMessage" implementationType="file" modifier="public" name="deleteSendBatchMessage.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.deleteSendBatchMessage.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.deleteSendBatchMessage.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.deleteSendBatchMessage.bizlet_method"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <method description="" displayName="deleteSendBatchMessage" implementationType="file" modifier="public" name="deleteSendBatchMessage" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="2048" typeName="file:String"/>
+            <result description="" displayName="successed" implementationType="Primitive" modifier="public" name="successed" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="boolean.java" implementationType="java" modifier="public" name="java:boolean.java" order="4096" typeName="java:boolean.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="getBatchMessageStatus" implementationType="file" modifier="public" name="getBatchMessageStatus.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="getBatchMessageStatus" implementationType="file" modifier="public" name="getBatchMessageStatus" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="2048" typeName="file:String"/>
+            <result description="" displayName="status" implementationType="Primitive" modifier="public" name="status" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.getBatchMessageStatus.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.getBatchMessageStatus.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.getBatchMessageStatus.bizlet_method"/>
+    </model>
+    <model description="" displayName="sendText2Group" implementationType="file" modifier="public" name="sendText2Group.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="sendText2Group" implementationType="file" modifier="public" name="sendText2Group" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="groupID" implementationType="Primitive" modifier="public" name="groupID" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="content" implementationType="Primitive" modifier="public" name="content" order="2048" typeName="file:String"/>
+            <result description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.sendText2Group.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.sendText2Group.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.sendText2Group.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="sendText2Users" implementationType="file" modifier="public" name="sendText2Users.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <method description="" displayName="sendText2Users" implementationType="file" modifier="public" name="sendText2Users" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="openIDs" implementationType="Primitive" modifier="public" name="openIDs" order="2048" typeName="file:String[]"/>
+            <parameter description="" displayName="content" implementationType="Primitive" modifier="public" name="content" order="2048" typeName="file:String"/>
+            <result description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.sendText2Users.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.sendText2Users.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.sendText2Users.bizlet_method"/>
+    </model>
+    <model description="" displayName="sendVideo2Group" implementationType="file" modifier="public" name="sendVideo2Group.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <method description="" displayName="sendVideo2Group" implementationType="file" modifier="public" name="sendVideo2Group" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="groupID" implementationType="Primitive" modifier="public" name="groupID" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="mediaID" implementationType="Primitive" modifier="public" name="mediaID" order="2048" typeName="file:String"/>
+            <result description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.sendVideo2Group.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.sendVideo2Group.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.sendVideo2Group.bizlet_method"/>
+    </model>
+    <model description="" displayName="sendVideo2Users" implementationType="file" modifier="public" name="sendVideo2Users.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <method description="" displayName="sendVideo2Users" implementationType="file" modifier="public" name="sendVideo2Users" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="openIDs" implementationType="Primitive" modifier="public" name="openIDs" order="2048" typeName="file:String[]"/>
+            <parameter description="" displayName="mediaID" implementationType="Primitive" modifier="public" name="mediaID" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="title" implementationType="Primitive" modifier="public" name="title" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="desc" implementationType="Primitive" modifier="public" name="desc" order="2048" typeName="file:String"/>
+            <result description="" displayName="msgID" implementationType="Primitive" modifier="public" name="msgID" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.sendVideo2Users.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.sendVideo2Users.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.sendVideo2Users.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="uploadNews" implementationType="file" modifier="public" name="uploadNews.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.media.WechatNews.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.media.WechatNews.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.media.WechatNews.java"/>
+        <method description="" displayName="uploadNews" implementationType="file" modifier="public" name="uploadNews" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="news" implementationType="Java" modifier="public" name="news" order="2048" typeName="file:com.primeton.mobile.wechat.model.media.WechatNews[]"/>
+            <result description="" displayName="mediaID" implementationType="Primitive" modifier="public" name="mediaID" order="1024" typeName="file:String"/>
+        </method>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.media.wechatnews.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.media.wechatnews.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.media.wechatnews.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.messageoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.messageoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.messageoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.uploadNews.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.uploadNews.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.uploadNews.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MessageOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MessageOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MessageOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+</metadata>

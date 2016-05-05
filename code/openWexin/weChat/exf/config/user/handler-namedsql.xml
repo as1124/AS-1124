@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<!--handlers that are added named sql-->
+	<!--
+	class：the class name of the handler , mush implement com.primeton.das.sql.impl.handler.INamedSqlHandler
+	matchName：the id of the matched named SQL
+	-->
+	<!--
+	<handler id="handler2"
+		class="com.primeton.server.das.namedsql.handler.Handler1">
+		<match matchName="selectSchoolByKey"></match>
+		<match matchName="insertSchool"></match>
+		<match matchName="updateSchool"></match>
+		<match matchName="delete.deleteSchool"></match>
+	</handler>
+	-->
+</handlers>

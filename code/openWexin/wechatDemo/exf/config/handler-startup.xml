@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<!--add custom StartupListener here-->
+	<!-- thw following three are executed as the order they appears:international resource loading,
+	log configruation files registration,modules loading -->
+	<!-- international resource loading -->
+	<handler
+		handle-class="com.primeton.ext.common.international.startup.AppResourceStartupRuntimeListener" order="100"/>
+	<!-- log configruation files registration -->
+	<!-- reading log4j-trace.xml, config Trace log-->
+	<!--
+	Trace Log registration was moved to RuntimeJ2EEHost
+	<handler
+		handle-class="com.primeton.runtime.core.impl.startup.TraceLoggingStartupRuntimeListener" />
+	 -->
+
+	<!--reading log4j-sys.xml log4j-engine.xml-->
+	<handler
+		handle-class="com.primeton.ext.common.logging.startup.AppLoggingStartupRuntimeListener" order="200"/>
+
+	<!-- modules loading -->
+	<handler
+		handle-class="com.primeton.ext.common.config.startup.AppConfigStartupRuntimeListener" order="300"/>
+
+	<handler
+		handle-class="com.primeton.ext.common.asyn.startup.AppAsynStartupRuntimeListener" order="400"/>
+
+	<!--Listener that start DataContext,will register serializer and deserializer of DataContext -->
+	<handler
+		handle-class="com.primeton.ext.data.datacontext.startup.DataContextStartupListener" order="500"/>
+
+	<!--start enginge-->
+	<handler handle-class="com.primeton.engine.core.impl.process.EngineStartUpListener" order="600"/>
+
+	<!--start DAS_ENTITY-->
+	<handler handle-class="com.primeton.ext.das.common.DASCommonStartupListener" order="700"/>
+
+	<!-- register application's classloader to EJB-->
+	<handler
+		handle-class="com.primeton.ext.access.client.startup.AppClientStartupRuntimeListener" order="800"/>
+
+	<!--read configruation of runtime enviroment from sys-config.xml（[moudle name="Runtime"]）-->
+	<handler handle-class="com.primeton.ext.runtime.resource.startup.ResourceConfigLoaderStartUpListener" order="900"/>
+
+	<!--start WebUI-->
+	<handler handle-class="com.primeton.web.startup.WebUIStartUpListener" order="1000"/>
+
+	<!--load SCA resource register-->
+	<handler handle-class="com.primeton.sca.host.impl.SCAStartUpListener" order="1100"/>
+
+	<!--load Connection releaser-->
+	<handler handle-class="com.primeton.ext.common.connection.startup.ConnectionStartupListener" order="1200"/>
+
+	<!-- load xpath cache -->
+	<handler handle-class="com.primeton.ext.data.xpath.startup.XPathStartupListener" order="1300"/>
+
+	<!--
+	构件运行环境（应用级）启动监听器，系统默认会在启动用户定义的Listener之后启动
+	-->
+
+	<!--以下是系统级的配置Startup，不能修改-->
+
+	<!--加载Contribution的Listener，处理config下handler-contribution.xml文件-->
+	<handler handle-class="com.primeton.ext.runtime.resource.startup.ContributionListenerRegisterStartUpListener" order="1400"/>
+
+	<!--加载所有的IModelLoader，处理所有ClassPath下的/META-INF/modelloader.conf文件-->
+	<handler handle-class="com.primeton.ext.runtime.resource.startup.ModelLoaderRegisterStartUpListener" order="1500"/>
+
+	<!--加载所有的IResourceLoadListener，处理所有ClassPath下的/META-INF/handler-resourceload.xml文件-->
+	<!--此配置主要是针对SCA资源类型来处理的 -->
+	<!--<handler handle-class="com.primeton.ext.runtime.resource.startup.ResourceLoaderListenerStartUpListener"/> -->
+
+	<!--所有Contribution资源加载-->
+	<handler handle-class="com.primeton.ext.runtime.resource.startup.ResourceLoaderStartUpListener" order="1600"/>
+
+	<!--Schedule启动加载-->
+	<handler handle-class="com.primeton.ext.common.schedule.startup.AppScheduleStartupRuntimeListener" order="1700"/>
+
+	<!--启动资源热更新线程-->
+	<handler handle-class="com.primeton.ext.runtime.resource.startup.ResourceMonitorStartUpListener" order="1800"/>
+
+	<!--应用启动后注册deploy接口-->
+	<handler handle-class="com.primeton.ext.runtime.resource.startup.ContributionDeployStartUpListener" order="1900"/>
+
+	<!--应用启动后注册线程管理接口-->
+	<handler handle-class="com.primeton.ext.runtime.resource.startup.ThreadManagerStartUpListener" order="2000"/>
+
+	<!--应用启动完毕后通知事件-->
+	<handler handle-class="com.primeton.ext.runtime.resource.startup.ApplicationStartedNotifyListener" order="2100"/>
+
+	<!--start Access_Http-->
+	<handler handle-class="com.primeton.ext.access.http.startup.AccessHttpStartupListener" order="2200"/>
+
+	<!--
+	<handler handle-class="com.primeton.ext.das.entity.EagerLoadHbmRuntimeListener"/>
+	-->
+</handlers>

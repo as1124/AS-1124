@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<!--
+	registry of filters
+	sortIdx[optional]: the execution order, the smaller,the soon.
+	pattern: pattern of request url that will be filtered:
+	1) *.xxx, e.g., *.do,*.jsp etc.
+	2) /* all requests; 
+	3) xxx full match, eg. /samples/test.jsp
+	4) xxx/* , xxx must be a full match, e.g./samples/test/*;
+	class：the implementation class, must implement interface com.eos.access.http.WebInterceptor
+	-->
+</handlers>

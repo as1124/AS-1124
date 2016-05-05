@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false" threshold="null">
+    <appender class="com.primeton.ext.common.logging.AppConsoleAppender" name="CONSOLE">
+        <!--<param name="Threshold" value="warn"/>-->
+        <param name="Target" value="System.out"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%p][%C:%L] %m%n"/>
+        </layout>
+    </appender>
+    <appender class="com.primeton.ext.common.logging.AppRollingFileAppender" name="ROLLING_FILE">
+        <!--<param name="Threshold" value="INFO"/>-->
+        <param name="Encoding" value="UTF-8"/>
+        <param name="File" value="logs/trace.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="10"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%p][%C:%L] %m%n"/>
+        </layout>
+    </appender>
+    <logger additivity="false" name="com.eos.runtime">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.ext.runtime">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.runtime">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.eos.common">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.ext.common">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.common">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.eos.data">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.ext.data">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.data">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.eos.das">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.ext.das">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.das">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.eos.engine">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.ext.engine">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.engine">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.eos.sca">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.ext.sca">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.sca">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.eos.access">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.ext.access">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.access">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.soap.envelope">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+   		<appender-ref ref="CONSOLE"/>
+    </logger>
+	<!-- bps logger -->
+    <logger additivity="false" name="com.primeton.bps">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+   		<appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.eos.workflow">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+   		<appender-ref ref="CONSOLE"/>
+    </logger>
+    <logger additivity="false" name="com.primeton.workflow">
+        <level value="ERROR"/>
+        <appender-ref ref="ROLLING_FILE"/>
+   		<appender-ref ref="CONSOLE"/>
+    </logger>
+    <!-- root logger -->
+    <root>
+        <level value="all"/>
+        <appender-ref ref="ROLLING_FILE"/>
+        <appender-ref ref="CONSOLE"/>
+    </root>
+</log4j:configuration>

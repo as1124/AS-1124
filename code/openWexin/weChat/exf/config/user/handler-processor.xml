@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<!--
+	handlers that are added to processors
+	id: the id of the handler, must be unique;
+	suffix: the suffix that this handler will be matched to,this attribute can hold multiple suffix string that
+	   are separated by ','.
+	sortIdx: sort order,when multiple handler are matched to a suffix, the hander with a smaller sortIdx will
+	     be executed first;
+	class：processor impl class;
+	Note: there will be different processor instance for different suffix string.
+	-->
+</handlers>

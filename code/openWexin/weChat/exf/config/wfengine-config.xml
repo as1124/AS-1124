@@ -1,0 +1,292 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<application xmlns="http://www.primeton.com/xmlns/eos/1.0">
+    <module name="wfengine">
+        <group name="startup">
+       	 	<!--
+       	 		 流程引擎启动时，是否自动加载流程定义到缓存。
+       	 		 true  	加载
+       	 		 false 	不加载
+       	 	 -->
+            <configValue key="is_load_process">false</configValue>
+       	 	<!-- 流程引擎名称，可填写任意字符串；用途：同名的引擎属于同一个组，属于同一个组的引擎节点之间才能够进行集群通信 -->
+            <configValue key="engine_name">BPS</configValue>
+        </group>
+        <group name="timer">
+        	<!-- 定时器服务接口的实现类配置 -->
+            <configValue key="time_service_provider">com.primeton.workflow.commons.timer.TimerServiceImpl</configValue>
+        	<!-- 时间限制接口的实现类配置，用于计算超时、提醒时间 -->
+            <configValue key="timelimit_calculator_provider">com.primeton.workflow.bizresource.utils.BPSTimeLimitCalculator</configValue>
+        </group>
+        <group name="transport_history">
+        	<!-- 
+        		参与者转历史策略配置，取值如下：
+        		1: PROCINST 	流程实例结束后，相关参与者记录转移历史 
+        		2: ACTINST  	活动实例结束后，相关参与者记录转移历史 
+        		3: WORKITEM 	工作项结束后，相关参与者记录转移历史 
+        		4: NO 			不使用参与者转历史策略 
+        	 -->
+            <configValue key="parti_trans_strategy">PROCINST</configValue>
+            
+            <!-- 
+            	流程实例转历史策略，转历史的数据包括流程实例、流程实例属性、活动实例、工作项、参与者、连线、连线控制信息
+            	1: TIME_BASED		定时自动转历史策略
+            	2: NEVER			不使用流程实例转历史策略
+             -->
+            <configValue key="trans_strategy">NEVER</configValue>
+            <!-- 定时自动转历史策略下的时间配置，可以配置多个时间段时间段之间，以半角英文逗号分割。格式： hh:mm:ss,hh:mm:ss -->
+            <configValue key="time_list">00:30:00,05:00:00</configValue>
+        </group>
+        <group name="event">
+        	<!-- 一个活动实例可拥有的工作项数目的上限 -->
+            <configValue key="max_wi_num">1000</configValue>
+        	<!-- 一个工作项可拥有的参与者数目的上限 -->
+            <configValue key="max_direct_parti_num">1000</configValue>
+            <!-- 
+            	单一叶子参与者检查。
+            	用法示例：某活动参与者定义为"角色A",而"角色A"下面只有一个人"tiger"，如果需要引擎直接将工作项分配给"tiger"，不做领取动作
+            	则需要将single_person_check节点的值配置为true
+            	true 		子参与者唯一时，引擎自动帮子参与者领取工作项
+            	false 		引擎分配工作项时不做自动领取，
+             -->
+            <configValue key="single_person_check">false</configValue>
+            <!-- 多工作项根据参与者个数领取模式下是否消除重复的参与者 -->
+            <configValue key="distinct_participant">false</configValue>
+            <!-- 人工活动重新启动规则，设置参与者策略（默认参与者：不填，最初参与者：originalParticipant，最终参与者：finalParticipant） -->
+			<configValue key="reset_participant_strategy"/>
+            <configValue key="max_event_num">5000</configValue>
+        </group>
+        
+        <!-- 如果需要使用流程引擎自动发送邮件功能，需要配置一个可用的发件人账户 -->
+        <group name="mail">
+        	<!-- 发件人账号 -->
+            <configValue key="username">eosworkflow</configValue>
+        	<!-- 发件人账号密码 -->
+            <configValue key="password">eosworkflow</configValue>
+        	<!-- 邮件服务器地址 -->
+            <configValue key="mailServer">mail.primeton.com</configValue>
+        	<!-- 邮件服务端口 -->
+            <configValue key="mailPort">25</configValue>
+        	<!-- 发件人邮件地址 -->
+            <configValue key="fromMail">eosworkflow@primeton.com</configValue>
+        	<!-- 发件人显示名称 -->
+            <configValue key="fromName">eosworkflow</configValue>
+        	<!-- 邮件服务器是否需要校验账户 -->
+            <configValue key="authLogin">true</configValue>
+        	<!-- 引擎集群相关信息自动通知邮件的接收人。如：系统维护人员需要及时了解BPS引擎集群的一些情况，方便遇到问题及时反应 -->
+            <configValue key="emailReceiver"/>
+        </group>
+        <group name="notification">
+        	<!-- 用户通知默认实现类配置,如果用户有自定义的实现类替换此实现类即可，如果有多个实现类逗号","隔开即可 -->
+            <configValue key="class">com.primeton.workflow.notification.impl.DefaultNotificationRemindImpl</configValue>
+            <!-- 检测超时时间 -->
+            <configValue key="interval">10</configValue>
+            <!-- 是否展开所有叶子节点：true 参与者下面所有叶子节点都展开；false：只展开一级 -->
+            <configValue key="is_expand_all_participant">true</configValue>
+        </group>
+        <group name="relativedata">
+        	<!-- 
+        		流程实例表中相关数据varchar字段的最大长度限制
+        		用途说明：相关数据有两个字段，varchar和clob，varchar字段性能好与clob字段。如果相关数据长度比较小时候可以存放到varchar字段中
+        		不同的数据库的字符串长度算法不同，所以配置此值的上限不同，用户可以根据实际情况配置。
+        	 -->
+            <configValue key="varchar_max">1600</configValue>
+        </group>
+        <group name="generateWorkItem">
+            <configValue key="generate_public">false</configValue>
+        </group>
+    </module>
+    <module name="multitenancy">
+    	<group name="tenancy">
+    		<!-- 多租户配置 -->
+            <configValue key="is_multi_tenant">false</configValue>
+    		<!-- is_global_process值true为EOS7专用场景 -->
+            <configValue key="is_global_process">false</configValue>
+        </group>
+    </module>
+    <module name="wfdatabase">
+        <group name="connection_provider">
+        	<!-- 数据库连接管理的实现类配置 -->
+            <configValue key="class">com.primeton.workflow.persistence.connection.EOSConnectionProvider</configValue>
+        </group>
+        <group name="feature">
+            <configValue key="db2appender"/>
+        </group>
+    </module>
+    <module name="wfcluster">
+        <group name="wfcache">
+        	<!-- 引擎集群通知开关 -->
+            <configValue key="enable">false</configValue>
+        	<!-- 流程实例缓存的实例数上限 -->
+            <configValue key="inst_cache_max_nodes">3000</configValue>
+        	<!-- 代理关系缓存的实例数上限 -->
+            <configValue key="agent_cache_max_nodes">3000</configValue>
+             <configValue key="auto_delete_processinst">true</configValue>
+        	<configValue key="always_persistent_processinst">false</configValue>
+        	<configValue key="always_persistent_activityinst">false</configValue>
+        </group>
+    </module>
+    <module name="wfomservice">
+        <group name="omservice_provider">
+        	<!-- 组织机构接口实现类配置 -->
+            <configValue key="class">org.gocom.components.coframe.bps.om.WFOMServiceImpl</configValue>
+        </group>
+        <group name="permission_provider">
+        	<!-- 权限接口实现类配置 -->
+            <configValue key="class">org.gocom.components.coframe.bps.om.WFOMPermissionImpl</configValue>
+        </group>
+        
+        <group name="ommodel">
+        	<!-- studio中组织机构一次刷新的最大节点数 -->
+            <configValue key="maxnodes">200</configValue>
+        </group>
+        <group name="fetch_leaf_participant">
+        	<!-- 引擎迭代查询子参与者的最大层数 -->
+            <configValue key="max_tier">5</configValue>
+        </group>
+    </module>
+    <module name="wfagent_trigger">
+        <group name="agent_trigger_provider">
+            <configValue key="class"/>
+        </group>
+    </module>
+    <module name="wfclient">
+        <group name="session">
+            <configValue key="user_id_xpath">WFClientUserName</configValue>
+        </group>
+        <group name="processDefgraph">
+        	<!-- 流程定义图标签中使用图标的存放目录 -->
+            <configValue key="image_path">/workflow/wfcomponent/web/images/processDef_graph</configValue>
+        	<!-- 流程定义图标签中使用图标文件的后缀 -->
+            <configValue key="postfix">.gif</configValue>
+        	<!-- 流程定义图标签中使用图标文件名中使用的分段符 -->
+            <configValue key="separator">_</configValue>
+        </group>
+        <group name="processInstgraph">
+        	<!-- 流程实例图标签中使用图标的存放目录 -->
+            <configValue key="image_path">/workflow/wfcomponent/web/images/processInst_graph</configValue>
+        	<!-- 流程实例图标签中使用图标文件的后缀 -->
+            <configValue key="postfix">.gif</configValue>
+        	<!-- 流程实例图标签中使用图标文件名中使用的分段符 -->
+            <configValue key="separator">_</configValue>
+        </group>
+        <group name="permission">
+        	<!-- 查询流程定义是否校验权限 true 校验  false 不校验 -->
+            <configValue key="is_qry_defs_check_right">true</configValue>
+        	<!-- 是否校验工作项执行权限 true 校验  false 不校验 -->
+            <configValue key="check_all_workitem_right">true</configValue>
+        </group>
+        <group name="worklist">
+            <configValue key="is_load_relative_data">false</configValue>
+            
+            <configValue key="orderType">DESC</configValue>
+        </group>
+    </module>
+    <module name="extend_worklist_query">
+    	<!-- 查询SQL语句使用扩展点的配置，可以提高查询性能。如：oracle数据库的查询接口加强制索引配置 -->
+        <group name="dbtype2group">
+            <configValue key="oracle">default</configValue>
+            <configValue key="db2"/>
+            <configValue key="sqlserver"/>
+            <configValue key="informix"/>
+            <configValue key="sybase"/>
+        </group>
+        <group name="default">
+            <configValue key="extend1"/>
+            <configValue key="extend2"/>
+            <configValue key="extend3"/>
+            <configValue key="extend4"/>
+            <configValue key="extend5"/>
+            <configValue key="extend6"/>
+            <configValue key="extend7"/>
+            <configValue key="extend8"/>
+            <configValue key="extend9"/>
+        </group>
+    </module>
+    <module name="worklist_change_notify">
+       <group name="listener_class">
+        	<!-- 工作列表变更通知功能开关 -->
+            <configValue key="is_notify">false</configValue> 
+        	<!-- 工作列表变更通知功能接口实现类配置 -->
+        	<configValue key="name">org.gocom.workflow.taskcenter.adapter.bps.WorkListChangeNotifier</configValue>
+        </group>
+   		<group name="thread_pool">
+   			<!-- 线程池维护线程的最少数量 -->
+   			<configValue key="corePoolSize">2</configValue>
+   			<!-- 线程池维护线程的最大数量 -->
+   			<configValue key="maximumPoolSize">5</configValue>
+   			<!-- 线程池维护线程所允许的空闲时间 -->
+   			<configValue key="keepAliveTime">1</configValue>
+   		</group>
+   		<group name="remote">
+   			<!-- 集中任务中心访问地址-->
+   			<configValue key="url">http://127.0.0.1:8080/taskcenter</configValue>
+   		</group>
+   		<group name="reliableRetryPush">
+   			<!-- 工作项发送错误情况下的重试次数 -->
+   			<configValue key="retryTimes">3</configValue>
+   		</group>
+   		
+		<!-- workItem到Task[集中任务中心的任务]默认转化器配置，可以自定义实现，需要实现接口org.gocom.workflow.taskcenter.adapter.bps.convertor.IConvertor -->
+		<group name="taskConvertor">
+		  <configValue key="defaultConvertImp">org.gocom.workflow.taskcenter.adapter.bps.convertor.imp.BpsAdapterDefaultConvertor</configValue>
+		</group>
+		
+   		<!-- 工作项URL配置 -->
+		<!-- URL配置说明: -->
+		<!-- 1、配置关系为KEY-VALUE[示例如下] -->
+		<!-- <group name="taskUrl"> -->
+			<!-- <configValue key="tenantA">var:tenantAUrl</configValue> -->
+			<!-- <configValue key="tenantB">var:tenantBUrl</configValue> -->
+		<!-- </group> -->
+		
+		<!-- 2、如果为非多租户模式[示例如下] -->
+		<!-- <group name="taskUrl"> -->
+		<!-- <configValue key="defaultUrl">${defaultUrl}</configValue> -->
+		<!-- </group> -->
+		
+		<group name="taskUrl">
+			<configValue key="defaultUrl">var:defaultUrl</configValue>
+		</group>
+    </module>
+    
+    <!-- 审计日志记录配置 -->
+    <module name="audit_log">
+        <group name="record_opt">
+        	<!-- 是否记录活动开始、结束轨迹 -->
+            <configValue key="activity">false</configValue>
+        	<!-- 是否记录工作项执行、轨迹 -->
+            <configValue key="workItem">false</configValue>
+        	<!-- 是否记录查询操作接口 -->
+            <configValue key="query">false</configValue>
+        </group>
+    </module>
+    <module name="bps_composer">
+        <group name="catalog_cfg">
+            <configValue key="permission_inherited">false</configValue>
+            <!-- 是否启用业务目录权限控制 -->
+            <configValue key="permission_enable">false</configValue>
+        </group>
+    </module>
+    <!-- 流程图连线配置 -->
+    <module name="wflinkcolor">
+        <group name="wfcache">
+        	<!-- 连线运行时颜色 -->
+            <configValue key="runtime_color">#A52A2A</configValue>
+            <!-- 连线完成时颜色 -->
+            <configValue key="finished_color">#228B22</configValue>
+            <!-- 连线未启动颜色 -->
+            <configValue key="unstart_color">#BCBCBC</configValue>
+            <!-- 连线粗细大小 -->
+            <configValue key="thickness_degree">1</configValue>
+        </group>
+    </module>
+    <!-- Web服务安全配置 -->
+    <module name="bps_webservice">
+        <group name="ws_security">
+            <!-- 是否启用Web服务安全 -->
+            <configValue key="security_enable">false</configValue>
+            <configValue key="user">bps</configValue>
+            <configValue key="password">pkosszmKuLAJHAwHzJFPiqE=</configValue>
+        </group>
+    </module>
+</application>

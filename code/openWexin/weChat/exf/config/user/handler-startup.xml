@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handlers>
+	<!--add custom StartupListener here-->
+	<!-- thw following three are executed as the order they appears:international resource loading,
+	log configruation files registration,modules loading -->
+	
+	<!--
+	<handler
+		handle-class="XXXXX" order="10000"/>
+	 -->
+</handlers>

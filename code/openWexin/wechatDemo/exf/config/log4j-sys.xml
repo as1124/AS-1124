@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="null" threshold="null">
+    <appender class="com.primeton.ext.common.logging.AppRollingFileAppender" name="ROLLING_FILE">
+        <param name="Threshold" value="ALL"/>
+        <param name="Encoding" value="UTF-8"/>
+        <param name="MaxLevel" value="OFF"/>
+        <param name="File" value="logs/system.log"/>
+        <param name="Append" value="true"/>
+        <param name="MaxFileSize" value="10MB"/>
+        <param name="MaxBackupIndex" value="10"/>
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="%m %n"/>
+        </layout>
+    </appender>
+    <logger additivity="false" name="log.sys.pageflow">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="log.sys.logicflow">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="log.sys.jsp">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="log.sys.service">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="log.sys.webservice">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="log.sys.schedule">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="log.sys.sql">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="log.sys.pojo">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <logger additivity="false" name="log.sys.spring">
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </logger>
+    <root>
+        <level value="off"/>
+        <appender-ref ref="ROLLING_FILE"/>
+    </root>
+</log4j:configuration>

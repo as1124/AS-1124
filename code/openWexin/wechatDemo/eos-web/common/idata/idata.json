@@ -1,0 +1,12 @@
+{
+ "user": "admin",
+ "password": "%$*^@%882095925D274459",
+ "url": "http://127.0.0.1:28080/primeton",
+ "modules": {
+  "index": "/vision/index.jsp",
+  "login": "/vision/login.jsp",
+  "resource": "/vision/openresource.jsp",
+  "portal": "/vision/portal.jsp",
+  "module": "/vision/openmodule.jsp"
+ }
+}

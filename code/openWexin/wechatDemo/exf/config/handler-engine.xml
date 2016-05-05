@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<handles>
+	<!--
+	match-pattern as following:
+	1) *[String]
+	2) *[String]*
+	3) [Stirng]*
+	4) [String]
+	5) [String]*[String]
+	handle-class:Handler class name
+	type：target type[pageflow|businesslogic|node]
+	nodeType：[start|end|assign|invokePojo|invokeService|switch|loopStart|loopEnd|throw|
+					 subprocess|transactionBegin|transactionCommit|transactionRollback|subPageFlow|*]
+	nodeID:ID of nodes to be matched
+	-->
+	<!--
+	<handle
+	name="aName"
+	match-pattern="*[CHAR]**"
+	handle-class="com.primeton.engine.handler.logHandler"
+	type="pageflow,businesslogic,node"
+	nodeType="start,end,assign,invokePojo,invokeService,switch,throw,subprocess,transactionBegin,transactionCommit,transactionRollback,subPageFlow,*"
+	nodeID="invokeName*,switch*Name,*forEachStartName,......"/>
+	-->
+	<handle
+	name="accessedResourceHandler"
+	match-pattern="*"
+	handle-class="com.primeton.access.authorization.impl.AccessedBizHandler"
+	type="businesslogic"
+	nodeType=""
+	nodeID=""/>
+</handles>

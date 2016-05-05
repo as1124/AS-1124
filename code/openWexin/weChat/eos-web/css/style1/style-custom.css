@@ -1,0 +1,149 @@
+*
+{
+font:9pt "宋体"; 
+color:#222;
+}
+body{
+scrollbar-highlight-color: white;
+scrollbar-3dlight-color: #F7FCFD;                                         
+scrollbar-face-color:#E7E7E7;
+scrollbar-arrow-color:#222222;
+scrollbar-shadow-color:#C0D2DB;
+scrollbar-darkshadow-color:#716F64;
+scrollbar-track-color:#F8F7F9;
+}
+a:link{
+text-decoration:underline;
+color:#00414E;
+}
+a:hover
+{
+text-decoration:underline;
+color:FE6C00;
+}
+a:visited
+{
+color:#588993;
+text-decoration:underline;
+}
+.button
+{
+height:20px;
+background:#DCE1E7;
+border-top:1px #fff solid;
+border-right:1px #7F9DB9 solid;
+border-bottom:1px #7F9DB9 solid;
+border-left:1px #fff solid;
+padding:1px 4px;
+filter:progid:DXImageTransform.Microsoft.gradient(enabled='enabled',startColorstr=#fbfdfc, endColorstr=#cfe0f0)
+}
+.textbox
+{
+border:1px solid #016F87;
+background:#fff;
+}
+hr  /* compart line's style */
+{
+color:#01B7DE;
+background:#fff;
+height:2px;
+border-bottom:1px solid #fff;
+width:98%;
+}
+/* work area's style*/
+.workarea
+{
+background:#F3F9FA;
+border:1px solid #75B5C3;
+}
+.workarea .workarea_title
+{
+background:#E3F0F2;
+height:27px;
+border-bottom:1px solid #75B5C3;
+padding-left:18px;
+}
+h3 /*the title's font style of current page*/
+{
+display:inline;
+font-weight:bold;
+color:#FE6C00;
+}
+.EOS_panel_head  /* the block title */
+{
+background:#BFC9CD;
+height:22px;
+font-weight:bold;
+border:none;
+color:#000;
+padding-left:20px;
+}
+
+/*the different table's style*/
+.EOS_panel_body       /* Query table and Result table share this table style */
+{
+background:#F5F5F5;
+}
+.EOS_table
+{
+background:#F7FDFD;
+border-collapse: collapse;
+border:1px solid #AEC2CD;
+}
+.EOS_table tr td,.EOS_table tr th    /*  the common style of Result table's td and th */
+{
+border:1px solid #AEC2CD;
+height:20px;
+padding:0px 3px;
+}
+.EOS_table tr th
+{
+height:25px;
+vertical-align:middle;
+padding-top:3px;
+background:#F4F5F9;
+filter:progid:DXImageTransform.Microsoft.gradient(enabled='enabled',startColorstr=#D3DAE0, endColorstr=#F4F5F9);
+text-align:center;
+}
+.EOS_table_row  /* the different background color between rows in result table */
+{
+background:#EBF3F5;
+}
+.EOS_table_selectRow /* the selected row's background color in result table */
+{
+background:#CDDEE6;
+}
+
+.command_sort_area /* the bottom of result table */
+{
+padding:2px 0 5px 8px;
+background:#F5F5F5;
+}
+.command_sort_area h4 /*the pagination's style*/
+{
+float:right;
+padding-right:8px;
+margin-top:-18px;
+}
+.form_table
+{
+border-collapse: collapse;
+border:1px solid #AEC2CD;
+background:#F7FDFD;
+padding-left:5px;
+}
+.form_table td
+{
+height:25px;
+border:1px solid #AEC2CD;
+}
+.form_bottom /* the bottom of form table */
+{
+padding:10px 0 5px 8px;
+background:#F5F5F5;
+text-align:center;
+}
+.form_label
+{
+background:#EBF3F5;
+}

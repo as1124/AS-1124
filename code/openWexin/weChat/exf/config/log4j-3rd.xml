@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/" debug="false" threshold="null">
+   <appender class="com.primeton.ext.common.logging.AppConsoleAppender" name="CONSOLE">
+      	<param name="Target" value="System.out"/>
+     	<param name="Threshold" value="ERROR"/>
+      	<layout class="org.apache.log4j.PatternLayout">
+         	<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%p][%C][Line:%L] %m%n"/>
+      	</layout>
+   </appender>
+
+   <appender class="com.primeton.ext.common.logging.AppRollingFileAppender" name="ROLLING_FILE">
+         <param name="Threshold" value="INFO"/>
+         <param name="Encoding" value="UTF-8"/>
+         <param name="File" value="logs/jar-3rd.log"/>
+         <param name="Append" value="true"/>
+         <param name="MaxFileSize" value="10MB"/>
+         <param name="MaxBackupIndex" value="10"/>
+         <layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{yyyy-MM-dd HH:mm:ss,SSS}][%p][%C][Line:%L] %m%n"/>
+		 </layout>
+   </appender>
+
+   <!-- thirder party;s jar logger definition -->
+   <!-- eos -->
+   <logger additivity="false" name="com.eos">
+        <level value="ERROR"/>
+   		<appender-ref ref="CONSOLE"/>
+   </logger>
+   <!-- primeton -->
+   <logger additivity="false" name="com.primeton">
+        <level value="ERROR"/>
+   		<appender-ref ref="CONSOLE"/>
+   </logger>
+   <!-- jbossCache -->
+   <logger additivity="false" name="org.jboss.cache">
+        <level value="OFF"/>
+   		<appender-ref ref="CONSOLE"/>
+   </logger>
+   <!-- jgroup -->
+   <logger additivity="false" name="org.jgroups">
+        <level value="OFF"/>
+   		<appender-ref ref="CONSOLE"/>
+   </logger>
+   <!-- quartz -->
+   <logger additivity="false" name="org.quartz">
+        <level value="ERROR"/>
+   		<appender-ref ref="CONSOLE"/>
+   </logger>
+   <!-- spring -->
+   <logger additivity="false" name="org.springframework">
+        <level value="ERROR"/>
+   		<appender-ref ref="CONSOLE"/>
+   </logger>
+   <!-- apache common -->
+   <logger additivity="false" name="org.apache.commons">
+        <level value="ERROR"/>
+   		<appender-ref ref="CONSOLE"/>
+   </logger>
+   <!-- cglib -->
+   <logger additivity="false" name="net.sf.cglib">
+        <level value="ERROR"/>
+   		<appender-ref ref="CONSOLE"/>
+   </logger>
+   <!-- mchange -->
+   <logger additivity="false" name="com.mchange">
+        <level value="ERROR"/>
+   		<appender-ref ref="CONSOLE"/>
+   </logger>
+   <!-- root logger -->
+   <!-- <root>
+  		<level value="INFO"/>
+   		<appender-ref ref="ROLLING_FILE"/>
+   		<appender-ref ref="CONSOLE"/>
+   </root> -->
+</log4j:configuration>
+
