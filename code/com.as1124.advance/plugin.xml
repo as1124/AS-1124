@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point id="messages" name="Welcome Messages" schema="schema/messages.exsd"/>
+   <extension
+         point="com.as1124.advance.messages">
+      <impl
+            class="com.as1124.advance.ch19.impl.MessageProviderDemo"
+            name="FirstMessageProvider">
+      </impl>
+   </extension>
+
+</plugin>
