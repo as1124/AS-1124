@@ -4,6 +4,7 @@ import java.io.DataInput;
 import java.io.DataOutput;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
@@ -14,8 +15,13 @@ import java.util.Scanner;
  * @author as1124huang@gmail.com
  *
  */
-public class Employee {
+public class Employee implements Serializable {
 	
+	/**
+	 * 对象序列号
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static int NAME_SIZE = 40;
 	
 	//YEAR|MONTH|DAY

@@ -12,7 +12,13 @@ import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.MenuItem;
 import org.eclipse.swt.widgets.Shell;
 
-
+/**
+ * 
+ * OLE程序只能在windows平台运行
+ * 
+ * @author huangjw(mailto:as1124huang@gmail.com)
+ *
+ */
 public class TestOle {
 
 	protected static OleFrame frame = null;
