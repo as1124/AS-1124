@@ -1,4 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature url="features/com.as1124.features_1.0.0.0.jar" id="com.as1124.features" version="1.0.0.0"/>
+   <description name="Address Book Plug-in" url="http://weixin.mobile.primeton.com">
+      Eclipse 地址本插件学习
+   </description>
+   <feature url="features/com.as1124.features_1.0.0.0.jar" id="com.as1124.features" version="1.0.0.0">
+      <category name="com.as1124.plugins.addressbook"/>
+   </feature>
+   <category-def name="com.as1124.plugins.addressbook" label="地址本视图插件">
+      <description>
+         This is a first learning result of Eclipse RCP.
+      </description>
+   </category-def>
 </site>

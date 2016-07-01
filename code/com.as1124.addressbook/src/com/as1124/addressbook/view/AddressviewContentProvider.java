@@ -1,21 +1,24 @@
-package com.as1124.addressbook.views;
+package com.as1124.addressbook.view;
 
 import org.eclipse.jface.viewers.IStructuredContentProvider;
 import org.eclipse.jface.viewers.Viewer;
 
+/**
+ * The <code>ContentProvider</code> of view.
+ * 
+ * @author as1124(mailto:as1124huang@gmail.com)
+ *
+ */
 public class AddressviewContentProvider implements IStructuredContentProvider {
 
-	@Override
 	public void dispose() {
 		
 	}
 
-	@Override
 	public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 		
 	}
 
-	@Override
 	public Object[] getElements(Object inputElement) {
 		
 		return new String[]{"One", "Two", "Three"};

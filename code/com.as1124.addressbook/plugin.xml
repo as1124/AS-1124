@@ -5,15 +5,17 @@
    <extension
          point="org.eclipse.ui.views">
       <category
-            name="As-1124"
-            id="com.as1124.addressbook">
+            name="%viewCategory"
+            id="com.as1124.category.addressbook">
       </category>
       <view
-            name="地址本视图"
+            allowMultiple="false"
+            category="com.as1124.category.addressbook"
+            class="com.as1124.addressbook.view.AddressbookView"
             icon="icons/sample.gif"
-            category="com.as1124.addressbook"
-            class="com.as1124.addressbook.views.AddressbookView"
-            id="com.as1124.addressbook.views.AddressbookView">
+            id="com.as1124.views.AddressbookView"
+            name="%viewName"
+            restorable="true">
       </view>
    </extension>
    <extension
@@ -21,10 +23,15 @@
       <perspectiveExtension
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
+               closeable="true"
+               id="com.as1124.addressbook.views.AddressbookView"
+               minimized="true"
+               moveable="true"
                ratio="0.5"
-               relative="org.eclipse.ui.views.ProblemView"
                relationship="right"
-               id="com.as1124.addressbook.views.AddressbookView">
+               relative="org.eclipse.ui.views.ProblemView"
+               showTitle="true"
+               visible="true">
          </view>
       </perspectiveExtension>
    </extension>

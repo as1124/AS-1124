@@ -5,18 +5,21 @@ import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 
 /**
- * The activator class controls the plug-in life cycle
+ * 地址本插件
+ * 
+ * @author as1124(mailto:as1124huang@gmail.com)
+ *
  */
-public class AddressbookActivator extends AbstractUIPlugin {
+public class AddressbookPlugin extends AbstractUIPlugin {
 
 	// The plug-in ID
 	public static final String PLUGIN_ID = "com.as1124.addressbook";
 
 	// The shared instance
-	private static AddressbookActivator plugin;
+	private static AddressbookPlugin plugin;
 	
 	
-	public AddressbookActivator() {
+	public AddressbookPlugin() {
 		
 	}
 
@@ -45,7 +48,7 @@ public class AddressbookActivator extends AbstractUIPlugin {
 	 *
 	 * @return the shared instance
 	 */
-	public static AddressbookActivator getDefault() {
+	public static AddressbookPlugin getDefault() {
 		return plugin;
 	}
 

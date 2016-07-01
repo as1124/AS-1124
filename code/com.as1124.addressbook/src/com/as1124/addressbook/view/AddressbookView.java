@@ -1,4 +1,4 @@
-package com.as1124.addressbook.views;
+package com.as1124.addressbook.view;
 
 import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
@@ -7,33 +7,27 @@ import org.eclipse.jface.action.MenuManager;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.TableViewer;
-import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
 import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IActionBars;
 import org.eclipse.ui.part.ViewPart;
 
 /**
+ * 地址本视图
  * 
- * @author as1124huang@gmail.com
+ * @author as1124(mailto:as1124huang@gmail.com)
  *
  */
 public class AddressbookView extends ViewPart {
 
-	/**
-	 * The ID of the view as specified by the extension.
-	 */
-	public static final String ID = "com.as1124.addressbook.views.AddressbookView";
+	public static final String ID = "com.as1124.views.AddressbookView";
 
 	private TableViewer viewer;
-
-	class NameSorter extends ViewerSorter {
-			
-	}
 
 	public AddressbookView() {
 		
@@ -44,29 +38,30 @@ public class AddressbookView extends ViewPart {
 
 		TableColumn nameColumn = new TableColumn(viewer.getTable(), SWT.CENTER|SWT.Selection);
 		nameColumn.setText("姓名");
-		nameColumn.setWidth(80);
+		nameColumn.setWidth(100);
+		nameColumn.setMoveable(true);
+		nameColumn.setResizable(true);
 		
 		TableColumn categoryColumn = new TableColumn(viewer.getTable(), SWT.CENTER|SWT.Selection);
 		categoryColumn.setText("类别");
 		categoryColumn.setWidth(200);
+		categoryColumn.setMoveable(false);
+		categoryColumn.setResizable(false);
 		categoryColumn.addControlListener(new ControlListener() {
 			
-			@Override
 			public void controlResized(ControlEvent e) {
 				
 			}
 			
-			@Override
 			public void controlMoved(ControlEvent e) {
 				
 			}
 		});
-		
 		viewer.getTable().setHeaderVisible(true);
-		
+		viewer.getTable().setLinesVisible(true);
+		viewer.getTable().setForeground(Display.getDefault().getSystemColor(SWT.COLOR_BLUE));
 		viewer.setContentProvider(new AddressviewContentProvider());
 		viewer.setLabelProvider(new AddressviewLabelProvider());
-		viewer.setSorter(new NameSorter());
 		viewer.setInput(getViewSite());
 		
 		getSite().setSelectionProvider(viewer);
