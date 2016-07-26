@@ -1,4 +1,4 @@
-package com.as1124.addressbook.view;
+package com.as1124.addressbook.view.model;
 
 import java.util.HashMap;
 
@@ -69,7 +69,7 @@ public abstract class AddressCategory implements Comparable<AddressCategory> {
 	}
 
 	public int compareTo(AddressCategory another) {
-		return 0;
+		return this.priority - another.priority;
 	}
 
 	public static final AddressCategory UNKNOWN = new AddressCategory("未分类", 0) {
@@ -105,7 +105,7 @@ public abstract class AddressCategory implements Comparable<AddressCategory> {
 	};
 	public static final AddressCategory VIP = new AddressCategory("VIP", 6) {
 		public Image getImage() {
-			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_UNKNOWN);
+			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_VIP);
 		}
 	};
 	public static final AddressCategory TEACHER = new AddressCategory("师长", 7) {

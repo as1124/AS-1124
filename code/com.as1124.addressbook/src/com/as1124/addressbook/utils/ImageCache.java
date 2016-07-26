@@ -7,6 +7,12 @@ import org.eclipse.swt.graphics.Image;
 
 import com.as1124.addressbook.AddressbookPlugin;
 
+/**
+ * 图片资源缓存器
+ * 
+ * @author as1124huang@gmail.com
+ *
+ */
 public class ImageCache {
 
 	Map<String, Image> cache = new HashMap<String, Image>();
@@ -17,6 +23,10 @@ public class ImageCache {
 		return instance;
 	}
 
+	/**
+	 * @param key
+	 * @return
+	 */
 	public Image getImage(String key) {
 		if (cache.containsKey(key))
 			return cache.get(key);

@@ -10,6 +10,10 @@ public class NewTest {
 	}
 
 	public static void main(String[] args) {
+		String vendor = System.getProperty("java.vendor");
+		if(vendor.toLowerCase().contains("ibm")){
+			
+		}
 		String text = "  2.隐患编号：0202010x0A;";
 		Pattern pp = Pattern.compile("([0][x]){1}([a-zA-Z_0-9])*[;]{1}");
 		Matcher matcher = pp.matcher(text);

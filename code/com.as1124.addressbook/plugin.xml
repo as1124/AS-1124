@@ -24,16 +24,50 @@
             targetID="org.eclipse.jdt.ui.JavaPerspective">
          <view
                closeable="true"
-               id="com.as1124.addressbook.views.AddressbookView"
+               id="com.as1124.views.AddressbookView"
                minimized="true"
                moveable="true"
                ratio="0.5"
-               relationship="right"
+               relationship="stack"
                relative="org.eclipse.ui.views.ProblemView"
                showTitle="true"
                visible="true">
          </view>
       </perspectiveExtension>
+   </extension>
+   <extension
+         point="org.eclipse.ui.actionSets">
+      <actionSet
+            id="com.as1124.addressbook.actionSet1"
+            label="地址本操作集"
+            visible="true">
+         <action
+               class="com.as1124.addressbook.actions.OpenAddressViewAction"
+               definitionId="com.as1124.addressbook.openViewCommand"
+               icon="icons/category.gif"
+               id="com.as1124.addressbook.openViewAction"
+               label="地址本"
+               menubarPath="additions"
+               style="push"
+               toolbarPath="Normal/additions">
+         </action>
+      </actionSet>
+   </extension>
+   <extension
+         point="org.eclipse.ui.commands">
+      <command
+            id="com.as1124.addressbook.openViewCommand"
+            name="打开地址本命令">
+      </command>
+   </extension>
+   <extension
+         point="org.eclipse.ui.bindings">
+      <key
+            commandId="com.as1124.addressbook.openViewCommand"
+            contextId="org.eclipse.ui.contexts.window"
+            schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"
+            sequence="CTRL+SHIFT+V">
+      </key>
    </extension>
 
 </plugin>
