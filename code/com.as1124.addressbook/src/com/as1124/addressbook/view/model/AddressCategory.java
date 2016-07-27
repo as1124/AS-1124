@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import org.eclipse.swt.graphics.Image;
 
+import com.as1124.addressbook.AddressbookMessages;
 import com.as1124.addressbook.ImageKeys;
 import com.as1124.addressbook.utils.ImageCache;
 
@@ -25,7 +26,8 @@ public abstract class AddressCategory implements Comparable<AddressCategory> {
 	 */
 	private int priority;
 
-	private static final HashMap<String, AddressCategory> categoryMap = new HashMap<String, AddressCategory>();
+	private static final HashMap<String, AddressCategory> categoryMap = 
+			new HashMap<String, AddressCategory>();
 
 	public AddressCategory(String name, int priority) {
 		this.categoryName = name;
@@ -72,48 +74,48 @@ public abstract class AddressCategory implements Comparable<AddressCategory> {
 		return this.priority - another.priority;
 	}
 
-	public static final AddressCategory UNKNOWN = new AddressCategory("未分类", 0) {
+	public static final AddressCategory UNKNOWN = new AddressCategory(AddressbookMessages.CATEGORY_UNKNOWN, 0) {
 		public Image getImage() {
 			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_UNKNOWN);
 		}
 	};
-	public static final AddressCategory ORDINARY = new AddressCategory("普通", 1) {
+	public static final AddressCategory ORDINARY = new AddressCategory(AddressbookMessages.CATEGORY_ORDINARY, 1) {
 		public Image getImage() {
 			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_ORDINARY);
 		}
 	};
-	public static final AddressCategory MATE = new AddressCategory("同事", 2) {
+	public static final AddressCategory MATE = new AddressCategory(AddressbookMessages.CATEGORY_MATE, 2) {
 		public Image getImage() {
 			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_MATE);
 		}
 	};
-	public static final AddressCategory BUSINESS = new AddressCategory("商业", 3) {
+	public static final AddressCategory BUSINESS = new AddressCategory(AddressbookMessages.CATEGORY_BUSINESS, 3) {
 		public Image getImage() {
 			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_BUSINESS);
 		}
 	};
-	public static final AddressCategory FRIENDS = new AddressCategory("朋友", 4) {
+	public static final AddressCategory FRIENDS = new AddressCategory(AddressbookMessages.CATEGORY_FRIENDS, 4) {
 		public Image getImage() {
 			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_FRIENDS);
 		}
 	};
 
-	public static final AddressCategory FAMILY = new AddressCategory("家庭", 5) {
+	public static final AddressCategory FAMILY = new AddressCategory(AddressbookMessages.CATEGORY_FAMILY, 5) {
 		public Image getImage() {
 			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_FAMILY);
 		}
 	};
-	public static final AddressCategory VIP = new AddressCategory("VIP", 6) {
+	public static final AddressCategory VIP = new AddressCategory(AddressbookMessages.CATEGORY_VIP, 6) {
 		public Image getImage() {
 			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_VIP);
 		}
 	};
-	public static final AddressCategory TEACHER = new AddressCategory("师长", 7) {
+	public static final AddressCategory TEACHER = new AddressCategory(AddressbookMessages.CATEGORY_TEACHER, 7) {
 		public Image getImage() {
 			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_TEACHER);
 		}
 	};
-	public static final AddressCategory LOVER = new AddressCategory("伴侣", 8) {
+	public static final AddressCategory LOVER = new AddressCategory(AddressbookMessages.CATEGORY_LOVER, 8) {
 		public Image getImage() {
 			return ImageCache.getInstance().getImage(ImageKeys.IMG_CAT_LOVER);
 		}

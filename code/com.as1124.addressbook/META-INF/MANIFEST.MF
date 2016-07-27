@@ -7,5 +7,7 @@ Bundle-Version: 1.0.0.0
 Bundle-Activator: com.as1124.addressbook.AddressbookPlugin
 Bundle-Vendor: %pluginVendor
 Require-Bundle: org.eclipse.core.runtime,
- org.eclipse.ui
+ org.eclipse.ui,
+ org.eclipse.ui.views,
+ org.eclipse.ui.views.properties.tabbed
 Bundle-ActivationPolicy: lazy

@@ -1,12 +1,15 @@
 package com.as1124.addressbook.view.model;
 
+import org.eclipse.core.runtime.IAdaptable;
+import org.eclipse.ui.views.properties.IPropertySource;
+
 /**
  * 地址本视图Item
  * 
  * @author as1124huang@gmail.com
  *
  */
-public class AddressItem {
+public class AddressItem implements IAdaptable {
 	
 	/**
 	 * 姓名
@@ -71,6 +74,13 @@ public class AddressItem {
 	 */
 	public void setCategory(AddressCategory category) {
 		this.category = category;
+	}
+
+	public Object getAdapter(Class adapter) {
+		if(adapter == IPropertySource.class){
+			return new AddressItemPropertySource(this);
+		}
+		return null;
 	}
 	
 }

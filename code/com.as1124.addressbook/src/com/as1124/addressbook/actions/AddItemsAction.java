@@ -4,6 +4,7 @@ import org.eclipse.jface.action.Action;
 import org.eclipse.jface.resource.ImageDescriptor;
 
 import com.as1124.addressbook.view.AddressbookView;
+import com.as1124.addressbook.view.model.AddressManager;
 
 /**
  * 添加地址本条目操作.
@@ -21,7 +22,11 @@ public class AddItemsAction extends Action {
 	}
 	
 	public void run() {
-		super.run();
+		// 模型中要添加数据
+		// 视图上要刷新数据
+		AddressManager manager = AddressManager.getManager();
+		manager.addAddresses(manager.getAddresses());
+		view.getViewer().refresh();
 	}
 	
 }

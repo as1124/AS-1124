@@ -24,6 +24,9 @@ public class AddressManager {
 		loadAddresses();
 	}
 	
+	/**
+	 * 初始化数据
+	 */
 	protected void loadAddresses(){
 		items.add(new AddressItem("Brighter", AddressCategory.ORDINARY));
 		items.add(new AddressItem("Denny", AddressCategory.BUSINESS));
@@ -42,8 +45,16 @@ public class AddressManager {
 		return this.items.toArray(new AddressItem[]{});
 	}
 	
-	public void removeAddresses(AddressItem[] items){
-		
+	public void addAddresses(AddressItem[] addrItems){
+		for(AddressItem item:addrItems){
+			items.add(item);
+		}
+	}
+	
+	public void removeAddresses(AddressItem[] delItems){
+		for(AddressItem item:delItems){
+			items.remove(item);
+		}
 	}
 	
 	public void addAddressManagerListener(AddressManagerListener listener){

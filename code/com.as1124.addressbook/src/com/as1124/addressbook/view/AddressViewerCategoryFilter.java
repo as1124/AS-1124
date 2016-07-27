@@ -52,6 +52,8 @@ public class AddressViewerCategoryFilter extends ViewerFilter {
 			return;
 		}
 		this.pattern = pattern;
+		
+		// 查看器底层调用了refresh()
 		viewer.addFilter(this);
 	}
 

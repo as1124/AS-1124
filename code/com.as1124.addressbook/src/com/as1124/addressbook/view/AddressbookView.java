@@ -8,6 +8,7 @@ import org.eclipse.jface.action.IMenuListener;
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.jface.action.IToolBarManager;
 import org.eclipse.jface.action.MenuManager;
+import org.eclipse.jface.action.Separator;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IDoubleClickListener;
 import org.eclipse.jface.viewers.ISelection;
@@ -19,16 +20,22 @@ import org.eclipse.jface.viewers.ViewerSorter;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ControlEvent;
 import org.eclipse.swt.events.ControlListener;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.KeyListener;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Menu;
 import org.eclipse.swt.widgets.TableColumn;
 import org.eclipse.ui.IActionBars;
+import org.eclipse.ui.IWorkbenchActionConstants;
 import org.eclipse.ui.part.ViewPart;
 
+import com.as1124.addressbook.AddressbookMessages;
 import com.as1124.addressbook.AddressbookPlugin;
 import com.as1124.addressbook.ImageKeys;
+import com.as1124.addressbook.actions.AddItemsAction;
+import com.as1124.addressbook.actions.AddressViewerFilterAction;
 import com.as1124.addressbook.actions.DeleteAddressAction;
+import com.as1124.addressbook.utils.ImageCache;
 import com.as1124.addressbook.view.model.AddressItem;
 import com.as1124.addressbook.view.model.AddressManager;
 
@@ -40,13 +47,13 @@ import com.as1124.addressbook.view.model.AddressManager;
  */
 public class AddressbookView extends ViewPart {
 
-	public static final String VIEW_ID = "com.as1124.views.AddressbookView";
+	public static final String VIEW_ID = "com.as1124.views.AddressbookView"; //$NON-NLS-1$
 
 	private TableViewer viewer;
 
 	private TableColumn nameColumn, categoryColumn;
 	
-	private Action delAction;
+	private Action delAction, addAction, filterAction;
 	
 	public AddressbookView() {
 		
@@ -56,14 +63,16 @@ public class AddressbookView extends ViewPart {
 		viewer = new TableViewer(parent, SWT.MULTI | SWT.H_SCROLL | SWT.V_SCROLL | SWT.FULL_SELECTION);
 
 		nameColumn = new TableColumn(viewer.getTable(), SWT.CENTER|SWT.Selection);
-		nameColumn.setText("姓名");
-		nameColumn.setWidth(100);
+		nameColumn.setText(AddressbookMessages.VIEW_COLUMN_NAME);
+		nameColumn.setWidth(200);
+		nameColumn.setImage(ImageCache.getInstance().getImage(ImageKeys.IMAGE_PEOPLE));
 		nameColumn.setMoveable(true);
 		nameColumn.setResizable(true);
 		
-		categoryColumn = new TableColumn(viewer.getTable(), SWT.CENTER|SWT.Selection);
-		categoryColumn.setText("类别");
-		categoryColumn.setWidth(200);
+		categoryColumn = new TableColumn(viewer.getTable(), SWT.LEFT_TO_RIGHT|SWT.Selection);
+		categoryColumn.setText(AddressbookMessages.VIEW_COLUMN_CATEGORY);
+		categoryColumn.setWidth(150);
+		categoryColumn.setImage(ImageCache.getInstance().getImage(ImageKeys.IMAGE_CATEGORY));
 		categoryColumn.setMoveable(false);
 		categoryColumn.setResizable(false);
 		categoryColumn.addControlListener(new ControlListener() {
@@ -78,7 +87,7 @@ public class AddressbookView extends ViewPart {
 		});
 		viewer.getTable().setHeaderVisible(true);
 		viewer.getTable().setLinesVisible(true);
-		viewer.getTable().setForeground(Display.getDefault().getSystemColor(SWT.COLOR_BLUE));
+		//viewer.getTable().setForeground(Display.getDefault().getSystemColor(SWT.COLOR_BLUE));
 		
 		viewer.addSelectionChangedListener(new ISelectionChangedListener() {
 			
@@ -89,6 +98,15 @@ public class AddressbookView extends ViewPart {
 				} else{
 					delAction.setEnabled(true);
 				}
+			}
+		});
+		viewer.getControl().addKeyListener(new KeyListener() {
+			
+			public void keyReleased(KeyEvent e) {
+				handleKeyEvent(e);
+			}
+			
+			public void keyPressed(KeyEvent e) {
 			}
 		});
 		viewer.setContentProvider(new AddressviewContentProvider());
@@ -129,17 +147,23 @@ public class AddressbookView extends ViewPart {
 	}
 	
 	private void makeActions(){
-		delAction = new DeleteAddressAction(this, "删除", 
+		delAction = new DeleteAddressAction(this, AddressbookMessages.ACTION_DEL, 
 				AddressbookPlugin.getImageDescriptor(ImageKeys.IMG_TOOL_DELETE));
 		delAction.setDisabledImageDescriptor(AddressbookPlugin.getImageDescriptor(
 				ImageKeys.IMG_TOOL_DISABLEDELETE));
+		
+		addAction = new AddItemsAction(this, AddressbookMessages.ACTION_ADD, 
+				AddressbookPlugin.getImageDescriptor(ImageKeys.IMG_TOOL_ADD));
+		
+		filterAction = new AddressViewerFilterAction(viewer, AddressbookMessages.ACTION_FILTER, 
+				AddressbookPlugin.getImageDescriptor(ImageKeys.IMG_TOOL_FILTER));
 	}
 	
 	/**
 	 * 视图右键弹出菜单
 	 */
 	private void hookContextMenu() {
-		MenuManager menuMgr = new MenuManager("#PopupMenu");
+		MenuManager menuMgr = new MenuManager("#PopupMenu"); //$NON-NLS-1$
 		menuMgr.setRemoveAllWhenShown(true);
 		menuMgr.addMenuListener(new IMenuListener() {
 			public void menuAboutToShow(IMenuManager manager) {
@@ -155,8 +179,9 @@ public class AddressbookView extends ViewPart {
 	
 	private void fillContextMenu(IMenuManager manager) {
 		// Other plug-ins can contribute there actions here
-		//manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
 		manager.add(delAction);
+		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+		manager.add(addAction);
 	}
 	
 	private void contributeToActionBars() {
@@ -166,13 +191,24 @@ public class AddressbookView extends ViewPart {
 	}
 
 	private void fillLocalPullDown(IMenuManager manager) {
-		
+		manager.add(delAction);
+		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+		manager.add(addAction);
 	}
 	
 	private void fillLocalToolBar(IToolBarManager manager) {
+		manager.add(filterAction);
+		manager.add(new Separator(IWorkbenchActionConstants.MB_ADDITIONS));
+		manager.add(addAction);
 		manager.add(delAction);
 	}
 
+	protected void handleKeyEvent(KeyEvent event){
+		if(event.character==SWT.DEL && event.stateMask==0){
+			delAction.run();
+		}
+	}
+	
 	private void hookDoubleClickAction() {
 		viewer.addDoubleClickListener(new IDoubleClickListener() {
 			public void doubleClick(DoubleClickEvent event) {
@@ -198,5 +234,9 @@ public class AddressbookView extends ViewPart {
 			i++;
 		}
 		return items;
+	}
+	
+	public TableViewer getViewer(){
+		return this.viewer;
 	}
 }

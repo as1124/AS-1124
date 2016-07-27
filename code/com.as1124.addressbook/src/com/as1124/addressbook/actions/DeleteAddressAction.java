@@ -14,7 +14,7 @@ import com.as1124.addressbook.view.model.AddressManager;
  */
 public class DeleteAddressAction extends Action {
 	
-	AddressbookView view;
+	private AddressbookView view;
 	
 	public DeleteAddressAction(AddressbookView view, String text, ImageDescriptor img) {
 		super(text, img);
@@ -23,7 +23,7 @@ public class DeleteAddressAction extends Action {
 
 	public void run() {
 		AddressManager.getManager().removeAddresses(view.getSelectedAddresses());
-		// HUANG 视图需要刷新
+		view.getViewer().refresh();
 	}
 	
 }
