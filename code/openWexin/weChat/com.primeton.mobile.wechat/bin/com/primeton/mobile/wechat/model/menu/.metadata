@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<metadata>
+    <model description="" displayName="WechatMenu" implementationType="file" modifier="public" name="WechatMenu.class" order="32" version=""/>
+    <model description="" displayName="WechatMenuConfiguration" implementationType="file" modifier="public" name="WechatMenuConfiguration.class" order="32" version=""/>
+</metadata>

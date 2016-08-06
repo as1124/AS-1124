@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<metadata>
+    <model description="" displayName="MenusComponent.eosComponentType" implementationType="file" modifier="public" name="MenusComponent.eosComponentType" order="32" version=""/>
+    <model description="" displayName="createMenu" implementationType="file" modifier="public" name="createMenu.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="createMenu" implementationType="file" modifier="public" name="createMenu" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="menus" implementationType="Java" modifier="public" name="menus" order="2048" typeName="file:com.primeton.mobile.wechat.model.menu.WechatMenu[]"/>
+            <result description="" displayName="success" implementationType="Primitive" modifier="public" name="success" order="1024" typeName="file:Boolean"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MenusOperations.createMenu.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MenusOperations.createMenu.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MenusOperations.createMenu.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.menu.wechatmenu.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.menu.wechatmenu.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.menu.wechatmenu.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.menusoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.menusoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.menusoperations.java"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.menu.WechatMenu.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.menu.WechatMenu.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.menu.WechatMenu.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MenusOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MenusOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MenusOperations.java"/>
+        <importReference description="" displayName="boolean.java" implementationType="java" modifier="public" name="java:boolean.java" order="4096" typeName="java:boolean.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="deleteMenus" implementationType="file" modifier="public" name="deleteMenus.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="deleteMenus" implementationType="file" modifier="public" name="deleteMenus" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="success" implementationType="Primitive" modifier="public" name="success" order="1024" typeName="file:Boolean"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.menusoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.menusoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.menusoperations.java"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MenusOperations.deleteMenus.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MenusOperations.deleteMenus.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MenusOperations.deleteMenus.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MenusOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MenusOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MenusOperations.java"/>
+        <importReference description="" displayName="boolean.java" implementationType="java" modifier="public" name="java:boolean.java" order="4096" typeName="java:boolean.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="getMenuConfiguration" implementationType="file" modifier="public" name="getMenuConfiguration.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.menusoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.menusoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.menusoperations.java"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.menu.WechatMenuConfiguration.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.menu.WechatMenuConfiguration.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.menu.WechatMenuConfiguration.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MenusOperations.getMenuConfiguration.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MenusOperations.getMenuConfiguration.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MenusOperations.getMenuConfiguration.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MenusOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MenusOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MenusOperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.menu.wechatmenuconfiguration.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.menu.wechatmenuconfiguration.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.menu.wechatmenuconfiguration.java"/>
+        <method description="" displayName="getMenuConfiguration" implementationType="file" modifier="public" name="getMenuConfiguration" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="menuConfig" implementationType="Java" modifier="public" name="menuConfig" order="1024" typeName="file:com.primeton.mobile.wechat.model.menu.WechatMenuConfiguration"/>
+        </method>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+    <model description="" displayName="getMenus" implementationType="file" modifier="public" name="getMenus.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.menu.wechatmenu.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.menu.wechatmenu.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.menu.wechatmenu.java"/>
+        <method description="" displayName="getMenus" implementationType="file" modifier="public" name="getMenus" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="menu" implementationType="Java" modifier="public" name="menu" order="1024" typeName="file:com.primeton.mobile.wechat.model.menu.WechatMenu[]"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.menusoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.menusoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.menusoperations.java"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.menu.WechatMenu.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.menu.WechatMenu.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.menu.WechatMenu.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MenusOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MenusOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.MenusOperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.MenusOperations.getMenus.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.MenusOperations.getMenus.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.MenusOperations.getMenus.bizlet_method"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+</metadata>

@@ -1,0 +1,374 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<metadata>
+    <model description="" displayName="DataAnalyzeComponent.eosComponentType" implementationType="file" modifier="public" name="DataAnalyzeComponent.eosComponentType" order="32" version=""/>
+    <model description="" displayName="getArticleSummary" implementationType="file" modifier="public" name="getArticleSummary.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getArticleSummary.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getArticleSummary.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getArticleSummary.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java"/>
+        <method description="" displayName="getArticleSummary" implementationType="file" modifier="public" name="getArticleSummary" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="date" implementationType="Primitive" modifier="public" name="date" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getArticleTotal" implementationType="file" modifier="public" name="getArticleTotal.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="getArticleTotal" implementationType="file" modifier="public" name="getArticleTotal" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="date" implementationType="Primitive" modifier="public" name="date" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getArticleTotal.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getArticleTotal.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getArticleTotal.bizlet_method"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getInterfaceSummary" implementationType="file" modifier="public" name="getInterfaceSummary.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="getInterfaceSummary" implementationType="file" modifier="public" name="getInterfaceSummary" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.InterfaceStatisticData[]"/>
+        </method>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.interfacestatisticdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.interfacestatisticdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.interfacestatisticdata.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getInterfaceSummary.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getInterfaceSummary.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getInterfaceSummary.bizlet_method"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.InterfaceStatisticData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.InterfaceStatisticData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.InterfaceStatisticData.java"/>
+    </model>
+    <model description="" displayName="getInterfaceSummaryHour" implementationType="file" modifier="public" name="getInterfaceSummaryHour.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.interfacestatisticdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.interfacestatisticdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.interfacestatisticdata.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <method description="" displayName="getInterfaceSummaryHour" implementationType="file" modifier="public" name="getInterfaceSummaryHour" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="date" implementationType="Primitive" modifier="public" name="date" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.InterfaceStatisticData[]"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getInterfaceSummaryHour.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getInterfaceSummaryHour.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getInterfaceSummaryHour.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.InterfaceStatisticData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.InterfaceStatisticData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.InterfaceStatisticData.java"/>
+    </model>
+    <model description="" displayName="getUpstreamMsg" implementationType="file" modifier="public" name="getUpstreamMsg.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsg.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsg.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsg.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java"/>
+        <method description="" displayName="getUpstreamMsg" implementationType="file" modifier="public" name="getUpstreamMsg" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUpstreamMsgDist" implementationType="file" modifier="public" name="getUpstreamMsgDist.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="getUpstreamMsgDist" implementationType="file" modifier="public" name="getUpstreamMsgDist" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgDist.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgDist.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgDist.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUpstreamMsgDistMonth" implementationType="file" modifier="public" name="getUpstreamMsgDistMonth.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java"/>
+        <method description="" displayName="getUpstreamMsgDistMonth" implementationType="file" modifier="public" name="getUpstreamMsgDistMonth" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgDistMonth.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgDistMonth.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgDistMonth.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUpstreamMsgDistWeek" implementationType="file" modifier="public" name="getUpstreamMsgDistWeek.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="getUpstreamMsgDistWeek" implementationType="file" modifier="public" name="getUpstreamMsgDistWeek" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgDistWeek.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgDistWeek.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgDistWeek.bizlet_method"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUpstreamMsgHour" implementationType="file" modifier="public" name="getUpstreamMsgHour.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="getUpstreamMsgHour" implementationType="file" modifier="public" name="getUpstreamMsgHour" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="date" implementationType="Primitive" modifier="public" name="date" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgHour.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgHour.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgHour.bizlet_method"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUpstreamMsgMonth" implementationType="file" modifier="public" name="getUpstreamMsgMonth.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgMonth.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgMonth.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgMonth.bizlet_method"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <method description="" displayName="getUpstreamMsgMonth" implementationType="file" modifier="public" name="getUpstreamMsgMonth" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUpstreamMsgWeek" implementationType="file" modifier="public" name="getUpstreamMsgWeek.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <method description="" displayName="getUpstreamMsgWeek" implementationType="file" modifier="public" name="getUpstreamMsgWeek" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.MessageStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgWeek.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgWeek.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUpstreamMsgWeek.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.messagestatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUserCumulate" implementationType="file" modifier="public" name="getUserCumulate.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUserCumulate.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserCumulate.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserCumulate.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.userstatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.userstatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.userstatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.UserStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.UserStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.UserStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <method description="" displayName="getUserCumulate" implementationType="file" modifier="public" name="getUserCumulate" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.UserStatisticsData"/>
+        </method>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUserRead" implementationType="file" modifier="public" name="getUserRead.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <method description="" displayName="getUserRead" implementationType="file" modifier="public" name="getUserRead" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUserRead.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserRead.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserRead.bizlet_method"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUserReadHour" implementationType="file" modifier="public" name="getUserReadHour.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUserReadHour.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserReadHour.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserReadHour.bizlet_method"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <method description="" displayName="getUserReadHour" implementationType="file" modifier="public" name="getUserReadHour" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="date" implementationType="Primitive" modifier="public" name="date" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUserShare" implementationType="file" modifier="public" name="getUserShare.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUserShare.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserShare.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserShare.bizlet_method"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.NewsStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.NewsStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.NewsStatisticsData.java"/>
+        <method description="" displayName="getUserShare" implementationType="file" modifier="public" name="getUserShare" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="dat" implementationType="Java" modifier="public" name="dat" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.newsstatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.newsstatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.newsstatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUserShareHour" implementationType="file" modifier="public" name="getUserShareHour.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.newsstatisticsdata.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUserShareHour.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserShareHour.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserShareHour.bizlet_method"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <method description="" displayName="getUserShareHour" implementationType="file" modifier="public" name="getUserShareHour" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="date" implementationType="Primitive" modifier="public" name="date" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.NewsStatisticsData[]"/>
+        </method>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+    <model description="" displayName="getUserSummary" implementationType="file" modifier="public" name="getUserSummary.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.userstatisticsdata.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.userstatisticsdata.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.userstatisticsdata.java"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.statistics.UserStatisticsData.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.statistics.UserStatisticsData.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.statistics.UserStatisticsData.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.dataanalyzeoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.dataanalyzeoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.dataanalyzeoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.getUserSummary.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserSummary.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.getUserSummary.bizlet_method"/>
+        <method description="" displayName="getUserSummary" implementationType="file" modifier="public" name="getUserSummary" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="beginDate" implementationType="Primitive" modifier="public" name="beginDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="endDate" implementationType="Primitive" modifier="public" name="endDate" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="data" implementationType="Java" modifier="public" name="data" order="1024" typeName="file:com.primeton.mobile.wechat.model.statistics.UserStatisticsData"/>
+        </method>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.DataAnalyzeOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.DataAnalyzeOperations.java"/>
+    </model>
+</metadata>

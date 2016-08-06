@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<metadata>
+    <model description="" displayName="CommonComponent.eosComponentType" implementationType="file" modifier="public" name="CommonComponent.eosComponentType" order="32" version=""/>
+    <model description="" displayName="getAccessToken" implementationType="file" modifier="public" name="getAccessToken.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.AccessToken.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.AccessToken.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.AccessToken.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.CommonOperations.getAccessToken.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.CommonOperations.getAccessToken.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.CommonOperations.getAccessToken.bizlet_method"/>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.commonoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.commonoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.commonoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.CommonOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.CommonOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.CommonOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+        <method description="获取AccessToken" displayName="getAccessToken" implementationType="file" modifier="public" name="getAccessToken" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="appID" implementationType="Primitive" modifier="public" name="appID" order="2048" typeName="file:String"/>
+            <parameter description="" displayName="appSecret" implementationType="Primitive" modifier="public" name="appSecret" order="2048" typeName="file:String"/>
+            <result description="" displayName="token" implementationType="Java" modifier="public" name="token" order="1024" typeName="file:com.primeton.mobile.wechat.model.AccessToken"/>
+        </method>
+        <importReference description="" displayName="com.primeton.mobile.wechat.model.accesstoken.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.model.accesstoken.java" order="4096" typeName="java:com.primeton.mobile.wechat.model.accesstoken.java"/>
+    </model>
+    <model description="" displayName="getWechatIPAddresses" implementationType="file" modifier="public" name="getWechatIPAddresses.biz" order="32" version="">
+        <properties>
+            <property name="transactionType" value="true"/>
+        </properties>
+        <importReference description="" displayName="com.primeton.mobile.wechat.CommonOperations.getWechatIPAddresses.bizlet_method" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.CommonOperations.getWechatIPAddresses.bizlet_method" order="4096" typeName="java:com.primeton.mobile.wechat.CommonOperations.getWechatIPAddresses.bizlet_method"/>
+        <method description="" displayName="getWechatIPAddresses" implementationType="file" modifier="public" name="getWechatIPAddresses" order="512" variable="false">
+            <properties>
+                <property name="isVarargKey" value="false"/>
+                <property name="transactionType" value="true"/>
+            </properties>
+            <parameter description="" displayName="accessToken" implementationType="Primitive" modifier="public" name="accessToken" order="2048" typeName="file:String"/>
+            <result description="" displayName="callbackIPs" implementationType="Primitive" modifier="public" name="callbackIPs" order="1024" typeName="file:String[]"/>
+        </method>
+        <importReference description="" displayName="java.lang.string.java" implementationType="java" modifier="public" name="java:java.lang.string.java" order="4096" typeName="java:java.lang.string.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.commonoperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.commonoperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.commonoperations.java"/>
+        <importReference description="" displayName="com.primeton.mobile.wechat.CommonOperations.java" implementationType="java" modifier="public" name="java:com.primeton.mobile.wechat.CommonOperations.java" order="4096" typeName="java:com.primeton.mobile.wechat.CommonOperations.java"/>
+        <importReference description="" displayName="java.lang.String.java" implementationType="java" modifier="public" name="java:java.lang.String.java" order="4096" typeName="java:java.lang.String.java"/>
+    </model>
+</metadata>
