@@ -3,7 +3,5 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="con" path="org.eclipse.pde.core.requiredPlugins"/>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="D:/work/primeton/EOS75/apache-tomcat-7.0.54/webapps/default/WEB-INF/lib/commons-io-1.3.jar"/>
-	<classpathentry kind="lib" path="D:/work/primeton/EOS75/apache-tomcat-7.0.54/webapps/default/WEB-INF/lib/commons-lang-2.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
