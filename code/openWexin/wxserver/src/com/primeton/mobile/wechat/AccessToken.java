@@ -1,20 +1,11 @@
 package com.primeton.mobile.wechat;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.impl.client.HttpClients;
+import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.util.EntityUtils;
 
-import com.alibaba.fastjson.JSONObject;
 import com.primeton.mobile.wechat.exception.WechatExceprion;
 import com.primeton.mobile.wechat.model.IWechatModel;
 
@@ -153,35 +144,11 @@ public class AccessToken implements IWechatModel{
 	 */
 	protected static AccessToken getAccessToken(String appID, String appSecret) throws WechatExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/token";
-		ArrayList<BasicNameValuePair> queryStr = new ArrayList<BasicNameValuePair>();
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("grant_type", "client_credential"));
 		queryStr.add(new BasicNameValuePair(IWechatConstants.KEY_APP_ID, appID));
 		queryStr.add(new BasicNameValuePair(IWechatConstants.KEY_APP_SECRET, appSecret));
-		String a = URLEncodedUtils.format(queryStr, IWechatConstants.DEFAULT_CHARSET);
-		
-		HttpClient httpClient = HttpClients.createDefault();
-		//RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(0).setConnectTimeout(10).build();
-		HttpGet method = new HttpGet(uri);
-		//method.setConfig(requestConfig);
-		try {
-			HttpResponse response = httpClient.execute(method);
-			HttpEntity entity = response.getEntity();
-			
-			JSONObject result =  JSONObject.parseObject(EntityUtils.toString(entity, "UTF-8"));
-			method.releaseConnection();
-			
-			String returnCode = result.getString(IWechatConstants.ERROR_CODE);
-			if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-				AccessToken instance = new AccessToken();
-				instance.setAccess_token(result.getString(IWechatConstants.KEY_ACCESS_TOKEN));
-				instance.setCreateTime(System.currentTimeMillis());
-				instance.setExpires_in(result.getLongValue("expires_in"));
-				return instance;
-			}
-			//else throw new WechatExceprion(response);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		HttpExecuter.executeGetAsString(uri, queryStr);
 		
 		return null;
 		

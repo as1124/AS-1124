@@ -1,12 +1,15 @@
 package com.primeton.mobile.wechat;
 
-import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -53,19 +56,14 @@ public class MenusOperations {
 	 */
 	public static boolean createMenu(AccessToken token, WechatMenu[] menus) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/create";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", token.getAccess_token());
+		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
 		JSONArray buttons = new JSONArray();
 		buttons.addAll(Arrays.asList(menus));
 		postData.put("button", buttons);
-		StringRequestEntity requestEntity = null;
-		try {
-			requestEntity = new StringRequestEntity(postData.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, 
-					IWechatConstants.DEFAULT_CHARSET);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -83,8 +81,8 @@ public class MenusOperations {
 	public static Map<String, WechatMenu[]> getMenus(AccessToken token) throws WechatExceprion{
 		HashMap<String, WechatMenu[]> menuMap = new HashMap<String, WechatMenu[]>();
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/get";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", token.getAccess_token());
+		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -113,8 +111,8 @@ public class MenusOperations {
 	 */
 	public static boolean deleteMenus(AccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/delete";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", token.getAccess_token());
+		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -142,20 +140,15 @@ public class MenusOperations {
 	 */
 	public static boolean addConditionalMenus(AccessToken token, WechatMenu[] menus, WechatMenuRuler matcheRuler) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/addconditional";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", token.getAccess_token());
+		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
 		JSONArray buttons = new JSONArray();
 		buttons.addAll(Arrays.asList(menus));
 		postData.put("button", buttons);
 		postData.put("matchrule", matcheRuler);
-		StringRequestEntity requestEntity = null;
-		try {
-			requestEntity = new StringRequestEntity(postData.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, 
-					IWechatConstants.DEFAULT_CHARSET);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -174,24 +167,19 @@ public class MenusOperations {
 	 */
 	public static boolean deleteConditionalMenus(AccessToken token, String menuid) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/delconditional";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", token.getAccess_token());
+		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
 		postData.put("menuid", menuid);
-		try {
-			StringRequestEntity requestEntity = new StringRequestEntity(postData.toJSONString(), 
-					IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
-			String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-	        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-	        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-				return true;
-			} else {
-				throw new WechatExceprion(result);
-			}
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+			return true;
+		} else {
+			throw new WechatExceprion(result);
 		}
-		return false;
 	}
 	
 	/**
@@ -203,27 +191,22 @@ public class MenusOperations {
 	 */
 	public static WechatMenu[] testMatchRule(AccessToken token, String userid) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/trymatch";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", token.getAccess_token());
+		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
 		postData.put("user_id", userid);
-		try {
-			StringRequestEntity requestEntity = new StringRequestEntity(postData.toJSONString(), 
-					IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
-			String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-	        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-	        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-	        	// 普通的自定义菜单
-	        	JSONArray buttons = JSONObject.parseObject(result).getJSONArray("button");
-	        	return buttons.toArray(new WechatMenu[]{});
-	        	
-			} else {
-				throw new WechatExceprion(result);
-			}
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	// 普通的自定义菜单
+        	JSONArray buttons = JSONObject.parseObject(result).getJSONArray("button");
+        	return buttons.toArray(new WechatMenu[]{});
+        	
+		} else {
+			throw new WechatExceprion(result);
 		}
-		return new WechatMenu[0];
 	}
 	
 	/**
@@ -234,8 +217,8 @@ public class MenusOperations {
 	 */
 	public static WechatMenuConfiguration getMenuConfiguration(AccessToken token) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", token.getAccess_token());
+		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
