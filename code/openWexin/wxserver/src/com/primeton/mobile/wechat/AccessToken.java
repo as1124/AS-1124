@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.alibaba.fastjson.JSONObject;
 import com.primeton.mobile.wechat.exception.WechatExceprion;
 import com.primeton.mobile.wechat.model.IWechatModel;
 
@@ -148,8 +149,15 @@ public class AccessToken implements IWechatModel{
 		queryStr.add(new BasicNameValuePair("grant_type", "client_credential"));
 		queryStr.add(new BasicNameValuePair(IWechatConstants.KEY_APP_ID, appID));
 		queryStr.add(new BasicNameValuePair(IWechatConstants.KEY_APP_SECRET, appSecret));
-		HttpExecuter.executeGetAsString(uri, queryStr);
-		
+		JSONObject json = JSONObject.parseObject(HttpExecuter.executeGetAsString(uri, queryStr));
+		String err = json.getString(IWechatConstants.ERROR_CODE);
+		if(err==null || err.equals(IWechatConstants.RETURN_CODE_SUCCESS)){
+			AccessToken token = new AccessToken();
+			token.createTime = System.currentTimeMillis();
+			token.access_token = json.getString(IWechatConstants.KEY_ACCESS_TOKEN);
+			token.expires_in = json.getLong("expires_in");
+			return token;
+		}
 		return null;
 		
 	}
