@@ -1,9 +1,11 @@
 package com.primeton.mobile.wechat.servlet;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.InputStreamReader;
+import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -16,25 +18,24 @@ import java.util.Date;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.X509KeyManager;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.http.conn.ssl.PrivateKeyStrategy;
-import org.apache.http.conn.ssl.SSLContextBuilder.KeyManagerDelegate;
+import org.apache.http.HttpEntity;
+import org.apache.http.client.methods.CloseableHttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 
-import com.primeton.mobile.wechat.HttpExecuter;
-import com.primeton.mobile.wechat.IWechatConstants;
 import com.primeton.mobile.wechat.pay.WechatPay;
 
 
@@ -74,11 +75,14 @@ public class MoneySurprise extends HttpServlet {
 		ArrayList<String> nodes = new ArrayList<String>();
 		String mchID = "1312377501";
 		String paySecret = "primeton2016yidongceshiHAHAHAHAH";
-		String openid = "o18LPvqEhgVF8wnGQJY8HQ5Q7SpA";
-		nodes.add("nonce_str="+WechatPay.generateNonceStr());
-		nodes.add("mch_billno="+getBillNo(mchID));
+		String openid = "ooyKpxIA8sqiWbSE89yJJl34uSsE";
+		String nonceStr = RandomStringUtils
+				.random(20,
+						"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+		nodes.add("nonce_str="+nonceStr);
+		nodes.add("mch_billno="+MoneySurprise.getBillNo(mchID));
 		nodes.add("mch_id="+mchID);
-		nodes.add("wxappid=wx533f20f2961abf67");
+		nodes.add("wxappid=wxfad56e1d17a29e04");
 		nodes.add("send_name=Primeton Software");
 		nodes.add("re_openid="+openid);
 		
@@ -105,11 +109,34 @@ public class MoneySurprise extends HttpServlet {
             // Trust own CA and all self-signed certs
             // HUANG 查看微信的协议
             SSLContext sslcontext = buildSSLContext(keyStore, mchID.toCharArray(), "");
-            SSLSocketFactory sslSocketFactory = sslcontext.getSocketFactory();
-            String[] supportedProtocols = new String[]{};
-            String[] supportedCipherSuites = new String[]{};
-            
-            
+            // Allow TLSv1 protocol only
+            SSLConnectionSocketFactory sslsf = new SSLConnectionSocketFactory(
+                    sslcontext,
+                    new String[] { "TLSv1" },
+                    null,
+                    SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);
+            CloseableHttpClient httpclient = HttpClients.custom().setSSLSocketFactory(sslsf).build();
+            HttpPost httppost = new HttpPost(uri);
+            HttpEntity postentity = new StringEntity(postContent, ContentType.create("text/xml", "UTF-8"));
+    		httppost.setEntity(postentity);
+            CloseableHttpResponse response = httpclient.execute(httppost);
+            try {
+                HttpEntity entity = response.getEntity();
+
+                System.out.println(response.getStatusLine());
+                if (entity != null) {
+                    System.out.println("Response content length: " + entity.getContentLength());
+                    BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(entity.getContent()));
+                    String text;
+                    while ((text = bufferedReader.readLine()) != null) {
+                        System.out.println(text);
+                    }
+                   
+                }
+                EntityUtils.consume(entity);
+            } finally {
+                response.close();
+            }
         } catch (CertificateException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException e) {
@@ -120,31 +147,6 @@ public class MoneySurprise extends HttpServlet {
 			e.printStackTrace();
 		}
 
-        //SSLProtocolSocketFactory factory = 
-        HttpClient httpClient = new HttpClient();
-		PostMethod method = new PostMethod(uri);
-		
-		byte[] datas = null;
-		NameValuePair[] queryStr = new NameValuePair[0];
-		StringRequestEntity requestEntity = null;
-		try {
-			requestEntity = new StringRequestEntity(postContent, IWechatConstants.CONTENT_TYPE_XML, 
-					IWechatConstants.DEFAULT_CHARSET);
-			method.setQueryString(queryStr);
-			method.setRequestEntity(requestEntity);
-			httpClient.executeMethod(method);
-			datas = method.getResponseBody();
-			method.releaseConnection();
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		} catch (HttpException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-//        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-        System.out.println("返回结果="+result);
 	}
 	
 	public static String getBillNo(String mchID){
@@ -184,6 +186,8 @@ public class MoneySurprise extends HttpServlet {
 		} catch (UnrecoverableKeyException e) {
 			e.printStackTrace();
 		} catch (KeyStoreException e) {
+			e.printStackTrace();
+		} catch (KeyManagementException e) {
 			e.printStackTrace();
 		}
 

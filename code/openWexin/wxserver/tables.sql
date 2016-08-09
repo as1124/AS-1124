@@ -27,5 +27,5 @@ create table pworld_devices(
 	id int primary key auto_increment,
 	device_ip varchar(50) not null,
 	emp_token varchar(50) not null,
-	device_os char(1)
+	device_os varchar(10)
 );

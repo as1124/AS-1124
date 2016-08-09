@@ -11,10 +11,11 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -45,8 +46,7 @@ public class WechatPay {
 	 *            微信订单号
 	 * @return
 	 */
-	public static WechatTradeStatus queryTradeStatus(String tradeNo,
-			String transactionID) {
+	public static WechatTradeStatus queryTradeStatus(String tradeNo, String transactionID) {
 		ArrayList<String> nodes = new ArrayList<String>();
 		nodes.add("appid=" + PayMetadata.getMetadata().getAppID());
 		nodes.add("mch_id=" + PayMetadata.getMetadata().getMchID());
@@ -66,15 +66,9 @@ public class WechatPay {
 		String sign = generateSign(array, paySecret);
 		String postContent = getPostContent(array, sign);
 		String requestURL = "https://api.mch.weixin.qq.com/pay/orderquery";
-		NameValuePair[] queryStr = new NameValuePair[0];
-		StringRequestEntity requestEntity = null;
-		try {
-			requestEntity = new StringRequestEntity(postContent,
-					IWechatConstants.CONTENT_TYPE_JSON,
-					IWechatConstants.DEFAULT_CHARSET);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		StringEntity requestEntity = new StringEntity(postContent, ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
+					IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr,
 				requestEntity);
 
@@ -168,17 +162,10 @@ public class WechatPay {
 		String postContent = getPostContent(array, sign);
 
 		String requestURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-		NameValuePair[] queryStr = new NameValuePair[0];
-		StringRequestEntity requestEntity = null;
-		try {
-			requestEntity = new StringRequestEntity(postContent,
-					IWechatConstants.CONTENT_TYPE_JSON,
-					IWechatConstants.DEFAULT_CHARSET);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		String result = HttpExecuter.executePostAsString(requestURL, queryStr,
-				requestEntity);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		StringEntity requestEntity = new StringEntity(postContent, ContentType.create(IWechatConstants.CONTENT_TYPE_XML, 
+				IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(requestURL, queryStr, requestEntity);
 
 		JSONObject json = parseResult2JSON(result);
 
@@ -355,15 +342,9 @@ public class WechatPay {
 		String sign = generateSign(array, key);
 		String postContent = getPostContent(array, sign);
 		String requestURL = "https://api.mch.weixin.qq.com/pay/closeorder";
-		NameValuePair[] queryStr = new NameValuePair[0];
-		StringRequestEntity requestEntity = null;
-		try {
-			requestEntity = new StringRequestEntity(postContent,
-					IWechatConstants.CONTENT_TYPE_JSON,
-					IWechatConstants.DEFAULT_CHARSET);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		StringEntity requestEntity = new StringEntity(postContent, ContentType.create(IWechatConstants.CONTENT_TYPE_JSON,
+					IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr,
 				requestEntity);
 
