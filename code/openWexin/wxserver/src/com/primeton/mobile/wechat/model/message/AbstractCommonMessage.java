@@ -1,12 +1,14 @@
 package com.primeton.mobile.wechat.model.message;
 
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
+
 /**
  * 微信Client和服务端通信时抽象的通用消息数据包模型。
  * 
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-public abstract class AbstractCommonMessage extends AbstractMessage {
+public abstract class AbstractCommonMessage extends AbstractDataPackage {
 	
 	/**
 	 * 消息ID，64位整型

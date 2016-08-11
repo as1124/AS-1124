@@ -25,25 +25,12 @@ public class ScancodeMenuEvent extends AbstractWechatMenuEvent {
 	 */
 	String scanResult;
 	
-	public ScancodeMenuEvent() {
-		super();
+	public ScancodeMenuEvent(String xmlConteString) {
+		super(xmlConteString);
 	}
 	
 	@Override
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-			 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-			 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-			 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-			 +"<Event><![CDATA["+getEvent()+"]]></Event>"
-			 +"<EventKey><![CDATA["+getEventKey()+"]]></EventKey>"
-			 +"<ScanCodeInfo><ScanType><![CDATA["+getScanType()+"]]></ScanType>"
-			 +"<ScanResult><![CDATA["+getScanResult()+"]]></ScanResult></ScanCodeInfo></xml>";
-		return result;
-	}
-	
-	@Override
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -57,9 +44,12 @@ public class ScancodeMenuEvent extends AbstractWechatMenuEvent {
 			Element info = root.element("ScanCodeInfo");
 			this.setScanType(info.element("ScanType").getText());
 			this.setScanResult(info.element("ScanResult").getText());
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	/**

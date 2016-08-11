@@ -1,4 +1,6 @@
-package com.primeton.mobile.wechat.model.message;
+package com.primeton.mobile.wechat.model;
+
+import org.dom4j.Document;
 
 /**
  * 微信通信交互数据包模型（消息/事件）.
@@ -6,7 +8,7 @@ package com.primeton.mobile.wechat.model.message;
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-public abstract class AbstractMessage {
+public abstract class AbstractDataPackage {
 
 	/**
 	 * 接收方微信号, openID
@@ -28,9 +30,17 @@ public abstract class AbstractMessage {
 	 */
 	protected String msgType;
 	
-	public AbstractMessage() {
+	public AbstractDataPackage() {
 	}
 
+	/**
+	 * 
+	 * @param xmlContent 需要解析的XML报文
+	 */
+	public AbstractDataPackage(String xmlContent) {
+		this.decodeFromXML(xmlContent);
+	}
+	
 	/**
 	 * @see #toUser
 	 * @return
@@ -94,12 +104,6 @@ public abstract class AbstractMessage {
 	protected void setMsgType(String msgType) {
 		this.msgType = msgType;
 	}
-
-	/**
-	 * 序列化生xml格式文本内容消息。
-	 * @return
-	 */
-	public abstract String toXML();
 	
 	/**
 	 * 生成可以发送到用户Client端的文本消息内容，xml格式
@@ -108,10 +112,10 @@ public abstract class AbstractMessage {
 	public abstract String toSendText();
 	
 	/**
-	 * 将微信Client发来的xml格式的文本消息解析成java对象
+	 * 将微信Server转发过来的xml格式的文本消息解析成java对象
 	 * 
 	 * @param xmlContent 微信发送过来的消息内容
 	 * @return
 	 */
-	public abstract void decodeFromXML(String xmlContent);
+	public abstract Document decodeFromXML(String xmlContent);
 }

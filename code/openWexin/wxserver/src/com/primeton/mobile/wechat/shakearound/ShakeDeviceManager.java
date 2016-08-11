@@ -2,8 +2,14 @@ package com.primeton.mobile.wechat.shakearound;
 
 import java.io.IOException;
 
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+
+
+
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONObject;
 import com.primeton.mobile.wechat.HttpExecuter;
@@ -35,14 +41,14 @@ public class ShakeDeviceManager {
 	 */
 	public static DeviceApplication applyDeviceID(String accessToken, int quantity, String reason, String comment, long poiID) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/shakearound/device/applyid";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject postData = new JSONObject();
 		postData.put("quantity", quantity);
 		postData.put("apply_reason", reason);
 		postData.put("comment", comment);
 		postData.put("poi_id", poiID);
-		StringRequestEntity requestEntity = new StringRequestEntity(postData.toJSONString());
+		StringEntity requestEntity = new StringEntity(postData.toJSONString());
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -63,12 +69,12 @@ public class ShakeDeviceManager {
 	 */
 	public static boolean updateDeviceInfo(String accessToken, DeviceIdentify deviceIdentify, String reason, String comment) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/shakearound/device/update";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject postData = new JSONObject();
 		postData.put("device_identifier", deviceIdentify);
 		postData.put("comment", comment);
-		StringRequestEntity requestEntity = new StringRequestEntity(postData.toJSONString());
+		StringEntity requestEntity = new StringEntity(postData.toJSONString());
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -88,12 +94,12 @@ public class ShakeDeviceManager {
 	 */
 	public static boolean bindDeviceWithPoi(String accessToken, DeviceIdentify deviceIdentifier, long poiID) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/shakearound/device/bindloacation";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject postData = new JSONObject();
 		postData.put("device_identifier", deviceIdentifier);
 		postData.put("poi_id", poiID);
-		StringRequestEntity requestEntity = new StringRequestEntity(postData.toJSONString());
+		StringEntity requestEntity = new StringEntity(postData.toJSONString());
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -105,11 +111,11 @@ public class ShakeDeviceManager {
 	//ATTENTION 查询设备列表未完成
 	public static boolean queryDeviceList(String accessToken, DeviceIdentify deviceIdentifier) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/shakearound/device/bindloacation";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject postData = new JSONObject();
 		postData.put("device_identifier", deviceIdentifier);
-		StringRequestEntity requestEntity = new StringRequestEntity(postData.toJSONString());
+		StringEntity requestEntity = new StringEntity(postData.toJSONString());
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){

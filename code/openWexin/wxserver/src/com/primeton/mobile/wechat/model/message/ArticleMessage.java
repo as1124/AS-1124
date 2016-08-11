@@ -12,13 +12,14 @@ import org.dom4j.io.SAXReader;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.annotation.JSONType;
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
 
 /**
  * 图文消息，仅用作回复。
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-public class ArticleMessage extends AbstractMessage {
+public class ArticleMessage extends AbstractDataPackage {
 
 	/**
 	 * 图文消息数量
@@ -34,11 +35,6 @@ public class ArticleMessage extends AbstractMessage {
 		super();
 		this.setMsgType("news");
 	}
-	
-	@Override
-	public String toXML() {
-		return null;
-	}
 
 	@Override
 	public String toSendText() {
@@ -52,11 +48,11 @@ public class ArticleMessage extends AbstractMessage {
 	}
 
 	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -87,9 +83,13 @@ public class ArticleMessage extends AbstractMessage {
 					this.articles.add(newArticle);
 				}
 			}
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	private String getArticleStr(){

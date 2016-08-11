@@ -1,8 +1,15 @@
 package com.primeton.mobile.wechat.model.menu;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
+
+import com.alibaba.fastjson.JSONArray;
 import com.primeton.mobile.wechat.model.IWechatModel;
 
 /**
@@ -122,6 +129,37 @@ public class WechatMenu implements IWechatModel{
 	 */
 	List<WechatMenu> sub_button;
 	
+	public WechatMenu() {
+	}
+	
+	/**
+	 * @param name
+	 * @param key
+	 */
+	public WechatMenu(String name, String key) {
+		this.name = name;
+		this.key = key;
+	}
+	
+	/**
+	 * @param name
+	 * @param key
+	 * @param type
+	 * @param url
+	 * @param mediaId
+	 */
+	public WechatMenu(String name, String key, String type, String url, String mediaId) {
+		this.name = name;
+		this.key = key;
+		if(StringUtils.isNotBlank(type))
+			this.type = type;
+		if(StringUtils.isNotBlank(url))
+			this.url = url;
+		if(StringUtils.isNotBlank(mediaId))
+			this.media_id = mediaId;
+		
+	}
+	
 	/**
 	 * 当前菜单类型
 	 * @see #type
@@ -232,6 +270,27 @@ public class WechatMenu implements IWechatModel{
 	 */
 	public void setMedia_id(String media_id) {
 		this.media_id = media_id;
+	}
+	
+	public static void main(String[] args){
+		try {
+			BufferedReader reader = new BufferedReader(new FileReader("D:/myFile.json"));
+			String str = "";
+			String result = "";
+			while((str=reader.readLine())!=null){
+				result = result + str;
+			}
+			reader.close();
+			
+			JSONArray obje = JSONArray.parseArray(result);
+			WechatMenu[] arrs = obje.toArray(new WechatMenu[obje.size()]);
+			System.out.println(arrs);
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

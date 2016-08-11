@@ -1,14 +1,15 @@
 package com.primeton.mobile.wechat;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Locale;
 
-import org.apache.commons.httpclient.HttpException;
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
@@ -35,12 +36,12 @@ public class UserOperations {
 	 * @throws IOException
 	 * @throws WechatExceprion 
 	 */
-	public static WechatUserInfo getUserInfo(String accessToken, String openID) throws JSONException, HttpException, IOException, WechatExceprion{
+	public static WechatUserInfo getUserInfo(String accessToken, String openID) throws JSONException, IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/user/info";
-		NameValuePair[] queryStr = new NameValuePair[3];
-		queryStr[0] = new NameValuePair("access_token", accessToken);
-		queryStr[1] = new NameValuePair("openid", openID);
-		queryStr[2] = new NameValuePair("lang", Locale.getDefault().toString());
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("openid", openID));
+		queryStr.add(new BasicNameValuePair("lang", Locale.getDefault().toString()));
 		String response = HttpExecuter.executeGetAsString(uri, queryStr);
 		JSONObject json = JSONObject.parseObject(response);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
@@ -60,13 +61,14 @@ public class UserOperations {
 	 */
 	public static WechatGroup createNewGroup(String groupName, String accessToken) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/groups/create";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("name", groupName);
 		JSONObject obj = new JSONObject();
 		obj.put("group", jsonObj);
-		RequestEntity requestEntity = new StringRequestEntity(obj.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
+		StringEntity requestEntity = new StringEntity(obj.toJSONString(), ContentType.create(
+				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String response = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(response);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
@@ -85,8 +87,8 @@ public class UserOperations {
 	 */
 	public static WechatGroup[] getAllGroups(String accessToken) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/groups/get";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token",accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
@@ -106,11 +108,12 @@ public class UserOperations {
 	 */
 	public static String searchUserGroup(String accessToken, String openID) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/groups/getid";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject obj = new JSONObject();
 		obj.put("openid", openID);
-		RequestEntity requestEntity = new StringRequestEntity(obj.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
+		StringEntity requestEntity = new StringEntity(obj.toJSONString(), ContentType.create(
+				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
@@ -131,14 +134,15 @@ public class UserOperations {
 	 */
 	public static boolean renameGroup(String accessToken, int groupID, String newName) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/groups/update";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token",accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("id", groupID);
 		jsonObj.put("name", newName);
 		JSONObject obj = new JSONObject();
 		obj.put("group", jsonObj);
-		RequestEntity requestEntity = new StringRequestEntity(obj.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
+		StringEntity requestEntity = new StringEntity(obj.toJSONString(), ContentType.create(
+				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
@@ -159,13 +163,14 @@ public class UserOperations {
 	 */
 	public static boolean moveUser2Group(String accessToken, String openID, int groupID) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/groups/members/update";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token",accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("openid", openID);
 		jsonObj.put("to_groupid", groupID);
 		String postData = jsonObj.toString();
-		RequestEntity requestEntity = new StringRequestEntity(postData, IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
+		StringEntity requestEntity = new StringEntity(postData, ContentType.create(
+				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
@@ -186,13 +191,14 @@ public class UserOperations {
 	 */
 	public static boolean moveUsers2Group(String accessToken, String[] openIDs, int groupID) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/groups/members/batchupdate";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token",accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("openid_list", Arrays.asList(openIDs));
 		jsonObj.put("to_groupid", groupID);
 		String postData = jsonObj.toString();
-		RequestEntity requestEntity = new StringRequestEntity(postData, IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
+		StringEntity requestEntity = new StringEntity(postData, ContentType.create(
+				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
@@ -213,13 +219,14 @@ public class UserOperations {
 	public static boolean dropGroup(String accessToken, int groupID) throws IOException, WechatExceprion{
 		//ATTENTION 总是 errcode = -1
 		String uri = "https://api.weixin.qq.com/cgi-bin/groups/delete";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token", accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("id", groupID);
 		JSONObject obj = new JSONObject();
 		obj.put("group", jsonObj);
-		RequestEntity requestEntity = new StringRequestEntity(obj.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
+		StringEntity requestEntity = new StringEntity(obj.toJSONString(), ContentType.create(
+				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
@@ -240,13 +247,14 @@ public class UserOperations {
 	 */
 	public static boolean remarkUser(String accessToken, String openID, String remark) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair("access_token",accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("openid", openID);
 		jsonObj.put("remark", remark);
 		String postData = jsonObj.toString();
-		RequestEntity requestEntity = new StringRequestEntity(postData, IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
+		StringEntity requestEntity = new StringEntity(postData, ContentType.create(
+				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
@@ -266,11 +274,11 @@ public class UserOperations {
 	 */
 	public static SubscribedCountInfo getSubscribedUsers(String accessToken, String nextOpenID) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/user/get";
-		NameValuePair[] queryStr = new NameValuePair[2];
-		queryStr[0] = new NameValuePair("access_token", accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		if(StringUtils.isNotBlank(nextOpenID))
 			nextOpenID = "";
-		queryStr[1] = new NameValuePair("next_openid", nextOpenID);
+		queryStr.add(new BasicNameValuePair("next_openid", nextOpenID));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);

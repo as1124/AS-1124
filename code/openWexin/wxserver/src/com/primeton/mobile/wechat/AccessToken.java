@@ -162,13 +162,4 @@ public class AccessToken implements IWechatModel{
 		
 	}
 	
-	public static void main(String[] args){
-		try {
-			AccessToken.getToken("wxc70c5d9aab4f6a2b", "f3ca23ccf76c301f2158862db65cfdad");
-		} catch (WechatExceprion e) {
-			e.printStackTrace();
-		}
-		
-	}
-	
 }

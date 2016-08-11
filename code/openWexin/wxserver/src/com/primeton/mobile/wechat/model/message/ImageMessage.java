@@ -7,6 +7,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
+
 /**
  * 图片消息。支持收发。
  * 
@@ -30,20 +32,6 @@ public class ImageMessage extends AbstractCommonMessage {
 		this.setMsgType("image");
 	}
 	
-	/**
-	 * {@link AbstractMessage#toXML()}
-	 * @return
-	 */
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-		 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-		 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-		 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-		 +"<PicUrl><![CDATA["+getPicUrl()+"]]></PicUrl>"
-		 +"<MediaId><![CDATA["+getMediaID()+"]]></MediaId>"
-		 +"<MsgId>"+getMsgID()+"</MsgId></xml>";
-		return result;
-	}
 
 	@Override
 	public String toSendText() {
@@ -56,11 +44,11 @@ public class ImageMessage extends AbstractCommonMessage {
 	}
 	
 	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -77,18 +65,22 @@ public class ImageMessage extends AbstractCommonMessage {
 			if(mediaIDElement != null){
 				this.setMediaID(mediaIDElement.getText());
 			}
-			Element imageElement = root.element("Image");
-			if(imageElement != null){
-				this.setMediaID(imageElement.element("MediaId").getText());
-			}
+//			Element imageElement = root.element("Image");
+//			if(imageElement != null){
+//				this.setMediaID(imageElement.element("MediaId").getText());
+//			}
 			Element msgIDElement = root.element("MsgId");
 			if(msgIDElement != null){
 				long msgID = Long.parseLong(msgIDElement.getText());
 				this.setMsgID(msgID);
 			}
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	/**

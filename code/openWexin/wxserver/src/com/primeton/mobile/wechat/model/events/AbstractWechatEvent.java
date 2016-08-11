@@ -1,14 +1,18 @@
 package com.primeton.mobile.wechat.model.events;
 
-import com.primeton.mobile.wechat.model.message.AbstractMessage;
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
 
 /**
  * 事件消息数据包模型
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-public abstract class AbstractWechatEvent extends AbstractMessage {
+public abstract class AbstractWechatEvent extends AbstractDataPackage {
 
+	public AbstractWechatEvent(String xmlContent){
+		super(xmlContent);
+	}
+	
 	/**
 	 * 事件类型
 	 */
@@ -22,7 +26,7 @@ public abstract class AbstractWechatEvent extends AbstractMessage {
 	 * 因为微信公众号Client端无法处理服务端发送的事件消息
 	 * @return null
 	 */
-	final public String toSendText() {
+	public final String toSendText() {
 		return null;
 	}
 	

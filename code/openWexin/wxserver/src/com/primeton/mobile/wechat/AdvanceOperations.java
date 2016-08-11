@@ -1,10 +1,12 @@
 package com.primeton.mobile.wechat;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.http.NameValuePair;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONObject;
 import com.primeton.mobile.wechat.exception.WechatExceprion;
@@ -34,16 +36,16 @@ public class AdvanceOperations {
 	public static WechatGrammer createGrammer(String accessToken, String queryStr, String category, 
 			String city, String appid, String uid) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/semantic/semproxy/search";
-		NameValuePair[] apiQueryStr = new NameValuePair[1];
-		apiQueryStr[0] = new NameValuePair("access_token", accessToken);
+		ArrayList<NameValuePair> apiQueryStr = new ArrayList<NameValuePair>();
+		apiQueryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("query", queryStr);
 		jsonObj.put("category", category);
 		jsonObj.put("city", city);
 		jsonObj.put("appid", appid);
 		jsonObj.put("uid", uid);
-		String postData = jsonObj.toString();
-		RequestEntity requestEntity = new StringRequestEntity(postData, IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
+		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
+				IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, apiQueryStr, requestEntity);
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){

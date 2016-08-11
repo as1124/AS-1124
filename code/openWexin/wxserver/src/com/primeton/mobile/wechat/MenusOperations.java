@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -89,13 +90,43 @@ public class MenusOperations {
         	// 普通的自定义菜单
         	JSONObject normalMenus = JSONObject.parseObject(result).getJSONObject("menu");
         	JSONArray buttons = normalMenus.getJSONArray("button");
-        	menuMap.put(normalMenus.getString("menuid"), buttons.toArray(new WechatMenu[]{}));
+        	
+        	WechatMenu[] commonMnus = new WechatMenu[buttons.size()];
+    		for(int i=0; i<buttons.size(); i++){
+    			JSONObject child = buttons.getJSONObject(i);
+    			commonMnus[i] = new WechatMenu(child.getString("name"), child.getString("key"), child.getString("type"), child.getString("url"), child.getString("media_id"));
+    			JSONArray childMenus = child.getJSONArray("sub_button");
+    			for(int j=0; j<childMenus.size(); j++){
+    				child = childMenus.getJSONObject(j);
+    				WechatMenu childMenu = new WechatMenu(child.getString("name"), child.getString("key"), child.getString("type"), child.getString("url"), child.getString("media_id"));
+    				commonMnus[i].addSub_button(childMenu);
+    			}
+    		}
+        	String commonid = normalMenus.getString("menuid");
+        	if(StringUtils.isBlank(commonid)){
+        		//只有普通类型菜单
+            	menuMap.put("common", commonMnus);
+            	return menuMap;
+        	} else {
+        		menuMap.put(commonid, commonMnus);
+        	}
         	
         	// 个性化菜单
         	JSONObject conditionalMenus = JSONObject.parseObject(result).getJSONObject("conditionalmenu");
         	if(conditionalMenus != null){
 	        	buttons = conditionalMenus.getJSONArray("button");
-	        	menuMap.put(conditionalMenus.getString("menuid"), buttons.toArray(new WechatMenu[]{}));
+	        	WechatMenu[] condMenus = new WechatMenu[buttons.size()];
+	    		for(int i=0; i<buttons.size(); i++){
+	    			JSONObject child = buttons.getJSONObject(i);
+	    			condMenus[i] = new WechatMenu(child.getString("name"), child.getString("key"), child.getString("type"), child.getString("url"), child.getString("media_id"));
+	    			JSONArray childMenus = child.getJSONArray("sub_button");
+	    			for(int j=0; j<childMenus.size(); j++){
+	    				child = childMenus.getJSONObject(j);
+	    				WechatMenu childMenu = new WechatMenu(child.getString("name"), child.getString("key"), child.getString("type"), child.getString("url"), child.getString("media_id"));
+	    				condMenus[i].addSub_button(childMenu);
+	    			}
+	    		}
+	        	menuMap.put(conditionalMenus.getString("menuid"), condMenus);
         	}
         	return menuMap;
 		}else if(IWechatConstants.RETURN_CODE_NO_MENUS.equals(returnCode)){

@@ -7,7 +7,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.primeton.mobile.wechat.model.message.AbstractMessage;
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
 
 /**
  * <strong>上报地理位置事件</strong><br>
@@ -40,27 +40,11 @@ public class ReportLocationEvent extends AbstractWechatEvent {
 	}
 	
 	/**
-	 * {@link AbstractMessage#toXML()}
-	 * @return
-	 */
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-		 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-		 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-		 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-		 +"<Event><![CDATA["+getMsgType()+"]]></Event>"
-		 +"<Latitude>"+getLatitude()+"</Latitude>"
-		 +"<Longitude>"+getLongitude()+"</Longitude>"
-		 +"<Precision>"+getPrecision()+"</Precision></xml>";
-		return result;
-	}
-	
-	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -76,9 +60,13 @@ public class ReportLocationEvent extends AbstractWechatEvent {
 			this.setLatitude(latitude);
 			this.setLongitude(longitude);
 			this.setPrecision(precision);
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	public float getLatitude() {

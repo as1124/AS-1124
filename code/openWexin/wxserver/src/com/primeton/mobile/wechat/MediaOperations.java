@@ -12,15 +12,20 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.activation.MimetypesFileTypeMap;
 
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
-import org.apache.commons.httpclient.methods.multipart.FilePart;
-import org.apache.commons.httpclient.methods.multipart.Part;
+
+
+
+
+import org.apache.http.NameValuePair;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -51,20 +56,20 @@ public class MediaOperations {
 	 * @throws IOException
 	 * @throws WechatExceprion 
 	 */
-	public static WechatMedia uploadTemporaryMedia(String accessToken, String type, String filePath) throws IOException, WechatExceprion{
-		String uri = "https://api.weixin.qq.com/cgi-bin/media/upload";
-		NameValuePair[] queryStr = new NameValuePair[2];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
-		queryStr[1] = new NameValuePair("type", type);
-		File f = new File(filePath);
-		FilePart filePart = new FilePart(f.getName(), f);
-        String result = HttpExecuter.executePostAsString(uri, queryStr, new Part[]{filePart});
-        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-			return JSONObject.parseObject(result, WechatMedia.class);
-		}
-		else throw new WechatExceprion("[MediaOperations#uploadTemporaryMedia]"+result);
-	}
+//	public static WechatMedia uploadTemporaryMedia(String accessToken, String type, String filePath) throws IOException, WechatExceprion{
+//		String uri = "https://api.weixin.qq.com/cgi-bin/media/upload";
+//		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+//		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+//		queryStr.add(new BasicNameValuePair("type", type));
+//		File f = new File(filePath);
+//		FilePart filePart = new FilePart(f.getName(), f);
+//        String result = HttpExecuter.executePostAsString(uri, queryStr, new Part[]{filePart});
+//        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+//        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+//			return JSONObject.parseObject(result, WechatMedia.class);
+//		}
+//		else throw new WechatExceprion("[MediaOperations#uploadTemporaryMedia]"+result);
+//	}
 	
 	/**
 	 * 获取临时媒体素材。
@@ -76,9 +81,9 @@ public class MediaOperations {
 	 */
 	public static void getTemporaryMedia(String accessToken, String mediaID, String savePath) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/media/get";
-		NameValuePair[] queryStr = new NameValuePair[2];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
-		queryStr[1] = new NameValuePair("media_id", mediaID);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("media_id", mediaID));
 		byte[] datas = HttpExecuter.executeGet(uri, queryStr);
 		File file = new File(savePath);
 		FileOutputStream out = null;
@@ -109,13 +114,14 @@ public class MediaOperations {
 	 */
 	public static String addNews(String accessToken, WechatNews[] articles) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/add_news";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject postData = new JSONObject();
 		JSONArray articlesStr = new JSONArray();
 		articlesStr.addAll(Arrays.asList(articles));
 		postData.put("articles", articlesStr);
-        StringRequestEntity reqEntity = new StringRequestEntity(postData.toJSONString());  
+        StringEntity reqEntity = new StringEntity(postData.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
+        		IWechatConstants.DEFAULT_CHARSET));  
         String result = HttpExecuter.executePostAsString(uri, queryStr, reqEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -134,12 +140,13 @@ public class MediaOperations {
 	 */
 	public static WechatNews[] getWechatNews(String accessToken, String mediaID) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/get_material";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject json = new JSONObject();
 		json.put("media_id", mediaID);
-		StringRequestEntity requestEntity = new StringRequestEntity(json.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
-        String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+		StringEntity reqEntity = new StringEntity(json.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
+				IWechatConstants.DEFAULT_CHARSET));
+        String result = HttpExecuter.executePostAsString(uri, queryStr, reqEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("news_item"), WechatNews.class)
@@ -277,12 +284,13 @@ public class MediaOperations {
 	 */
 	public static void getPermaentMedia(String accessToken, String mediaID, String savePath) throws IOException {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/get_material";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject json = new JSONObject();
 		json.put("media_id", mediaID);
-		StringRequestEntity requestEntity = new StringRequestEntity(json.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
-        byte[] datas = HttpExecuter.executePost(uri, queryStr, requestEntity);
+		StringEntity reqEntity = new StringEntity(json.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
+				IWechatConstants.DEFAULT_CHARSET));
+        byte[] datas = HttpExecuter.executePost(uri, queryStr, reqEntity);
         OutputStream out = null;
         try {
         	out = new FileOutputStream(new File(savePath));
@@ -305,10 +313,10 @@ public class MediaOperations {
 	 */
 	public static WechatMedia getPermaentVideo(String accessToken, String mediaID) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/get_material";
-		NameValuePair[] queryStr = new NameValuePair[2];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
-		queryStr[1] = new NameValuePair("media_id", mediaID);
-        String result = HttpExecuter.executePostAsString(uri, queryStr, new StringRequestEntity(""));
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("media_id", mediaID));
+        String result = HttpExecuter.executePostAsString(uri, queryStr, new StringEntity(""));
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, WechatMedia.class);
@@ -326,12 +334,13 @@ public class MediaOperations {
 	 */
 	public static boolean deletePermaentMedia(String accessToken, String mediaID) throws IOException, WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/del_material";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject json = new JSONObject();
 		json.put("media_id", mediaID);
-		StringRequestEntity requestEntity = new StringRequestEntity(json.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);
-        String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+		StringEntity reqEntity = new StringEntity(json.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
+				IWechatConstants.DEFAULT_CHARSET));
+        String result = HttpExecuter.executePostAsString(uri, queryStr, reqEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
@@ -352,13 +361,14 @@ public class MediaOperations {
 	 */
 	public static boolean updateWechatNews(String accessToken, String mediaID, int index, WechatNews newArticle) throws IOException, WechatExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/update_news";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject postData = new JSONObject();
 		postData.put("media_id", mediaID);
 		postData.put("index", index);
 		postData.put("articles", newArticle);
-        StringRequestEntity reqEntity = new StringRequestEntity(postData.toJSONString(), IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET);  
+		StringEntity reqEntity = new StringEntity(postData.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
+				IWechatConstants.DEFAULT_CHARSET)); 
         String result = HttpExecuter.executePostAsString(uri, queryStr, reqEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -377,8 +387,8 @@ public class MediaOperations {
 	@SuppressWarnings("rawtypes")
 	public static HashMap getPermaentMediaCount(String accessToken) throws IOException, WechatExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/get_materialcount";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -399,13 +409,14 @@ public class MediaOperations {
 	 */
 	public static WechatMediaList getPermaentMediaList(String accessToken, String type, int offset, int count) throws IOException, WechatExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/batchget_material";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject postData = new JSONObject();
 		postData.put("type", type);
 		postData.put("offset", offset);
 		postData.put("count", count);
-		String result = HttpExecuter.executePostAsString(uri, queryStr, new StringRequestEntity(postData.toJSONString()));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, new StringEntity(postData.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
+				IWechatConstants.DEFAULT_CHARSET)));
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, WechatMediaList.class);
@@ -424,13 +435,14 @@ public class MediaOperations {
 	 */
 	public static WechatNewsList getPermaentNewsList(String accessToken, int offset, int count) throws IOException, WechatExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/batchget_material";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, accessToken);
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject postData = new JSONObject();
 		postData.put("type", "news");
 		postData.put("offset", offset);
 		postData.put("count", count);
-		String result = HttpExecuter.executePostAsString(uri, queryStr, new StringRequestEntity(postData.toJSONString()));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, new StringEntity(postData.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
+				IWechatConstants.DEFAULT_CHARSET)));
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, WechatNewsList.class);

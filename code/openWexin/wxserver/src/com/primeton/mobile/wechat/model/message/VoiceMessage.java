@@ -7,6 +7,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
+
 /**
  * 语音消息。支持收发。
  * @author huangjw(mailto:huangjw@primeton.com)
@@ -28,21 +30,6 @@ public class VoiceMessage extends AbstractCommonMessage {
 		super();
 		this.setMsgType("voice");
 	}
-	
-	/**
-	 * {@link AbstractMessage#toXML()}
-	 * @return
-	 */
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-		 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-		 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-		 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-		 +"<MediaId><![CDATA["+getMediaID()+"]]></MediaId>"
-		 +"<Format><![CDATA["+getFormat()+"]]></Format>"
-		 +"<MsgId>"+getMsgID()+"</MsgId></xml>";
-		return result;
-	}
 
 	@Override
 	public String toSendText() {
@@ -55,11 +42,11 @@ public class VoiceMessage extends AbstractCommonMessage {
 	}
 
 	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -72,10 +59,10 @@ public class VoiceMessage extends AbstractCommonMessage {
 			if(mediaIDElement != null){
 				this.setMediaID(mediaIDElement.getText());
 			}
-			Element voiceElement = root.element("Voice");
-			if(voiceElement != null){
-				this.setMediaID(voiceElement.element("MediaId").getText());
-			}
+//			Element voiceElement = root.element("Voice");
+//			if(voiceElement != null){
+//				this.setMediaID(voiceElement.element("MediaId").getText());
+//			}
 			Element msgIDElement = root.element("MsgId");
 			if(msgIDElement != null){
 				long msgID = Long.parseLong(msgIDElement.getText());
@@ -85,9 +72,13 @@ public class VoiceMessage extends AbstractCommonMessage {
 			if(formatElement != null)
 				this.setFormat(formatElement.getText());
 			this.setMsgID(msgID);
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	/**

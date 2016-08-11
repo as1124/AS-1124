@@ -7,7 +7,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.primeton.mobile.wechat.model.message.AbstractMessage;
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
 
 /**
  * 扫描带参数二维码事件
@@ -34,28 +34,13 @@ public class ScancodeEvent extends AbstractWechatEvent {
 	public ScancodeEvent() {
 		super();
 	}
-	
-	/**
-	 * {@link AbstractMessage#toXML()}
-	 * @return
-	 */
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-		 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-		 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-		 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-		 +"<Event><![CDATA["+getEvent()+"]]></Event>"
-		 +"<EventKey><![CDATA["+getEventKey()+"]]></EventKey>"
-		 +"<Ticket><![CDATA["+getTicket()+"]]></Ticket></xml>";
-		return result;
-	}
 
 	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -67,9 +52,13 @@ public class ScancodeEvent extends AbstractWechatEvent {
 			this.setEvent(root.element("Event").getText());
 			this.setEventKey(root.element("EventKey").getText());
 			this.setTicket(root.element("Ticket").getText());
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	/**

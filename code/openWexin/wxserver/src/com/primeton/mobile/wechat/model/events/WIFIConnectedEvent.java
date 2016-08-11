@@ -40,14 +40,9 @@ public class WIFIConnectedEvent extends AbstractWechatEvent {
 	 * 连网的设备无线mac地址，对应bssid
 	 */
 	private String DeviceNo;
-	
-	@Override
-	public String toXML() {
-		return null;
-	}
 
 	@Override
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -66,10 +61,12 @@ public class WIFIConnectedEvent extends AbstractWechatEvent {
 			this.setShopID(root.element("ShopId").getText());
 			this.setDeviceNo(root.element("DeviceNo").getText());
 			
-			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	/**

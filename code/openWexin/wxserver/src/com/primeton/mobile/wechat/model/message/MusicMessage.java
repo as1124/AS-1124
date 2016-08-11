@@ -8,6 +8,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
+
 
 /**
  * 音乐消息，仅用于回复时。
@@ -43,11 +45,6 @@ public class MusicMessage extends AbstractCommonMessage {
 	
 	public MusicMessage() {
 	}
-	
-	@Override
-	public String toXML() {
-		return null;
-	}
 
 	@Override
 	public String toSendText() {
@@ -70,11 +67,11 @@ public class MusicMessage extends AbstractCommonMessage {
 	}
 
 	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -95,9 +92,13 @@ public class MusicMessage extends AbstractCommonMessage {
 				this.setHqMusicUrl(element.element("HQMusicUrl").getText());
 			if(element.element("ThumbMediaId") != null)
 				this.setThumbMediaID(root.element("ThumbMediaId").getText());
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	public String getTitle() {

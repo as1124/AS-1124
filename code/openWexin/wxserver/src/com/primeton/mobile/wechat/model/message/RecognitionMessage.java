@@ -7,6 +7,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
+
 /**
  * 语音识别消息
  * @author huangjw(mailto:huangjw@primeton.com)
@@ -23,28 +25,13 @@ public class RecognitionMessage extends VoiceMessage {
 		super();
 	}
 	
-	/**
-	 * {@link AbstractMessage#toXML()}
-	 * @return
-	 */
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-		 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-		 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-		 +"<MsgType><![CDATA[voice]]></MsgType>"
-		 +"<MediaId><![CDATA["+getMediaID()+"]]></MediaId>"
-		 +"<Format><![CDATA["+getFormat()+"]]></Format>"
-		 +"<Recognition><![CDATA["+getRecognition()+"]]></Recognition>"
-		 +"<MsgId>"+getMsgID()+"</MsgId></xml>";
-		return result;
-	}
 
 	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -58,9 +45,13 @@ public class RecognitionMessage extends VoiceMessage {
 			this.setRecognition(root.element("Recognition").getText());
 			long msgID = Long.parseLong(root.element("MsgId").getText());
 			this.setMsgID(msgID);
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	public String getRecognition() {

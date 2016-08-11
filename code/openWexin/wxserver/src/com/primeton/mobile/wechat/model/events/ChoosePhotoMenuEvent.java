@@ -18,6 +18,10 @@ import org.dom4j.io.SAXReader;
  */
 public class ChoosePhotoMenuEvent extends AbstractWechatMenuEvent {
 
+	public ChoosePhotoMenuEvent(String xmlContent){
+		super(xmlContent);
+	}
+	
 	/**
 	 * 需要发送的图片数量
 	 */
@@ -33,20 +37,7 @@ public class ChoosePhotoMenuEvent extends AbstractWechatMenuEvent {
 	}
 	
 	@Override
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-			 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-			 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-			 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-			 +"<Event><![CDATA["+getEvent()+"]]></Event>"
-			 +"<EventKey><![CDATA["+getEventKey()+"]]></EventKey>"
-			 +"<SendPicsInfo><Count>"+getCount()+"</Count>"
-			 +"<PicList>"+getPicMd5Str()+"</PicList></SendPicsInfo></xml>";
-		return result;
-	}
-	
-	@Override
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -67,9 +58,13 @@ public class ChoosePhotoMenuEvent extends AbstractWechatMenuEvent {
 				Element item = (Element) items.next();
 				this.picMd5Sum.add( item.element("PicMd5Sum").getText() );
 			}
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	private String getPicMd5Str(){

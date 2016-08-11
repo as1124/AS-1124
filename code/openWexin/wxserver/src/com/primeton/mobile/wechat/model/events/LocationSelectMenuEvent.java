@@ -7,7 +7,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.primeton.mobile.wechat.model.message.AbstractMessage;
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
 
 /**
  * 弹出地理位置选择器的事件推送（公众号<code>location_select</code>菜单）。
@@ -42,36 +42,18 @@ public class LocationSelectMenuEvent extends AbstractWechatMenuEvent {
 	 */
 	protected String poiname;
 	
-	public LocationSelectMenuEvent() {
-		super();
+	public LocationSelectMenuEvent(String xmlContent) {
+		super(xmlContent);
 		this.setEvent("location_select");
 	}
 	
-	/**
-	 * {@link AbstractMessage#toXML()}
-	 * @return
-	 */
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-		 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-		 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-		 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-		 +"<Event><![CDATA["+getEvent()+"]]></Event>"
-		 +"<EventKey><![CDATA["+getEventKey()+"]]></EventKey>"
-		 +"<SendLocationInfo><Location_X><![CDATA["+getLocationX()+"]]></Location_X>"
-		 +"<Location_Y><![CDATA["+getLocationY()+"]]></Location_Y>"
-		 +"<Scale><![CDATA["+getScale()+"]]></Scale>"
-		 +"<Label><![CDATA["+getLabel()+"]]></Label>"
-		 +"<Poiname><![CDATA["+getPoiname()+"</Poiname></SendLocationInfo></xml>";
-		return result;
-	}
 
 	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -80,6 +62,7 @@ public class LocationSelectMenuEvent extends AbstractWechatMenuEvent {
 			this.setFromUser(root.element("FromUserName").getText());
 			long createTime = Long.parseLong(root.element("CreateTime").getText());
 			this.setCreateTime(createTime);
+			this.setEventKey(root.element("EventKey").getText());
 			Element info = root.element("SendLocationInfo");
 			float locationX = Float.parseFloat(info.element("Location_X").getText());
 			this.setLocationX(locationX);
@@ -91,9 +74,13 @@ public class LocationSelectMenuEvent extends AbstractWechatMenuEvent {
 			Element poiElement = info.element("Poiname");
 			if(poiElement != null)
 				this.setPoiname(poiElement.getText());
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 	
 	/**

@@ -7,6 +7,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
+
 /**
  * 视频消息
  * @author huangjw(mailto:huangjw@primeton.com)
@@ -37,21 +39,6 @@ public class VideoMessage extends AbstractCommonMessage {
 	public VideoMessage() {
 		super();
 	}
-	
-	/**
-	 * {@link AbstractMessage#toXML()}
-	 * @return
-	 */
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-		 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-		 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-		 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-		 +"<MediaId><![CDATA["+getMediaID()+"]]></MediaId>"
-		 +"<ThumbMediaId><![CDATA["+getThumbMediaID()+"]]></ThumbMediaId>"
-		 +"<MsgId>"+getMsgID()+"</MsgId></xml>";
-		return result;
-	}
 
 	@Override
 	public String toSendText() {
@@ -66,11 +53,11 @@ public class VideoMessage extends AbstractCommonMessage {
 	}
 
 	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -84,16 +71,16 @@ public class VideoMessage extends AbstractCommonMessage {
 			if(mediaIDElement != null){
 				this.setMediaID(mediaIDElement.getText());
 			}
-			Element videoElement = root.element("Video");
-			if(videoElement != null){
-				this.setMediaID(videoElement.element("MediaId").getText());
-				if(videoElement.element("Title") != null) {
-					this.setTitle(videoElement.element("Title").getText());
-				}
-				if(videoElement.element("Description") != null) {
-					this.setDescription(videoElement.element("Description").getText());
-				}
-			}
+//			Element videoElement = root.element("Video");
+//			if(videoElement != null){
+//				this.setMediaID(videoElement.element("MediaId").getText());
+//				if(videoElement.element("Title") != null) {
+//					this.setTitle(videoElement.element("Title").getText());
+//				}
+//				if(videoElement.element("Description") != null) {
+//					this.setDescription(videoElement.element("Description").getText());
+//				}
+//			}
 			Element thumbElement = root.element("ThumbMediaId");
 			if(thumbElement != null){
 				this.setThumbMediaID(thumbElement.getText());
@@ -104,9 +91,11 @@ public class VideoMessage extends AbstractCommonMessage {
 				this.setMsgID(msgID);
 			}
 			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 
 	/**

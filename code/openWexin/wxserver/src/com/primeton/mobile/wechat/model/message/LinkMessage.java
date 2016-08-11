@@ -7,6 +7,8 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.primeton.mobile.wechat.model.AbstractDataPackage;
+
 /**
  * 链接消息。仅接收。
  * @author huangjw(mailto:huangjw@primeton.com)
@@ -33,22 +35,6 @@ public class LinkMessage extends AbstractCommonMessage {
 		super();
 		this.setMsgType("link");
 	}
-	
-	/**
-	 * {@link AbstractMessage#toXML()}
-	 * @return
-	 */
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-		 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-		 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-		 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-		 +"<Title><![CDATA["+getTitle()+"]]></Title>"
-		 +"<Description><![CDATA["+getDescription()+"]]></Description>"
-		 +"<Url><![CDATA["+getUrl()+"]]></Url>"
-		 +"<MsgId>"+getMsgID()+"</MsgId></xml>";
-		return result;
-	}
 
 	@Override
 	public String toSendText() {
@@ -56,11 +42,11 @@ public class LinkMessage extends AbstractCommonMessage {
 	}
 	
 	/**
-	 * {@link AbstractMessage#decodeFromXML(String)}
+	 * {@link AbstractDataPackage#decodeFromXML(String)}
 	 * @param xmlContent
 	 * @return
 	 */
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -74,9 +60,13 @@ public class LinkMessage extends AbstractCommonMessage {
 			this.setUrl(root.element("Url").getText());
 			long msgID = Long.parseLong(root.element("MsgId").getText());
 			this.setMsgID(msgID);
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	/**

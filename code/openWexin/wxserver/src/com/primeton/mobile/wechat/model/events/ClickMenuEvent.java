@@ -15,24 +15,13 @@ import org.dom4j.io.SAXReader;
  */
 public class ClickMenuEvent extends AbstractWechatMenuEvent {
 
-	public ClickMenuEvent() {
-		super();
+	public ClickMenuEvent(String xmlContentString) {
+		super(xmlContentString);
 		this.setEvent("CLICK");
 	}
 	
 	@Override
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-			 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-			 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-			 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-			 +"<Event><![CDATA["+getEvent()+"]]></Event>"
-			 +"<EventKey><![CDATA["+getEventKey()+"]]></EventKey></xml>";
-		return result;
-	}
-	
-	@Override
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -43,8 +32,10 @@ public class ClickMenuEvent extends AbstractWechatMenuEvent {
 			this.setCreateTime(createTime);
 			this.setEvent(root.element("Event").getText());
 			this.setEventKey(root.element("EventKey").getText());
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		return null;
 	}
 }

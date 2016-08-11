@@ -1,6 +1,10 @@
 package com.primeton.mobile.wechat;
 
-import org.apache.commons.httpclient.NameValuePair;
+
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONObject;
 import com.primeton.mobile.wechat.exception.WechatExceprion;
@@ -22,8 +26,8 @@ public class CommonOperations {
 	 */
 	public static String[] getWechatIPAddresses(AccessToken token) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/getcallbackip";
-		NameValuePair[] queryStr = new NameValuePair[1];
-		queryStr[0] = new NameValuePair(IWechatConstants.KEY_ACCESS_TOKEN, token.getAccess_token());
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		String response = HttpExecuter.executeGetAsString(uri, queryStr);
 		JSONObject result =  JSONObject.parseObject(response);
 		String returnCode = result.getString(IWechatConstants.ERROR_CODE);

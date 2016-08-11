@@ -32,23 +32,7 @@ public class BatchMessageCallbackEvent extends AbstractWechatEvent{
 	}
 	
 	@Override
-	public String toXML() {
-		String result = "<xml><ToUserName><![CDATA["+getToUser()+"]]></ToUserName>"
-			 +"<FromUserName><![CDATA["+getFromUser()+"]]></FromUserName>"
-			 +"<CreateTime>"+getCreateTime()+"</CreateTime>"
-			 +"<MsgType><![CDATA["+getMsgType()+"]]></MsgType>"
-			 +"<Event><![CDATA["+getEvent()+"]]></Event>"
-			 +"<MsgID>"+getMsgID()+"</MsgID>"
-			 +"<Status><![CDATA["+getStatus()+"]]></Status>"
-			 +"<TotalCount>"+getTotalCount()+"</TotalCount>"
-			 +"<FilterCount>"+getFilterCount()+"</FilterCount>"
-			 +"<SentCount>"+getSentCount()+"</SentCount>"
-			 +"<ErrorCount>"+getErrorCount()+"</ErrorCount></xml>";
-		return result;
-	}
-	
-	@Override
-	public void decodeFromXML(String xmlContent) {
+	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
@@ -64,9 +48,13 @@ public class BatchMessageCallbackEvent extends AbstractWechatEvent{
 			this.setFilterCount(Integer.parseInt(root.element("FilterCount").getText()));
 			this.setSentCount(Integer.parseInt(root.element("SentCount").getText()));
 			this.setErrorCount(Integer.parseInt(root.element("ErrorCount").getText()));
+			
+			return document;
 		} catch (DocumentException e) {
 			e.printStackTrace();
 		}
+		
+		return null;
 	}
 
 	public String getMsgID() {

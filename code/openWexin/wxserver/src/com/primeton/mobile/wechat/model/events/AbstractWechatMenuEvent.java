@@ -9,6 +9,10 @@ package com.primeton.mobile.wechat.model.events;
  */
 public abstract class AbstractWechatMenuEvent extends AbstractWechatEvent {
 
+	public AbstractWechatMenuEvent(String xmlContent){
+		super(xmlContent);
+	}
+	
 	/**
 	 * 事件KEY值，与自定义菜单接口中KEY值对应（当是跳转事件时为对应的url）
 	 */

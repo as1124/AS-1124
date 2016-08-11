@@ -1,12 +1,10 @@
 package com.primeton.mobile.wechat;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
 
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.NameValuePair;
+import com.primeton.mobile.wechat.exception.WechatExceprion;
+import com.primeton.mobile.wechat.model.menu.WechatMenu;
+import com.primeton.mobile.wechat.model.menu.WechatMenuConfiguration;
 
 
 public class Test {
@@ -47,4 +45,46 @@ public class Test {
 //       }  
          
     }
+	
+	
+	public static void main(String[] args){
+		try {
+//			AccessToken token = AccessToken.getToken("wxfad56e1d17a29e04", "d048ee6acfb69cbd0fc3aaa591b1455b");
+			WechatMenu parent1 = new WechatMenu("What's This", "parent1");
+			WechatMenu parent2 = new WechatMenu("PWorld", "parent2");
+			
+			WechatMenu parent11 = new WechatMenu("点击菜单", "11", WechatMenu.TYPE_CLICK, "", "");
+			parent1.addSub_button(parent11);
+			WechatMenu parent12 = new WechatMenu("链接菜单", "12", WechatMenu.TYPE_VIEW, "http://www.primeton.com", "");
+			parent1.addSub_button(parent12);
+			WechatMenu parent13 = new WechatMenu("扫码", "13", WechatMenu.TYPE_SCANCODE_PUSH, "", "");
+			parent1.addSub_button(parent13);
+			WechatMenu parent14 = new WechatMenu("扫码等待", "14", WechatMenu.TYPE_SCANCODE_WAIT_MSG, "", "");
+			parent1.addSub_button(parent14);
+			WechatMenu parent15 = new WechatMenu("拍照", "15", WechatMenu.TYPE_SYSPHOTO, "", "");
+			parent1.addSub_button(parent15);
+			
+			WechatMenu parent21 = new WechatMenu("选择相册", "21", WechatMenu.TYPE_PHOTO_OR_ALBUM, "", "");
+			parent2.addSub_button(parent21);
+			WechatMenu parent22 = new WechatMenu("微信相册", "22", WechatMenu.TYPE_PIC_WEIXIN, "", "");
+			parent2.addSub_button(parent22);
+			WechatMenu parent23 = new WechatMenu("地理位置", "23", WechatMenu.TYPE_LOCATION_SELECT, "", "");
+			parent2.addSub_button(parent23);
+			//WechatMenu parent24 = new WechatMenu("接收素材", "24", WechatMenu.TYPE_MEDIA_ID, "", "");
+			//parent2.addSub_button(parent24);
+			//WechatMenu parent25 = new WechatMenu("跳转图文", "15", WechatMenu.TYPE_VIEW_LIMITED, "", "");
+			//parent2.addSub_button(parent25);
+			
+//			boolean flag = MenusOperations.createMenu(token, new WechatMenu[]{parent1, parent2});
+//			boolean result = MenusOperations.deleteMenus(token);
+			AccessToken token = new AccessToken();
+			token.setAccess_token("3INEaJzStGZ-4hLL3F0Fh7RoXMhCSQ_eEGRifJam6JojPnspowQcC3rIu3EA_2cgIRZS8BT9qPzk-lU3o_-mv-N02itXzau_gw1sNLRjs9i3lolO5ist4DaFtgeUKh_uFDGjAGAAYB");
+			WechatMenuConfiguration config = MenusOperations.getMenuConfiguration(token);
+			
+			System.out.println("aaaa");
+		} catch (WechatExceprion e) {
+			e.printStackTrace();
+		}
+		
+	}
 }
