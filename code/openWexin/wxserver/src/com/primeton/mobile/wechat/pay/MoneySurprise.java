@@ -1,4 +1,4 @@
-package com.primeton.mobile.wechat.servlet;
+package com.primeton.mobile.wechat.pay;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -18,11 +18,6 @@ import java.util.Date;
 import javax.net.ssl.KeyManager;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.commons.lang.StringUtils;
@@ -36,8 +31,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
-import com.primeton.mobile.wechat.pay.WechatPay;
-
 
 /**
  * 红包处理servlet
@@ -45,40 +38,16 @@ import com.primeton.mobile.wechat.pay.WechatPay;
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-@WebServlet("/MoneySurprise")
-public class MoneySurprise extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public MoneySurprise() {
-        super();
-    }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		this.doPost(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			
-	}
+public class MoneySurprise {
 
 	public static void main(String[] args){
 		String uri = "https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack";
 		ArrayList<String> nodes = new ArrayList<String>();
-		String mchID = "1312377501";
+		String mchID = "1377065002";
 		String paySecret = "primeton2016yidongceshiHAHAHAHAH";
 		String openid = "ooyKpxIA8sqiWbSE89yJJl34uSsE";
 		String nonceStr = RandomStringUtils
-				.random(20,
-						"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
+				.random(20, "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789");
 		nodes.add("nonce_str="+nonceStr);
 		nodes.add("mch_billno="+MoneySurprise.getBillNo(mchID));
 		nodes.add("mch_id="+mchID);

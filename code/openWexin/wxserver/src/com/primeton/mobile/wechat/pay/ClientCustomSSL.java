@@ -24,7 +24,7 @@
  * <http://www.apache.org/>.
  *
  */
-package com.primeton.mobile.wechat.servlet;
+package com.primeton.mobile.wechat.pay;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,8 +45,6 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-
-import com.primeton.mobile.wechat.pay.WechatPay;
 
 /**
  * This example demonstrates how to create secure connections with a custom SSL
