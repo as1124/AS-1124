@@ -10,12 +10,12 @@ public interface IWechatConstants {
 
 
 	/**
-	 * 企业号应用签名TOken
+	 * 企业号应用签名Token
 	 */
 	public static final String CORP_TOKEN = "xLilrTHKRrhLt9SpivpAcDbLBZ";
 	
 	/**
-	 * 企业号AES加密密钥
+	 * AES加密密钥
 	 */
 	public static final String ENCODING_AES_KEY = "BHtiHozUe8lp7SJfljwXIVrCPJDJloxFRgyKRhOG2zG";
 	

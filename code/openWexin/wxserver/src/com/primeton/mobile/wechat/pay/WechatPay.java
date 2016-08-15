@@ -46,10 +46,10 @@ public class WechatPay {
 	 *            微信订单号
 	 * @return
 	 */
-	public static WechatTradeStatus queryTradeStatus(String tradeNo, String transactionID) {
+	public static WechatTradeStatus queryTradeStatus(String tradeNo, String transactionID, PayMetadata metadata) {
 		ArrayList<String> nodes = new ArrayList<String>();
-		nodes.add("appid=" + PayMetadata.getMetadata().getAppID());
-		nodes.add("mch_id=" + PayMetadata.getMetadata().getMchID());
+		nodes.add("appid=" + metadata.getAppID());
+		nodes.add("mch_id=" + metadata.getMchID());
 		if (StringUtils.isNotBlank(tradeNo))
 			nodes.add("out_trade_no=" + tradeNo);
 
@@ -61,7 +61,7 @@ public class WechatPay {
 		nodes.add("nonce_str=" + nonceStr);
 
 		String[] array = nodes.toArray(new String[] {});
-		String paySecret = PayMetadata.getMetadata().getPaySecret();
+		String paySecret = metadata.getPaySecret();
 
 		String sign = generateSign(array, paySecret);
 		String postContent = getPostContent(array, sign);
@@ -94,11 +94,11 @@ public class WechatPay {
 	 *            订单超时时间
 	 * @return
 	 */
-	public static PrePayInfo getPrePayInfo(String tradeNo, String body,
+	public static PrePayInfo getPrePayInfo(PayMetadata metadata, String tradeNo, String body,
 			int totalCost, String deviceIP, int expirMinutes) {
 		ArrayList<String> nodes = new ArrayList<String>();
-		nodes.add("appid=" + PayMetadata.getMetadata().getAppID());
-		nodes.add("mch_id=" + PayMetadata.getMetadata().getMchID());
+		nodes.add("appid=" + metadata.getAppID());
+		nodes.add("mch_id=" + metadata.getMchID());
 		nodes.add("out_trade_no=" + tradeNo);
 		nodes.add("body=" + body);
 		nodes.add("total_fee=" + totalCost);
@@ -141,7 +141,7 @@ public class WechatPay {
 		 * //商品标记 String goodsTag = ""; nodes.add("goods_tag"+goodsTag);
 		 */
 
-		String notifyURL = PayMetadata.getMetadata().getCallbackURL();
+		String notifyURL = metadata.getCallbackURL();
 		nodes.add("notify_url=" + notifyURL);
 
 		// 交易类型, 必须
@@ -157,7 +157,7 @@ public class WechatPay {
 		 */
 
 		String[] array = nodes.toArray(new String[] {});
-		String key = PayMetadata.getMetadata().getPaySecret();
+		String key = metadata.getPaySecret();
 		String sign = generateSign(array, key);
 		String postContent = getPostContent(array, sign);
 
@@ -186,17 +186,17 @@ public class WechatPay {
 	 * @param deviceIP
 	 * @param expirMinutes
 	 */
-	public static HashMap<String, String> pay(String tradeNo, String body,
+	public static HashMap<String, String> pay(PayMetadata metadata, String tradeNo, String body,
 			int totalCost, String deviceIP, int expirMinutes) {
 		HashMap<String, String> result = new HashMap<String, String>();
 		ArrayList<String> nodes = new ArrayList<String>();
 
-		String appid = PayMetadata.getMetadata().getAppID();
-		String partnerid = PayMetadata.getMetadata().getMchID();
+		String appid = metadata.getAppID();
+		String partnerid = metadata.getMchID();
 
 		nodes.add("appid=" + appid);
 		nodes.add("partnerid=" + partnerid);
-		String prepayid = getPrePayInfo(tradeNo, body, totalCost, deviceIP,
+		String prepayid = getPrePayInfo(metadata, tradeNo, body, totalCost, deviceIP,
 				expirMinutes).getPrepay_id();
 		if (StringUtils.isNotBlank(prepayid)) {
 			try {
@@ -218,7 +218,7 @@ public class WechatPay {
 		nodes.add("timestamp=" + timeStamp);
 
 		String[] array = nodes.toArray(new String[] {});
-		String paySecret = PayMetadata.getMetadata().getPaySecret();
+		String paySecret = metadata.getPaySecret();
 		String sign = generateSign(array, paySecret);
 		nodes.add("sign=" + sign);
 
@@ -300,8 +300,7 @@ public class WechatPay {
 		SAXReader reader = new SAXReader(false);
 		JSONObject json = new JSONObject();
 		try {
-			Document doc = reader.read(new ByteArrayInputStream(result
-					.getBytes(IWechatConstants.DEFAULT_CHARSET)));
+			Document doc = reader.read(new ByteArrayInputStream(result.getBytes(IWechatConstants.DEFAULT_CHARSET)));
 			Element root = doc.getRootElement();
 			List<?> returnNodes = root.elements();
 			for (int i = 0; i < returnNodes.size(); i++) {
@@ -325,10 +324,10 @@ public class WechatPay {
 	 * @param tradeNo
 	 *            商户订单号
 	 */
-	public static String closeOrder(String tradeNo) {
+	public static String closeOrder(String tradeNo, PayMetadata metadata) {
 		ArrayList<String> nodes = new ArrayList<String>();
-		nodes.add("appid=" + PayMetadata.getMetadata().getAppID());
-		nodes.add("mch_id=" + PayMetadata.getMetadata().getMchID());
+		nodes.add("appid=" + metadata.getAppID());
+		nodes.add("mch_id=" + metadata.getMchID());
 		if (StringUtils.isNotBlank(tradeNo))
 			nodes.add("out_trade_no=" + tradeNo);
 
@@ -337,9 +336,8 @@ public class WechatPay {
 		nodes.add("nonce_str=" + nonceStr);
 
 		String[] array = nodes.toArray(new String[] {});
-		String key = PayMetadata.getMetadata().getPaySecret();
 
-		String sign = generateSign(array, key);
+		String sign = generateSign(array, metadata.getPaySecret());
 		String postContent = getPostContent(array, sign);
 		String requestURL = "https://api.mch.weixin.qq.com/pay/closeorder";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();

@@ -7,6 +7,8 @@
     <init-param>
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
+      <param-name>handle-class</param-name>
+      <param-value>com.primeton.mobile.DefaultMsgHanlder</param-value>
     </init-param>
   </filter>
   <filter-mapping>

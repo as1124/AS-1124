@@ -1,6 +1,7 @@
 package com.primeton.mobile.wechat.model.message;
 
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +13,7 @@ import org.dom4j.io.SAXReader;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.annotation.JSONType;
+import com.primeton.mobile.wechat.IWechatConstants;
 import com.primeton.mobile.wechat.model.AbstractDataPackage;
 
 /**
@@ -55,7 +57,7 @@ public class ArticleMessage extends AbstractDataPackage {
 	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
-			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
+			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes(IWechatConstants.DEFAULT_CHARSET)));
 			Element root = document.getRootElement();
 			this.setToUser(root.element("ToUserName").getText());
 			this.setFromUser(root.element("FromUserName").getText());
@@ -86,6 +88,8 @@ public class ArticleMessage extends AbstractDataPackage {
 			
 			return document;
 		} catch (DocumentException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		

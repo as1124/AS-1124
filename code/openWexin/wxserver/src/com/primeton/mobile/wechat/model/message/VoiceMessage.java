@@ -1,12 +1,14 @@
 package com.primeton.mobile.wechat.model.message;
 
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
+import com.primeton.mobile.wechat.IWechatConstants;
 import com.primeton.mobile.wechat.model.AbstractDataPackage;
 
 /**
@@ -49,7 +51,7 @@ public class VoiceMessage extends AbstractCommonMessage {
 	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
-			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
+			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes(IWechatConstants.DEFAULT_CHARSET)));
 			Element root = document.getRootElement();
 			this.setToUser(root.element("ToUserName").getText());
 			this.setFromUser(root.element("FromUserName").getText());
@@ -75,6 +77,8 @@ public class VoiceMessage extends AbstractCommonMessage {
 			
 			return document;
 		} catch (DocumentException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		

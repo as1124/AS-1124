@@ -1,6 +1,7 @@
 package com.primeton.mobile.wechat.model.events;
 
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -9,6 +10,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+
+import com.primeton.mobile.wechat.IWechatConstants;
 
 /**
  * 微信发图操作按钮触发的事件
@@ -40,7 +43,8 @@ public class ChoosePhotoMenuEvent extends AbstractWechatMenuEvent {
 	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
-			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
+			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes(
+					IWechatConstants.DEFAULT_CHARSET)));
 			Element root = document.getRootElement();
 			this.setToUser(root.element("ToUserName").getText());
 			this.setFromUser(root.element("FromUserName").getText());
@@ -61,6 +65,8 @@ public class ChoosePhotoMenuEvent extends AbstractWechatMenuEvent {
 			
 			return document;
 		} catch (DocumentException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		

@@ -2,6 +2,7 @@ package com.primeton.mobile.wechat;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -91,7 +92,8 @@ public class MessageOperations {
 	public static AbstractDataPackage dealReceivedMessage(String xmlContent){
 		SAXReader reader = new SAXReader(false);
 		try {
-			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes()));
+			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes(
+					IWechatConstants.DEFAULT_CHARSET)));
 			Element root = document.getRootElement();
 			String msgType = root.element("MsgType").getText();
 			if("text".equals(msgType)){
@@ -158,6 +160,8 @@ public class MessageOperations {
 				}
 			}
 		} catch (DocumentException e) {
+			e.printStackTrace();
+		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return null;
