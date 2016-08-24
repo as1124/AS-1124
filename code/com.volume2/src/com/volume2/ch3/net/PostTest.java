@@ -135,10 +135,9 @@ class PostTestFrame extends JFrame{
 	 * @param urlString
 	 * @param nameValuePairs
 	 * @return
-	 * @throws IOException
+	 * @throws IOException 
 	 */
-	public static String doPost(String urlString, Map<String, String> nameValuePairs) 
-			throws IOException {
+	public static String doPost(String urlString, Map<String, String> nameValuePairs) throws IOException {
 		URL url = new URL(urlString);
 		URLConnection connection = url.openConnection();
 		connection.setDoOutput(true);
@@ -164,11 +163,11 @@ class PostTestFrame extends JFrame{
 			
 		} catch (Exception e) {
 			if(!(connection instanceof HttpURLConnection)){
-				throw e;
+				e.printStackTrace();
 			}
 			InputStream err = ((HttpURLConnection)connection).getErrorStream();
 			if(err != null)
-				throw e;
+				e.printStackTrace();
 			in = new Scanner(err);
 		}
 		

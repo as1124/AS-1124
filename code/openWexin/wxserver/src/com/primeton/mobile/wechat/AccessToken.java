@@ -1,14 +1,17 @@
 package com.primeton.mobile.wechat;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
+import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
 import com.primeton.mobile.wechat.exception.WechatExceprion;
 import com.primeton.mobile.wechat.model.IWechatModel;
+import com.primeton.mobile.wechat.model.user.WechatUserInfo;
 
 /**
  * 微信接口调用时的票据对象（access_token）.
@@ -160,6 +163,20 @@ public class AccessToken implements IWechatModel{
 		}
 		return null;
 		
+	}
+	
+	public static void main(String[] args) {
+		try {
+			AccessToken token = getAccessToken("wxfad56e1d17a29e04", "d048ee6acfb69cbd0fc3aaa591b1455b");
+			WechatUserInfo info = UserOperations.getUserInfo(token.getAccess_token(), "ooyKpxCrG8A_Y23vsFETNXH4AAj0");
+			System.out.println(info);
+		} catch (WechatExceprion e) {
+			e.printStackTrace();
+		} catch (JSONException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }

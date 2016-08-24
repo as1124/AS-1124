@@ -4,12 +4,15 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -30,7 +33,7 @@ import com.qq.weixin.mp.aes.WXBizMsgCrypt;
  * 
  * @author huangjw(mailto:haungjw@primton.com)
  */
-//@WebFilter("/WXServerFilter")
+@WebFilter("/WXServerFilter")
 public class WXServerFilter implements Filter {
 
 	//ATTENTION 改成servlet
@@ -70,6 +73,19 @@ public class WXServerFilter implements Filter {
 			hRequest.setCharacterEncoding(encoding);
 			hResponse.setCharacterEncoding(encoding);
 		}
+		
+		try{
+			String KEY_ALGORITHM = "AES";
+			String content = "9CQ+6M7be34uO7gfh20sNxxHHn1k8jyQ91psS+hSlyo=";
+			String encryptKey = "8Q6NyAsL6OZ0odaWwrPVzWYOs3mBugX7";
+            SecretKeySpec key = new SecretKeySpec(encryptKey.getBytes(), KEY_ALGORITHM);  
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS7Padding", "BC");  
+            cipher.init(Cipher.ENCRYPT_MODE, key);  
+            byte[] encryptedData = cipher.doFinal(content.getBytes("UTF-8"));
+            System.out.println(encryptedData);
+        }catch (Exception e){
+        	e.printStackTrace();
+        }
 		
 		// 微信企业号加密签名
 		String msg_signature = hRequest.getParameter("msg_signature");

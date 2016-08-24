@@ -63,7 +63,7 @@ public class WechatPay {
 		String[] array = nodes.toArray(new String[] {});
 		String paySecret = metadata.getPaySecret();
 
-		String sign = generateSign(array, paySecret);
+		String sign = generateSign(array, paySecret, IWechatConstants.DEFAULT_CHARSET);
 		String postContent = getPostContent(array, sign);
 		String requestURL = "https://api.mch.weixin.qq.com/pay/orderquery";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
@@ -158,7 +158,7 @@ public class WechatPay {
 
 		String[] array = nodes.toArray(new String[] {});
 		String key = metadata.getPaySecret();
-		String sign = generateSign(array, key);
+		String sign = generateSign(array, key, IWechatConstants.DEFAULT_CHARSET);
 		String postContent = getPostContent(array, sign);
 
 		String requestURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
@@ -219,7 +219,7 @@ public class WechatPay {
 
 		String[] array = nodes.toArray(new String[] {});
 		String paySecret = metadata.getPaySecret();
-		String sign = generateSign(array, paySecret);
+		String sign = generateSign(array, paySecret, IWechatConstants.DEFAULT_CHARSET);
 		nodes.add("sign=" + sign);
 
 		result.put("apppid", appid);
@@ -240,9 +240,10 @@ public class WechatPay {
 	 *            节点数组
 	 * @param key
 	 *            商户支付密钥
+	 * @param charset 编码格式
 	 * @return
 	 */
-	public static String generateSign(String[] array, String key) {
+	public static String generateSign(String[] array, String key, String charset) {
 		Arrays.sort(array, new Comparator<String>() {
 
 			public int compare(String str1, String str2) {
@@ -256,7 +257,12 @@ public class WechatPay {
 		}
 		tempStr = tempStr + keyStr;
 
-		String sign = DigestUtils.md5Hex(tempStr).toUpperCase();
+		String sign = "";
+		try {
+			sign = DigestUtils.md5Hex(tempStr.getBytes("UTF-8")).toUpperCase();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 
 		return sign;
 	}
@@ -337,7 +343,7 @@ public class WechatPay {
 
 		String[] array = nodes.toArray(new String[] {});
 
-		String sign = generateSign(array, metadata.getPaySecret());
+		String sign = generateSign(array, metadata.getPaySecret(), IWechatConstants.DEFAULT_CHARSET);
 		String postContent = getPostContent(array, sign);
 		String requestURL = "https://api.mch.weixin.qq.com/pay/closeorder";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
