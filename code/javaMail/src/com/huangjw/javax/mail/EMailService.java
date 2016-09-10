@@ -134,11 +134,13 @@ public class EMailService {
 	 * @param password
 	 * @param urlName {@link EMailFolder#getUrlName()}，文件夹的全URL名称
 	 * @param topMsgID 客户端时间最top的邮件ID
-	 * @param receiveCount 客户端以收取的数量
+	 * @param receiveCount 客户端已收取的数量
 	 * @return
 	 */
 	public static EMailMessage[] getMailsInFolder(String userName, String password, String urlName, String topMsgID, int receiveCount) {
-        ArrayList<EMailMessage> result = new ArrayList<EMailMessage>();
+        //ATTENTION 怎么保证客户端历史邮件和服务端历史邮件同步??
+		
+		ArrayList<EMailMessage> result = new ArrayList<EMailMessage>();
         String protocol = getProperty(IEMailConstants.KEY_IN_PROTOCAL);
 		Store store = null;
         Folder folder = null;
@@ -198,7 +200,6 @@ public class EMailService {
 	            		item.setFlaged(true);
 	            	}
 	            }
-	            System.out.println(item.getMessageID());
 	            result.add(item);
             }
             
@@ -303,6 +304,21 @@ public class EMailService {
             Folder[] folders = defaultFolder.list();
             for(Folder folder : folders){
             	String name = folder.getFullName();
+//            	if(name.contains("已发送") || name.contains("已删除") || name.contains("草稿箱") || name.contains("垃圾邮件"))
+//            		continue;
+            	if(name.equals("INBOX")){
+            		name = "收件箱";
+            	}
+//            	if(folder instanceof IMAPFolder){
+//            		String[] attrs = ((IMAPFolder)folder).getAttributes();
+//            		if(attrs!=null && attrs.length>0){
+//            			if(attrs[0].contains("Drafts") || attrs[0].contains("Sent") || attrs[0].contains("Trash")
+//            					||attrs[0].contains("Junk")){
+//            				continue;
+//            			}
+//            		}
+//            	}
+            	
             	EMailFolder item = new EMailFolder();
             	item.setName(name);
             	item.setUrlName(folder.getURLName().getFile());
