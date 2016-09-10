@@ -1,5 +1,8 @@
 package com.huangjw.javax.mail.model;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.mail.Address;
 import javax.mail.internet.InternetAddress;
 
@@ -127,8 +130,8 @@ public class EMailMessage {
 	/**
 	 * @param receiveDate the {@link #receiveDate} to set
 	 */
-	public void setReceiveDate(String receiveDate) {
-		this.receiveDate = receiveDate;
+	public void setReceiveDate(Date receiveDate) {
+		this.receiveDate = formatDate(receiveDate);
 	}
 
 	/**
@@ -141,8 +144,8 @@ public class EMailMessage {
 	/**
 	 * @param sentDate the {@link #sentDate} to set
 	 */
-	public void setSentDate(String sentDate) {
-		this.sentDate = sentDate;
+	public void setSentDate(Date sentDate) {
+		this.sentDate = formatDate(sentDate);
 	}
 
 	/**
@@ -295,5 +298,14 @@ public class EMailMessage {
 		}
 	}
 
+	private String formatDate(Date date){
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		return df.format(date);
+	}
+	
+	public static void main(String[] args){
+		
+	}
+	
 }
 

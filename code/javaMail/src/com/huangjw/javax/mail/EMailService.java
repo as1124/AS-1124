@@ -186,8 +186,8 @@ public class EMailService {
 	            item.setTo(((MimeMessage)messages[start]).getRecipients(RecipientType.TO));
 	            item.setCc(((MimeMessage)messages[start]).getRecipients(RecipientType.CC));
 	            item.setBcc(((MimeMessage)messages[start]).getRecipients(RecipientType.BCC));
-	            item.setSentDate(messages[start].getSentDate().toString());
-	            item.setReceiveDate(messages[start].getReceivedDate().toString());
+	            item.setSentDate(messages[start].getSentDate());
+	            item.setReceiveDate(messages[start].getReceivedDate());
 	            item.setSubject(messages[start].getSubject());
 	            item.setMsgNum(messages[start].getMessageNumber());
 	            Flags.Flag[] flags = messages[start].getFlags().getSystemFlags();
@@ -302,8 +302,9 @@ public class EMailService {
             
             Folder[] folders = defaultFolder.list();
             for(Folder folder : folders){
+            	String name = folder.getFullName();
             	EMailFolder item = new EMailFolder();
-            	item.setName(folder.getFullName());
+            	item.setName(name);
             	item.setUrlName(folder.getURLName().getFile());
             	item.setCount(folder.getMessageCount());
             	item.setNewCount(folder.getNewMessageCount());
@@ -429,9 +430,9 @@ public class EMailService {
 		String msgID = "<2016090714414622801242@yovole.com>";
 		
 		// Call method fetch
-//		getFolders(userName, password, "");
+		getFolders(userName, password, "");
 //		getMailsInFolder(userName, password, ""	, null, 0);
-		getMailContent(userName, password, msgID, "INBOX");
+//		getMailContent(userName, password, msgID, "INBOX");
 	}
 
 }
