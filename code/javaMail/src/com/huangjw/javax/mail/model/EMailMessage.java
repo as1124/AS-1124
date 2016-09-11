@@ -73,8 +73,6 @@ public class EMailMessage {
 	
 	private boolean hasAttachment = false;
 	
-	private String[] attachmentName;
-	
 	public EMailMessage() {
 	}
 	
@@ -216,20 +214,6 @@ public class EMailMessage {
 	 */
 	public void setHasAttachment(boolean hasAttachment) {
 		this.hasAttachment = hasAttachment;
-	}
-
-	/**
-	 * @return the {@link #attachmentName}
-	 */
-	public String[] getAttachmentName() {
-		return attachmentName;
-	}
-
-	/**
-	 * @param attachmentName the {@link #attachmentName} to set
-	 */
-	public void setAttachmentName(String[] attachmentName) {
-		this.attachmentName = attachmentName;
 	}
 
 	/**

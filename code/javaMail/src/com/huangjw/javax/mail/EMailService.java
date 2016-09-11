@@ -36,6 +36,7 @@ import org.apache.commons.lang.StringUtils;
 import com.huangjw.javax.mail.model.EMailAccount;
 import com.huangjw.javax.mail.model.EMailFolder;
 import com.huangjw.javax.mail.model.EMailMessage;
+import com.huangjw.javax.mail.util.EMailUtils;
 import com.sun.mail.imap.IMAPFolder;
 import com.sun.mail.pop3.POP3Folder;
 
@@ -49,6 +50,11 @@ public class EMailService {
 	
 	private static Properties settings = new Properties();
 	
+	/**
+	 * 获取邮箱配置信息
+	 * @param key defined in {@link IEMailConstants}
+	 * @return
+	 */
 	public static String getProperty(String key){
 		if(settings==null || settings.isEmpty()){
 			FileInputStream in;
@@ -63,7 +69,6 @@ public class EMailService {
 			}
 			
 		}
-		
 		return settings.getProperty(key);
 	}
 	
@@ -133,13 +138,12 @@ public class EMailService {
 	 * @param userName
 	 * @param password
 	 * @param urlName {@link EMailFolder#getUrlName()}，文件夹的全URL名称
-	 * @param topMsgID 客户端时间最top的邮件ID
-	 * @param receiveCount 客户端已收取的数量
+	 * @param mailID 更新的基准邮件的ID
+	 * @param receiveCount 客户端希望收取的邮件数量，默认为20，若为0则认为是拉取所有新邮件
 	 * @return
 	 */
-	public static EMailMessage[] getMailsInFolder(String userName, String password, String urlName, String topMsgID, int receiveCount) {
+	public static EMailMessage[] getMailsInFolder(String userName, String password, String urlName, String mailID, int receiveCount) {
         //ATTENTION 怎么保证客户端历史邮件和服务端历史邮件同步??
-		
 		ArrayList<EMailMessage> result = new ArrayList<EMailMessage>();
         String protocol = getProperty(IEMailConstants.KEY_IN_PROTOCAL);
 		Store store = null;
@@ -159,32 +163,42 @@ public class EMailService {
             folder = store.getFolder(urlName);
             folder.open(Folder.HOLDS_MESSAGES);
             
-            
-            //ATTENTION 获取所有邮件会不会影响性能???
             // 获取的邮件是按照时间由远及近的
             Message[] messages = folder.getMessages();
             int start = messages.length-1;
-            if(receiveCount > 0){
-	            for(; start>0; start--){
-	            	MimeMessage msg = (MimeMessage) messages[start];
-	            	if(msg.getMessageID().equals(topMsgID)){
-	            		break;
-	            	}
+            int end = 0;
+            if(StringUtils.isNotBlank(mailID)){
+            	//根据id搜索邮件获取当前实际的下标位置
+	            SearchTerm query = new MessageIDTerm(mailID);
+	            Message[] baseMail = folder.search(query);
+	            if(baseMail!=null && baseMail.length>0)
+	            	start = baseMail[0].getMessageNumber() - 2;
+	            if(receiveCount<=0){
+	            	//认为是拉取最新邮件
+	            	end = start;
+	            	start = messages.length - 1;
+	            } else {
+	            	//获取历史
+	            	end = start - receiveCount;
 	            }
+            } else{
+            	//第一次获取邮件列表
+            	end = start - 20;
             }
             
-            // 客户端接收的邮件中时间最早的一封的下标
-            start = start - receiveCount;
-            int end = start - 20;
             if(end < 0){
             	end = 0;
             }
-            for(; start>=end; start--){
+            
+            for(; start>end; start--){
             	EMailMessage item = new EMailMessage();
             	item.setMessageID(((MimeMessage)messages[start]).getMessageID());
             	InternetAddress sender = (InternetAddress) messages[start].getFrom()[0];
             	item.setFromUser(new EMailAccount(sender.getPersonal(), sender.getAddress()));
-//	            item = handleEnvelope(msg);
+            	
+            	//不获取完整内容，概要
+            	EMailUtils.parseContent((MimeMessage)messages[start], item, false);
+            	
 	            item.setTo(((MimeMessage)messages[start]).getRecipients(RecipientType.TO));
 	            item.setCc(((MimeMessage)messages[start]).getRecipients(RecipientType.CC));
 	            item.setBcc(((MimeMessage)messages[start]).getRecipients(RecipientType.BCC));
@@ -446,8 +460,8 @@ public class EMailService {
 		String msgID = "<2016090714414622801242@yovole.com>";
 		
 		// Call method fetch
-		getFolders(userName, password, "");
-//		getMailsInFolder(userName, password, ""	, null, 0);
+//		getFolders(userName, password, "");
+		getMailsInFolder(userName, password, ""	, null, 0);
 //		getMailContent(userName, password, msgID, "INBOX");
 	}
 
