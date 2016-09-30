@@ -15,6 +15,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -36,8 +37,6 @@ import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 @WebFilter("/WXServerFilter")
 public class WXServerFilter implements Filter {
 
-	//ATTENTION 改成servlet
-	
 	private FilterConfig filterConfig;
 	
     public WXServerFilter() {
@@ -63,6 +62,9 @@ public class WXServerFilter implements Filter {
 		}
 		HttpServletRequest hRequest = (HttpServletRequest) request;
 		HttpServletResponse hResponse = (HttpServletResponse) response;
+		
+		HttpSession session = hRequest.getSession();
+		
 		
 		String path = hRequest.getRequestURI();
 		String extension = path.substring(path.lastIndexOf('.'), path.length());

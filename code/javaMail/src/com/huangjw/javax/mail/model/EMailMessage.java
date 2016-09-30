@@ -287,9 +287,5 @@ public class EMailMessage {
 		return df.format(date);
 	}
 	
-	public static void main(String[] args){
-		
-	}
-	
 }
 

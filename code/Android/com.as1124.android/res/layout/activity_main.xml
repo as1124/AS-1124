@@ -15,7 +15,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dp">
+        android:padding="-5dp">
         <Button
             style=""
 	        android:layout_width="fill_parent"
@@ -27,7 +27,7 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="wrap_content"
 	        android:text="@string/ok_button_text"
-	        android:layout_weight="1" />
+	        android:layout_weight="2" />
         
     </LinearLayout>
     <ListView 
