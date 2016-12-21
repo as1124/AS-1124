@@ -6,7 +6,7 @@ package com.primeton.mobile.wechat.exception;
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-public class WechatExceprion extends Throwable{
+public class WechatExceprion extends Exception{
 
 	private static final long serialVersionUID = 5178302636162279319L;
 

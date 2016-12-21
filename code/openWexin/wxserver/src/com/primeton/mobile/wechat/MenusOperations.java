@@ -14,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.priemton.mobile.thirdparty.access.WechatAccessToken;
 import com.primeton.mobile.wechat.exception.WechatExceprion;
 import com.primeton.mobile.wechat.model.menu.WechatMenu;
 import com.primeton.mobile.wechat.model.menu.WechatMenuConfiguration;
@@ -55,7 +56,7 @@ public class MenusOperations {
 	 * @return
 	 * @throws WechatExceprion 
 	 */
-	public static boolean createMenu(AccessToken token, WechatMenu[] menus) throws WechatExceprion{
+	public static boolean createMenu(WechatAccessToken token, WechatMenu[] menus) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/create";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
@@ -79,7 +80,7 @@ public class MenusOperations {
 	 * @return key:menuid, value:menus
 	 * @throws WechatExceprion 
 	 */
-	public static Map<String, WechatMenu[]> getMenus(AccessToken token) throws WechatExceprion{
+	public static Map<String, WechatMenu[]> getMenus(WechatAccessToken token) throws WechatExceprion{
 		HashMap<String, WechatMenu[]> menuMap = new HashMap<String, WechatMenu[]>();
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/get";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
@@ -140,7 +141,7 @@ public class MenusOperations {
 	 * @param token
 	 * @return
 	 */
-	public static boolean deleteMenus(AccessToken token) {
+	public static boolean deleteMenus(WechatAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/delete";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
@@ -169,7 +170,7 @@ public class MenusOperations {
 	 * @return
 	 * @throws WechatExceprion 
 	 */
-	public static boolean addConditionalMenus(AccessToken token, WechatMenu[] menus, WechatMenuRuler matcheRuler) throws WechatExceprion{
+	public static boolean addConditionalMenus(WechatAccessToken token, WechatMenu[] menus, WechatMenuRuler matcheRuler) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/addconditional";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
@@ -196,7 +197,7 @@ public class MenusOperations {
 	 * @return
 	 * @throws WechatExceprion 
 	 */
-	public static boolean deleteConditionalMenus(AccessToken token, String menuid) throws WechatExceprion{
+	public static boolean deleteConditionalMenus(WechatAccessToken token, String menuid) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/delconditional";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
@@ -220,7 +221,7 @@ public class MenusOperations {
 	 * @return
 	 * @throws WechatExceprion
 	 */
-	public static WechatMenu[] testMatchRule(AccessToken token, String userid) throws WechatExceprion{
+	public static WechatMenu[] testMatchRule(WechatAccessToken token, String userid) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/trymatch";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
@@ -246,7 +247,7 @@ public class MenusOperations {
 	 * @return
 	 * @throws WechatExceprion 
 	 */
-	public static WechatMenuConfiguration getMenuConfiguration(AccessToken token) throws WechatExceprion{
+	public static WechatMenuConfiguration getMenuConfiguration(WechatAccessToken token) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/get_current_selfmenu_info";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));

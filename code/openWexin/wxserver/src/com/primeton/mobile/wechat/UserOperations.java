@@ -14,6 +14,7 @@ import org.apache.http.message.BasicNameValuePair;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.priemton.mobile.thirdparty.access.WechatAccessToken;
 import com.primeton.mobile.wechat.exception.WechatExceprion;
 import com.primeton.mobile.wechat.model.user.SubscribedCountInfo;
 import com.primeton.mobile.wechat.model.user.WechatGroup;
@@ -50,38 +51,38 @@ public class UserOperations {
 		}
 		else throw new WechatExceprion("[UserOperations#WechatUserInfo]"+response);
 	}
-	
-	public static void main(String[] args){
-		try {
-			String at = "GPBYjgveJ1UjAaZHhNgqsCyG5Tvz41HRovh9-aAO35iIDEKNyk6WKIfQUho7RHeTpiJmeb54XBnGAH5vow44wuX3-q7KkdwqaVooKW0_1SLnMENPOMQ9e1UVuHYsKgXAPFJjAIAVLP";
-			AccessToken token = AccessToken.getToken("wxfad56e1d17a29e04", "d048ee6acfb69cbd0fc3aaa591b1455b");
-			WechatUserInfo info = getUserInfo(token.getAccess_token(), "ooyKpxIA8sqiWbSE89yJJl34uSsE");
-			System.out.println(info);
-			String text = "Ivyߤߘߘߘ谨防假冒";
-			int length = text.length();
-			StringBuffer temp = new StringBuffer();
-			for(int i=0; i<length; i++){
-				char a = text.charAt(i);
-				int codePoint = text.codePointAt(i);
-				if(codePoint>33&&codePoint < 127){
-					//英文字符
-					temp.append(a);
-				} else if(codePoint>=19968 && codePoint<=40869){
-					//匹配中文字符的正则表达式： [\u4e00-\u9fa5]
-					temp.append(a);
-				}
-			}
-			System.out.println(temp.toString());
-		} catch (WechatExceprion e) {
-			e.printStackTrace();
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
-		
-	}
+//	
+//	public static void main(String[] args){
+//		try {
+//			String at = "GPBYjgveJ1UjAaZHhNgqsCyG5Tvz41HRovh9-aAO35iIDEKNyk6WKIfQUho7RHeTpiJmeb54XBnGAH5vow44wuX3-q7KkdwqaVooKW0_1SLnMENPOMQ9e1UVuHYsKgXAPFJjAIAVLP";
+//			WechatAccessToken token = WechatAccessToken.getToken("wxfad56e1d17a29e04", "d048ee6acfb69cbd0fc3aaa591b1455b");
+//			WechatUserInfo info = getUserInfo(token.getAccess_token(), "ooyKpxIA8sqiWbSE89yJJl34uSsE");
+//			System.out.println(info);
+//			String text = "Ivyߤߘߘߘ谨防假冒";
+//			int length = text.length();
+//			StringBuffer temp = new StringBuffer();
+//			for(int i=0; i<length; i++){
+//				char a = text.charAt(i);
+//				int codePoint = text.codePointAt(i);
+//				if(codePoint>33&&codePoint < 127){
+//					//英文字符
+//					temp.append(a);
+//				} else if(codePoint>=19968 && codePoint<=40869){
+//					//匹配中文字符的正则表达式： [\u4e00-\u9fa5]
+//					temp.append(a);
+//				}
+//			}
+//			System.out.println(temp.toString());
+//		} catch (WechatExceprion e) {
+//			e.printStackTrace();
+//		} catch (JSONException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		
+//		
+//	}
 	
 	/**
 	 * 创建用户分组

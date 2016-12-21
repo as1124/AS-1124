@@ -7,6 +7,7 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONObject;
+import com.priemton.mobile.thirdparty.access.WechatAccessToken;
 import com.primeton.mobile.wechat.exception.WechatExceprion;
 
 /**
@@ -24,7 +25,7 @@ public class CommonOperations {
 	 * @return list of callback-IPs
 	 * @throws WechatExceprion 
 	 */
-	public static String[] getWechatIPAddresses(AccessToken token) throws WechatExceprion{
+	public static String[] getWechatIPAddresses(WechatAccessToken token) throws WechatExceprion{
 		String uri = "https://api.weixin.qq.com/cgi-bin/getcallbackip";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));

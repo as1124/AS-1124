@@ -6,15 +6,20 @@ import java.util.List;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
+import com.priemton.mobile.thirdparty.access.WechatAccessToken;
 import com.primeton.mobile.wechat.exception.WechatExceprion;
 
 /**
@@ -269,47 +274,31 @@ public class HttpExecuter {
 		return null;
 	}
 	
-//	/**
-//	 * POST请求
-//	 * @param url 请求的url
-//	 * @param queryStr 查询参数
-//	 * @param parts POST请求需要传递的数据
-//	 * @param timeout 请求超时时间
-//	 * @return String
-//	 */
-//	public static String executePostAsString(String url, NameValuePair[] queryStr, Part[] parts, int timeout) {
-//		byte datas[] = null;
-//		datas = executePost(url, queryStr, parts, timeout);
-//		try {
-//			return new String(datas, IWechatConstants.DEFAULT_CHARSET);
-//		} catch (UnsupportedEncodingException e) {
-//			e.printStackTrace();
-//		}
-//		return null;
-//	}
-//	
-//
-//	/**
-//	 * POST请求
-//	 * @param url 请求的url
-//	 * @param queryStr 查询参数
-//	 * @param parts POST请求需要传递的数据
-//	 * @return String
-//	 */
-//	public static String executePostAsString(String url, NameValuePair[] queryStr, Part[] parts) {
-//		return executePostAsString(url, queryStr, parts, 0);
-//	}
-	
 	public static void main(String[] args){
-		//String url = "https://api.weixin.qq.com/cgi-bin/token";
-		String appid = "wxc70c5d9aab4f6a2b";
-		String appSecret = "f3ca23ccf76c301f2158862db65cfdad";
+		String postUrl = "http://localhost:8080/default/MyWebServiceService";
+		String requestXML = "<soapenv:Envelope xmlns:soapenv=\"http://schemas.xmlsoap.org/soap/envelope/\" xmlns:myw=\"http://www.primeton.com/MyWebServiceService\">"
+				+"<soapenv:Header/><soapenv:Body><myw:getName/></soapenv:Body></soapenv:Envelope>";
+		StringEntity entity = new StringEntity(requestXML, ContentType.create("text/xml", "UTF-8"));
+		HttpPost method = new HttpPost(postUrl);
+		method.setEntity(entity);
+		method.setHeader("SOAPAction", "");
+		HttpClient httpClient = HttpClients.createDefault();
 		try {
-			AccessToken token = AccessToken.getToken(appid, appSecret);
-			token.getAccess_token();
-		} catch (WechatExceprion e) {
+			HttpResponse response = httpClient.execute(method);
+			int returnCode = response.getStatusLine().getStatusCode();
+			System.out.println(returnCode);
+			if(returnCode == HttpStatus.SC_OK){
+				HttpEntity returnEntity = response.getEntity();
+				String result = EntityUtils.toString(returnEntity, "UTF-8");
+				System.out.println(result);
+			}
+			
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
 			e.printStackTrace();
 		}
 		
 	}
+
 }
