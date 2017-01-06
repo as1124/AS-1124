@@ -12,11 +12,11 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONObject;
-import com.primeton.mobile.wechat.HttpExecuter;
-import com.primeton.mobile.wechat.IWechatConstants;
-import com.primeton.mobile.wechat.exception.WechatExceprion;
-import com.primeton.mobile.wechat.model.shakearound.DeviceApplication;
-import com.primeton.mobile.wechat.model.shakearound.DeviceIdentify;
+import com.priemton.mobile.thirdparty.access.HttpExecuter;
+import com.primeton.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
+import com.primeton.mobile.thirdparty.wechat.IWechatConstants;
+import com.primeton.mobile.thirdparty.wechat.model.shakearound.DeviceApplication;
+import com.primeton.mobile.thirdparty.wechat.model.shakearound.DeviceIdentify;
 
 /**
  * 摇一摇周边/设备管理<br>
@@ -37,9 +37,9 @@ public class ShakeDeviceManager {
 	 * @param poiID 设备关联的门店ID
 	 * @return
 	 * @throws IOException
-	 * @throws WechatExceprion 
+	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static DeviceApplication applyDeviceID(String accessToken, int quantity, String reason, String comment, long poiID) throws IOException, WechatExceprion{
+	public static DeviceApplication applyDeviceID(String accessToken, int quantity, String reason, String comment, long poiID) throws IOException, ThirdPartyRequestExceprion{
 		String uri = "https://api.weixin.qq.com/shakearound/device/applyid";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
@@ -54,7 +54,7 @@ public class ShakeDeviceManager {
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, DeviceApplication.class);
 		}
-        else throw new WechatExceprion("[WechatDeviceManager#applyDeviceID]"+result);
+        else throw new ThirdPartyRequestExceprion("[WechatDeviceManager#applyDeviceID]"+result);
 	}
 	
 	/**
@@ -65,9 +65,9 @@ public class ShakeDeviceManager {
 	 * @param comment
 	 * @return
 	 * @throws IOException
-	 * @throws WechatExceprion
+	 * @throws ThirdPartyRequestExceprion
 	 */
-	public static boolean updateDeviceInfo(String accessToken, DeviceIdentify deviceIdentify, String reason, String comment) throws IOException, WechatExceprion{
+	public static boolean updateDeviceInfo(String accessToken, DeviceIdentify deviceIdentify, String reason, String comment) throws IOException, ThirdPartyRequestExceprion{
 		String uri = "https://api.weixin.qq.com/shakearound/device/update";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
@@ -80,7 +80,7 @@ public class ShakeDeviceManager {
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		}
-        else throw new WechatExceprion("[WechatDeviceManager#updateDeviceInfo]"+result);
+        else throw new ThirdPartyRequestExceprion("[WechatDeviceManager#updateDeviceInfo]"+result);
 	}
 	
 	/**
@@ -90,9 +90,9 @@ public class ShakeDeviceManager {
 	 * @param reason
 	 * @return
 	 * @throws IOException
-	 * @throws WechatExceprion 
+	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static boolean bindDeviceWithPoi(String accessToken, DeviceIdentify deviceIdentifier, long poiID) throws IOException, WechatExceprion{
+	public static boolean bindDeviceWithPoi(String accessToken, DeviceIdentify deviceIdentifier, long poiID) throws IOException, ThirdPartyRequestExceprion{
 		String uri = "https://api.weixin.qq.com/shakearound/device/bindloacation";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
@@ -105,11 +105,11 @@ public class ShakeDeviceManager {
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		}
-        else throw new WechatExceprion("[WechatDeviceManager#bindDeviceWithPoi]"+result);
+        else throw new ThirdPartyRequestExceprion("[WechatDeviceManager#bindDeviceWithPoi]"+result);
 	}
 
 	//ATTENTION 查询设备列表未完成
-	public static boolean queryDeviceList(String accessToken, DeviceIdentify deviceIdentifier) throws IOException, WechatExceprion{
+	public static boolean queryDeviceList(String accessToken, DeviceIdentify deviceIdentifier) throws IOException, ThirdPartyRequestExceprion{
 		String uri = "https://api.weixin.qq.com/shakearound/device/bindloacation";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
@@ -121,6 +121,6 @@ public class ShakeDeviceManager {
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		}
-        else throw new WechatExceprion("[WechatDeviceManager#bindDeviceWithPoi]"+result);
+        else throw new ThirdPartyRequestExceprion("[WechatDeviceManager#bindDeviceWithPoi]"+result);
 	}
 }
