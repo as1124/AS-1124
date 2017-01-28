@@ -11,34 +11,44 @@ import org.dom4j.Document;
 public abstract class AbstractDataPackage {
 
 	/**
-	 * 接收方微信号, openID
+	 * 接收方微信号(openID/AppID)
 	 */
 	protected String toUser;
 	
 	/**
-	 * 发送方账号, openID
+	 * 发送方账号(openID/AppID)
 	 */
 	protected String fromUser;
 	
 	/**
 	 * 消息创建时间，整型
 	 */
-	protected long createTime;
+	protected long createTime = 0;
 	
 	/**
 	 * 消息类型
 	 */
 	protected String msgType;
 	
-	public AbstractDataPackage() {
+	/**
+	 * 消息文本数据
+	 */
+	protected String msgContent;
+	
+	/**
+	 * @param msgType 消息类别
+	 */
+	public AbstractDataPackage(String msgType) {
+		this.msgType = msgType;
 	}
 
 	/**
-	 * 
-	 * @param xmlContent 需要解析的XML报文
+	 * @param msgType 消息类别
+	 * @param xmlContent 消息报文
 	 */
-	public AbstractDataPackage(String xmlContent) {
-		this.decodeFromXML(xmlContent);
+	public AbstractDataPackage(String msgType, String xmlContent) {
+		this.msgType = msgType;
+		this.msgContent = xmlContent;
 	}
 	
 	/**
@@ -105,6 +115,20 @@ public abstract class AbstractDataPackage {
 		this.msgType = msgType;
 	}
 	
+	/**
+	 * @return the {@link #msgContent}
+	 */
+	public String getMsgContent() {
+		return msgContent;
+	}
+
+	/**
+	 * @param msgContent the {@link #msgContent} to set
+	 */
+	public void setMsgContent(String msgContent) {
+		this.msgContent = msgContent;
+	}
+
 	/**
 	 * 生成可以发送到用户Client端的文本消息内容，xml格式
 	 * @return

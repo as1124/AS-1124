@@ -1,36 +1,44 @@
 package com.primeton.mobile.thirdparty.wechat;
 
+import java.io.BufferedReader;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
-
-
-
-
-
-
-
-
+import javax.activation.MimetypesFileTypeMap;
 
 import org.apache.commons.lang.StringUtils;
+import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.FileEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.priemton.mobile.thirdparty.access.HttpExecuter;
+import com.primeton.mobile.thirdparty.access.HttpExecuter;
+import com.primeton.mobile.thirdparty.wechat.message.ArticleMessage.Article;
 import com.primeton.mobile.thirdparty.wechat.model.HotlineAccount;
-import com.primeton.mobile.thirdparty.wechat.model.message.ArticleMessage.Article;
+import com.primeton.mobile.thirdparty.wechat.model.WechatAccessToken;
 
 
 /**
- * 客服管理接口。
- * <strong>通过客服接口向用户推送消息时，用户必须在48小时内曾与公众号进行过互动</strong>
+ * 客服消息管理接口
+ * <strong><ul>
+ * <li>通过客服接口向用户推送消息时，用户必须在48小时内曾与公众号进行过互动
+ * <li>公众号需要在微信管理控制台启用【客服功能】
+ * <li>非回调模式下用户发给公众号的消息会推送到客服管理控制台
+ * <li>回调模式下用户发给公众号的消息不会推送到客服管理控制台
+ * </ul></strong>
  * 
  * @author huangjw(mailto:huangjw@primeton.com)
  *
@@ -42,12 +50,11 @@ public class HotlineService {
 	 * @param accessToken
 	 * @param account
 	 * @return
-	 * @throws IOException
 	 */
-	public static boolean createHotlineAccount(String accessToken, HotlineAccount account) throws IOException{
+	public boolean addHotlineAccount(WechatAccessToken token, HotlineAccount account) {
 		String uri = "https://api.weixin.qq.com/customservice/kfaccount/add";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		StringEntity requestEntity = new StringEntity(JSONObject.toJSONString(account), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
 				IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
@@ -63,12 +70,11 @@ public class HotlineService {
 	 * @param accessToken
 	 * @param account
 	 * @return
-	 * @throws IOException
 	 */
-	public static boolean updateAccount(String accessToken, HotlineAccount account) throws IOException{
+	public boolean updateAccount(WechatAccessToken token, HotlineAccount account) {
 		String uri = "https://api.weixin.qq.com/customservice/kfaccount/update";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		StringEntity requestEntity = new StringEntity(JSONObject.toJSONString(account), ContentType.create(
 				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
@@ -84,12 +90,11 @@ public class HotlineService {
 	 * @param accessToken
 	 * @param account
 	 * @return
-	 * @throws IOException
 	 */
-	public static boolean deleteHotlineAccount(String accessToken, HotlineAccount account) throws IOException{
+	public boolean deleteHotlineAccount(WechatAccessToken token, HotlineAccount account) throws IOException{
 		String uri = "https://api.weixin.qq.com/customservice/kfaccount/del";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		StringEntity requestEntity = new StringEntity(JSONObject.toJSONString(account), ContentType.create(
 				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
@@ -106,23 +111,23 @@ public class HotlineService {
 	 * @param kfAccount
 	 * @param imgPath
 	 * @return
-	 * @throws IOException
 	 */
-//	public static boolean setAccountImage(String accessToken, String kfAccount, String imgPath) throws IOException{
-//		String uri = "https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg";
-//		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-//		queryStr.add(new BasicNameValuePair("access_token", accessToken));
-//		queryStr.add(new BasicNameValuePair("kf_account", kfAccount));
-//		Part[] parts = new Part[1];
-//		File image = new File(imgPath);
-//		parts[0] = new FilePart(image.getName(), image);
-//		String result = HttpExecuter.executePostAsString(uri, queryStr, parts);
-//        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-//        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-//			return true;
-//		}
-//		else return false;
-//	}
+	//ATTENTION 
+	public boolean setAccountImage(WechatAccessToken token, String kfAccount, String imgPath) {
+		String uri = "https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("kf_account", kfAccount));
+		
+		
+		HttpEntity fileEntity = new FileEntity(new File(imgPath), ContentType.create("image/png"));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, fileEntity);
+        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+			return true;
+		}
+		else return false;
+	}
 	
 	/**
 	 * 获取所有客服账号
@@ -130,14 +135,15 @@ public class HotlineService {
 	 * @return
 	 * @throws IOException
 	 */
-	public static HotlineAccount[] getAllServiceAccount(String accessToken) throws IOException{
-		String uri = "https://api.weixin.qq.com/customservice/kfaccount/getkflist";
+	public HotlineAccount[] getAllServiceAccount(WechatAccessToken token) {
+		String uri = "https://api.weixin.qq.com/cgi-bin/customservice/getkflist";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
-        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-			return JSONArray.parseArray(result, HotlineAccount.class).toArray(new HotlineAccount[]{});
+			return JSONArray.parseArray(json.getString("kf_list"), HotlineAccount.class).toArray(new HotlineAccount[]{});
 		}
 		else return null;
 	}
@@ -149,14 +155,15 @@ public class HotlineService {
 	 * @return
 	 * @throws IOException
 	 */
-	public static HotlineAccount[] getOnlineServiceAccounts(String accessToken) throws IOException{
-		String uri = "https://api.weixin.qq.com/customservice/kfaccount/getonlinekflist";
+	public HotlineAccount[] getOnlineServiceAccounts(WechatAccessToken token) {
+		String uri = "https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
-        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-			return JSONArray.parseArray(result, HotlineAccount.class).toArray(new HotlineAccount[]{});
+			return JSONArray.parseArray(json.getString("kf_online_list"), HotlineAccount.class).toArray(new HotlineAccount[]{});
 		}
 		else return null;
 	}
@@ -169,7 +176,7 @@ public class HotlineService {
 	 * @return
 	 * @throws IOException
 	 */
-	public static boolean sendText(String accessToken, String touser, String content) throws IOException{
+	public boolean sendText(String accessToken, String touser, String content) {
 		return sendTextUseAccount(accessToken, touser, content, null);
 	}
 	
@@ -182,10 +189,11 @@ public class HotlineService {
 	 * @return
 	 * @throws IOException
 	 */
-	public static boolean sendTextUseAccount(String accessToken, String touser, String content, String kfID) throws IOException{
+	public boolean sendTextUseAccount(String accessToken, String touser, String content, String kfID) {
 		JSONObject json = new JSONObject();
 		json.put("content", content);
-		return sendMessage(accessToken, touser, "text", json, kfID);
+//		return sendMessage(accessToken, touser, "text", json, kfID);
+		return false;
 	}
 	
 	/**

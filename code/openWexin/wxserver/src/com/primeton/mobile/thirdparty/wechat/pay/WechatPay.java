@@ -22,7 +22,7 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import com.alibaba.fastjson.JSONObject;
-import com.priemton.mobile.thirdparty.access.HttpExecuter;
+import com.primeton.mobile.thirdparty.access.HttpExecuter;
 import com.primeton.mobile.thirdparty.wechat.IWechatConstants;
 import com.primeton.mobile.thirdparty.wechat.model.pay.PayMetadata;
 import com.primeton.mobile.thirdparty.wechat.model.pay.PrePayInfo;

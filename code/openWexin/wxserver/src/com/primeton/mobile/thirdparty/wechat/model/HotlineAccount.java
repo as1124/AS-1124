@@ -1,7 +1,5 @@
 package com.primeton.mobile.thirdparty.wechat.model;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.annotation.JSONType;
 import com.primeton.mobile.thirdparty.wechat.IWechatModel;
 
 /**
@@ -10,31 +8,26 @@ import com.primeton.mobile.thirdparty.wechat.IWechatModel;
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-@JSONType
 public class HotlineAccount implements IWechatModel{
 
 	/**
 	 * 完整客服账号，格式为：账号前缀@公众号微信号
 	 */
-	@JSONField
 	String kf_account;
 	
 	/**
 	 * 客服昵称
 	 */
-	@JSONField
 	String kf_nick;
 	
 	/**
 	 * 客服工号
 	 */
-	@JSONField
 	String kf_id;
 	
 	/**
 	 * 客服昵称
 	 */
-	@JSONField
 	String nickname;
 	
 	/**
@@ -42,13 +35,11 @@ public class HotlineAccount implements IWechatModel{
 	 * 该密码仅用于在公众平台官网的多客服功能中使用，若不使用多客服功能，
 	 * 则不必设置密码
 	 */
-	@JSONField
 	String password;
 	
 	/**
 	 * 头像url
 	 */
-	@JSONField
 	String kf_headimgurl;
 	
 	public HotlineAccount() {

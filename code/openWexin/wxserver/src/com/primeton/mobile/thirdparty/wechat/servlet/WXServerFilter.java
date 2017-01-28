@@ -20,11 +20,11 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang.StringUtils;
 
 import com.primeton.mobile.thirdparty.wechat.IWechatConstants;
-import com.primeton.mobile.thirdparty.wechat.IWechatMessageHandler;
 import com.primeton.mobile.thirdparty.wechat.MessageOperations;
+import com.primeton.mobile.thirdparty.wechat.events.SubscribeEvent;
+import com.primeton.mobile.thirdparty.wechat.message.TextMessage;
 import com.primeton.mobile.thirdparty.wechat.model.AbstractDataPackage;
-import com.primeton.mobile.thirdparty.wechat.model.events.SubscribeEvent;
-import com.primeton.mobile.thirdparty.wechat.model.message.TextMessage;
+import com.primeton.mobile.thirdparty.wechat.undo.IWechatMessageHandler;
 import com.qq.weixin.mp.aes.AesException;
 import com.qq.weixin.mp.aes.WXBizMsgCrypt;
 

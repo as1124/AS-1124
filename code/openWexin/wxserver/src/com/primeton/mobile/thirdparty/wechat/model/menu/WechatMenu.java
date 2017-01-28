@@ -123,7 +123,7 @@ public class WechatMenu implements IWechatModel{
 	/**
 	 * 二级菜单列表
 	 */
-	List<WechatMenu> sub_button = Collections.EMPTY_LIST;
+	List<WechatMenu> sub_button = null;
 	
 	public WechatMenu() {
 	}

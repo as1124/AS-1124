@@ -10,7 +10,6 @@ import com.primeton.mobile.thirdparty.wechat.IWechatModel;
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-@JSONType
 public class WechatMedia implements IWechatModel{
 
 	/**
@@ -19,43 +18,36 @@ public class WechatMedia implements IWechatModel{
 	 * <li>voice, 语音
 	 * <li>thumb, 视频与音乐格式的缩略图
 	 */
-	@JSONField
 	String type;
 	
 	/**
 	 * 服务器上的素材ID
 	 */
-	@JSONField
 	String media_id;
 	
 	/**
 	 * 缩略图文件时返回的json数据名称不叫media_id，而是thumb_media_id
 	 */
-	@JSONField
 	String thumb_media_id;
 	
 	/**
 	 * 素材上传的时间戳
 	 */
-	@JSONField
 	String create_at;
 
 	/**
 	 * 新增的图片素材的图片URL；永久视频素材的下载url
 	 */
-	@JSONField
 	String url;
 	
 	/**
 	 * 文件名称（图片）
 	 */
-	@JSONField
 	String name;
 	
 	/**
 	 * 素材最后更新时间
 	 */
-	@JSONField
 	long update_time;
 	
 	public WechatMedia() {

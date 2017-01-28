@@ -12,7 +12,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONObject;
-import com.priemton.mobile.thirdparty.access.HttpExecuter;
+import com.primeton.mobile.thirdparty.access.HttpExecuter;
 import com.primeton.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
 import com.primeton.mobile.thirdparty.wechat.IWechatConstants;
 import com.primeton.mobile.thirdparty.wechat.model.shakearound.DeviceApplication;

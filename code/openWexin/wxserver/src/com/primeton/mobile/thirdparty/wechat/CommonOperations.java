@@ -10,8 +10,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONObject;
-import com.priemton.mobile.thirdparty.access.AbstractAccessToken;
-import com.priemton.mobile.thirdparty.access.HttpExecuter;
+import com.primeton.mobile.thirdparty.access.AbstractAccessToken;
+import com.primeton.mobile.thirdparty.access.HttpExecuter;
 import com.primeton.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
 
 /**

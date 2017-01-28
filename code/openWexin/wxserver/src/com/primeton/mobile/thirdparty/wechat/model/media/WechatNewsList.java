@@ -30,7 +30,7 @@ public class WechatNewsList {
 	int item_count;
 	
 	@JSONField
-	List<WechatNews> item;
+	List<WechatArticle> item;
 	
 	public WechatNewsList() {
 	}
@@ -51,11 +51,11 @@ public class WechatNewsList {
 		this.item_count = item_count;
 	}
 
-	public List<WechatNews> getItem() {
+	public List<WechatArticle> getItem() {
 		return item;
 	}
 
-	public void setItem(List<WechatNews> item) {
+	public void setItem(List<WechatArticle> item) {
 		this.item = item;
 	}
 	
@@ -66,12 +66,12 @@ public class WechatNewsList {
 	 * @return Map< media_id, List< WechatNews>>
 	 * @see {@link http://mp.weixin.qq.com/wiki/12/2108cd7aafff7f388f41f37efa710204.html}
 	 */
-	public Map<String, List<WechatNews>> parseNewsItem(int index){
+	public Map<String, List<WechatArticle>> parseNewsItem(int index){
 		if(this.item == null || this.item.size()<= 0)
 			return null;
 		String newsItemStr = JSONObject.parseObject(this.item.get(index).getContent()).getString("news_item");
-		Map<String, List<WechatNews>> result = new HashMap<String, List<WechatNews>>();
-		result.put(this.item.get(index).getMedia_id(), JSONObject.parseArray(newsItemStr, WechatNews.class));
+		Map<String, List<WechatArticle>> result = new HashMap<String, List<WechatArticle>>();
+		result.put(this.item.get(index).getMedia_id(), JSONObject.parseArray(newsItemStr, WechatArticle.class));
 		return result;
 	}
 }
