@@ -72,17 +72,12 @@ public class AccessTokenFactory {
 	 * @throws ThirdPartyRequestExceprion
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends AbstractAccessToken> T getToken(String uniqueID, Map<String, String> parameters, String tokenClass) 
-			throws ThirdPartyRequestExceprion{
+	public static <T extends AbstractAccessToken> T getToken(String uniqueID, Map<String, String> parameters, 
+			Class<? extends AbstractAccessToken> clazz) throws ThirdPartyRequestExceprion{
 		AbstractAccessToken token = tokenMap.get(uniqueID);
 		if(token==null || token.isExpired() || token.getAccess_token().trim().equals("")){
 			synchronized (tokenMap) {
 				try {
-					Class<?> clazz = Class.forName(tokenClass);
-					if(AbstractAccessToken.class.isAssignableFrom(clazz) == false){
-						ClassCastException e = new ClassCastException(tokenClass + " can not cast to" + AbstractAccessToken.class.getName());
-						throw e;
-					} 
 					List<BasicNameValuePair> param = new ArrayList<BasicNameValuePair>(parameters.size());
 					Iterator<String> it = parameters.keySet().iterator();
 					while(it.hasNext()){
@@ -90,7 +85,7 @@ public class AccessTokenFactory {
 						param.add(new BasicNameValuePair(key, parameters.get(key)));
 					}
 					Class<?>[] type = new Class[0];
-					Constructor<? extends AbstractAccessToken> at = (Constructor<? extends AbstractAccessToken>) clazz.getDeclaredConstructor(type);
+					Constructor<? extends AbstractAccessToken> at = clazz.getDeclaredConstructor(type);
 					at.setAccessible(true);
 					token = at.newInstance();
 					token.initFields(param);
@@ -106,8 +101,6 @@ public class AccessTokenFactory {
 				} catch (NoSuchMethodException e) {
 					e.printStackTrace();
 				} catch (SecurityException e) {
-					e.printStackTrace();
-				} catch (ClassNotFoundException e) {
 					e.printStackTrace();
 				} 
 			}
