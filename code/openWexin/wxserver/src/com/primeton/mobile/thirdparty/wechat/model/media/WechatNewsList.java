@@ -7,6 +7,7 @@ import java.util.Map;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.annotation.JSONType;
+import com.primeton.mobile.thirdparty.wechat.model.WechatArticle;
 
 /**
  * 新闻素材列表（news）

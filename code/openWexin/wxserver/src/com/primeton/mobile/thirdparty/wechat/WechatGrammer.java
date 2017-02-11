@@ -1,10 +1,9 @@
-package com.primeton.mobile.thirdparty.wechat.undo;
+package com.primeton.mobile.thirdparty.wechat;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.alibaba.fastjson.annotation.JSONType;
-import com.primeton.mobile.thirdparty.wechat.IWechatModel;
 
 /**
  * 微信语义模型.

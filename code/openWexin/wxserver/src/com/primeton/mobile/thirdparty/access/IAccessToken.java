@@ -2,6 +2,8 @@ package com.primeton.mobile.thirdparty.access;
 
 /**
  * 
+ * 授权token模型接口
+ * 
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */

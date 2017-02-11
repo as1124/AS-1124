@@ -1,4 +1,4 @@
-package com.primeton.mobile.thirdparty.wechat.model.media;
+package com.primeton.mobile.thirdparty.wechat.model;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.primeton.mobile.thirdparty.wechat.IWechatModel;
@@ -14,37 +14,31 @@ public class WechatArticle implements IWechatModel{
 	/**
 	 * 服务器上的media_id
 	 */
-	@JSONField
 	String media_id;
 	
 	/**
 	 * 更新时间
 	 */
-	@JSONField
 	String update_time;
 	
 	/**
 	 * 标题
 	 */
-	@JSONField
 	String title;
 	
 	/**
 	 * 图文消息的封面图片素材id(必须是永久素材mediaID)
 	 */
-	@JSONField
 	String thumb_media_id;
 	
 	/**
 	 * 作者
 	 */
-	@JSONField
 	String author;
 	
 	/**
 	 * 图文消息的摘要，仅当单图文消息时才显示摘要
 	 */
-	@JSONField
 	String digest;
 	
 	/**
@@ -52,23 +46,19 @@ public class WechatArticle implements IWechatModel{
 	 * <code>0</code> 代表<code>false</code>，
 	 * <code>1</code> 代表<code>true</code>
 	 */
-	@JSONField
 	int show_cover_pic;
 	
 	/**
 	 * 图文消息的具体内容，支持HTML标签，必须少于2万字符，小于1M，且此处会去除JS
 	 */
-	@JSONField
 	String content;
 	
 	/**
 	 * 图文消息的原文地址，即点击"阅读原文"
 	 */
-	@JSONField
 	String content_source_url;
 	
 	public WechatArticle(){
-		
 	}
 
 	/**

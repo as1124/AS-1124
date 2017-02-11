@@ -1,17 +1,14 @@
 package com.primeton.mobile.thirdparty.wechat;
 
 import java.io.ByteArrayInputStream;
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
@@ -23,6 +20,7 @@ import org.dom4j.io.SAXReader;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.primeton.mobile.thirdparty.access.AbstractAccessToken;
 import com.primeton.mobile.thirdparty.access.HttpExecuter;
 import com.primeton.mobile.thirdparty.wechat.events.ScancodeEvent;
 import com.primeton.mobile.thirdparty.wechat.events.SubscribeEvent;
@@ -37,7 +35,6 @@ import com.primeton.mobile.thirdparty.wechat.message.TextMessage;
 import com.primeton.mobile.thirdparty.wechat.message.VideoMessage;
 import com.primeton.mobile.thirdparty.wechat.message.VoiceMessage;
 import com.primeton.mobile.thirdparty.wechat.model.AbstractDataPackage;
-import com.primeton.mobile.thirdparty.wechat.model.media.WechatArticle;
 
 /**
  * 消息、事件处理接口。所有消息数据包中的<code>MediaId</code>都必须微信服务器上 上传永久素材后获取的media_id。<br>
@@ -47,39 +44,6 @@ import com.primeton.mobile.thirdparty.wechat.model.media.WechatArticle;
  * 
  */
 public class MessageOperations {
-
-	/**
-	 * 校验接入请求是否来自微信。web端在第一次接入微信时如果校验确认请求来自微信，此时应当 原样向微信返回
-	 * <code>echostr</code>字段值才能保证接入成功。<br>
-	 * 此后，每次开发者接收用户消息的时候，微信也都会带上三个参数（signature、timestamp、nonce）
-	 * 发送到开发者设置的URL上，开发者依然通过对签名的效验判断此条消息的真实性。
-	 * 
-	 * @param signature
-	 *            微信加密签名
-	 * @param token
-	 *            公众号申请时所配置的token串，不是access_token
-	 * @param timestamp
-	 *            时间戳
-	 * @param nonce
-	 *            随机数
-	 * @return
-	 */
-	public boolean checkSignature(String signature, String token, String timestamp, String nonce) {
-		String[] array = new String[] { token, timestamp, nonce };
-		Arrays.sort(array, new Comparator<String>() {
-
-			public int compare(String str1, String str2) {
-				return str1.compareTo(str2);
-			}
-		});
-		String tempStr = array[0] + array[1] + array[2];
-		// SHA1签名
-		String resultStr = DigestUtils.sha1Hex(tempStr);
-		if (resultStr.equals(signature)) {
-			return true;
-		} else
-			return false;
-	}
 
 	/**
 	 * 服务器在接收到POST请求发来的数据包后调用这个方法处理xml格式的数据报文。<br>
@@ -132,210 +96,239 @@ public class MessageOperations {
 		return null;
 	}
 
-	
-	// ATTENTION 回复消息用户就直接 new一个对象，然后调用toSendText()就好。
-
 	/**
-	 * 上传图文消息素材
+	 * 群发图文消息给指定分组标签下的用户
 	 * 
-	 * @param accessToken
-	 * @param news
-	 * @return media_id
-	 * @throws IOException
-	 */
-	public static String uploadNews(String accessToken, WechatArticle[] news)
-			throws IOException {
-		String url = "https://api.weixin.qq.com/cgi-bin/media/uploadnews";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
-		JSONArray articles = new JSONArray();
-		articles.addAll(Arrays.asList(news));
-		JSONObject postData = new JSONObject();
-		postData.put("articles", articles);
-		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON,
-						IWechatConstants.DEFAULT_CHARSET));
-		String result = HttpExecuter.executePostAsString(url, queryStr,
-				requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(
-				IWechatConstants.ERROR_CODE);
-		if (returnCode == null
-				|| IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
-			return JSONObject.parseObject(result).getString("media_id");
-		}
-		return null;
-	}
-
-	/**
-	 * 群发消息给指定分组下的用户
-	 * 
+	 * @param token
+	 * @param groupID
+	 * @param mediaID
+	 * @param ignoreReprint 若文章为转载是否继续群发
 	 * @return
-	 * @throws IOException
 	 */
-	public static String sendText2Group(String accessToken, String groupID,
-			String content) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("content", content);
-		return sendMessage2Group(accessToken, "text", groupID, data);
-	}
-
-	/**
-	 * 群发消息给指定分组下的用户
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public static String sendImage2Group(String accessToken, String groupID,
-			String mediaID) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("media_id", mediaID);
-		return sendMessage2Group(accessToken, "image", groupID, data);
-
-	}
-
-	/**
-	 * 群发消息给指定分组下的用户
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public static String sendNews2Group(String accessToken, String groupID,
-			String mediaID) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("media_id", mediaID);
-		return sendMessage2Group(accessToken, "mpnews", groupID, data);
-
-	}
-
-	/**
-	 * 群发消息给指定分组下的用户
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public static String sendVoice2Group(String accessToken, String groupID,
-			String mediaID) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("media_id", mediaID);
-		return sendMessage2Group(accessToken, "voice", groupID, data);
-	}
-
-	/**
-	 * 群发消息给指定分组下的用户
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public static String sendVideo2Group(String accessToken, String groupID,
-			String mediaID) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("media_id", mediaID);
-		return sendMessage2Group(accessToken, "mpvideo", groupID, data);
-
-	}
-
-	private static String sendMessage2Group(String accessToken, String type,
-			String groupID, JSONObject data) throws IOException {
+	public JSONObject sendNews2Group(AbstractAccessToken token, int groupID, String mediaID, boolean reprintContinue) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
+		
+		JSONObject filterData = new JSONObject();
+		filterData.put("is_to_all", false);
+		filterData.put("tag_id", groupID);
+		postData.put("filter", filterData);
+		
+		JSONObject data = new JSONObject();
+		data.put("media_id", mediaID);
+		postData.put("mpnews", data);
+		postData.put("msgtype", "mpnews");
+		postData.put("sned_ignore_reprint", reprintContinue?1:0);
+		
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
+		JSONObject resultJson = JSONObject.parseObject(result);
+		String returnCode = resultJson.getString(IWechatConstants.ERROR_CODE);
+		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+			return resultJson;
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
+	}
+	
+	/**
+	 * 群发文本消息给指定分组标签下的用户
+	 * 
+	 * @param token
+	 * @param groupID
+	 * @param content
+	 * @return
+	 */
+	public String sendText2Group(AbstractAccessToken token, int groupID, String content) {
+		JSONObject data = new JSONObject();
+		data.put("content", content);
+		return sendMessage2Group(token, "text", groupID, data);
+	}
+
+	/**
+	 * 群发语音消息给指定分组下的用户
+	 * 
+	 * @param token
+	 * @param groupID
+	 * @param mediaID
+	 * @return
+	 */
+	public String sendVoice2Group(AbstractAccessToken token, int groupID, String mediaID) {
+		JSONObject data = new JSONObject();
+		data.put("media_id", mediaID);
+		return sendMessage2Group(token, "voice", groupID, data);
+	}
+	
+	/**
+	 * 群发图片消息给指定分组下的用户
+	 * 
+	 * @param token
+	 * @param groupID
+	 * @param mediaID
+	 * @return
+	 */
+	public String sendImage2Group(AbstractAccessToken token, int groupID, String mediaID) {
+		JSONObject data = new JSONObject();
+		data.put("media_id", mediaID);
+		return sendMessage2Group(token, "image", groupID, data);
+	}
+
+	/**
+	 * 群发微信卡券消息给指定分组下的用户
+	 * @param token
+	 * @param cardID
+	 * @param groupID
+	 * @return
+	 */
+	public String sendWXCard2Group(AbstractAccessToken token, String cardID, int groupID) {
+		JSONObject data = new JSONObject();
+		data.put("card_id", cardID);
+		return sendMessage2Group(token, "wxcard", groupID, data);
+	}
+
+	/**
+	 * 群发视频消息给指定分组下的用户
+	 * 
+	 * @param token
+	 * @param groupID
+	 * @param mediaID
+	 * @param title
+	 * @param desc
+	 * @return
+	 */
+	public String sendVideo2Group(AbstractAccessToken token, int groupID, String mediaID, 
+			String title, String desc) {
+		String uri = "https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		
+		JSONObject postData = new JSONObject();
+		postData.put("media_id", mediaID);
+		
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+		JSONObject uploadResult = JSONObject.parseObject(result);
+		String returnCode = uploadResult.getString(IWechatConstants.ERROR_CODE);
+		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+			postData.put("media_id", uploadResult.getString("media_id"));
+			return sendMessage2Group(token, "mpvideo", groupID, postData);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
+		
+	}
+
+	private String sendMessage2Group(AbstractAccessToken token, String type, int groupID, JSONObject data) {
+		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		JSONObject postData = new JSONObject();
+		
 		JSONObject group = new JSONObject();
 		group.put("is_to_all", false);
-		group.put("group_id", groupID);
+		group.put("tag_id", groupID);
 		postData.put("filter", group);
 		postData.put(type, data);
 		postData.put("msgtype", type);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON,
-						IWechatConstants.DEFAULT_CHARSET));
-		String result = HttpExecuter.executePostAsString(url, queryStr,
-				requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(
-				IWechatConstants.ERROR_CODE);
-		if (returnCode == null
-				|| IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
+		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return JSONObject.parseObject(result).getString("msg_id");
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		return null;
 	}
 
-	/**
-	 * 群发消息给指定的用户
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public static String sendText2Users(String accessToken,
-			String[] userOpenIDs, String content) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("content", content);
-		return sendMessage2Users(accessToken, userOpenIDs, "text", data);
-
-	}
-
-	/**
-	 * 群发消息给指定分组下的用户
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public static String sendImage2Users(String accessToken,
-			String[] userOpenIDs, String mediaID) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("media_id", mediaID);
-		return sendMessage2Users(accessToken, userOpenIDs, "image", data);
-
-	}
-
-	/**
-	 * 群发消息给指定分组下的用户
-	 * 
-	 * @return
-	 * @throws IOException
-	 */
-	public static String sendNews2Users(String accessToken,
-			String[] userOpenIDs, String mediaID) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("media_id", mediaID);
-		return sendMessage2Users(accessToken, userOpenIDs, "mpnews", data);
-
-	}
-
-	/**
-	 * 群发消息给指定分组下的用户
-	 * 
-	 * @return
-	 */
-	public static String sendVoice2Users(String accessToken,
-			String[] userOpenIDs, String mediaID) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("media_id", mediaID);
-		return sendMessage2Users(accessToken, userOpenIDs, "mpnews", data);
-
-	}
-
-	/**
-	 * 群发消息给指定分组下的用户
-	 * 
-	 * @return
-	 */
-	public static String sendVideo2Users(String accessToken,
-			String[] userOpenIDs, String mediaID, String title,
-			String description) throws IOException {
-		JSONObject data = new JSONObject();
-		data.put("media_id", mediaID);
-		data.put("title", title);
-		data.put("description", description);
-		return sendMessage2Users(accessToken, userOpenIDs, "video", data);
-	}
-
-	private static String sendMessage2Users(String accessToken,
-			String[] userOpenIDs, String type, JSONObject data)
-			throws IOException {
+	public JSONObject sendNews2Users(AbstractAccessToken token, String[] userOpenIDs, String mediaID, boolean reprintContinue) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/send";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		JSONObject postData = new JSONObject();
+		JSONArray users = new JSONArray();
+		users.addAll(Arrays.asList(userOpenIDs));
+		postData.put("touser", users);
+		
+		JSONObject data = new JSONObject();
+		data.put("media_id", mediaID);
+		postData.put("mpnews", data);
+		postData.put("msgtype", "mpnews");
+		postData.put("sned_ignore_reprint", reprintContinue?1:0);
+		
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
+		JSONObject resultJson = JSONObject.parseObject(result);
+		String returnCode = resultJson.getString(IWechatConstants.ERROR_CODE);
+		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+			return resultJson;
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
+	}
+	
+	public String sendText2Users(AbstractAccessToken token, String[] userOpenIDs, String content) {
+		JSONObject data = new JSONObject();
+		data.put("content", content);
+		return sendMessage2Users(token, userOpenIDs, "text", data);
+	}
+
+	public String sendVoice2Users(AbstractAccessToken token, String[] userOpenIDs, String mediaID) {
+		JSONObject data = new JSONObject();
+		data.put("media_id", mediaID);
+		return sendMessage2Users(token, userOpenIDs, "voice", data);
+
+	}
+	
+	public String sendImage2Users(AbstractAccessToken token, String[] userOpenIDs, String mediaID) {
+		JSONObject data = new JSONObject();
+		data.put("media_id", mediaID);
+		return sendMessage2Users(token, userOpenIDs, "image", data);
+	}
+
+	public String sendVideo2Users(AbstractAccessToken token, String[] userOpenIDs, String mediaID, 
+			String title, String desc) {
+		String uri = "https://file.api.weixin.qq.com/cgi-bin/media/uploadvideo";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		
+		JSONObject postData = new JSONObject();
+		postData.put("media_id", mediaID);
+		
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+		JSONObject uploadResult = JSONObject.parseObject(result);
+		String returnCode = uploadResult.getString(IWechatConstants.ERROR_CODE);
+		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+			postData.put("media_id", uploadResult.getString("media_id"));
+			return sendMessage2Users(token, userOpenIDs, "mpvideo", postData);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
+		
+	}
+
+	public String sendWXCard2Users(AbstractAccessToken token, String cardID, String[] userOpenIDsD) {
+		JSONObject data = new JSONObject();
+		data.put("card_id", cardID);
+		return sendMessage2Users(token, userOpenIDsD, "wxcard", data);
+	}
+	
+	private String sendMessage2Users(AbstractAccessToken token, String[] userOpenIDs, String type, JSONObject data) {
+		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/send";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
 		JSONArray users = new JSONArray();
 		users.addAll(Arrays.asList(userOpenIDs));
@@ -343,14 +336,10 @@ public class MessageOperations {
 		postData.put(type, data);
 		postData.put("msgtype", type);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON,
-						IWechatConstants.DEFAULT_CHARSET));
-		String result = HttpExecuter.executePostAsString(url, queryStr,
-				requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(
-				IWechatConstants.ERROR_CODE);
-		if (returnCode == null
-				|| IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
+		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return JSONObject.parseObject(result).getString("msg_id");
 		}
 		return null;
@@ -359,69 +348,72 @@ public class MessageOperations {
 	/**
 	 * 删除群发消息
 	 * 
-	 * @param accessToken
-	 * @param userOpenIDs
-	 * @param type
-	 * @param data
+	 * @param token
+	 * @param msgID
 	 * @return
-	 * @throws IOException
 	 */
-	public static boolean deleteSendBatchMessage(String accessToken,
-			String msgID) throws IOException {
+	public boolean deleteSendBatchMessage(AbstractAccessToken token, String msgID) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/delete";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
 		postData.put("msg_id", msgID);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON,
-						IWechatConstants.DEFAULT_CHARSET));
-		String result = HttpExecuter.executePostAsString(url, queryStr,
-				requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(
-				IWechatConstants.ERROR_CODE);
-		if (returnCode == null
-				|| IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
+		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return true;
 		}
 		return false;
 	}
 
 	/**
-	 * 获取群发消息的状态
+	 * 查看群发消息是否成功发送
 	 * 
-	 * @param accessToken
-	 * @param userOpenIDs
-	 * @param type
-	 * @param data
+	 * @param token
+	 * @param msgID
 	 * @return
-	 * @throws IOException
 	 */
-	public static String getBatchMessageStatus(String accessToken, String msgID)
-			throws IOException {
+	public boolean isBatchMessageSuccess(AbstractAccessToken token, String msgID) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/get";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
 		postData.put("msg_id", msgID);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON,
-						IWechatConstants.DEFAULT_CHARSET));
-		String result = HttpExecuter.executePostAsString(url, queryStr,
-				requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(
-				IWechatConstants.ERROR_CODE);
-		if (returnCode == null
-				|| IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
-			return JSONObject.parseObject(result).getString("msg_status");
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
+		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+			String isSuccess =  JSONObject.parseObject(result).getString("msg_status");
+			return isSuccess.equals("SEND_SUCCESS");
 		}
-		return "";
+		return false;
 	}
 
-	public static Map<String, Class<? extends AbstractDataPackage>> DECODERS = null;
+	/**
+	 * 获取公众号自动回复规则
+	 * 
+	 * @param token
+	 * @return 规则信描述（json格式）
+	 */
+	public String getAutoReplyRule(AbstractAccessToken token){
+		String uri = "https://api.weixin.qq.com/cgi-bin/get_current_autoreply_info";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		String result = HttpExecuter.executeGetAsString(uri, queryStr);
+		return result;
+	}
+	
+	/**
+	 * 消息解码器
+	 */
+	public static Map<String, Class<? extends AbstractDataPackage>> DECODERS = 
+			new HashMap<String, Class<? extends AbstractDataPackage>>();
 	
 	private static void initDecoders(){
-		DECODERS = new HashMap<String, Class<? extends AbstractDataPackage>>();
+		
 		//菜单事件
 		DECODERS.put("VIEW", ViewMenuEvent.class);
 		DECODERS.put("CLICK", ClickMenuEvent.class);
@@ -469,4 +461,10 @@ public class MessageOperations {
 		DECODERS.put(type, clazz);
 	}
 	
+	/**
+	 * @param type
+	 */
+	public static void removeMessageDecoder(String type){
+		DECODERS.remove(type);
+	}
 }

@@ -1,8 +1,10 @@
 package com.primeton.mobile.thirdparty.wechat;
 
-
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.ContentType;
@@ -66,4 +68,33 @@ public class CommonOperations {
 		else return false;
 	}
 	
+	/**
+	 * 校验接入请求是否来自微信。
+	 * <li>web端在第一次接入微信时如果校验确认请求来自微信，此时应当原样向微信返回
+	 * <code>echostr</code>字段值才能保证接入成功。<br>
+	 * <li>每次开发者接收用户消息的时候，微信也都会带上三个参数（signature、timestamp、nonce）
+	 * 发送到开发者设置的URL上，开发者依然可以通过对签名的效验判断此条消息是否真是
+	 * 
+	 * @param signature 微信加密签名
+	 * @param token 公众号申请时所配置的token串，不是access_token
+	 * @param timestamp 时间戳
+	 * @param nonce 随机数
+	 * @return
+	 */
+	public boolean checkSignature(String signature, String token, String timestamp, String nonce) {
+		String[] array = new String[] { token, timestamp, nonce };
+		Arrays.sort(array, new Comparator<String>() {
+
+			public int compare(String str1, String str2) {
+				return str1.compareTo(str2);
+			}
+		});
+		String tempStr = array[0] + array[1] + array[2];
+		// SHA1签名
+		String resultStr = DigestUtils.sha1Hex(tempStr);
+		if (resultStr.equals(signature)) {
+			return true;
+		} else
+			return false;
+	}
 }

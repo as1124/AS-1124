@@ -1,4 +1,4 @@
-package com.primeton.mobile.thirdparty.wechat.undo;
+package com.primeton.mobile.thirdparty.wechat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

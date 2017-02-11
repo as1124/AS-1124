@@ -1,4 +1,4 @@
-package com.primeton.mobile.thirdparty.wechat.undo;
+package com.primeton.mobile.thirdparty.wechat;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -11,7 +11,6 @@ import org.apache.http.message.BasicNameValuePair;
 import com.alibaba.fastjson.JSONObject;
 import com.primeton.mobile.thirdparty.access.HttpExecuter;
 import com.primeton.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
-import com.primeton.mobile.thirdparty.wechat.IWechatConstants;
 
 /**
  * Wechat 智能操作接口.

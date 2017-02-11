@@ -76,9 +76,8 @@ public class MenusOperations {
 	/**
 	 * 查询普通类型微信菜单
 	 * @param token
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public WechatMenu[] getNormalMenus(AbstractAccessToken token) throws ThirdPartyRequestExceprion{
+	public WechatMenu[] getNormalMenus(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/get";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
@@ -91,10 +90,12 @@ public class MenusOperations {
         	
         	WechatMenu[] commonMnus = parseMenus(buttons);
         	return commonMnus;
-		}else if(IWechatConstants.RETURN_CODE_NO_MENUS.equals(returnCode)){
+		} else if(IWechatConstants.RETURN_CODE_NO_MENUS.equals(returnCode)){
 			return new WechatMenu[0];
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[MenuOperations#getNormalMenus]"+result);
 	}
 	
 	/**
@@ -102,7 +103,7 @@ public class MenusOperations {
 	 * @param token
 	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public WechatMenu[] getConditionalMenus(AbstractAccessToken token) throws ThirdPartyRequestExceprion{
+	public WechatMenu[] getConditionalMenus(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/menu/get";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
@@ -116,10 +117,12 @@ public class MenusOperations {
 	        	condMenus = parseMenus(buttons);
         	}
         	return condMenus;
-		}else if(IWechatConstants.RETURN_CODE_NO_MENUS.equals(returnCode)){
+		} else if(IWechatConstants.RETURN_CODE_NO_MENUS.equals(returnCode)){
 			return new WechatMenu[0];
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[MenuOperations#getConditionalMenus]"+result);
 	}
 	
 	private WechatMenu[] parseMenus(JSONArray buttons){

@@ -1,4 +1,4 @@
-package com.primeton.mobile.thirdparty.wechat.undo;
+package com.primeton.mobile.thirdparty.wechat;
 
 import java.io.IOException;
 
@@ -13,7 +13,6 @@ import org.apache.http.message.BasicNameValuePair;
 import com.alibaba.fastjson.JSONObject;
 import com.primeton.mobile.thirdparty.access.HttpExecuter;
 import com.primeton.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
-import com.primeton.mobile.thirdparty.wechat.IWechatConstants;
 import com.primeton.mobile.thirdparty.wechat.model.statistics.InterfaceStatisticData;
 import com.primeton.mobile.thirdparty.wechat.model.statistics.MessageStatisticsData;
 import com.primeton.mobile.thirdparty.wechat.model.statistics.NewsStatisticsData;

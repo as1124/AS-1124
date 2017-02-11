@@ -1,7 +1,7 @@
 package com.primeton.mobile.thirdparty.wechat;
 
 /**
- * 统一模型接口
+ * 微信统一模型标志接口
  * 
  * @author huangjw(mailto:huangjw@primeton.com)
  *

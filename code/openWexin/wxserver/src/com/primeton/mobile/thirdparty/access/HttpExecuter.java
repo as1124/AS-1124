@@ -1,21 +1,49 @@
 package com.primeton.mobile.thirdparty.access;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.security.KeyManagementException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+import java.security.cert.X509Certificate;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.TrustManager;
+import javax.net.ssl.X509TrustManager;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.AuthSchemes;
+import org.apache.http.client.config.CookieSpecs;
 import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.config.RequestConfig.Builder;
+import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.config.Registry;
+import org.apache.http.config.RegistryBuilder;
+import org.apache.http.conn.socket.ConnectionSocketFactory;
+import org.apache.http.conn.socket.PlainConnectionSocketFactory;
+import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
+import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
-
-import com.primeton.mobile.thirdparty.wechat.IWechatConstants;
 
 /**
  * 
@@ -44,8 +72,8 @@ public class HttpExecuter {
 	 * @return 响应结果的字节流形式
 	 */
 	public static byte[] executeGet(String uri, List<NameValuePair> parameters, int timeout){
-		String url = uri + "?" + URLEncodedUtils.format(parameters, IWechatConstants.DEFAULT_CHARSET);
-		HttpClient httpClient = HttpClients.createDefault();
+		String url = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
+		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet method = new HttpGet(url);
 		if(timeout > 0){
 			RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout).build();
@@ -54,8 +82,11 @@ public class HttpExecuter {
 		byte[] datas = null;
 		try {
 			HttpResponse response = httpClient.execute(method);
-			datas = EntityUtils.toByteArray(response.getEntity());
+			HttpEntity entity = response.getEntity();
+			datas = EntityUtils.toByteArray(entity);
+			EntityUtils.consume(entity);
 			method.releaseConnection();
+			httpClient.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -82,7 +113,7 @@ public class HttpExecuter {
 	 * @return HttpResponse
 	 */
 	public static HttpResponse executeGetAsStream(String uri, List<NameValuePair> parameters, int timeout){
-		String url = uri + "?" + URLEncodedUtils.format(parameters, IWechatConstants.DEFAULT_CHARSET);
+		String url = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpGet method = new HttpGet(url);
 		if(timeout > 0){
@@ -104,7 +135,7 @@ public class HttpExecuter {
 	 * @return String
 	 */
 	public static String executeGetAsString(String uri, List<NameValuePair> parameters){
-		return executeGetAsString(uri, parameters, IWechatConstants.DEFAULT_CHARSET, 0);
+		return executeGetAsString(uri, parameters, getCharset(null), 0);
 	}
 
 	/**
@@ -117,11 +148,48 @@ public class HttpExecuter {
 	public static String executeGetAsString(String uri, List<NameValuePair> parameters, String charset, int timeout){
 		byte[] datas = executeGet(uri, parameters, timeout);
 		try {
-			return new String(datas, charset);
+			return new String(datas, getCharset(charset));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return "";
+		return null;
+	}
+	
+	/**
+	 * @param httpClient
+	 * @param url 完整URL
+	 * @param reffer
+	 * @param cookie
+	 * @param socketTimeout
+	 * @param connectTimeout
+	 * @param charset
+	 * @param closeHttpClient
+	 * @return
+	 */
+	public static String executeGetAsString(CloseableHttpClient httpClient, String url, String reffer, 
+			String cookie, int socketTimeout, int connectTimeout, String charset, boolean closeHttpClient){
+		CloseableHttpResponse httpResponse = null;
+		if (httpClient == null) {
+			httpClient = createCustomHttpClient(socketTimeout, connectTimeout);
+		}
+		HttpGet getMethod = new HttpGet(url);
+		if (cookie!=null && cookie.equals("")==false) {
+			getMethod.setHeader("Cookie", cookie);
+		}
+		if (reffer!=null && reffer.equals("")==false) {
+			getMethod.setHeader("Reffer", reffer);
+		}
+		
+		String result = null;
+		try {
+			httpResponse = httpClient.execute(getMethod);
+			result = getResult(httpResponse, getCharset(charset));
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 	
 	/**
@@ -140,12 +208,12 @@ public class HttpExecuter {
 	 * @param uri 请求的uri
 	 * @param parameters 查询参数
 	 * @param requestEntity POST请求报文体
-	 * @param timeout 请求超时时间
+	 * @param timeout 连接超时时间
 	 * @return byte[]
 	 */
 	public static byte[] executePost(String uri, List<NameValuePair> parameters, HttpEntity requestEntity, int timeout) {
-		String url = uri + "?" + URLEncodedUtils.format(parameters, IWechatConstants.DEFAULT_CHARSET);
-		HttpClient httpClient = HttpClients.createDefault();
+		String url = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
+		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpPost method = new HttpPost(url);
 		if(timeout > 0){
 			RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout).build();
@@ -155,8 +223,11 @@ public class HttpExecuter {
 		byte[] datas = null;
 		try {
 			HttpResponse response = httpClient.execute(method);
-			datas = EntityUtils.toByteArray(response.getEntity());
+			HttpEntity entity = response.getEntity();
+			datas = EntityUtils.toByteArray(entity);
+			EntityUtils.consume(entity);
 			method.releaseConnection();
+			httpClient.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -179,11 +250,11 @@ public class HttpExecuter {
 	 * @param uri 请求的uri
 	 * @param parameters 查询参数
 	 * @param requestEntity POST请求需要传递的数据
-	 * @param timeout 请求超时时间
+	 * @param timeout 连接超时时间
 	 * @return HttpResponse
 	 */
 	public static HttpResponse executePostAsStream(String uri, List<NameValuePair> parameters, HttpEntity requestEntity, int timeout) {
-		String url = uri + "?" + URLEncodedUtils.format(parameters, IWechatConstants.DEFAULT_CHARSET);
+		String url = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpPost method = new HttpPost(url);
 		if(timeout > 0){
@@ -207,7 +278,7 @@ public class HttpExecuter {
 	 * @return String
 	 */
 	public static String executePostAsString(String uri, List<NameValuePair> parameters, HttpEntity requestEntity) {
-		return executePostAsString(uri, parameters, requestEntity, IWechatConstants.DEFAULT_CHARSET, 0);
+		return executePostAsString(uri, parameters, requestEntity, getCharset(null), 0);
 	}
 
 	/**
@@ -221,11 +292,216 @@ public class HttpExecuter {
 	public static String executePostAsString(String uri, List<NameValuePair> parameters, HttpEntity requestEntity, String charset, int timeout) {
 		byte[] datas = executePost(uri, parameters, requestEntity, timeout);
 		try {
-			return new String(datas, charset);
+			return new String(datas, getCharset(charset));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	/**
+	 * @param httpClient
+	 * @param url 完整URL
+	 * @param entity
+	 * @param reffer
+	 * @param cookie
+	 * @param socketTimeout socket超时时间
+	 * @param connectTimeout 连接超时时间
+	 * @param charset
+	 * @param closeHttpClient
+	 * @return
+	 */
+	public static String executePostAsString(CloseableHttpClient httpClient, String url, HttpEntity entity, 
+			String reffer, String cookie, int socketTimeout, int connectTimeout, String charset, boolean closeHttpClient) {
+		CloseableHttpResponse httpResponse = null;
+		if (httpClient == null) {
+			httpClient = createCustomHttpClient(socketTimeout, connectTimeout);
+		}
+		HttpPost postMethod = new HttpPost(url);
+		if (cookie!=null && cookie.equals("")==false) {
+			postMethod.setHeader("Cookie", cookie);
+		}
+		if (reffer!=null && reffer.equals("")==false) {
+			postMethod.setHeader("Reffer", reffer);
+		}
+		if (entity != null) {
+			postMethod.setEntity(entity);
+		}
+		String result = null;
+		try {
+			httpResponse = httpClient.execute(postMethod);
+			result = getResult(httpResponse, getCharset(charset));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+	
+	/**
+	 * 创建自定义的HttpClient
+	 * @param socketTimeout socket超时时间
+	 * @param connectTimeout 连接超时时间
+	 * @return
+	 */
+	public static CloseableHttpClient createCustomHttpClient(int socketTimeout, int connectTimeout) {
+		Builder builder = RequestConfig.custom();
+
+		// 设置连接超时时间，单位毫秒
+		builder.setConnectTimeout(connectTimeout);
+
+		// 设置从connect manager获取的connection超时时间，毫秒。这个属性是新加的属性，因为目前版本是可以共享连接池的
+		builder.setConnectionRequestTimeout(connectTimeout);
+
+		// 请求获取数据的超时时间，单位毫秒
+		builder.setSocketTimeout(socketTimeout);
+		Collection<String> authSchemes = Arrays.asList(AuthSchemes.NTLM, AuthSchemes.DIGEST);
+		RequestConfig defaultRequestConfig = builder.setCookieSpec(CookieSpecs.STANDARD)
+				.setExpectContinueEnabled(true).setTargetPreferredAuthSchemes(authSchemes)
+				.setProxyPreferredAuthSchemes(Arrays.asList(AuthSchemes.BASIC)).build();
+
+		// 开启HTTPS支持
+		SSLConnectionSocketFactory socketFactory = getSSLConnectionFactory();
+
+		// 创建可用的Scheme
+		Registry<?> socketFactoryRegistry = RegistryBuilder.create()
+				.register("http", PlainConnectionSocketFactory.INSTANCE)
+				.register("https", socketFactory).build();
+		PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager(
+				(Registry<ConnectionSocketFactory>) socketFactoryRegistry);
+		HttpClientBuilder httpClientBuilder = HttpClients.custom();
+
+		CloseableHttpClient httpClient = httpClientBuilder
+				.setConnectionManager(connectionManager)
+				.setDefaultRequestConfig(defaultRequestConfig).build();
+		return httpClient;
+	}
+
+	private static SSLConnectionSocketFactory getSSLConnectionFactory() {
+		SSLConnectionSocketFactory socketFactory = null;
+		// https网站一般情况下使用了安全系数较低的SHA-1签名，因此首先我们在调用SSL之前需要重写验证方法，取消检测SSL。
+		TrustManager manager = new X509TrustManager() {
+
+			public X509Certificate[] getAcceptedIssuers() {
+				return null;
+			}
+
+			public void checkServerTrusted(X509Certificate[] chain, String authType)
+					throws CertificateException {
+				System.out.println("checkServerTrusted");
+			}
+
+			public void checkClientTrusted(X509Certificate[] chain, String authType)
+					throws CertificateException {
+				System.out.println("checkClientTrusted");
+			}
+
+		};
+		try {
+			SSLContext context = SSLContext.getInstance("TLS");
+			context.init(null, new TrustManager[] { manager }, null);
+			socketFactory = new SSLConnectionSocketFactory(context, new BrowserCompatHostnameVerifier());// NoopHostnameVerifier.INSTANCE);
+		} catch (NoSuchAlgorithmException e) {
+			e.printStackTrace();
+		} catch (KeyManagementException e) {
+			e.printStackTrace();
+		}
+		return socketFactory;
+	}
+	
+
+	/**
+	 * 文件上传
+	 * @param httpClient
+	 * @param url 请求URL
+	 * @param localFilePath 待上传文件的本地路径
+	 * @param partName 字段名称
+	 * @return
+	 */
+	public static String executeUploadFile(CloseableHttpClient httpClient, String url, String localFilePath, String partName){
+		CloseableHttpResponse httpResponse = null;
+		if (httpClient == null) {
+			httpClient = createCustomHttpClient(60000, 0);
+		}
+
+		File localFile = new File(localFilePath);
+
+		// 以浏览器兼容模式运行，防止文件名乱码
+		HttpEntity requestEntity = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+			.addBinaryBody(partName, localFile, ContentType.MULTIPART_FORM_DATA, localFile.getName()).build();
+				
+		// uploadFile对应服务端类的同名属性<File类型>
+		HttpPost httpPost = new HttpPost(url);
+		httpPost.setEntity(requestEntity);
+		String result = null;
+		
+		try {
+			httpResponse = httpClient.execute(httpPost);
+			result = getResult(httpResponse, getCharset(null));
+			httpPost.releaseConnection();
+			httpClient.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	//ATTENTION 
+	public static boolean executeDownloadFile(CloseableHttpClient httpClient, String remoteFileUrl, String localFile, 
+			String charset, boolean closeHttpClient) throws ClientProtocolException, IOException {
+		CloseableHttpResponse response = null;
+		InputStream in = null;
+		FileOutputStream fout = null;
+		try {
+			HttpGet httpget = new HttpGet(remoteFileUrl);
+			response = httpClient.execute(httpget);
+			HttpEntity entity = response.getEntity();
+			if (entity == null) {
+				return false;
+			}
+			in = entity.getContent();
+			File file = new File(localFile);
+			fout = new FileOutputStream(file);
+			int l = -1;
+			byte[] tmp = new byte[1024];
+			while ((l = in.read(tmp)) != -1) {
+				fout.write(tmp, 0, l);
+			}
+			fout.flush();
+			EntityUtils.consume(entity);
+			return true;
+		} finally {
+			if (fout != null) {
+				fout.close();
+			}
+			if (response != null) {
+				response.close();
+			}
+			if (closeHttpClient && httpClient != null) {
+				httpClient.close();
+			}
+		}
+
+	}
+
+	private static String getResult(CloseableHttpResponse httpResponse, String charset) throws IOException {
+		String result = null;
+		if (httpResponse == null) {
+			return result;
+		}
+		HttpEntity entity = httpResponse.getEntity();
+		if (entity == null) {
+			return result;
+		}
+		result = EntityUtils.toString(entity, charset);
+		EntityUtils.consume(entity);
+		return result;
+
+	}
+
+	public static String getCharset(String charset) {
+		if(charset==null || charset.trim().equals("")){
+			return "UTF-8";
+		} else return charset;
 	}
 	
 }
