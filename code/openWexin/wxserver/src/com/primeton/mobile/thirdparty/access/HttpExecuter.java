@@ -1,9 +1,7 @@
 package com.primeton.mobile.thirdparty.access;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -11,7 +9,9 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
@@ -39,6 +39,7 @@ import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
@@ -418,6 +419,19 @@ public class HttpExecuter {
 	 * @return
 	 */
 	public static String executeUploadFile(CloseableHttpClient httpClient, String url, String localFilePath, String partName){
+		return executeUploadFile(httpClient, url, localFilePath, partName, null);
+	}
+
+	/**
+	 *  文件上传
+	 * @param httpClient
+	 * @param url 请求URL
+	 * @param localFilePath 待上传文件的本地路径
+	 * @param partName 字段名称
+	 * @param contentParts 上传文件时需要的附属表单
+	 * @return
+	 */
+	public static String executeUploadFile(CloseableHttpClient httpClient, String url, String localFilePath, String partName, Map<String, ContentBody> contentParts){
 		CloseableHttpResponse httpResponse = null;
 		if (httpClient == null) {
 			httpClient = createCustomHttpClient(60000, 0);
@@ -426,8 +440,16 @@ public class HttpExecuter {
 		File localFile = new File(localFilePath);
 
 		// 以浏览器兼容模式运行，防止文件名乱码
-		HttpEntity requestEntity = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
-			.addBinaryBody(partName, localFile, ContentType.MULTIPART_FORM_DATA, localFile.getName()).build();
+		MultipartEntityBuilder entityBuilder = MultipartEntityBuilder.create().setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
+				.addBinaryBody(partName, localFile, ContentType.MULTIPART_FORM_DATA, localFile.getName());
+		if(contentParts!=null && contentParts.size()>0) {
+			Iterator<String> it = contentParts.keySet().iterator();
+			while(it.hasNext()){
+				String partid = it.next();
+				entityBuilder.addPart(partid, contentParts.get(partid));
+			}
+		}
+		HttpEntity requestEntity = entityBuilder.build();
 				
 		// uploadFile对应服务端类的同名属性<File类型>
 		HttpPost httpPost = new HttpPost(url);
@@ -444,45 +466,7 @@ public class HttpExecuter {
 		}
 		return result;
 	}
-
-	//ATTENTION 
-	public static boolean executeDownloadFile(CloseableHttpClient httpClient, String remoteFileUrl, String localFile, 
-			String charset, boolean closeHttpClient) throws ClientProtocolException, IOException {
-		CloseableHttpResponse response = null;
-		InputStream in = null;
-		FileOutputStream fout = null;
-		try {
-			HttpGet httpget = new HttpGet(remoteFileUrl);
-			response = httpClient.execute(httpget);
-			HttpEntity entity = response.getEntity();
-			if (entity == null) {
-				return false;
-			}
-			in = entity.getContent();
-			File file = new File(localFile);
-			fout = new FileOutputStream(file);
-			int l = -1;
-			byte[] tmp = new byte[1024];
-			while ((l = in.read(tmp)) != -1) {
-				fout.write(tmp, 0, l);
-			}
-			fout.flush();
-			EntityUtils.consume(entity);
-			return true;
-		} finally {
-			if (fout != null) {
-				fout.close();
-			}
-			if (response != null) {
-				response.close();
-			}
-			if (closeHttpClient && httpClient != null) {
-				httpClient.close();
-			}
-		}
-
-	}
-
+	
 	private static String getResult(CloseableHttpResponse httpResponse, String charset) throws IOException {
 		String result = null;
 		if (httpResponse == null) {

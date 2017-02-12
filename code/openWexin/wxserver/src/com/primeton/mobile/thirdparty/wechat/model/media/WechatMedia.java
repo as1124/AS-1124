@@ -1,7 +1,5 @@
 package com.primeton.mobile.thirdparty.wechat.model.media;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.annotation.JSONType;
 import com.primeton.mobile.thirdparty.wechat.IWechatModel;
 
 /**
