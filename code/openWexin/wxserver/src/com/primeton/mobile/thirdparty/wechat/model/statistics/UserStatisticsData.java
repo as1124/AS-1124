@@ -1,8 +1,6 @@
 package com.primeton.mobile.thirdparty.wechat.model.statistics;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.annotation.JSONType;
 import com.primeton.mobile.thirdparty.wechat.IWechatModel;
 
 /**
@@ -11,38 +9,32 @@ import com.primeton.mobile.thirdparty.wechat.IWechatModel;
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-@JSONType
 public class UserStatisticsData implements IWechatModel {
 
 	/**
 	 * 数据d日期
 	 */
-	@JSONField
 	String ref_date;
 	
 	/**
 	 * 用户渠道, 0-其他，30-扫码，17-名片分享，35-搜索号码，39-查询微信公众号，
 	 * 43-图文右上角菜单
 	 */
-	@JSONField
 	int user_source;
 	
 	/**
 	 * 新增的用户数量
 	 */
-	@JSONField
 	int new_user;
 	
 	/**
 	 * 取消关注的用户数量
 	 */
-	@JSONField
 	int cancel_user;
 	
 	/**
 	 * 总用户数量
 	 */
-	@JSONField
 	int cumulate_user;
 	
 	public UserStatisticsData() {

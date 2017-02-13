@@ -11,10 +11,9 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 
-import com.alibaba.fastjson.JSONException;
 import com.alibaba.fastjson.JSONObject;
+import com.primeton.mobile.thirdparty.access.AbstractAccessToken;
 import com.primeton.mobile.thirdparty.access.HttpExecuter;
-import com.primeton.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
 import com.primeton.mobile.thirdparty.wechat.model.qrcode.WechatQRCodeModel;
 
 /**
@@ -31,13 +30,11 @@ public class AccountManagement {
 	 * @param expireSeconds 有效时间，单位：秒
 	 * @param qrID 二维码标识
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static WechatQRCodeModel createTempQRImage(String accessToken, long expireSeconds, int qrID) throws IOException, ThirdPartyRequestExceprion{
+	public WechatQRCodeModel createTempQRImage(AbstractAccessToken token, long expireSeconds, int qrID){
 		String uri = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("expire_secondes", expireSeconds);
 		jsonObj.put("action_name", WechatQRCodeModel.QR_IMAGE_TEMPORARY);
@@ -46,14 +43,16 @@ public class AccountManagement {
 		JSONObject obj1 = new JSONObject();
 		obj1.put("scene", obj);
 		jsonObj.put("action_info", obj1);
-		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET));
+		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, WechatQRCodeModel.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[AccountOperations#createTempQRImage]"+result);
 	}
 	
 	/**
@@ -61,13 +60,11 @@ public class AccountManagement {
 	 * @param accessToken
 	 * @param qrID二维码标识
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static WechatQRCodeModel createQRImage(String accessToken, int qrID) throws IOException, ThirdPartyRequestExceprion{
+	public WechatQRCodeModel createQRImage(AbstractAccessToken token, int qrID) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("action_name", WechatQRCodeModel.QR_IMAGE_FOREVER);
 		JSONObject obj = new JSONObject();
@@ -81,26 +78,26 @@ public class AccountManagement {
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, WechatQRCodeModel.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[AccountOperations#createQRImage]"+result);
 	}
 	
 	/**
 	 * 创建永久字符串二维码Ticket
 	 * @param accessToken
-	 * @param qrID 二维码标识
+	 * @param sceneStr 场景值ID
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static WechatQRCodeModel createQRString(String accessToken, String qrID) throws JSONException, IOException, ThirdPartyRequestExceprion{
+	public WechatQRCodeModel createQRString(String accessToken, String sceneStr) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("action_name", WechatQRCodeModel.QR_STR_FOREVER);
 		JSONObject obj = new JSONObject();
-		obj.put("scene_str", qrID);
+		obj.put("scene_str", sceneStr);
 		JSONObject obj1 = new JSONObject();
 		obj1.put("scene", obj);
 		jsonObj.put("action_info", obj1);
@@ -110,8 +107,10 @@ public class AccountManagement {
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, WechatQRCodeModel.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[AccountOperations#createQRString]"+result);
 	}
 	
 	/**
@@ -119,11 +118,10 @@ public class AccountManagement {
 	 * @param ticket
 	 * @return
 	 */
-	public static void getQRImageByTicket(String ticket, String savePath) {
+	public void getQRImageByTicket(String ticket, String savePath) {
 		String uri = "https://mp.weixin.qq.com/cgi-bin/showqrcode";
 		FileOutputStream out = null;
 		try {
-			//ticket = URLEncoder.encode(ticket, IOperationsConstants.DEFAULT_CHARSET);
 			ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 			queryStr.add(new BasicNameValuePair("ticket", ticket));
 			byte[] datas = HttpExecuter.executeGet(uri, queryStr);
@@ -149,14 +147,13 @@ public class AccountManagement {
 	 * @param accessToken
 	 * @param longUrl 长链接URL
 	 * @return short_url
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static String connection2Short(String accessToken, String longUrl) throws IOException, ThirdPartyRequestExceprion{
+	public String connection2Short(AbstractAccessToken token, String longUrl) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/shorturl";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject jsonObj = new JSONObject();
+		jsonObj.put("action", "long2short");
 		jsonObj.put("long_url", longUrl);
 		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
 				IWechatConstants.DEFAULT_CHARSET));
@@ -164,8 +161,10 @@ public class AccountManagement {
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result).getString("short_url");
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[AccountOperations#connection2Short]"+result);
 	}
 	
 }

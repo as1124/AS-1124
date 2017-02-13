@@ -1,7 +1,6 @@
 package com.primeton.mobile.thirdparty.wechat.model.user;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.primeton.mobile.thirdparty.wechat.IWechatModel;
 
 /**
@@ -14,25 +13,21 @@ public class SubscribedCountInfo implements IWechatModel{
 	/**
 	 * 关注该公众号的总人数
 	 */
-	@JSONField
 	long total;
 	
 	/**
 	 * 本次拉取的openid个数，最大值为10000
 	 */
-	@JSONField
 	int count;
 	
 	/**
 	 * json格式的openID列表数据
 	 */
-	@JSONField
 	String data;
 	
 	/**
 	 * 拉取列表的后一个用户的openid 
 	 */
-	@JSONField
 	String next_openid;
 	
 	public SubscribedCountInfo() {

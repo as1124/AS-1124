@@ -255,6 +255,8 @@ public class HttpExecuter {
 	 * @return HttpResponse
 	 */
 	public static HttpResponse executePostAsStream(String uri, List<NameValuePair> parameters, HttpEntity requestEntity, int timeout) {
+		//ATTENTION 考虑关闭HttpClient
+		
 		String url = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
 		HttpClient httpClient = HttpClients.createDefault();
 		HttpPost method = new HttpPost(url);

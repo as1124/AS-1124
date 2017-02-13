@@ -3,8 +3,6 @@ package com.primeton.mobile.thirdparty.wechat.model.statistics;
 import java.util.List;
 
 import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.annotation.JSONType;
 import com.primeton.mobile.thirdparty.wechat.IWechatModel;
 
 /**
@@ -12,100 +10,83 @@ import com.primeton.mobile.thirdparty.wechat.IWechatModel;
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-@JSONType
 public class NewsStatisticsData implements IWechatModel {
 	/**
 	 * 数据的日期
 	 */
-	@JSONField
 	String ref_date;
 	
 	/**
 	 * 数据的小时
 	 */
-	@JSONField
 	int ref_hour;
 	
 	/**
 	 * 统计日期
 	 */
-	@JSONField
 	String stat_date;
 	
 	/**
 	 * 图文消息的message_id和index组合而成.
 	 * eg: 12003_3
 	 */
-	@JSONField
 	String msgid;
 	
 	/**
 	 * 图文消息的标题
 	 */
-	@JSONField
 	String title;
 	
 	/**
 	 * 图文页的阅读人数
 	 */
-	@JSONField
 	int int_page_read_user;
 	
 	/**
 	 * 图文页的阅读次数
 	 */
-	@JSONField
 	int int_page_read_count;
 	
 	/**
 	 * 原文页的阅读人数
 	 */
-	@JSONField
 	int ori_page_read_user;
 	
 	/**
 	 * 原文页的阅读次数
 	 */
-	@JSONField
 	int ori_page_read_count;
 	
 	/**
 	 * 分享场景. 1-好友转发，2-代表朋友圈，3-代表腾讯微博，255-代表其他
 	 */
-	@JSONField
 	int share_scene;
 	
 	/**
 	 * 分享的人数
 	 */
-	@JSONField
 	int share_user;
 	
 	/**
 	 * 分享的次数
 	 */
-	@JSONField
 	int share_count;
 	
 	/**
 	 * 收藏的人数
 	 */
-	@JSONField
 	int add_to_fav_user;
 	
 	/**
 	 * 收藏的次数
 	 */
-	@JSONField
 	int add_to_fav_count;
 	
 	/**
 	 * 送达人数
 	 */
-	@JSONField
 	int target_user;
 	
-	@JSONField
 	List<NewsStatisticsData> details;
 	
 	public NewsStatisticsData() {

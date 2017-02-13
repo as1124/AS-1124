@@ -1,7 +1,5 @@
 package com.primeton.mobile.thirdparty.wechat.model.user;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.annotation.JSONType;
 import com.primeton.mobile.thirdparty.wechat.IWechatModel;
 
 /**
@@ -14,25 +12,21 @@ import com.primeton.mobile.thirdparty.wechat.IWechatModel;
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-@JSONType
 public class WechatUserInfo implements IWechatModel{
 
 	/**
 	 * 是否订阅该公众号，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
 	 */
-	@JSONField
 	int subscribe;
 	
 	/**
 	 * 用户微信号的对外标识，对当前公众号唯一
 	 */
-	@JSONField
 	String openid;
 	
 	/**
 	 * 用户昵称
 	 */
-	@JSONField
 	String nickname;
 	
 	/**
@@ -41,65 +35,59 @@ public class WechatUserInfo implements IWechatModel{
 	 * <li>2 代表女性
 	 * <li>0 代表未知
 	 */
-	@JSONField
 	int sex;
 	
 	/**
 	 * 语言
 	 */
-	@JSONField
 	String language;
 	
 	/**
 	 * 用户所在城市
 	 */
-	@JSONField
 	String city;
 	
 	/**
 	 * 省份
 	 */
-	@JSONField
 	String province;
 	
 	/**
 	 * 国家
 	 */
-	@JSONField
 	String country;
 	
 	/**
 	 * 用户头像url
 	 */
-	@JSONField
 	String headimgurl;
 	
 	/**
 	 * 用户关注时间，是一个时间戳。如果曾多次关注，则取最后的关注时间
 	 */
-	@JSONField
 	String subscrible_time;
 	
 	/**
 	 * 只有在用户将公众号绑定到微信开放平台后，才会出现该字段
 	 */
-	@JSONField
 	String unionid;
 	
 	/**
 	 * 公众号运营者对粉丝的备注
 	 */
-	@JSONField
 	String remark;
 	
 	/**
 	 * 用户所在的分组ID
 	 */
-	@JSONField
 	int groupid;
 	
+	/**
+	 * 用户被打上的标签ID列表
+	 */
+	int[] tagid_list;
+	
 	public WechatUserInfo(){
-		
 	}
 	
 	/**
@@ -299,6 +287,20 @@ public class WechatUserInfo implements IWechatModel{
 	 */
 	public void setGroupid(int groupid) {
 		this.groupid = groupid;
+	}
+
+	/**
+	 * @return the {@link #tagid_list}
+	 */
+	public int[] getTagid_list() {
+		return tagid_list;
+	}
+
+	/**
+	 * @param tagid_list the {@link #tagid_list} to set
+	 */
+	public void setTagid_list(int[] tagid_list) {
+		this.tagid_list = tagid_list;
 	}
 	
 }

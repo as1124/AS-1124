@@ -1,7 +1,5 @@
 package com.primeton.mobile.thirdparty.wechat.model.user;
 
-import com.alibaba.fastjson.annotation.JSONField;
-import com.alibaba.fastjson.annotation.JSONType;
 import com.primeton.mobile.thirdparty.wechat.IWechatModel;
 
 /**
@@ -11,25 +9,21 @@ import com.primeton.mobile.thirdparty.wechat.IWechatModel;
  * @author huangjw(mailto:huangjw@primeton.com)
  *
  */
-@JSONType
 public class WechatGroup implements IWechatModel{
 
 	/**
 	 * 分组ID
 	 */
-	@JSONField
 	int id;
 
 	/**
 	 * 分组名称
 	 */
-	@JSONField
 	String name;
 	
 	/**
 	 * 该分组下用户数量
 	 */
-	@JSONField
 	int count = 0;
 	
 	public WechatGroup() {

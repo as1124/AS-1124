@@ -1,9 +1,7 @@
 package com.primeton.mobile.thirdparty.wechat;
 
-import java.io.IOException;
-
-
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.entity.ContentType;
@@ -11,8 +9,8 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONObject;
+import com.primeton.mobile.thirdparty.access.AbstractAccessToken;
 import com.primeton.mobile.thirdparty.access.HttpExecuter;
-import com.primeton.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
 import com.primeton.mobile.thirdparty.wechat.model.statistics.InterfaceStatisticData;
 import com.primeton.mobile.thirdparty.wechat.model.statistics.MessageStatisticsData;
 import com.primeton.mobile.thirdparty.wechat.model.statistics.NewsStatisticsData;
@@ -32,12 +30,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException 
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static UserStatisticsData getUserSummary(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, "https://api.weixin.qq.com/datacube/getusersummary");
-		return JSONObject.parseObject(result, UserStatisticsData.class);
+	public List<UserStatisticsData> getUserSummary(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getusersummary");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(json.getString("list"), UserStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -46,12 +50,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException 
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static UserStatisticsData getUserCumulate(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, "https://api.weixin.qq.com/datacube/getusercumulate");
-		return JSONObject.parseObject(result, UserStatisticsData.class);
+	public List<UserStatisticsData> getUserCumulate(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(),
+				"https://api.weixin.qq.com/datacube/getusercumulate");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(json.getString("list"), UserStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -59,13 +69,18 @@ public class DataAnalyzeOperations {
 	 * @param date
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static NewsStatisticsData[] getArticleSummary(String date, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(date, date, accessToken, "https://api.weixin.qq.com/datacube/getarticlesummary");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class)
-				.toArray(new NewsStatisticsData[]{});
+	public List<NewsStatisticsData> getArticleSummary(AbstractAccessToken token, String date) {
+		String result = getReturnJson(date, date, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getarticlesummary");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -73,13 +88,18 @@ public class DataAnalyzeOperations {
 	 * @param date
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static NewsStatisticsData[] getArticleTotal(String date, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(date, date, accessToken, "https://api.weixin.qq.com/datacube/getarticletotal");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class)
-				.toArray(new NewsStatisticsData[]{});
+	public List<NewsStatisticsData> getArticleTotal(AbstractAccessToken token, String date) {
+		String result = getReturnJson(date, date, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getarticletotal");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -88,13 +108,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static NewsStatisticsData[] getUserRead(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, "https://api.weixin.qq.com/datacube/getuserread");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class)
-				.toArray(new NewsStatisticsData[]{});
+	public List<NewsStatisticsData> getUserRead(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getuserread");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -102,13 +127,18 @@ public class DataAnalyzeOperations {
 	 * @param date
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static NewsStatisticsData[] getUserReadHour(String date, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(date, date, accessToken, "https://api.weixin.qq.com/datacube/getuserreadhour");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class)
-				.toArray(new NewsStatisticsData[]{});
+	public List<NewsStatisticsData> getUserReadByHour(AbstractAccessToken token, String date) {
+		String result = getReturnJson(date, date, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getuserreadhour");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -117,26 +147,37 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static NewsStatisticsData[] getUserShare(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, "https://api.weixin.qq.com/datacube/getusershare");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class)
-				.toArray(new NewsStatisticsData[]{});
-	}	
+	public List<NewsStatisticsData> getUserShare(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getusershare");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
+	}
+	
 	/**
 	 * 获取图文分享分时数据
 	 * @param date
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static NewsStatisticsData[] getUserShareHour(String date, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(date, date, accessToken, "https://api.weixin.qq.com/datacube/getusersharehour");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class)
-				.toArray(new NewsStatisticsData[]{});
+	public List<NewsStatisticsData> getUserShareByHour(AbstractAccessToken token, String date) {
+		String result = getReturnJson(date, date, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getusersharehour");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -145,13 +186,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static MessageStatisticsData[] getUpstreamMsg(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, "https://api.weixin.qq.com/datacube/getupstreammsg");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class)
-				.toArray(new MessageStatisticsData[]{});
+	public List<MessageStatisticsData> getMsgSummary(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getupstreammsg");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -159,13 +205,18 @@ public class DataAnalyzeOperations {
 	 * @param date
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static MessageStatisticsData[] getUpstreamMsgHour(String date, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(date, date, accessToken, "https://api.weixin.qq.com/datacube/getupstreammsghour");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class)
-				.toArray(new MessageStatisticsData[]{});
+	public List<MessageStatisticsData> getMsgSummaryByHour(AbstractAccessToken token, String date) {
+		String result = getReturnJson(date, date, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getupstreammsghour");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -174,13 +225,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static MessageStatisticsData[] getUpstreamMsgWeek(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, "https://api.weixin.qq.com/datacube/getupstreammsgweek");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class)
-				.toArray(new MessageStatisticsData[]{});
+	public List<MessageStatisticsData> getMsgSummaryByWeek(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getupstreammsgweek");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -189,13 +245,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static MessageStatisticsData[] getUpstreamMsgMonth(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, "https://api.weixin.qq.com/datacube/getupstreammsgmonth");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class)
-				.toArray(new MessageStatisticsData[]{});
+	public List<MessageStatisticsData> getMsgSummaryByMonth(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getupstreammsgmonth");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -204,13 +265,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static MessageStatisticsData[] getUpstreamMsgDist(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, "https://api.weixin.qq.com/datacube/getupstreammsgdist");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class)
-				.toArray(new MessageStatisticsData[]{});
+	public List<MessageStatisticsData> getMsgDistSummary(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
+				"https://api.weixin.qq.com/datacube/getupstreammsgdist");
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -219,14 +285,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static MessageStatisticsData[] getUpstreamMsgDistWeek(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, 
+	public List<MessageStatisticsData> getMsgDistSummaryByWeek(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
 				"https://api.weixin.qq.com/datacube/getupstreammsgdistweek");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class)
-				.toArray(new MessageStatisticsData[]{});
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -235,14 +305,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static MessageStatisticsData[] getUpstreamMsgDistMonth(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, 
+	public List<MessageStatisticsData> getMsgDistSummaryByMonth(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
 				"https://api.weixin.qq.com/datacube/getupstreammsgdistmonth");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class)
-				.toArray(new MessageStatisticsData[]{});
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -251,14 +325,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static InterfaceStatisticData[] getInterfaceSummary(String beginDate, String endDate, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(beginDate, endDate, accessToken, 
+	public List<InterfaceStatisticData> getInterfaceSummary(AbstractAccessToken token, String beginDate, String endDate) {
+		String result = getReturnJson(beginDate, endDate, token.getAccess_token(), 
 				"https://api.weixin.qq.com/datacube/getinterfacesummary");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), InterfaceStatisticData.class)
-				.toArray(new InterfaceStatisticData[]{});
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), InterfaceStatisticData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -267,14 +345,18 @@ public class DataAnalyzeOperations {
 	 * @param endDate
 	 * @param accessToken
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static InterfaceStatisticData[] getInterfaceSummaryHour(String date, String accessToken) throws IOException, ThirdPartyRequestExceprion{
-		String result = getReturnJson(date, date, accessToken, 
+	public List<InterfaceStatisticData> getInterfaceSummaryHour(AbstractAccessToken token, String date) {
+		String result = getReturnJson(date, date, token.getAccess_token(), 
 				"https://api.weixin.qq.com/datacube/getinterfacesummaryhour");
-		return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), InterfaceStatisticData.class)
-				.toArray(new InterfaceStatisticData[]{});
+		JSONObject json = JSONObject.parseObject(result);
+        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        	return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), InterfaceStatisticData.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
 	}
 	
 	/**
@@ -284,10 +366,8 @@ public class DataAnalyzeOperations {
 	 * @param accessToken
 	 * @param uri
 	 * @return
-	 * @throws IOException 
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	private static String getReturnJson(String beginDate, String endDate, String accessToken, String uri) throws IOException, ThirdPartyRequestExceprion{
+	private String getReturnJson(String beginDate, String endDate, String accessToken, String uri) {
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
@@ -296,11 +376,7 @@ public class DataAnalyzeOperations {
 		String postData = jsonObj.toString();
 		StringEntity requestEntity = new StringEntity(postData, ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
 				IWechatConstants.DEFAULT_CHARSET));
-		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-			return result;
-		}else throw new ThirdPartyRequestExceprion("[AccountOperations#createTempQRImage]"+result);
+		return HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 	}
 	
 }

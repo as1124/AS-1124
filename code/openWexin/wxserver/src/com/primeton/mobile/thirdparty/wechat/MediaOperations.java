@@ -1,15 +1,15 @@
 package com.primeton.mobile.thirdparty.wechat;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.ContentType;
@@ -22,7 +22,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.primeton.mobile.thirdparty.access.AbstractAccessToken;
 import com.primeton.mobile.thirdparty.access.HttpExecuter;
-import com.primeton.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
 import com.primeton.mobile.thirdparty.wechat.model.WechatArticle;
 import com.primeton.mobile.thirdparty.wechat.model.media.WechatMedia;
 import com.primeton.mobile.thirdparty.wechat.model.media.WechatMediaList;
@@ -37,24 +36,15 @@ import com.primeton.mobile.thirdparty.wechat.model.media.WechatNewsList;
 public class MediaOperations {
 	
 	/**
-	 * 上传临时素材(仅限本地文件)，临时素材在服务器上保存时间为3天。素材大小、格式限制如下
+	 * 上传临时图片素材(仅限本地文件)，临时素材在服务器上保存时间为3天。
 	 * <li>图片（image）: 1M，支持bmp/png/jpeg/jpg/gif格式 
-	 * <li>语音（voice）：2M，播放长度不超过60s，支持mp3/wma/wav/amr格式 
-	 * <li>视频（video）：10MB，支持MP4格式
-	 * <li>缩略图（thumb）：64KB，支持JPG格式 
 	 * @param token
-	 * @param type 素材类型<code> image/video/voice/thumb</code>
 	 * @param filePath 要上传文件的全路径名
 	 * @return WechatMedia
 	 */
-	public WechatMedia uploadTempMedia(AbstractAccessToken token, String type, String filePath) {
-		String uri = "https://api.weixin.qq.com/cgi-bin/media/upload";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
-		queryStr.add(new BasicNameValuePair("type", type));
-		String url = uri + "?" + URLEncodedUtils.format(queryStr, IWechatConstants.DEFAULT_CHARSET);
-		String result = HttpExecuter.executeUploadFile(null, url, filePath, "media");
-        JSONObject returnResult = JSONObject.parseObject(result);
+	public WechatMedia uploadTempImage(AbstractAccessToken token, String filePath) {
+		String result = this.uploadTempMedia(token, "image", filePath);
+		JSONObject returnResult = JSONObject.parseObject(result);
         String returnCode = returnResult.getString(IWechatConstants.ERROR_CODE);
         if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, WechatMedia.class);
@@ -65,35 +55,124 @@ public class MediaOperations {
 	}
 	
 	/**
-	 * 获取临时媒体素材。
-	 * <strong>请注意，视频文件不支持https下载，调用该接口需http协议。 </strong>
+	 * 上传临时语音素材(仅限本地文件)，临时素材在服务器上保存时间为3天
+	 * <li>语音（voice）：2M，播放长度不超过60s，支持mp3/wma/wav/amr格式 
 	 * @param token
-	 * @param mediaID 临时素材的media_id
-	 * @param savePath 文件要保存的本地路径
-	 * @return
+	 * @param filePath 要上传文件的全路径名
+	 * @return WechatMedia
 	 */
-	public void getTempMedia(AbstractAccessToken token, String mediaID, String savePath) {
+	public WechatMedia uploadTempVoice(AbstractAccessToken token, String type, String filePath) {
+		String result = this.uploadTempMedia(token, "voice", filePath);
+		JSONObject returnResult = JSONObject.parseObject(result);
+        String returnCode = returnResult.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+			return JSONObject.parseObject(result, WechatMedia.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
+	}
+	
+	/**
+	 * 上传临时缩略图素材(仅限本地文件)，临时素材在服务器上保存时间为3天。
+	 * <li>缩略图（thumb）：64KB，支持JPG格式 
+	 * @param token
+	 * @param filePath 要上传文件的全路径名
+	 * @return WechatMedia
+	 */
+	public WechatMedia uploadTempThumb(AbstractAccessToken token, String type, String filePath) {
+		String result = this.uploadTempMedia(token, "thumb", filePath);
+		JSONObject returnResult = JSONObject.parseObject(result);
+        String returnCode = returnResult.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+			return JSONObject.parseObject(result, WechatMedia.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
+	}
+	
+	/**
+	 * 上传临时素材(仅限本地文件)，临时素材在服务器上保存时间为3天。
+	 * <li>视频（video）：10MB，支持MP4格式
+	 * @param token
+	 * @param filePath 要上传文件的全路径名
+	 * @return WechatMedia
+	 */
+	public WechatMedia uploadTempVideo(AbstractAccessToken token, String filePath) {
+		String result = this.uploadTempMedia(token, "video", filePath);
+		JSONObject returnResult = JSONObject.parseObject(result);
+        String returnCode = returnResult.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+			return JSONObject.parseObject(result, WechatMedia.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
+		}
+	}
+
+	private String uploadTempMedia(AbstractAccessToken token, String type, String filePath) {
+		String uri = "https://api.weixin.qq.com/cgi-bin/media/upload";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("type", type));
+		String url = uri + "?" + URLEncodedUtils.format(queryStr, IWechatConstants.DEFAULT_CHARSET);
+		return HttpExecuter.executeUploadFile(null, url, filePath, "media");
+	}
+	
+	public void getTempImage(AbstractAccessToken token, String mediaID, String savePath){
+		this.getTempMedia(token, mediaID, savePath);
+	}
+	
+	public void getTempVoice(AbstractAccessToken token, String mediaID, String savePath){
+		this.getTempMedia(token, mediaID, savePath);
+	}
+	
+	public void getTempThumb(AbstractAccessToken token, String mediaID, String savePath){
+		this.getTempMedia(token, mediaID, savePath);
+	}
+	
+	/**
+	 * @param token
+	 * @param mediaID
+	 * @return 视频下载链接
+	 */
+	public String getTempVideo(AbstractAccessToken token, String mediaID){
 		String uri = "https://api.weixin.qq.com/cgi-bin/media/get";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		queryStr.add(new BasicNameValuePair("media_id", mediaID));
-		byte[] datas = HttpExecuter.executeGet(uri, queryStr);
-		File file = new File(savePath);
-		FileOutputStream out = null;
+		String response = HttpExecuter.executeGetAsString(uri, queryStr);
+		JSONObject returnResult = JSONObject.parseObject(response);
+		String returnCode = returnResult.getString(IWechatConstants.ERROR_CODE);
+        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+			return returnResult.getString("video_url");
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+response);
+			return null;
+		}
+	}
+	
+	private void getTempMedia(AbstractAccessToken token, String mediaID, String savePath) {
+		String uri = "https://api.weixin.qq.com/cgi-bin/media/get";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("media_id", mediaID));
+		HttpResponse response = HttpExecuter.executeGetAsStream(uri, queryStr);
 		try {
-			out = new FileOutputStream(file);
-			out.write(datas);
-		} catch (FileNotFoundException e) {
+			InputStream in = response.getEntity().getContent();
+			FileOutputStream out = new FileOutputStream(new File(savePath));
+			byte[] buff = new byte[2048];
+			int length = 0;
+			while((length=in.read(buff)) >= 0){
+				out.write(buff, 0, length);
+			}
+			in.close();
+			out.close();
+		} catch (IllegalStateException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
-			try {
-				if(out != null)
-					out.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 	}
 	
@@ -286,21 +365,35 @@ public class MediaOperations {
 				+token.getAccess_token()+"&type="+type;
 		return HttpExecuter.executeUploadFile(null, urlStr, filePath, "media");
 	}
-
+	
 	/**
-	 * 获取永久媒体素材, 可以是<code>image/voice/thumb</code>
-	 * @param accessToken
+	 * 获取永久图片素材
+	 * @param token
 	 * @param mediaID 永久素材的media_id
 	 * @param 素材要保存的路径
-	 * @throws IOException 
 	 */
-	public void getPermaentMedia(String accessToken, String mediaID, String savePath) {
-		String uri = "https://api.weixin.qq.com/cgi-bin/material/get_material";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
-		JSONObject json = new JSONObject();
-		json.put("media_id", mediaID);
-		
+	public void getPermaentImage(AbstractAccessToken token, String mediaID, String savePath) {
+		this.getPermaentMedia(token, mediaID, savePath);
+	}
+	
+	/**
+	 * 获取永久语音素材
+	 * @param token
+	 * @param mediaID 永久素材的media_id
+	 * @param 素材要保存的路径
+	 */
+	public void getPermaentVoice(AbstractAccessToken token, String mediaID, String savePath) {
+		this.getPermaentMedia(token, mediaID, savePath);
+	}
+	
+	/**
+	 * 获取缩略图素材
+	 * @param token
+	 * @param mediaID 永久素材的media_id
+	 * @param 素材要保存的路径
+	 */
+	public void getPermaentThumb(AbstractAccessToken token, String mediaID, String savePath) {
+		this.getPermaentMedia(token, mediaID, savePath);
 	}
 	
 	/**
@@ -308,132 +401,158 @@ public class MediaOperations {
 	 * @param accessToken
 	 * @param mediaID 永久素材的media_id
 	 * @return WechatMeida
-	 * @throws IOException 
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static WechatMedia getPermaentVideo(String accessToken, String mediaID) throws IOException, ThirdPartyRequestExceprion{
+	public String getPermaentVideo(AbstractAccessToken token, String mediaID) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/get_material";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
-		queryStr.add(new BasicNameValuePair("media_id", mediaID));
-        String result = HttpExecuter.executePostAsString(uri, queryStr, new StringEntity(""));
-		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-			return JSONObject.parseObject(result, WechatMedia.class);
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		JSONObject json = new JSONObject();
+		json.put("media_id", mediaID);
+		StringEntity requestEntity = new StringEntity(json.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+		JSONObject returnResult = JSONObject.parseObject(result);
+		String returnCode = returnResult.getString(IWechatConstants.ERROR_CODE);
+		if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+			return returnResult.getString("down_url");
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[MediaOperations#getPermaentVedio]"+result);
+	}
+
+	private void getPermaentMedia(AbstractAccessToken token, String mediaID, String savePath) {
+		String uri = "https://api.weixin.qq.com/cgi-bin/material/get_material";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		JSONObject json = new JSONObject();
+		json.put("media_id", mediaID);
+		StringEntity requestEntity = new StringEntity(json.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+		HttpResponse response = HttpExecuter.executePostAsStream(uri, queryStr, requestEntity);
+		try {
+			InputStream in = response.getEntity().getContent();
+			FileOutputStream out = new FileOutputStream(new File(savePath));
+			byte[] buff = new byte[2048];
+			int length = 0;
+			while((length=in.read(buff)) >= 0){
+				out.write(buff, 0, length);
+			}
+			in.close();
+			out.close();
+		} catch (IllegalStateException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/**
 	 * 删除永久媒体素材
-	 * @param accessToken
+	 * @param token
 	 * @param mediaID 永久素材的media_id
 	 * @return
-	 * @throws IOException
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static boolean deletePermaentMedia(String accessToken, String mediaID) throws IOException, ThirdPartyRequestExceprion{
+	public boolean deletePermaentMedia(AbstractAccessToken token, String mediaID) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/del_material";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject json = new JSONObject();
 		json.put("media_id", mediaID);
-		StringEntity reqEntity = new StringEntity(json.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET));
+		StringEntity reqEntity = new StringEntity(json.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
         String result = HttpExecuter.executePostAsString(uri, queryStr, reqEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+		if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
-		}
-		else {
-			throw new ThirdPartyRequestExceprion("[MediaOperations#deletePermaentMedia]"+result);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return false;
 		}
 	}
 	
 	/**
 	 * 更新永久图文素材
-	 * @param accessToken
+	 * @param token
 	 * @param mediaID 永久图文素材的media_id
 	 * @param index 需要更新的内容在素材中的索引位置, 第一篇为0
 	 * @param newArticle
-	 * @throws IOException 
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static boolean updateWechatNews(String accessToken, String mediaID, int index, WechatArticle newArticle) throws IOException, ThirdPartyRequestExceprion {
+	public boolean updateWechatNews(AbstractAccessToken token, String mediaID, int index, WechatArticle newArticle) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/update_news";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
 		postData.put("media_id", mediaID);
 		postData.put("index", index);
 		postData.put("articles", newArticle);
-		StringEntity reqEntity = new StringEntity(postData.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET)); 
+		StringEntity reqEntity = new StringEntity(postData.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET)); 
         String result = HttpExecuter.executePostAsString(uri, queryStr, reqEntity);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
+		} else{
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return false;
 		}
-		else throw new ThirdPartyRequestExceprion("[MediaOperations#updateWechatNews]"+result);
 	}
 	
 	/**
 	 * 获取永久多媒体素材数量
-	 * @param accessToken
+	 * @param token
 	 * @return Map 存放了分类统计的数量
-	 * @throws IOException 
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	@SuppressWarnings("rawtypes")
-	public static HashMap getPermaentMediaCount(String accessToken) throws IOException, ThirdPartyRequestExceprion {
+	public HashMap<?, ?> getPermaentMediaCount(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/get_materialcount";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, HashMap.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[MediaOperations#getPermaentMediaCount]"+result);
 	}
 	
 	/**
 	 * 根据素材类型获取素材列表
-	 * @param accessToken
+	 * @param token
 	 * @param type <code>image/video/voice</code>
 	 * @param offset a Integer start at 0
 	 * @param count a Integer between 1 and 20
-	 * @return
-	 * @throws IOException 
-	 * @throws ThirdPartyRequestExceprion 
+	 * @return 
 	 */
-	public static WechatMediaList getPermaentMediaList(String accessToken, String type, int offset, int count) throws IOException, ThirdPartyRequestExceprion {
+	public WechatMediaList getPermaentMediaList(AbstractAccessToken token, String type, int offset, int count) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/batchget_material";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", accessToken));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		JSONObject postData = new JSONObject();
 		postData.put("type", type);
 		postData.put("offset", offset);
 		postData.put("count", count);
-		String result = HttpExecuter.executePostAsString(uri, queryStr, new StringEntity(postData.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET)));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, 
+				new StringEntity(postData.toJSONString(), 
+						ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET)));
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
 		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, WechatMediaList.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[MediaOperations#getPermaentMeidaList]"+result);
 	}
 	
 	/**
-	 * 根据素材类型获取素材列表
+	 * 获取图文素材列表
 	 * @param accessToken
 	 * @param offset a Integer start at 0
 	 * @param count a Integer between 1 and 20
 	 * @return
-	 * @throws IOException 
-	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static WechatNewsList getPermaentNewsList(String accessToken, int offset, int count) throws IOException, ThirdPartyRequestExceprion {
+	public WechatNewsList getPermaentNewsList(String accessToken, int offset, int count) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/material/batchget_material";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
@@ -441,13 +560,16 @@ public class MediaOperations {
 		postData.put("type", "news");
 		postData.put("offset", offset);
 		postData.put("count", count);
-		String result = HttpExecuter.executePostAsString(uri, queryStr, new StringEntity(postData.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET)));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, 
+				new StringEntity(postData.toJSONString(), 
+						ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET)));
 		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-		if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+		if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, WechatNewsList.class);
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return null;
 		}
-		else throw new ThirdPartyRequestExceprion("[MediaOperations#getPermaentMeidaList]"+result);
 	}
 
 }

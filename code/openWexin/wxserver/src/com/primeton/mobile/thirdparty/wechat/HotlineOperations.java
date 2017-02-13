@@ -18,7 +18,6 @@ import com.primeton.mobile.thirdparty.access.HttpExecuter;
 import com.primeton.mobile.thirdparty.wechat.message.ArticleMessage.Article;
 import com.primeton.mobile.thirdparty.wechat.model.HotlineAccount;
 
-
 /**
  * 客服消息管理接口
  * <strong><ul>
@@ -426,6 +425,7 @@ public class HotlineOperations {
 			System.out.println(IWechatConstants.MSG_TAG+result);
 			return false;
 		}
-
 	}
+	
+//	public void 
 }
