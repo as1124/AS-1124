@@ -3,6 +3,7 @@ package com.primeton.mobile.thirdparty.wechat;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.http.NameValuePair;
@@ -44,6 +45,32 @@ public class HotlineOperations {
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
 		StringEntity requestEntity = new StringEntity(JSONObject.toJSONString(account), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
 				IWechatConstants.DEFAULT_CHARSET));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+			return true;
+		} else {
+			System.out.println(IWechatConstants.MSG_TAG+result);
+			return false;
+		}
+	}
+	
+	/**
+	 * 邀请微信用户绑定客服账号
+	 * @param token
+	 * @param kfAccount
+	 * @param wxAccount
+	 * @return
+	 */
+	public boolean invite4Binding(AbstractAccessToken token, String kfAccount, String wxAccount){
+		String uri = "https://api.weixin.qq.com/customservice/kfaccount/inviteworker";
+		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		JSONObject postData = new JSONObject();
+		postData.put("kf_account", kfAccount);
+		postData.put("invite_wx", wxAccount);
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(), 
+				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
         String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
@@ -128,7 +155,7 @@ public class HotlineOperations {
 	 * @return
 	 * @throws IOException
 	 */
-	public HotlineAccount[] getAllServiceAccount(AbstractAccessToken token) {
+	public List<HotlineAccount> getAllServiceAccount(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/customservice/getkflist";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
@@ -136,10 +163,10 @@ public class HotlineOperations {
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-			return JSONArray.parseArray(json.getString("kf_list"), HotlineAccount.class).toArray(new HotlineAccount[]{});
+			return JSONArray.parseArray(json.getString("kf_list"), HotlineAccount.class);
 		} else {
 			System.out.println(IWechatConstants.MSG_TAG+result);
-			return new HotlineAccount[0];
+			return null;
 		}
 	}
 	
@@ -148,10 +175,8 @@ public class HotlineOperations {
 	 * 获取当前所有在线客服
 	 * @param token
 	 * @return
-	 * @throws IOException
 	 */
-	@Deprecated
-	public HotlineAccount[] getOnlineServiceAccounts(AbstractAccessToken token) {
+	public List<HotlineAccount> getOnlineServiceAccounts(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
@@ -159,7 +184,7 @@ public class HotlineOperations {
 		JSONObject json = JSONObject.parseObject(result);
         String returnCode = json.getString(IWechatConstants.ERROR_CODE);
         if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-			return JSONArray.parseArray(json.getString("kf_online_list"), HotlineAccount.class).toArray(new HotlineAccount[]{});
+			return JSONArray.parseArray(json.getString("kf_online_list"), HotlineAccount.class);
 		}
 		else return null;
 	}
@@ -427,5 +452,4 @@ public class HotlineOperations {
 		}
 	}
 	
-//	public void 
 }
