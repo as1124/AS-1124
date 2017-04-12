@@ -2,5 +2,9 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/work/gitcodes/AS-1124/code/openWexin/wxserver/WebContent/WEB-INF/lib/commons-codec-1.9.jar"/>
+	<classpathentry kind="lib" path="D:/work/gitcodes/AS-1124/code/openWexin/wxserver/WebContent/WEB-INF/lib/commons-lang-2.1.jar"/>
+	<classpathentry kind="lib" path="D:/work/gitcodes/AS-1124/code/openWexin/wxserver/WebContent/WEB-INF/lib/commons-logging-1.1.3.jar"/>
+	<classpathentry kind="lib" path="D:/work/gitcodes/AS-1124/code/openWexin/wxserver/WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

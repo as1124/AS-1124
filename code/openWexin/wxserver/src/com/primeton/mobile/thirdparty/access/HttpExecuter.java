@@ -7,6 +7,7 @@ import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
@@ -37,6 +38,7 @@ import org.apache.http.conn.socket.PlainConnectionSocketFactory;
 import org.apache.http.conn.ssl.BrowserCompatHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.ContentBody;
@@ -44,7 +46,10 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 
@@ -488,6 +493,19 @@ public class HttpExecuter {
 		if(charset==null || charset.trim().equals("")){
 			return "UTF-8";
 		} else return charset;
+	}
+	
+	public static void main(String[] args){
+		String url = "http://localhost:8090/testResteasy/product/appleProduct/baixue";
+		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		JSONObject postData = new JSONObject();
+		postData.put("name", "iPhone7");
+		postData.put("seqNo", "12443");
+		HttpEntity requestEntity = new StringEntity(postData.toJSONString(), 
+				ContentType.create("application/json", "utf-8"));
+		HttpResponse resp = HttpExecuter.executePostAsStream(url, queryStr, requestEntity);
+//		String resp = HttpExecuter.executeGetAsString(url, queryStr);
+		System.out.println(resp);
 	}
 	
 }
