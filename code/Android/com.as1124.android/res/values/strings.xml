@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string name="app_name">第一个安卓应用</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
@@ -9,5 +8,5 @@
     <string name="ok_button_text">确定</string>
     <string name="addItemHint">New to do item</string>
     <string name="addItemContentDescription">内容描述</string>
-
+    <string name="text_todo_list">代办事项</string>
 </resources>

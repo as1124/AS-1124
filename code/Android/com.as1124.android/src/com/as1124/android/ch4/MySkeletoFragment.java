@@ -1,9 +1,9 @@
 package com.as1124.android.ch4;
 
 import com.as1124.android.ch2.R;
-import android.annotation.SuppressLint;
+
+import android.app.Activity;
 import android.app.Fragment;
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +20,7 @@ import android.view.ViewGroup;
  */
 public class MySkeletoFragment extends Fragment {
 
-	@SuppressLint("NewApi")
-	@Override
-	public void onAttach(Context context) {
+	public void onAttach(Activity context) {
 		super.onAttach(context);
 		//调用该方法时，Fragment会被链接到它的父Activity上
 		

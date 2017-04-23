@@ -1,40 +1,43 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:id="@+id/main_top_parent"
     tools:context="com.as1124.android.ch2.MainActivity" >
-
+ 
+    <Button
+        android:id="@+id/button_todo_list"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/text_todo_list" />
     <LinearLayout 
         android:id="@+id/button_bar"
-        android:layout_alignParentBottom="true"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="-5dp">
+        android:layout_weight="1"
+        android:gravity="center"
+        android:padding="0dp"
+        android:background="#00FF00">
         <Button
-            style=""
-	        android:layout_width="fill_parent"
+            style="?android:attr/buttonBarButtonStyle"
+            android:id="@+id/main_ok_button"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/cancel_button_text"
-	        android:layout_weight="1" />
+	        android:text="@string/cancel_button_text" />
         <Button
-            style=""
-	        android:layout_width="fill_parent"
+            style="?android:attr/buttonBarStyle"
+            android:id="@+id/main_cancel_button"
+	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:text="@string/ok_button_text"
-	        android:layout_weight="2" />
+	        android:text="@string/ok_button_text" />
         
     </LinearLayout>
-    <ListView 
-        android:layout_above="@id/button_bar"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"></ListView>
 
-</RelativeLayout>
+</LinearLayout>
