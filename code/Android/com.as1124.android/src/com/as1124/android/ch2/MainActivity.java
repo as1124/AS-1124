@@ -1,9 +1,13 @@
 package com.as1124.android.ch2;
 
+import com.as1124.android.ch4.TodoListActivity;
+
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 /**
  * 
@@ -18,7 +22,15 @@ public class MainActivity extends Activity {
 		
 		//初始化一个Activity并填充UI
 		setContentView(R.layout.activity_main);
-		
+		this.findViewById(R.id.main_ok_button).setOnClickListener(new View.OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(v.getContext(), TodoListActivity.class);
+				v.getContext().startActivity(intent);
+				
+			}
+		});;
 		
 	}
 
