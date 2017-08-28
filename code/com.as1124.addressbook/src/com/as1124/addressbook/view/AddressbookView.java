@@ -225,7 +225,7 @@ public class AddressbookView extends ViewPart {
 	}
 	
 	public AddressItem[] getSelectedAddresses(){
-		IStructuredSelection selection = viewer.getStructuredSelection();
+		IStructuredSelection selection = (IStructuredSelection) viewer.getSelection();
 		Iterator<?> it = selection.iterator();
 		AddressItem[] items = new AddressItem[selection.size()];
 		int i=0;
