@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<metadata>
-    <model description="" displayName="SubscribedCountInfo" implementationType="file" modifier="public" name="SubscribedCountInfo.class" order="32" version=""/>
-    <model description="" displayName="WechatGroup" implementationType="file" modifier="public" name="WechatGroup.class" order="32" version=""/>
-    <model description="" displayName="WechatUserInfo" implementationType="file" modifier="public" name="WechatUserInfo.class" order="32" version=""/>
-</metadata>
