@@ -14,41 +14,32 @@ import javax.swing.JTextArea;
  * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
-public class TestServer implements Runnable{
+public class TestServer implements Runnable {
 
 	private JTextArea message = null;
-	
+
 	public TestServer(JTextArea text) {
 		this.message = text;
 	}
-	
+
 	@Override
 	public void run() {
-		ServerSocket server = null;
-		Socket socket = null;
-		try {
-			server = new ServerSocket(8189);
-			while (true) {
-				socket = server.accept();
-				Runnable r = new TestServerHandle(socket, message);
-				Thread t = new Thread(r);
+		boolean isContinue = true;
+		int threadCount = 0;
+
+		// 在Java7中，try-with-resource方式是会强制结束时关闭 closeable类型的资源
+		try (ServerSocket server = new ServerSocket(8189)) {
+			while (isContinue) {
+				Socket socket = server.accept();
+				Thread t = new Thread(new TestServerHandle(socket, message));
 				t.start();
+				threadCount++;
+				if (threadCount > 3)
+					isContinue = false;
 			}
 		} catch (IOException e) {
-			message.append("\nTestServer.run: "+e);
-		} finally {
-			try {
-				if(socket.isConnected()){
-					socket.close();
-				}
-				if(server.isClosed() == false){
-					server.close();
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			message.append("\nTestServer.run: " + e);
 		}
-		
 	}
 
 }

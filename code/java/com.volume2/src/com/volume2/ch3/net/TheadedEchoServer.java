@@ -7,6 +7,8 @@ import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -19,36 +21,43 @@ import java.util.Scanner;
 public class TheadedEchoServer {
 
 	public static void main(String[] args) throws IOException {
-		int i =1;
-		Socket socket = null;
+		Logger logger = Logger.getLogger(InetAddressCase.class.getName());
+
+		int i = 1;
+		Socket incoming = null;
 		ServerSocket server = null;
 		try {
 			server = new ServerSocket(8189);
-			
-			while(true){
-				socket = server.accept();
+			boolean isContinue = true;
+			while (isContinue) {
+				incoming = server.accept();
 				System.out.println("Spawning " + i);
-				Runnable runner = new ThreadedHandler(socket);
-				
+				Runnable runner = new ThreadedHandler(incoming);
 				Thread thread = new Thread(runner);
 				thread.start();
 				i++;
+				if (i > 5)
+					isContinue = false;
 			}
-			
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			logger.log(Level.SEVERE, ex.getMessage(), ex);
 		} finally {
-			if(socket.isConnected()){
-				socket.close();
+			try {
+				if (incoming != null) {
+					incoming.close();
+				}
+			} catch (IOException ex) {
+				logger.log(Level.WARNING, ex.getMessage(), ex);
 			}
-			if(server.isClosed() == false){
-				server.close();
+			try {
+				if (server != null) {
+					server.close();
+				}
+			} catch (IOException ex) {
+				logger.log(Level.WARNING, ex.getMessage(), ex);
 			}
 		}
-		
-		
 	}
-
 }
 
 /**
@@ -58,50 +67,50 @@ public class TheadedEchoServer {
  * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
-class ThreadedHandler implements Runnable{
+class ThreadedHandler implements Runnable {
 
 	Socket socket = null;
-	
+
 	public ThreadedHandler(Socket s) {
 		this.socket = s;
 	}
-	
+
 	@Override
 	public void run() {
+		Logger logger = Logger.getLogger(ThreadedHandler.class.getName());
+
 		InputStream inStream = null;
 		OutputStream outStream = null;
 		try {
 			inStream = socket.getInputStream();
 			outStream = socket.getOutputStream();
-			
+
 			Scanner in = new Scanner(inStream);
 			PrintWriter out = new PrintWriter(outStream, true);
-			
+
 			out.println("Hello! Enter BYE to exit.");
-			
+
 			//echo client input
 			boolean done = false;
-			while(!done && in.hasNextLine()){
+			while (!done && in.hasNextLine()) {
 				String line = in.nextLine();
 				out.println("Echo: " + line);
-				if(line.trim().equals("BYE")){
+				if (line.trim().equals("BYE")) {
 					done = true;
 				}
 			}
-			
+
 			in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} catch (IOException ex) {
+			logger.log(Level.WARNING, ex.getMessage(), ex);
 		} finally {
-			if(socket.isConnected()){
-				try {
+			try {
+				if (!socket.isConnected())
 					socket.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			} catch (IOException ex) {
+				logger.log(Level.WARNING, ex.getMessage(), ex);
 			}
 		}
-		
 	}
-	
+
 }

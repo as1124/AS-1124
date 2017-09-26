@@ -2,6 +2,8 @@ package com.volume2.ch3.net;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -12,25 +14,23 @@ import java.net.UnknownHostException;
  * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
-public class InetAddressTest {
+public class InetAddressCase {
 
 	public static void main(String[] args) {
-		
+		Logger logger = Logger.getLogger(InetAddressCase.class.getName());
 		try {
-			if(args.length > 0){
+			if (args.length > 0) {
 				String host = args[0];
-				InetAddress[] address;
-				address = InetAddress.getAllByName(host);
-				for(InetAddress a:address)
+				InetAddress[] address = InetAddress.getAllByName(host);
+				for (InetAddress a : address)
 					System.out.println(a);
 			} else {
 				InetAddress localHostAddress = InetAddress.getLocalHost();
 				System.out.println(localHostAddress);
 			}
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
+		} catch (UnknownHostException ex) {
+			logger.log(Level.SEVERE, ex.getMessage(), ex);
 		}
-
 	}
 
 }
