@@ -1,0 +1,149 @@
+/*******************************************************************************
+ * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
+ * All rights reserved.
+ * 
+ * Created on 2017年9月27日
+ *******************************************************************************/
+
+package com.volume2.ch3.net.nonblocking;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.nio.ByteBuffer;
+import java.nio.CharBuffer;
+import java.nio.channels.SocketChannel;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetDecoder;
+
+/**
+ * 非阻塞模式的Socket
+ *
+ * @author huangjw (mailto:huangjw@primeton.com)
+ */
+
+public class NoblockingSocket {
+
+	static SocketChannel client = null;
+
+	static RecvThread rt = null;
+
+	public static void main(String[] args) {
+		try {
+			InetAddress ia = InetAddress.getLocalHost();
+			InetSocketAddress socketAddress = new InetSocketAddress(ia, 8189);
+			client = SocketChannel.open();
+			
+			// in nonblocking mode, connect will immediately return, so need to make
+			// sure that the connection was established.
+			if (!client.connect(socketAddress)) {
+				boolean isConnected = false;
+				while (!isConnected) {
+					isConnected = client.finishConnect();
+				}
+			}
+			client.configureBlocking(false);
+
+			receiveMessage();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		while (sendMessage() != -1) {
+			// just a loop
+		}
+
+		try {
+			client.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void receiveMessage() {
+		rt = new RecvThread("Receive Thread", client);
+		rt.start();
+	}
+
+	public static int sendMessage() {
+		System.out.println("Inside SendMessage");
+		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+		String msg = "";
+		ByteBuffer bytebuff = ByteBuffer.allocate(1024);
+		int nBytes = 0;
+		try {
+			msg = reader.readLine();
+			System.out.println("msg is " + msg);
+			bytebuff = ByteBuffer.wrap(msg.getBytes());
+			nBytes = client.write(bytebuff);
+			System.out.println("nBytes is " + nBytes);
+			if (msg.equalsIgnoreCase("quit")) {
+				System.out.println("time to stop the client");
+				interruptThread();
+				Thread.sleep(3000);
+				client.close();
+				return -1;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("Wrote " + nBytes + " bytes to the server");
+		return nBytes;
+	}
+
+	private static void interruptThread() {
+		rt.setVal(false);
+	}
+}
+
+class RecvThread extends Thread {
+
+	private SocketChannel sc = null;
+
+	private boolean val = true;
+
+	public RecvThread(String str, SocketChannel client) {
+		super(str);
+		sc = client;
+	}
+
+	@Override
+	public void run() {
+		System.out.println("Inside receivemsg");
+		int nBytes = 0;
+		ByteBuffer buf = ByteBuffer.allocate(2048);
+		try {
+			while (val) {
+				while ((nBytes = sc.read(buf)) > 0) {
+					buf.flip();
+					Charset charset = Charset.forName("us-ascii");
+					CharsetDecoder decoder = charset.newDecoder();
+					CharBuffer charBuffer = decoder.decode(ByteBuffer.wrap(buf.array(), 0, nBytes));
+					String result = charBuffer.toString();
+					System.out.println(result);
+					buf.flip();
+				}
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @return Returns the val.
+	 */
+	public boolean isVal() {
+		return val;
+	}
+
+	/**
+	 * @param val The val to set.
+	 */
+	public void setVal(boolean val) {
+		this.val = val;
+	}
+}
