@@ -13,6 +13,7 @@ import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -23,6 +24,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.SwingWorker;
+
+import com.java.core.log.JavaCoreLogger;
 
 /**
  * This program demonstrates how to use the URLConnection class for
@@ -51,8 +54,8 @@ class PostTestFrame extends JFrame {
 
 	private JPanel northPanel;
 
-	private Map<String, String> post = new HashMap<String, String>();
-	
+	private Map<String, String> post = new HashMap<>();
+
 	public PostTestFrame() {
 		setTitle("PostTest");
 		setSize(600, 800);
@@ -105,7 +108,7 @@ class PostTestFrame extends JFrame {
 						result.setText(doPost(urlString, post));
 					} catch (Exception e) {
 						result.setText("" + e);
-						e.printStackTrace();
+						JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 					}
 					return null;
 				}
@@ -142,26 +145,27 @@ class PostTestFrame extends JFrame {
 		}
 
 		out.close();
-		Scanner in;
+		Scanner in = null;
 		StringBuilder response = new StringBuilder();
 		try {
 			in = new Scanner(connection.getInputStream());
-
-		} catch (Exception e) {
-			if (!(connection instanceof HttpURLConnection)) {
-				e.printStackTrace();
+		} catch (Exception ex) {
+			JavaCoreLogger.log(Level.SEVERE, ex.getMessage(), ex);
+			if (connection instanceof HttpURLConnection) {
+				InputStream err = ((HttpURLConnection) connection).getErrorStream();
+				in = new Scanner(err);
 			}
-			InputStream err = ((HttpURLConnection) connection).getErrorStream();
-			if (err != null)
-				e.printStackTrace();
-			in = new Scanner(err);
 		}
+
+		if (in == null)
+			return "";
 
 		while (in.hasNextLine()) {
 			response.append(in.nextLine());
 			response.append("\n");
 		}
 		in.close();
+
 		return response.toString();
 	}
 

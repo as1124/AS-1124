@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.logging.Level;
 
 import javax.swing.JTextArea;
+
+import com.java.core.log.JavaCoreLogger;
 
 /**
  * 
@@ -30,8 +33,7 @@ public class TestServerHandle implements Runnable {
 	@Override
 	public void run() {
 		PrintWriter out = null;
-		try {
-			OutputStream outStream = socket.getOutputStream();
+		try (OutputStream outStream = socket.getOutputStream();) {
 			out = new PrintWriter(outStream, true);
 			while (counter < 20) {
 				counter++;
@@ -40,16 +42,17 @@ public class TestServerHandle implements Runnable {
 				Thread.sleep(100);
 				message.append("Closing server\n");
 			}
-		} catch (Exception e) {
-			message.append("\nTestServerHandle.run: " + e);
+		} catch (Exception ex) {
+			JavaCoreLogger.log(Level.SEVERE, ex.getMessage(), ex);
+			message.append("\nTestServerHandle.run: " + ex);
 		} finally {
 			if (out != null)
 				out.close();
 			try {
 				if (socket != null)
 					socket.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IOException ex) {
+				JavaCoreLogger.log(Level.SEVERE, ex.getMessage(), ex);
 			}
 		}
 	}

@@ -8,7 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.java.core.log.JavaCoreLogger;
 
 /**
  * 
@@ -21,17 +22,15 @@ import java.util.logging.Logger;
 public class TheadedEchoServer {
 
 	public static void main(String[] args) throws IOException {
-		Logger logger = Logger.getLogger(InetAddressCase.class.getName());
 
 		int i = 1;
 		Socket incoming = null;
-		ServerSocket server = null;
-		try {
-			server = new ServerSocket(8189);
+
+		try (ServerSocket server = new ServerSocket(8189);) {
 			boolean isContinue = true;
 			while (isContinue) {
 				incoming = server.accept();
-				System.out.println("Spawning " + i);
+				JavaCoreLogger.log(Level.INFO, "Spawning " + i);
 				Runnable runner = new ThreadedHandler(incoming);
 				Thread thread = new Thread(runner);
 				thread.start();
@@ -40,21 +39,14 @@ public class TheadedEchoServer {
 					isContinue = false;
 			}
 		} catch (IOException ex) {
-			logger.log(Level.SEVERE, ex.getMessage(), ex);
+			JavaCoreLogger.log(Level.SEVERE, ex.getMessage(), ex);
 		} finally {
 			try {
 				if (incoming != null) {
 					incoming.close();
 				}
 			} catch (IOException ex) {
-				logger.log(Level.WARNING, ex.getMessage(), ex);
-			}
-			try {
-				if (server != null) {
-					server.close();
-				}
-			} catch (IOException ex) {
-				logger.log(Level.WARNING, ex.getMessage(), ex);
+				JavaCoreLogger.log(Level.SEVERE, ex.getMessage(), ex);
 			}
 		}
 	}
@@ -77,14 +69,8 @@ class ThreadedHandler implements Runnable {
 
 	@Override
 	public void run() {
-		Logger logger = Logger.getLogger(ThreadedHandler.class.getName());
 
-		InputStream inStream = null;
-		OutputStream outStream = null;
-		try {
-			inStream = socket.getInputStream();
-			outStream = socket.getOutputStream();
-
+		try (InputStream inStream = socket.getInputStream(); OutputStream outStream = socket.getOutputStream();) {
 			Scanner in = new Scanner(inStream);
 			PrintWriter out = new PrintWriter(outStream, true);
 
@@ -100,16 +86,11 @@ class ThreadedHandler implements Runnable {
 				}
 			}
 
+			out.flush();
+			out.close();
 			in.close();
-		} catch (IOException ex) {
-			logger.log(Level.WARNING, ex.getMessage(), ex);
-		} finally {
-			try {
-				if (!socket.isConnected())
-					socket.close();
-			} catch (IOException ex) {
-				logger.log(Level.WARNING, ex.getMessage(), ex);
-			}
+		} catch (IOException e) {
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 

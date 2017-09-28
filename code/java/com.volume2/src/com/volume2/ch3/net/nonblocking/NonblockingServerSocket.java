@@ -22,6 +22,9 @@ import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
 import java.util.Iterator;
+import java.util.logging.Level;
+
+import com.java.core.log.JavaCoreLogger;
 
 /**
  * 非阻塞模式的ServerSocket
@@ -47,47 +50,55 @@ public class NonblockingServerSocket {
 			// select() is a blocking operation
 			while (sel.select() > 0) {
 				Iterator<SelectionKey> it = sel.selectedKeys().iterator();
-				while (it.hasNext()) {
-					SocketChannel socket = null;
-					SelectionKey key = it.next();
-					it.remove();
-
-					if (key.isAcceptable()) {
-						// a connection was accepted by a ServerSocketChannel
-						System.out.println("Acceptabel Key");
-						ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
-						socket = ssc.accept();
-						socket.configureBlocking(false);
-						socket.register(sel, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
-					} else if (key.isConnectable()) {
-						// a connection was established with a remote server
-
-					} else if (key.isReadable()) {
-						// a channel is ready for reading
-						System.out.println("Readable Key");
-						String ret = readMessage(key);
-						if (ret.length() > 0) {
-							writeMessage(socket, ret);
-						}
-					} else if (key.isWritable()) {
-						// a channel is ready for writing
-						System.out.println("Writable Key");
-						String ret = readMessage(key);
-						socket = (SocketChannel) key.channel();
-						if (ret.length() > 0) {
-							writeMessage(socket, ret);
-						}
-					}
-				}
+				doSelec(it, sel);
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		} finally {
 			try {
 				if (sel != null)
 					sel.close();
 			} catch (IOException e) {
-				e.printStackTrace();
+				JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
+			}
+		}
+	}
+
+	private static void doSelec(Iterator<SelectionKey> it, Selector sel) {
+		while (it.hasNext()) {
+			SocketChannel socket = null;
+			SelectionKey key = it.next();
+			it.remove();
+
+			try {
+				if (key.isAcceptable()) {
+					// a connection was accepted by a ServerSocketChannel
+					JavaCoreLogger.log(Level.INFO, "Acceptabel Key");
+					ServerSocketChannel ssc = (ServerSocketChannel) key.channel();
+					socket = ssc.accept();
+					socket.configureBlocking(false);
+					socket.register(sel, SelectionKey.OP_READ | SelectionKey.OP_WRITE);
+				} else if (key.isConnectable()) {
+					// a connection was established with a remote server
+
+				} else if (key.isReadable()) {
+					// a channel is ready for reading
+					JavaCoreLogger.log(Level.INFO, "Readable Key");
+					String ret = readMessage(key);
+					if (ret.length() > 0) {
+						writeMessage(socket, ret);
+					}
+				} else if (key.isWritable()) {
+					// a channel is ready for writing
+					JavaCoreLogger.log(Level.INFO, "Writable Key");
+					String ret = readMessage(key);
+					socket = (SocketChannel) key.channel();
+					if (ret.length() > 0) {
+						writeMessage(socket, ret);
+					}
+				}
+			} catch (IOException e) {
+				JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 			}
 		}
 	}
@@ -104,13 +115,13 @@ public class NonblockingServerSocket {
 			CharBuffer charBuff = decoder.decode(ByteBuffer.wrap(buff.array(), 0, nBytes));
 			return charBuff.toString();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return "";
 	}
 
 	private static void writeMessage(SocketChannel socket, String message) {
-		System.out.println("Inside the loop");
+		JavaCoreLogger.log(Level.INFO, "Inside the loop");
 		if (message.equalsIgnoreCase("quit")) {
 			return;
 		}
@@ -125,15 +136,14 @@ public class NonblockingServerSocket {
 			Charset charset = Charset.forName("us-ascii");
 			CharsetDecoder dec = charset.newDecoder();
 			CharBuffer charBuff = dec.decode(buffer);
-			System.out.println(charBuff.toString());
+			JavaCoreLogger.log(Level.INFO, charBuff.toString());
 
 			buffer = ByteBuffer.wrap(charBuff.toString().getBytes());
 			int nBytes = socket.write(buffer);
-			System.out.println("nBytes = " + nBytes);
+			JavaCoreLogger.log(Level.INFO, "nBytes = " + nBytes);
 		} catch (IOException e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
-
 	}
 
 }

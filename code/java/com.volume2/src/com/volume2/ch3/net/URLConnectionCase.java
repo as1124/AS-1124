@@ -4,12 +4,14 @@ import java.io.ByteArrayOutputStream;
 import java.io.FilterOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Level;
+
+import com.java.core.log.JavaCoreLogger;
 
 /**
  * This program connects to a URL and displays the response header data and
@@ -49,31 +51,28 @@ public class URLConnectionCase {
 			for (Map.Entry<String, List<String>> entry : headers.entrySet()) {
 				String key = entry.getKey();
 				for (String value : entry.getValue()) {
-					System.out.println(key + ":" + value);
+					JavaCoreLogger.log(Level.INFO, key + ":" + value);
 				}
 			}
 
 			// print convenience functions
-			System.out.println("-------------------------");
-			System.out.println("getContentType:" + connection.getContentType());
-			System.out.println("getContentLength:" + connection.getContentLength());
-			System.out.println("getContentEncoding:" + connection.getContentEncoding());
-			System.out.println("getDate:" + connection.getDate());
-			System.out.println("getExpiration:" + connection.getExpiration());
-			System.out.println("getLastModified:" + connection.getLastModified());
-			System.out.println("-------------------------");
+			JavaCoreLogger.log(Level.INFO, "-------------------------");
+			JavaCoreLogger.log(Level.INFO, "getContentType:" + connection.getContentType());
+			JavaCoreLogger.log(Level.INFO, "getContentLength:" + connection.getContentLength());
+			JavaCoreLogger.log(Level.INFO, "getContentEncoding:" + connection.getContentEncoding());
+			JavaCoreLogger.log(Level.INFO, "getDate:" + connection.getDate());
+			JavaCoreLogger.log(Level.INFO, "getExpiration:" + connection.getExpiration());
+			JavaCoreLogger.log(Level.INFO, "getLastModified:" + connection.getLastModified());
+			JavaCoreLogger.log(Level.INFO, "-------------------------");
 
 			Scanner in = new Scanner(connection.getInputStream());
 			//print first ten lines of contents
 			while (in.hasNextLine()) {
-				System.out.println(in.nextLine());
+				JavaCoreLogger.log(Level.INFO, in.nextLine());
 			}
-
 			in.close();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 	}
@@ -91,7 +90,7 @@ public class URLConnectionCase {
 			out.flush();
 			out.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return bOut.toString();
 	}

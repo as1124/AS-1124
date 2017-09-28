@@ -17,6 +17,9 @@ import java.nio.CharBuffer;
 import java.nio.channels.SocketChannel;
 import java.nio.charset.Charset;
 import java.nio.charset.CharsetDecoder;
+import java.util.logging.Level;
+
+import com.java.core.log.JavaCoreLogger;
 
 /**
  * 非阻塞模式的Socket
@@ -35,7 +38,7 @@ public class NoblockingSocket {
 			InetAddress ia = InetAddress.getLocalHost();
 			InetSocketAddress socketAddress = new InetSocketAddress(ia, 8189);
 			client = SocketChannel.open();
-			
+
 			// in nonblocking mode, connect will immediately return, so need to make
 			// sure that the connection was established.
 			if (!client.connect(socketAddress)) {
@@ -48,7 +51,7 @@ public class NoblockingSocket {
 
 			receiveMessage();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
 
 		while (sendMessage() != -1) {
@@ -58,7 +61,7 @@ public class NoblockingSocket {
 		try {
 			client.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 
@@ -68,29 +71,29 @@ public class NoblockingSocket {
 	}
 
 	public static int sendMessage() {
-		System.out.println("Inside SendMessage");
+		JavaCoreLogger.log(Level.INFO, "Inside SendMessage");
 		BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 		String msg = "";
 		ByteBuffer bytebuff = ByteBuffer.allocate(1024);
 		int nBytes = 0;
 		try {
 			msg = reader.readLine();
-			System.out.println("msg is " + msg);
+			JavaCoreLogger.log(Level.INFO, "msg is " + msg);
 			bytebuff = ByteBuffer.wrap(msg.getBytes());
 			nBytes = client.write(bytebuff);
-			System.out.println("nBytes is " + nBytes);
+			JavaCoreLogger.log(Level.INFO, "nBytes is " + nBytes);
 			if (msg.equalsIgnoreCase("quit")) {
-				System.out.println("time to stop the client");
+				JavaCoreLogger.log(Level.INFO, "time to stop the client");
 				interruptThread();
 				Thread.sleep(3000);
 				client.close();
 				return -1;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
 
-		System.out.println("Wrote " + nBytes + " bytes to the server");
+		JavaCoreLogger.log(Level.INFO, "Wrote " + nBytes + " bytes to the server");
 		return nBytes;
 	}
 
@@ -112,7 +115,7 @@ class RecvThread extends Thread {
 
 	@Override
 	public void run() {
-		System.out.println("Inside receivemsg");
+		JavaCoreLogger.log(Level.INFO, "Inside receivemsg");
 		int nBytes = 0;
 		ByteBuffer buf = ByteBuffer.allocate(2048);
 		try {
@@ -123,13 +126,13 @@ class RecvThread extends Thread {
 					CharsetDecoder decoder = charset.newDecoder();
 					CharBuffer charBuffer = decoder.decode(ByteBuffer.wrap(buf.array(), 0, nBytes));
 					String result = charBuffer.toString();
-					System.out.println(result);
+					JavaCoreLogger.log(Level.INFO, result);
 					buf.flip();
 				}
 			}
 
 		} catch (IOException e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 

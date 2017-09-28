@@ -8,7 +8,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import com.java.core.log.JavaCoreLogger;
 
 /**
  * This program implements a simple server that listens to 
@@ -20,16 +21,11 @@ import java.util.logging.Logger;
 public class EchoServer {
 
 	public static void main(String[] args) throws IOException {
-		Logger logger = Logger.getLogger(InetAddressCase.class.getName());
-		
-		Socket incoming = null;
-		ServerSocket server = null;
-		try {
-			//establish server socket
-			server = new ServerSocket(8189);
-
-			//wait for client connection
-			incoming = server.accept();
+		try (
+				//establish server socket
+				ServerSocket server = new ServerSocket(8189);
+				//wait for client connection
+				Socket incoming = server.accept();) {
 			InputStream inStream = incoming.getInputStream();
 			OutputStream outStream = incoming.getOutputStream();
 
@@ -49,22 +45,7 @@ public class EchoServer {
 
 			in.close();
 		} catch (IOException ex) {
-			logger.log(Level.SEVERE, ex.getMessage(), ex);
-		} finally {
-			try {
-				if (incoming != null) {
-					incoming.close();
-				}
-			} catch (IOException ex) {
-				logger.log(Level.WARNING, ex.getMessage(), ex);
-			}
-			try {
-				if (server != null) {
-					server.close();
-				}
-			} catch (IOException ex) {
-				logger.log(Level.WARNING, ex.getMessage(), ex);
-			}
+			JavaCoreLogger.log(Level.SEVERE, ex.getMessage(), ex);
 		}
 	}
 }

@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.logging.Level;
 
+import com.java.core.log.JavaCoreLogger;
 import com.volume2.ch1.io.Employee;
 
 /**
@@ -21,14 +23,15 @@ import com.volume2.ch1.io.Employee;
 public class SerialCloneable extends Employee implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 5045921918522332491L;
-	
+
 	public SerialCloneable() {
 		super();
 	}
-	
-	public SerialCloneable(String name, double salary, int year, int month, int day){
+
+	public SerialCloneable(String name, double salary, int year, int month, int day) {
 		super(name, salary, year, month, day);
 	}
+
 	/**
 	 * 修改方法的访问修饰符为public
 	 */
@@ -37,38 +40,27 @@ public class SerialCloneable extends Employee implements Serializable, Cloneable
 		try {
 			//HUANG 可以直接进行clone, 为什么还要自己写对象流进行处理?
 			Object obj = super.clone();
-			System.out.println(obj);
-			
+			JavaCoreLogger.log(Level.INFO, obj.toString());
+
 			//save the object to a byte array
 			ByteArrayOutputStream out = new ByteArrayOutputStream();
 			ObjectOutputStream oos = new ObjectOutputStream(out);
 			oos.writeObject(this);
-			
+
 			// read a clone of the object from the byte array
 			ByteArrayInputStream in = new ByteArrayInputStream(out.toByteArray());
 			ObjectInputStream oin = new ObjectInputStream(in);
 			Object ret = oin.readObject();
-			
-			if(oos != null){
-				oos.close();
-			}
-			if(out != null){
-				out.close();
-			}
-			if(oin != null){
-				oin.close();
-			}
-			if(in != null){
-				in.close();
-			}
-			
+
+			oos.close();
+			out.close();
+			oin.close();
+			in.close();
+
 			return ret;
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+		} catch (IOException | ClassNotFoundException e) {
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
-		
 		return null;
 	}
 }

@@ -44,6 +44,7 @@ public class Manager extends Employee{
 		this.secretary = secretary;
 	}
 	
+	@Override
 	public String toString() {
 		return super.toString() + "[secretary=" + secretary + "]";
 	}

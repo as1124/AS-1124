@@ -1,13 +1,15 @@
 package com.volume2.ch1.io.zip;
 
 import java.awt.EventQueue;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
 import javax.swing.JFrame;
+
+import com.java.core.log.JavaCoreLogger;
 
 /**
  * zip文件操作
@@ -15,41 +17,36 @@ import javax.swing.JFrame;
  * @author as1124huang@gmail.com
  *
  */
-public class ZipTest {
+public class ZipCase {
 
 	public static void main(String[] args) {
 
-		//testZipRead();
+		testZipRead();
+
 		testZipWrite();
 	}
 
 	public static void testZipRead() {
-		EventQueue.invokeLater(new Runnable() {
-
-			public void run() {
-				ZipTestFrame frame = new ZipTestFrame();
-				frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				frame.setVisible(true);
-			}
+		EventQueue.invokeLater(() -> {
+			ZipCaseFrame frame = new ZipCaseFrame();
+			frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			frame.setVisible(true);
 		});
 	}
-	
-	public static void testZipWrite(){
+
+	public static void testZipWrite() {
 		ZipOutputStream zipOut = null;
-		String content = "亲爱的胡敏，我爱你。么么哒！";
-		try {
-			zipOut = new ZipOutputStream(new FileOutputStream("D:/darling.zip"));
+		String content = "亲爱的你，你在哪里...！";
+		try (FileOutputStream fileOut = new FileOutputStream("D:/darling.zip");) {
+			zipOut = new ZipOutputStream(fileOut);
 			ZipEntry entry = new ZipEntry("abc/testEnry.txt");
 			zipOut.putNextEntry(entry);
 			zipOut.write(content.getBytes());
 			zipOut.closeEntry();
-			
+
 			zipOut.close();
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
 		} catch (IOException e) {
-			e.printStackTrace();
+			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);
 		}
 	}
 }
