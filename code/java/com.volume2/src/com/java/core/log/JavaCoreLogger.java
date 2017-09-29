@@ -39,7 +39,7 @@ public class JavaCoreLogger {
 		logger.log(serverity, message);
 	}
 
-	public static void log(Level serverity, String message, Exception ex) {
+	public static void log(Level serverity, String message, Throwable ex) {
 		if (!isInited) {
 			init();
 			isInited = true;
@@ -55,6 +55,9 @@ public class JavaCoreLogger {
 				String result = "[" + record.getLevel().getName() + "]";
 				Date now = new Date(record.getMillis());
 				String time = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now);
+				if (record.getThrown() != null) {
+					record.getThrown().printStackTrace();
+				}
 				return result + "[" + time + "] " + record.getMessage() + "\r\n";
 			}
 		};
