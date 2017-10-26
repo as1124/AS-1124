@@ -1,0 +1,9 @@
+#
+#Mon Aug 21 09:16:04 CST 2017
+uiType=NUI
+componentType=com.primeton.component.module
+project.type=EOS
+author=huangjw
+description=
+componentVersion=7.0.0.0
+autoDeploy=false

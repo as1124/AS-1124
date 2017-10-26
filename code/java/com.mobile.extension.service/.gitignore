@@ -1,0 +1,7 @@
+/bin
+/gen
+/.svn
+/target
+/com.mobile.extension.service/bin
+/com.mobile.extension.service/eosdebug
+*.class
