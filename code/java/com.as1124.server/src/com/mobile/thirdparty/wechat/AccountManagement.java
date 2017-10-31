@@ -25,16 +25,19 @@ import com.mobile.thirdparty.wechat.model.qrcode.WechatQRCodeModel;
  */
 public class AccountManagement {
 
+	private AccountManagement() {
+	}
+
 	/**
 	 * 创建临时二维码Ticket
 	 * @param accessToken
 	 * @param expireSeconds 有效时间，单位：秒
 	 * @param qrID 二维码标识
 	 * @return
-	 * @throws IOException
 	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static WechatQRCodeModel createTempQRImage(String accessToken, long expireSeconds, int qrID) throws IOException, ThirdPartyRequestExceprion{
+	public static WechatQRCodeModel createTempQRImage(String accessToken, long expireSeconds, int qrID)
+			throws ThirdPartyRequestExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
@@ -46,16 +49,16 @@ public class AccountManagement {
 		JSONObject obj1 = new JSONObject();
 		obj1.put("scene", obj);
 		jsonObj.put("action_info", obj1);
-		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET));
+		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(
+			IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		if (returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return JSONObject.parseObject(result, WechatQRCodeModel.class);
-		}
-		else throw new ThirdPartyRequestExceprion("[AccountOperations#createTempQRImage]"+result);
+		} else
+			throw new ThirdPartyRequestExceprion("[AccountOperations#createTempQRImage]" + result);
 	}
-	
+
 	/**
 	 * 创建永久二维码Ticket
 	 * @param accessToken
@@ -64,7 +67,8 @@ public class AccountManagement {
 	 * @throws IOException
 	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static WechatQRCodeModel createQRImage(String accessToken, int qrID) throws IOException, ThirdPartyRequestExceprion{
+	public static WechatQRCodeModel createQRImage(String accessToken, int qrID) throws IOException,
+			ThirdPartyRequestExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
@@ -75,16 +79,16 @@ public class AccountManagement {
 		JSONObject obj1 = new JSONObject();
 		obj1.put("scene", obj);
 		jsonObj.put("action_info", obj1);
-		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET));
+		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(
+			IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		if (returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return JSONObject.parseObject(result, WechatQRCodeModel.class);
-		}
-		else throw new ThirdPartyRequestExceprion("[AccountOperations#createQRImage]"+result);
+		} else
+			throw new ThirdPartyRequestExceprion("[AccountOperations#createQRImage]" + result);
 	}
-	
+
 	/**
 	 * 创建永久字符串二维码Ticket
 	 * @param accessToken
@@ -93,7 +97,8 @@ public class AccountManagement {
 	 * @throws IOException
 	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static WechatQRCodeModel createQRString(String accessToken, String qrID) throws JSONException, IOException, ThirdPartyRequestExceprion{
+	public static WechatQRCodeModel createQRString(String accessToken, String qrID) throws JSONException, IOException,
+			ThirdPartyRequestExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/qrcode/create";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
@@ -104,16 +109,16 @@ public class AccountManagement {
 		JSONObject obj1 = new JSONObject();
 		obj1.put("scene", obj);
 		jsonObj.put("action_info", obj1);
-		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET));
+		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(
+			IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		if (returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return JSONObject.parseObject(result, WechatQRCodeModel.class);
-		}
-		else throw new ThirdPartyRequestExceprion("[AccountOperations#createQRString]"+result);
+		} else
+			throw new ThirdPartyRequestExceprion("[AccountOperations#createQRString]" + result);
 	}
-	
+
 	/**
 	 * 通过Ticket换取二维码
 	 * @param ticket
@@ -127,23 +132,23 @@ public class AccountManagement {
 			ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 			queryStr.add(new BasicNameValuePair("ticket", ticket));
 			byte[] datas = HttpExecuter.executeGet(uri, queryStr);
-			File file =new File(savePath);
+			File file = new File(savePath);
 			out = new FileOutputStream(file);
 			out.write(datas);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}finally{
+		} finally {
 			try {
-				if(out != null)
+				if (out != null)
 					out.close();
 			} catch (Exception e2) {
-				
+
 			}
 		}
 	}
-	
+
 	/**
 	 * 将长链接转成短链接
 	 * @param accessToken
@@ -152,20 +157,21 @@ public class AccountManagement {
 	 * @throws IOException
 	 * @throws ThirdPartyRequestExceprion 
 	 */
-	public static String connection2Short(String accessToken, String longUrl) throws IOException, ThirdPartyRequestExceprion{
+	public static String connection2Short(String accessToken, String longUrl) throws IOException,
+			ThirdPartyRequestExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/shorturl";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("access_token", accessToken));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("long_url", longUrl);
-		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET));
+		StringEntity requestEntity = new StringEntity(jsonObj.toJSONString(), ContentType.create(
+			IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-        String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
+		if (returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return JSONObject.parseObject(result).getString("short_url");
-		}
-		else throw new ThirdPartyRequestExceprion("[AccountOperations#connection2Short]"+result);
+		} else
+			throw new ThirdPartyRequestExceprion("[AccountOperations#connection2Short]" + result);
 	}
-	
+
 }

@@ -2,7 +2,6 @@ package com.mobile.thirdparty.access;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.security.KeyManagementException;
 import java.security.NoSuchAlgorithmException;
@@ -20,8 +19,8 @@ import javax.net.ssl.SSLContext;
 import javax.net.ssl.TrustManager;
 import javax.net.ssl.X509TrustManager;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.ParseException;
@@ -107,8 +106,8 @@ public class HttpExecuter {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet method = new HttpGet(requestURL);
 		if (timeout > 0) {
-			RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout).setSocketTimeout(timeout)
-					.build();
+			Builder builder = RequestConfig.custom();
+			RequestConfig requestConfig = builder.setConnectTimeout(timeout).setSocketTimeout(timeout).build();
 			method.setConfig(requestConfig);
 		}
 		byte[] datas = null;
@@ -158,14 +157,14 @@ public class HttpExecuter {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet method = new HttpGet(requestURL);
 		if (timeout > 0) {
-			RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout).setSocketTimeout(timeout)
-					.build();
+			Builder builder = RequestConfig.custom();
+			RequestConfig requestConfig = builder.setConnectTimeout(timeout).setSocketTimeout(timeout).build();
 			method.setConfig(requestConfig);
 		}
 		try {
 			return httpClient.execute(method);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return null;
 	}
@@ -203,20 +202,19 @@ public class HttpExecuter {
 	 * @param socketTimeout socket超时时间
 	 * @param connectTimeout 连接超时时间
 	 * @param charset 返回结果的字符集编码
-	 * @param closeHttpClient 请求结束后是否关闭HttpClient
 	 * @return
 	 */
 	public static String executeGetAsString(CloseableHttpClient httpClient, String url, String reffer, String cookie,
-			int socketTimeout, int connectTimeout, String charset, boolean closeHttpClient) {
+			int socketTimeout, int connectTimeout, String charset) {
 		CloseableHttpResponse httpResponse = null;
 		if (httpClient == null) {
 			httpClient = createCustomHttpClient(socketTimeout, connectTimeout);
 		}
 		HttpGet getMethod = new HttpGet(url);
-		if (cookie != null && cookie.equals("") == false) {
+		if (StringUtils.isNotBlank(cookie)) {
 			getMethod.setHeader("Cookie", cookie);
 		}
-		if (reffer != null && reffer.equals("") == false) {
+		if (StringUtils.isNotBlank(reffer)) {
 			getMethod.setHeader("Reffer", reffer);
 		}
 
@@ -225,9 +223,9 @@ public class HttpExecuter {
 			httpResponse = httpClient.execute(getMethod);
 			result = getResult(httpResponse, getCharset(charset));
 		} catch (ClientProtocolException e) {
-			e.printStackTrace();
+			logger.log(Level.WARNING, e.getMessage(), e);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return result;
 	}
@@ -252,12 +250,14 @@ public class HttpExecuter {
 	 * @return byte[]
 	 */
 	public static byte[] executePost(String uri, List<NameValuePair> parameters, HttpEntity requestEntity, int timeout) {
-		String url = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
+		String requestURL = uri;
+		if (parameters != null && !parameters.isEmpty())
+			requestURL = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
 		CloseableHttpClient httpClient = HttpClients.createDefault();
-		HttpPost method = new HttpPost(url);
+		HttpPost method = new HttpPost(requestURL);
 		if (timeout > 0) {
-			RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout).setSocketTimeout(timeout)
-					.build();
+			Builder builder = RequestConfig.custom();
+			RequestConfig requestConfig = builder.setConnectTimeout(timeout).setSocketTimeout(timeout).build();
 			method.setConfig(requestConfig);
 		}
 		method.setEntity(requestEntity);
@@ -268,9 +268,14 @@ public class HttpExecuter {
 			datas = EntityUtils.toByteArray(entity);
 			EntityUtils.consume(entity);
 			method.releaseConnection();
-			httpClient.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			try {
+				httpClient.close();
+			} catch (IOException e) {
+				logger.log(Level.WARNING, e.getMessage(), e);
+			}
 		}
 		return datas;
 	}
@@ -296,19 +301,21 @@ public class HttpExecuter {
 	 */
 	public static HttpResponse executePostAsStream(String uri, List<NameValuePair> parameters,
 			HttpEntity requestEntity, int timeout) {
-		String url = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
+		String requestURL = uri;
+		if (parameters != null && !parameters.isEmpty())
+			requestURL = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
 		HttpClient httpClient = HttpClients.createDefault();
-		HttpPost method = new HttpPost(url);
+		HttpPost method = new HttpPost(requestURL);
 		if (timeout > 0) {
-			RequestConfig requestConfig = RequestConfig.custom().setConnectTimeout(timeout).setSocketTimeout(timeout)
-					.build();
+			Builder builder = RequestConfig.custom();
+			RequestConfig requestConfig = builder.setConnectTimeout(timeout).setSocketTimeout(timeout).build();
 			method.setConfig(requestConfig);
 		}
 		method.setEntity(requestEntity);
 		try {
 			return httpClient.execute(method);
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.WARNING, e.getMessage(), e);
 		}
 		return null;
 	}
@@ -336,12 +343,7 @@ public class HttpExecuter {
 	public static String executePostAsString(String uri, List<NameValuePair> parameters, HttpEntity requestEntity,
 			String charset, int timeout) {
 		byte[] datas = executePost(uri, parameters, requestEntity, timeout);
-		try {
-			return new String(datas, getCharset(charset));
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return null;
+		return new String(datas, Charset.forName(getCharset(charset)));
 	}
 
 	/**
@@ -354,20 +356,19 @@ public class HttpExecuter {
 	 * @param socketTimeout socket超时时间
 	 * @param connectTimeout 连接超时时间
 	 * @param charset
-	 * @param closeHttpClient 请求完成后是否关闭HttpClient连接
 	 * @return
 	 */
 	public static String executePostAsString(CloseableHttpClient httpClient, String url, HttpEntity entity,
-			String reffer, String cookie, int socketTimeout, int connectTimeout, String charset, boolean closeHttpClient) {
+			String reffer, String cookie, int socketTimeout, int connectTimeout, String charset) {
 		CloseableHttpResponse httpResponse = null;
 		if (httpClient == null) {
 			httpClient = createCustomHttpClient(socketTimeout, connectTimeout);
 		}
 		HttpPost postMethod = new HttpPost(url);
-		if (cookie != null && cookie.equals("") == false) {
+		if (StringUtils.isNotBlank(cookie)) {
 			postMethod.setHeader("Cookie", cookie);
 		}
-		if (reffer != null && reffer.equals("") == false) {
+		if (StringUtils.isNotBlank(reffer)) {
 			postMethod.setHeader("Reffer", reffer);
 		}
 		if (entity != null) {
@@ -378,7 +379,7 @@ public class HttpExecuter {
 			httpResponse = httpClient.execute(postMethod);
 			result = getResult(httpResponse, getCharset(charset));
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return result;
 	}
@@ -396,7 +397,6 @@ public class HttpExecuter {
 
 		// 设置连接超时时间，单位毫秒
 		builder.setConnectTimeout(connectTimeout);
-		builder.setProxy(new HttpHost("localhost", 8888));
 
 		// 设置从connect manager获取的connection超时时间，毫秒。这个属性是新加的属性，因为目前版本是可以共享连接池的
 		builder.setConnectionRequestTimeout(connectTimeout);
@@ -419,9 +419,8 @@ public class HttpExecuter {
 
 		HttpClientBuilder httpClientBuilder = HttpClients.custom();
 
-		CloseableHttpClient httpClient = httpClientBuilder.setConnectionManager(connectionManager)
-				.setDefaultRequestConfig(defaultRequestConfig).build();
-		return httpClient;
+		return httpClientBuilder.setConnectionManager(connectionManager).setDefaultRequestConfig(defaultRequestConfig)
+				.build();
 	}
 
 	/**
@@ -440,26 +439,27 @@ public class HttpExecuter {
 		TrustManager manager = new X509TrustManager() {
 
 			public X509Certificate[] getAcceptedIssuers() {
-				return null;
+				return new X509Certificate[0];
 			}
 
 			public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-				System.out.println(authType);
+				// do not care
 			}
 
 			public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-				System.out.println(authType);
+				// do not care
 			}
 
 		};
 		try {
 			SSLContext context = SSLContext.getInstance(protocol);
 			context.init(null, new TrustManager[] { manager }, null);
-			socketFactory = new SSLConnectionSocketFactory(context, new BrowserCompatHostnameVerifier());// NoopHostnameVerifier.INSTANCE);
+			// NoopHostnameVerifier.INSTANCE)是什么鬼
+			socketFactory = new SSLConnectionSocketFactory(context, new BrowserCompatHostnameVerifier());
 		} catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		} catch (KeyManagementException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return socketFactory;
 	}
@@ -519,7 +519,7 @@ public class HttpExecuter {
 			httpPost.releaseConnection();
 			httpClient.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return result;
 	}
