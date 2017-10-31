@@ -143,7 +143,8 @@ public abstract class AbstractAccessToken implements IAccessToken {
 	/**
 	 * 初始化token相关字段信息
 	 * 
-	 * @param parameters 初始化token所需的一些参数
+	 * @param parameters
+	 *            初始化token所需的一些参数
 	 * @throws Exception
 	 */
 	protected abstract void initFields(List<NameValuePair> parameters) throws ThirdPartyRequestExceprion;

@@ -1,4 +1,4 @@
-package com.mobile.thirdparty.wechat;
+package com.mobile.thirdparty.access;
 
 import java.io.File;
 import java.io.FileOutputStream;

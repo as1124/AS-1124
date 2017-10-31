@@ -11,6 +11,7 @@ public interface IAccessToken {
 
 	/**
 	 * 当前的接口票据是否失效
+	 * 
 	 * @return <code>true</code> 失效，<code>false</code> 有效
 	 */
 	public boolean isExpired();

@@ -35,19 +35,26 @@ public class AccessTokenFactory {
 
 	/**
 	 * 向第三方平台请求获取接口调用票据对象。
-	 * <pre>eg:获取微信接口调用token
+	 * 
+	 * <pre>
+	 * eg:获取微信接口调用token
 	 * <p><code>
 	 * List&lt;BasicNameValuePair> parameters = new ArrayList&lt;BasicNameValuePair>();
 	 * parameters.add(new BasicNameValuePair("appid", appid));
 	 * parameters.add(new BasicNameValuePair("secret", appSecret));
 	 * parameters.add(new BasicNameValuePair("grant_type", "client_credential"));
 	 * getToken(appid, parameters, WechatAccessToken.class);
-	 * </code></p></pre>
-	 * @param appid 唯一标识，可自定义，不能为空
-	 * @param parameters 向第三方平台请求获取token时所需要的参数列表
-	 * @param clazz token类型,this class must extends from {@link AbstractAccessToken}
+	 * </code></p>
+	 * </pre>
+	 * 
+	 * @param appid
+	 *            唯一标识，可自定义，不能为空
+	 * @param parameters
+	 *            向第三方平台请求获取token时所需要的参数列表
+	 * @param clazz
+	 *            token类型,this class must extends from {@link AbstractAccessToken}
 	 * @return
-	 * @throws ThirdPartyRequestExceprion 
+	 * @throws ThirdPartyRequestExceprion
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends AbstractAccessToken> T getToken(String appid, List<NameValuePair> parameters,
@@ -81,17 +88,24 @@ public class AccessTokenFactory {
 
 	/**
 	 * 向第三方平台请求获取接口调用票据对象
-	 * <pre>eg:获取微信接口调用token
+	 * 
+	 * <pre>
+	 * eg:获取微信接口调用token
 	 * <p><code>
 	 * Map&lt;String, String> parameters = new HashMap&lt;String, String>();
 	 * parameters.put("appid", appid);
 	 * parameters.put("secret", appSecret);
 	 * parameters.put("grant_type", "client_credential");
 	 * getToken(appid, parameters, WechatAccessToken.class);
-	 * </code></p></pre>
-	 * @param appid 唯一标识，可自定义，不能为空
-	 * @param parameters 向第三方平台请求获取token时所需要的参数, <code>Map&lt;key, value></code>
-	 * @param tokenClass token类型,this class must extends from {@link AbstractAccessToken}
+	 * </code></p>
+	 * </pre>
+	 * 
+	 * @param appid
+	 *            唯一标识，可自定义，不能为空
+	 * @param parameters
+	 *            向第三方平台请求获取token时所需要的参数, <code>Map&lt;key, value></code>
+	 * @param tokenClass
+	 *            token类型,this class must extends from {@link AbstractAccessToken}
 	 * @return
 	 * @throws ThirdPartyRequestExceprion
 	 */
@@ -121,7 +135,9 @@ public class AccessTokenFactory {
 
 	/**
 	 * 删除token对象
-	 * @param uniqueID 唯一标识, 如果是微信token请传appid
+	 * 
+	 * @param uniqueID
+	 *            唯一标识, 如果是微信token请传appid
 	 */
 	public static void removeToken(String uniqueID, Class<? extends AbstractAccessToken> clazz) {
 		if (managerMap.containsKey(clazz.getName())) {
