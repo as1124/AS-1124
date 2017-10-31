@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<metadata>
+    <model description="" displayName="InterfaceStatisticData" implementationType="file" modifier="public" name="InterfaceStatisticData.class" order="32" version=""/>
+    <model description="" displayName="MessageStatisticsData" implementationType="file" modifier="public" name="MessageStatisticsData.class" order="32" version=""/>
+    <model description="" displayName="NewsStatisticsData" implementationType="file" modifier="public" name="NewsStatisticsData.class" order="32" version=""/>
+    <model description="" displayName="UserStatisticsData" implementationType="file" modifier="public" name="UserStatisticsData.class" order="32" version=""/>
+</metadata>

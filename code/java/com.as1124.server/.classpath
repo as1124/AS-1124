@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="lib/wechat/fastjson-1.1.6.jar"/>
+	<classpathentry kind="lib" path="lib/wechat/httpclient-4.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/wechat/httpcore-4.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/wechat/httpmime-4.3.4.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.commons.codec_1.9.0.v20170208-1614.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.commons.io_2.2.0.v201405211200.jar"/>
+	<classpathentry kind="lib" path="lib/org.apache.commons.lang_2.6.0.v201404270220.jar"/>
+	<classpathentry kind="lib" path="lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="lib/document/batik-awt-util-1.6-1.jar"/>
+	<classpathentry kind="lib" path="lib/document/commons-lang3-3.4.jar"/>
+	<classpathentry kind="lib" path="lib/document/freehep-graphicsio-emf-2.4.jar"/>
+	<classpathentry kind="lib" path="lib/document/freehep-io-2.2.2.jar"/>
+	<classpathentry kind="lib" path="lib/document/icepdf-core-6.2.5.jar"/>
+	<classpathentry kind="lib" path="lib/document/icepdf-pro-6.2.5.jar"/>
+	<classpathentry kind="lib" path="lib/document/jodconverter-core-4.0.0-RELEASE.jar"/>
+	<classpathentry kind="lib" path="lib/document/juh-5.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/document/jurt-5.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/document/levigo-jbig2-imageio-1.6.5.jar"/>
+	<classpathentry kind="lib" path="lib/document/ooxml-schemas-1.1.jar"/>
+	<classpathentry kind="lib" path="lib/document/org.apache.poi.xwpf.converter.core-1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/document/org.apache.poi.xwpf.converter.xhtml-1.0.6.jar"/>
+	<classpathentry kind="lib" path="lib/document/poi-3.14.jar"/>
+	<classpathentry kind="lib" path="lib/document/poi-ooxml-3.14.jar"/>
+	<classpathentry kind="lib" path="lib/document/poi-scratchpad-3.14.jar"/>
+	<classpathentry kind="lib" path="lib/document/ridl-5.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/document/slf4j-api-1.7.6.jar"/>
+	<classpathentry kind="lib" path="lib/document/unoil-5.3.2.jar"/>
+	<classpathentry kind="lib" path="lib/document/wmf2svg-0.9.8.jar"/>
+	<classpathentry kind="lib" path="lib/document/xmlbeans-2.6.0.jar"/>
+	<classpathentry kind="lib" path="D:/work/primeton/EOS_760_Mobile/apache-tomcat-7.0.54/lib/servlet-api.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
