@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<meta name="renderer" content="webkit">
+	<title>活动报名</title>
+	<link href="//res.wx.qq.com/open/libs/weui/1.1.2/weui.css" rel="stylesheet" type="text/css">
+	<script src="//res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+	<script src="//res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+	<script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript"></script>
+
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="//code.jquery.com/jquery-3.2.1.js" 
+		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+	<div class="center-block" style="margin-top: 2rem; margin-bottom: 3rem" align="center">
+		<img src="http://www.wygongcheng.com/dist/images/logo-wanyuan@2x-2aS6B.png?e08e64c27136c6e7f093ea017269d88a" class="img-responsive" 
+			alt="万校工程" style="max-width: 60%; height: auto; display: block;">
+	</div>
+	<div class="weui-cells weui-cells_form">
+	<form action="" class="weui-cells weui-cells_form">
+		<div class="form-group">
+			<input type="tel" class="form-control" id="telInputControl" placeholder="输入您的联系方式">
+		</div>
+		<div class="form-group">
+			<input type="text" class="form-control" id="childNameControl" placeholder="输入小朋友姓名">
+		</div>
+		<div class="form-group">
+			<select class="form-control">
+				<option>所在学校</option>
+				<option>浦东新区</option>
+				<option>徐汇区</option>
+				<option>普陀区</option>
+				<option>杨浦区</option>
+				<option>上海</option>
+			</select>
+		</div>
+		<div class="form-group">
+			<input type="file" id="fileuploadControl" placeholder="选择视频上传">
+<!-- 			<p class="help-block">建议上传30s视频.</p> -->
+			<div class="weui-cells__tips">建议上传30s视频</div>
+		</div>
+		
+		<button class="weui-btn weui-btn_primary" style="margin-top: 3rem" onclick="showInfo()">点击参加</button>
+	</form>
+	</div>
+	
+	<div class="weui-footer weui-footer_fixed-bottom">
+	    <p class="weui-footer__links">
+	        <a href="http://www.wygongcheng.com" class="weui-footer__link">万园工程</a>
+	    </p>
+	    <p class="weui-footer__text">Copyright &copy; 2016-2017 wygongcheng.com</p>
+	</div>
+</div>
+
+<script src="./resource/js/common.js" type="text/javascript"></script>
+<script src="./resource/js/user_signup.js" type="text/javascript"></script>
+<script type="text/javascript">
+// showInfo()
+function showInfo(){
+	window.location="http://www.baidu.com";
+	alert("sss")
+}
+
+</script>
+</body>
+</html>
