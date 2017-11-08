@@ -11,8 +11,7 @@ import com.mobile.thirdparty.wechat.model.AbstractDataPackage;
  * <li>基本消息回复处理，如文字消息，语音、图片消息等
  * <li>事件处理，菜单事件，地理位置上报，连WIFI事件等
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
- *
+ * @author huangjw (mailto:as1124huang@gmail.com)
  */
 public interface IWechatMessageHandler {
 

@@ -21,8 +21,7 @@ public abstract class AbstractAccessToken implements IAccessToken {
 	/**
 	 * 字段列表
 	 */
-	@SuppressWarnings("rawtypes")
-	protected Map<?, ?> attributes = new HashMap();
+	protected Map attributes = new HashMap();
 
 	/**
 	 * 客户端ID，<code>access_token</code> 的拥有者标识（像微信公众号的APPID）
@@ -40,7 +39,7 @@ public abstract class AbstractAccessToken implements IAccessToken {
 	protected String state = "";
 
 	/**
-	 * 表示权限范围
+	 * 权限范围
 	 */
 	protected String scope = "";
 
@@ -68,11 +67,11 @@ public abstract class AbstractAccessToken implements IAccessToken {
 		this.createTime = System.currentTimeMillis();
 	}
 
-	public Map<?, ?> getAttributes() {
+	public Map getAttributes() {
 		return attributes;
 	}
 
-	public void setAttributes(Map<?, ?> attributes) {
+	public void setAttributes(Map attributes) {
 		this.attributes = attributes;
 	}
 
@@ -143,9 +142,8 @@ public abstract class AbstractAccessToken implements IAccessToken {
 	/**
 	 * 初始化token相关字段信息
 	 * 
-	 * @param parameters
-	 *            初始化token所需的一些参数
-	 * @throws Exception
+	 * @param parameters 初始化token所需的一些参数
+	 * @throws ThirdPartyRequestExceprion
 	 */
 	protected abstract void initFields(List<NameValuePair> parameters) throws ThirdPartyRequestExceprion;
 }

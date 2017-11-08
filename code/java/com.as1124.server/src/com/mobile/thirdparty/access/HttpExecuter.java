@@ -23,7 +23,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.config.AuthSchemes;
@@ -88,31 +87,26 @@ public class HttpExecuter {
 	/**
 	 * GET请求
 	 * 
-	 * @param url
-	 *            请求的url地址
-	 * @param parameters
-	 *            网络请求参数
+	 * @param uri 请求地址
+	 * @param parameters 请求参数
 	 * @return 响应返回的字节流数据
 	 */
-	public static byte[] executeGet(String url, List<NameValuePair> parameters) {
-		return executeGet(url, parameters, 0);
+	public static byte[] executeGet(String uri, List<NameValuePair> parameters) {
+		return executeGet(uri, parameters, 0);
 	}
 
 	/**
 	 * GET请求
 	 * 
-	 * @param url
-	 *            请求的url地址
-	 * @param parameters
-	 *            网络请求参数
-	 * @param timeout
-	 *            连接超时时间
+	 * @param uri 请求地址
+	 * @param parameters 请求参数
+	 * @param timeout 连接超时时间
 	 * @return 响应返回的字节流数据
 	 */
-	public static byte[] executeGet(String url, List<NameValuePair> parameters, int timeout) {
-		String requestURL = url;
+	public static byte[] executeGet(String uri, List<NameValuePair> parameters, int timeout) {
+		String requestURL = uri;
 		if (parameters != null && !parameters.isEmpty())
-			requestURL = url + "?" + URLEncodedUtils.format(parameters, getCharset(null));
+			requestURL = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet method = new HttpGet(requestURL);
 		if (timeout > 0) {
@@ -120,7 +114,7 @@ public class HttpExecuter {
 			RequestConfig requestConfig = builder.setConnectTimeout(timeout).setSocketTimeout(timeout).build();
 			method.setConfig(requestConfig);
 		}
-		byte[] datas = null;
+		byte[] datas = new byte[0];
 		try {
 			HttpResponse response = httpClient.execute(method);
 			HttpEntity entity = response.getEntity();
@@ -142,35 +136,30 @@ public class HttpExecuter {
 	/**
 	 * GET请求，返回原始响应对象，用户须自行处理数据
 	 * 
+	 * @param uri 请求地址
+	 * @param parameters 请求参数
+	 * @return HttpResponse
 	 * @see HttpResponse#getEntity()
 	 * @see HttpEntity#getContent()
-	 * @param url
-	 *            请求的url地址
-	 * @param parameters
-	 *            网络请求参数
-	 * @return HttpResponse
 	 */
-	public static HttpResponse executeGetAsStream(String url, List<NameValuePair> parameters) {
-		return executeGetAsStream(url, parameters, 0);
+	public static HttpResponse executeGetAsStream(String uri, List<NameValuePair> parameters) {
+		return executeGetAsStream(uri, parameters, 0);
 	}
 
 	/**
 	 * GET请求，返回原始响应对象，用户须自行处理数据
 	 * 
+	 * @param uri 请求地址
+	 * @param parameters 请求参数
+	 * @param timeout 连接超时时间
+	 * @return HttpResponse
 	 * @see HttpResponse#getEntity()
 	 * @see HttpEntity#getContent()
-	 * @param url
-	 *            请求的url地址
-	 * @param parameters
-	 *            网络请求参数
-	 * @param timeout
-	 *            连接超时时间
-	 * @return HttpResponse
 	 */
-	public static HttpResponse executeGetAsStream(String url, List<NameValuePair> parameters, int timeout) {
-		String requestURL = url;
+	public static HttpResponse executeGetAsStream(String uri, List<NameValuePair> parameters, int timeout) {
+		String requestURL = uri;
 		if (parameters != null && !parameters.isEmpty())
-			requestURL = url + "?" + URLEncodedUtils.format(parameters, getCharset(null));
+			requestURL = uri + "?" + URLEncodedUtils.format(parameters, getCharset(null));
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		HttpGet method = new HttpGet(requestURL);
 		if (timeout > 0) {
@@ -189,31 +178,25 @@ public class HttpExecuter {
 	/**
 	 * GET请求, 结果默认返回以UTF-8编码的字符数据
 	 * 
-	 * @param url
-	 *            请求的url地址
-	 * @param parameters
-	 *            网络请求参数
+	 * @param uri 请求地址
+	 * @param parameters 请求参数
 	 * @return String
 	 */
-	public static String executeGetAsString(String url, List<NameValuePair> parameters) {
-		return executeGetAsString(url, parameters, getCharset(null), 0);
+	public static String executeGetAsString(String uri, List<NameValuePair> parameters) {
+		return executeGetAsString(uri, parameters, getCharset(null), 0);
 	}
 
 	/**
 	 * GET请求
 	 * 
-	 * @param url
-	 *            请求的url地址
-	 * @param parameters
-	 *            网络请求参数
-	 * @param charset
-	 *            返回的结果数据的编码
-	 * @param timeout
-	 *            连接超时时间
+	 * @param uri 请求地址
+	 * @param parameters 请求参数
+	 * @param charset 返回的结果数据的编码
+	 * @param timeout 连接超时时间
 	 * @return String
 	 */
-	public static String executeGetAsString(String url, List<NameValuePair> parameters, String charset, int timeout) {
-		byte[] datas = executeGet(url, parameters, timeout);
+	public static String executeGetAsString(String uri, List<NameValuePair> parameters, String charset, int timeout) {
+		byte[] datas = executeGet(uri, parameters, timeout);
 		Charset namedCharset = Charset.forName(getCharset(charset));
 		return new String(datas, namedCharset);
 	}
@@ -222,25 +205,20 @@ public class HttpExecuter {
 	 * GET请求
 	 * 
 	 * @param httpClient
-	 * @param url
-	 *            完整URL，包含请求参数。如
+	 * @param url 完整URL，包含请求参数。如
 	 *            <code>https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET</code>
 	 * @param reffer
 	 * @param cookie
-	 * @param socketTimeout
-	 *            socket超时时间
-	 * @param connectTimeout
-	 *            连接超时时间
-	 * @param charset
-	 *            返回结果的字符集编码
+	 * @param timeout 超时时间
+	 * @param charset 返回结果的字符集编码
 	 * @return
 	 */
 	public static String executeGetAsString(CloseableHttpClient httpClient, String url, String reffer, String cookie,
-			int socketTimeout, int connectTimeout, String charset) {
+			int timeout, String charset) {
 		CloseableHttpResponse httpResponse = null;
 		CloseableHttpClient httpClientRef = httpClient;
 		if (httpClientRef == null) {
-			httpClientRef = createCustomHttpClient(socketTimeout, connectTimeout);
+			httpClientRef = createCustomHttpClient(timeout, timeout);
 		}
 		HttpGet getMethod = new HttpGet(url);
 		if (StringUtils.isNotBlank(cookie)) {
@@ -270,12 +248,9 @@ public class HttpExecuter {
 	/**
 	 * POST 请求
 	 * 
-	 * @param uri
-	 *            请求的uri
-	 * @param parameters
-	 *            查询参数
-	 * @param requestEntity
-	 *            POST请求报文体
+	 * @param uri 请求uri地址
+	 * @param parameters 查询参数
+	 * @param requestEntity POST请求报文体
 	 * @return 响应结果，字节流形式
 	 */
 	public static byte[] executePost(String uri, List<NameValuePair> parameters, HttpEntity requestEntity) {
@@ -285,14 +260,10 @@ public class HttpExecuter {
 	/**
 	 * POST 请求
 	 * 
-	 * @param uri
-	 *            请求的uri
-	 * @param parameters
-	 *            查询参数
-	 * @param requestEntity
-	 *            POST请求报文体
-	 * @param timeout
-	 *            连接超时时间
+	 * @param uri 请求的uri地址
+	 * @param parameters 查询参数
+	 * @param requestEntity POST请求报文体
+	 * @param timeout 连接超时时间
 	 * @return byte[]
 	 */
 	public static byte[] executePost(String uri, List<NameValuePair> parameters, HttpEntity requestEntity,
@@ -308,16 +279,16 @@ public class HttpExecuter {
 			method.setConfig(requestConfig);
 		}
 		method.setEntity(requestEntity);
-		byte[] datas = null;
+		byte[] datas = new byte[0];
 		try {
 			HttpResponse response = httpClient.execute(method);
 			HttpEntity entity = response.getEntity();
 			datas = EntityUtils.toByteArray(entity);
 			EntityUtils.consume(entity);
-			method.releaseConnection();
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
 		} finally {
+			method.releaseConnection();
 			try {
 				httpClient.close();
 			} catch (IOException e) {
@@ -330,12 +301,9 @@ public class HttpExecuter {
 	/**
 	 * POST请求
 	 * 
-	 * @param uri
-	 *            请求的uri
-	 * @param parameters
-	 *            查询参数
-	 * @param requestEntity
-	 *            POST请求报文体
+	 * @param uri 请求的uri地址
+	 * @param parameters 查询参数
+	 * @param requestEntity POST请求报文体
 	 * @return HttpResponse
 	 */
 	public static HttpResponse executePostAsStream(String uri, List<NameValuePair> parameters,
@@ -346,14 +314,10 @@ public class HttpExecuter {
 	/**
 	 * POST请求
 	 * 
-	 * @param uri
-	 *            请求的uri
-	 * @param parameters
-	 *            查询参数
-	 * @param requestEntity
-	 *            POST请求报文体
-	 * @param timeout
-	 *            连接超时时间
+	 * @param uri 请求的uri地址
+	 * @param parameters 查询参数
+	 * @param requestEntityPOST请求报文体
+	 * @param timeout 连接超时时间
 	 * @return HttpResponse
 	 */
 	public static HttpResponse executePostAsStream(String uri, List<NameValuePair> parameters, HttpEntity requestEntity,
@@ -380,12 +344,9 @@ public class HttpExecuter {
 	/**
 	 * POST请求
 	 * 
-	 * @param uri
-	 *            请求的uri
-	 * @param parameters
-	 *            查询参数
-	 * @param requestEntity
-	 *            POST请求需要传递报文数据
+	 * @param uri 请求的uri地址
+	 * @param parameters 查询参数
+	 * @param requestEntity POST请求需要传递报文数据
 	 * @return String
 	 */
 	public static String executePostAsString(String uri, List<NameValuePair> parameters, HttpEntity requestEntity) {
@@ -395,16 +356,11 @@ public class HttpExecuter {
 	/**
 	 * POST请求
 	 * 
-	 * @param uri
-	 *            请求的uri
-	 * @param parameters
-	 *            查询参数
-	 * @param requestEntity
-	 *            POST请求需要传递的报文数据
-	 * @param charset
-	 *            返回结果的字符编码
-	 * @param timeout
-	 *            请求超时时间
+	 * @param uri 请求的uri地址
+	 * @param parameters 查询参数
+	 * @param requestEntity POST请求需要传递的报文数据
+	 * @param charset 返回结果的字符编码
+	 * @param timeout 请求超时时间
 	 * @return String
 	 */
 	public static String executePostAsString(String uri, List<NameValuePair> parameters, HttpEntity requestEntity,
@@ -417,25 +373,20 @@ public class HttpExecuter {
 	 * POST请求
 	 * 
 	 * @param httpClient
-	 * @param url
-	 *            完整URL，包含查询参数，如
+	 * @param url 完整URL，包含查询参数，如
 	 *            <code>https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET</code>
-	 * @param entity
-	 *            POST请求报文数据对象
+	 * @param entity POST请求报文要传递的报文数据
 	 * @param reffer
 	 * @param cookie
-	 * @param socketTimeout
-	 *            socket超时时间
-	 * @param connectTimeout
-	 *            连接超时时间
+	 * @param timeout 超时时间
 	 * @param charset
 	 * @return
 	 */
 	public static String executePostAsString(CloseableHttpClient httpClient, String url, HttpEntity entity,
-			String reffer, String cookie, int socketTimeout, int connectTimeout, String charset) {
+			String reffer, String cookie, int timeout, String charset) {
 		CloseableHttpResponse httpResponse = null;
 		if (httpClient == null) {
-			httpClient = createCustomHttpClient(socketTimeout, connectTimeout);
+			httpClient = createCustomHttpClient(timeout, timeout);
 		}
 		HttpPost postMethod = new HttpPost(url);
 		if (StringUtils.isNotBlank(cookie)) {
@@ -447,12 +398,24 @@ public class HttpExecuter {
 		if (entity != null) {
 			postMethod.setEntity(entity);
 		}
-		String result = null;
+		String result = "";
 		try {
 			httpResponse = httpClient.execute(postMethod);
-			result = getResult(httpResponse, getCharset(charset));
+			if (httpResponse == null || httpResponse.getEntity() == null) {
+				return result;
+			}
+			HttpEntity resultEntity = httpResponse.getEntity();
+			result = EntityUtils.toString(resultEntity, getCharset(charset));
+			EntityUtils.consume(resultEntity);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			postMethod.releaseConnection();
+			try {
+				httpClient.close();
+			} catch (IOException e) {
+				logger.log(Level.WARNING, e.getMessage(), e);
+			}
 		}
 		return result;
 	}
@@ -460,12 +423,9 @@ public class HttpExecuter {
 	/**
 	 * 创建自定义的HttpClient
 	 * 
-	 * @param socketTimeout
-	 *            socket超时时间
-	 * @param connectTimeout
-	 *            连接超时时间
-	 * @param secutiryProtocol
-	 *            安全协议，如：<code>TLS, TLSv1.2, SSLv3</code>
+	 * @param socketTimeout socket超时时间
+	 * @param connectTimeout 连接超时时间
+	 * @param secutiryProtocol 安全协议，如：<code>TLS, TLSv1.2, SSLv3</code>
 	 * @return
 	 */
 	public static CloseableHttpClient createCustomHttpClient(int socketTimeout, int connectTimeout,
@@ -547,15 +507,11 @@ public class HttpExecuter {
 	/**
 	 * 文件上传，POST请求
 	 * 
-	 * @param httpClient
-	 *            {@link #createCustomHttpClient(int, int)}
-	 * @param url
-	 *            请求完整URL，包含查询参数，如
+	 * @param httpClient {@link #createCustomHttpClient(int, int)}
+	 * @param url 请求完整URL，包含查询参数，如
 	 *            <code>https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET</code>
-	 * @param localFilePath
-	 *            待上传文件的本地路径
-	 * @param partName
-	 *            表单名称（key）
+	 * @param localFilePath 待上传文件的本地路径
+	 * @param partName 表单名称（key）
 	 * @return
 	 */
 	public static String executeUploadFile(CloseableHttpClient httpClient, String url, String localFilePath,
@@ -566,17 +522,12 @@ public class HttpExecuter {
 	/**
 	 * 文件上传，POST请求
 	 * 
-	 * @param httpClient
-	 *            {@link #createCustomHttpClient(int, int)}
-	 * @param url
-	 *            请求完整URL，包含查询参数，如
+	 * @param httpClient {@link #createCustomHttpClient(int, int)}
+	 * @param url 请求完整URL，包含查询参数，如
 	 *            <code>https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid=APPID&secret=APPSECRET</code>
-	 * @param localFilePath
-	 *            待上传文件的本地路径
-	 * @param partName
-	 *            表单名称（key）
-	 * @param contentParts
-	 *            上传文件时需要的附属表单信息
+	 * @param localFilePath 待上传文件的本地路径
+	 * @param partName 表单名称（key）
+	 * @param contentParts 上传文件时需要的附属表单信息
 	 * @return
 	 */
 	public static String executeUploadFile(CloseableHttpClient httpClient, String url, String localFilePath,
@@ -604,40 +555,28 @@ public class HttpExecuter {
 		// uploadFile对应服务端类的同名属性<File类型>
 		HttpPost httpPost = new HttpPost(url);
 		httpPost.setEntity(requestEntity);
-		String result = null;
+		String result = "";
 
 		try {
 			httpResponse = httpClient.execute(httpPost);
-			result = getResult(httpResponse, getCharset(null));
-			httpPost.releaseConnection();
-			httpClient.close();
+			if (httpResponse == null || httpResponse.getEntity() == null) {
+				return result;
+			}
+			HttpEntity entity = httpResponse.getEntity();
+			result = EntityUtils.toString(entity, getCharset(""));
+			EntityUtils.consume(entity);
 		} catch (IOException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
+		} finally {
+			httpPost.releaseConnection();
+			try {
+				httpClient.close();
+			} catch (IOException e) {
+				logger.log(Level.WARNING, e.getMessage(), e);
+			}
 		}
 		return result;
 	}
-
-	// private static String getResult(CloseableHttpResponse httpResponse, String
-	// charset) {
-	// String result = null;
-	// if (httpResponse == null) {
-	// return result;
-	// }
-	// HttpEntity entity = httpResponse.getEntity();
-	// if (entity == null) {
-	// return result;
-	// }
-	// try {
-	// result = EntityUtils.toString(entity, charset);
-	// EntityUtils.consume(entity);
-	// } catch (ParseException e) {
-	// e.printStackTrace();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// }
-	// return result;
-	//
-	// }
 
 	protected static String getCharset(String charset) {
 		if (charset == null || charset.trim().equals("")) {

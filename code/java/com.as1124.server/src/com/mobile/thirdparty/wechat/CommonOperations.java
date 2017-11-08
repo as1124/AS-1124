@@ -3,6 +3,8 @@ package com.mobile.thirdparty.wechat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpEntity;
@@ -17,10 +19,15 @@ import com.mobile.thirdparty.access.HttpExecuter;
 
 /**
  * 微信基础功能接口
- * @author huangjw(mailto:huangjw@primeton.com)
- *
+ * 
+ * @author huangjw (mailto:as1124huang@gmail.com)
  */
 public class CommonOperations {
+
+	static Logger logger = Logger.getLogger(CommonOperations.class.getName());
+
+	private CommonOperations() {
+	}
 
 	/**
 	 * 获取微信服务器的IP地址列表
@@ -29,45 +36,48 @@ public class CommonOperations {
 	 * @param token
 	 * @return 微信服务器地址列表
 	 */
-	public String[] getWechatIPAddresses(AbstractAccessToken token) {
+	public static String[] getWechatIPAddresses(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/getcallbackip";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		String response = HttpExecuter.executeGetAsString(uri, queryStr);
-		JSONObject result =  JSONObject.parseObject(response);
-		String returnCode = result.getString(IWechatConstants.ERROR_CODE);
-		if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
-			return JSONObject.parseArray(result.getString("ip_list")).toArray(new String[]{});
+		JSONObject result = JSONObject.parseObject(response);
+		String returnCode = result.getString(WechatConstants.ERROR_CODE);
+		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+			return JSONObject.parseArray(result.getString("ip_list")).toArray(new String[] {});
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+response);
-			return null;
+			logger.log(Level.SEVERE, response);
+			return new String[0];
 		}
 	}
 
 	/**
 	 * 清零公众号的所有api调用（包括第三方帮其调用）次数. <br/>
 	 * <strong>每个帐号每月共10次清零操作机会，清零生效一次即用掉一次机会</strong>
+	 * 
 	 * @param token
+	 * @param appid
+	 * @return
 	 */
-	public boolean clearQuota(AbstractAccessToken token, String appid){
+	public static boolean clearQuota(AbstractAccessToken token, String appid) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/clear_quota";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		JSONObject json = new JSONObject();
 		json.put("appid", appid);
-		HttpEntity requestEntity = new StringEntity(json.toJSONString(), ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-				IWechatConstants.DEFAULT_CHARSET));
+		HttpEntity requestEntity = new StringEntity(json.toJSONString(),
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String response = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-		JSONObject result =  JSONObject.parseObject(response);
-		String returnCode = result.getString(IWechatConstants.ERROR_CODE);
-		if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+		JSONObject result = JSONObject.parseObject(response);
+		String returnCode = result.getString(WechatConstants.ERROR_CODE);
+		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return true;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+response);
+			logger.log(Level.SEVERE, response);
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 校验请求或消息签名是否合法
 	 * <li>web端在第一次接入微信时如果校验确认请求来自微信，此时应当原样向微信返回
@@ -81,7 +91,7 @@ public class CommonOperations {
 	 * @param nonce 随机数
 	 * @return
 	 */
-	public boolean checkSignature(String signature, String token, String timestamp, String nonce) {
+	public static boolean checkSignature(String signature, String token, String timestamp, String nonce) {
 		String[] array = new String[] { token, timestamp, nonce };
 		Arrays.sort(array, new Comparator<String>() {
 
@@ -91,31 +101,29 @@ public class CommonOperations {
 		});
 		String tempStr = array[0] + array[1] + array[2];
 		// SHA1签名
-		String resultStr = DigestUtils.shaHex(tempStr);
-		if (resultStr.equals(signature)) {
-			return true;
-		} else
-			return false;
+		String resultStr = DigestUtils.sha1Hex(tempStr);
+		return resultStr.equals(signature);
 	}
-	
+
 	/**
 	 * 将字段按照微信的要求（自定排序后拼接做sha1运算）生成签名串
+	 * 
 	 * @param keys 参与签名的字段
 	 * @return
 	 */
-	public String generateWechatSignature(String...keys){
+	public static String generateWechatSignature(String... keys) {
 		Arrays.sort(keys, new Comparator<String>() {
 
 			public int compare(String str1, String str2) {
 				return str1.compareTo(str2);
 			}
 		});
-		
-		String tempStr = "";
-		for(String str:keys){
-			tempStr = tempStr + str;
+
+		StringBuilder tempStr = new StringBuilder();
+		for (String str : keys) {
+			tempStr.append(str);
 		}
 		// SHA1签名
-		return DigestUtils.shaHex(tempStr);
+		return DigestUtils.sha1Hex(tempStr.toString());
 	}
 }
