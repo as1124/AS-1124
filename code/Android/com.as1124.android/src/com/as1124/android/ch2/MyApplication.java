@@ -7,7 +7,9 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 /**
- * Application 定制
+ * Application 定制。
+ * Activity的生命周期的监控在相应的Activity的对应方法执行之后通知
+ * @see ActivityLifecycleCallbacks
  * 
  * @author as1124(as1124huang@gmail.com)
  *
@@ -74,6 +76,8 @@ public class MyApplication extends Application implements ActivityLifecycleCallb
 	@Override
 	public void onTerminate() {
 		super.onTerminate();
+		
+		//不一定执行的，强杀app时就不会执行的
 	}
 	
 	/* (non-Javadoc)

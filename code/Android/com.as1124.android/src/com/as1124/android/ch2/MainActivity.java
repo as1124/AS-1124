@@ -38,7 +38,6 @@ public class MainActivity extends Activity {
 		View todoActivityBut = this.findViewById(R.id.button_todo_list);
 		todoActivityBut.setOnClickListener(new View.OnClickListener() {
 			
-			@Override
 			public void onClick(View v) {
 				Intent intent = new Intent(getApplicationContext(), TodoListActivity.class);
 				v.getContext().startActivity(intent);
@@ -101,6 +100,8 @@ public class MainActivity extends Activity {
 	}
 	
 	public boolean onCreateOptionsMenu(Menu menu) {
+		//ATTENTION 什么时候执行
+		
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
