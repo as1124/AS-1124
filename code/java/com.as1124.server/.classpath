@@ -30,7 +30,7 @@
 	<classpathentry kind="lib" path="lib/document/unoil-5.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/document/wmf2svg-0.9.8.jar"/>
 	<classpathentry kind="lib" path="lib/document/xmlbeans-2.6.0.jar"/>
-	<classpathentry kind="lib" path="D:/work/primeton/EOS_760_Mobile/apache-tomcat-7.0.54/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="lib/wechat/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/Users/as-1124/work/primeton/EOS_7.6GA/apache-tomcat-7.0.54/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

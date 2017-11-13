@@ -8,7 +8,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.mobile.thirdparty.wechat.IWechatConstants;
+import com.mobile.thirdparty.wechat.WechatConstants;
 
 /**
  * <code>CLICK</code>类型菜单触发的事件模型。
@@ -26,7 +26,7 @@ public class ClickMenuEvent extends AbstractWechatMenuEvent {
 		SAXReader reader = new SAXReader(false);
 		try {
 			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes(
-					IWechatConstants.DEFAULT_CHARSET)));
+					WechatConstants.CHARSET_UTF8)));
 			Element root = document.getRootElement();
 			this.setToUser(root.element("ToUserName").getText());
 			this.setFromUser(root.element("FromUserName").getText());

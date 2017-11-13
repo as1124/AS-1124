@@ -43,16 +43,16 @@ public class UserOperations {
 	public WechatUserInfo getUserInfo(AbstractAccessToken token, String openID) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/user/info";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		queryStr.add(new BasicNameValuePair("openid", openID));
 		queryStr.add(new BasicNameValuePair("lang", Locale.getDefault().toString()));
 		String response = HttpExecuter.executeGetAsString(uri, queryStr);
 		JSONObject json = JSONObject.parseObject(response);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(response, WechatUserInfo.class);
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+response);
+			System.err.println(WechatConstants.MSG_TAG+response);
 			return null;
 		}
 	}
@@ -67,7 +67,7 @@ public class UserOperations {
 	public List<WechatUserInfo> getUsersInfo(AbstractAccessToken token, Map<String, String> users){
 		String uri = "https://api.weixin.qq.com/cgi-bin/user/info/batchget";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postdata = new JSONObject();
 		JSONArray userList = new JSONArray();
 		Iterator<String> it = users.keySet().iterator();
@@ -81,15 +81,15 @@ public class UserOperations {
 		
 		postdata.put("user_list", userList);
 		HttpEntity requestEntity = new StringEntity(postdata.toJSONString(), 
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject returnResult = JSONObject.parseObject(result);
-        String returnCode = returnResult.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = returnResult.getString(WechatConstants.ERROR_CODE);
+        if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
         	
 			return JSONObject.parseArray(returnResult.getString("user_info_list"), WechatUserInfo.class);
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 	}
@@ -104,21 +104,21 @@ public class UserOperations {
 	public WechatGroup createTagGroup(AbstractAccessToken token, String tagName){
 		String uri = "https://api.weixin.qq.com/cgi-bin/tags/create";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("name", tagName);
 		JSONObject obj = new JSONObject();
 		obj.put("tag", jsonObj);
 		StringEntity requestEntity = new StringEntity(obj.toJSONString(), ContentType.create(
-				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String response = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(response);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(json.getString("tag"), WechatGroup.class);
 		}
 		else {
-			System.err.println(IWechatConstants.MSG_TAG+response);
+			System.err.println(WechatConstants.MSG_TAG+response);
 			return null;
 		}
 	}
@@ -132,15 +132,15 @@ public class UserOperations {
 	public WechatGroup[] getTagGroups(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/tags/get";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONArray.parseArray(json.getString("tags"), WechatGroup.class).toArray(new WechatGroup[]{});
 		}
 		else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 	}
@@ -156,21 +156,21 @@ public class UserOperations {
 	public boolean renameTagGroup(AbstractAccessToken token, int id, String newName) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/tags/update";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("id", id);
 		jsonObj.put("name", newName);
 		JSONObject obj = new JSONObject();
 		obj.put("tag", jsonObj);
 		StringEntity requestEntity = new StringEntity(obj.toJSONString(), ContentType.create(
-				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return false;
 		}
 	}
@@ -185,20 +185,20 @@ public class UserOperations {
 	public boolean deleteTagGroup(AbstractAccessToken token, int id){
 		String uri = "https://api.weixin.qq.com/cgi-bin/tags/delete";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("id", id);
 		JSONObject obj = new JSONObject();
 		obj.put("tag", jsonObj);
 		StringEntity requestEntity = new StringEntity(obj.toJSONString(), ContentType.create(
-				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return false;
 		}
 	}
@@ -207,22 +207,22 @@ public class UserOperations {
 	public Map<?,?> getFansWithTag(AbstractAccessToken token, int tagid, String nextOpenID){
 		String uri = "https://api.weixin.qq.com/cgi-bin/user/tag/get";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		postData.put("tagid", tagid);
 		postData.put("next_openid", nextOpenID);
 		HttpEntity requestEntity = new StringEntity(postData.toJSONString(), 
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode == null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			Map data = new HashMap();
 			data.put("next_openid", json.getString("next_openid"));
 			data.put("openid", JSONObject.parseArray(json.getJSONObject("data").getString("openid"), String.class));
         	return data;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 	}
@@ -238,20 +238,20 @@ public class UserOperations {
 	public boolean markUsersWithTag(AbstractAccessToken token, String[] openIDs, int tagid) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/tags/members/batchtagging";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("openid_list", Arrays.asList(openIDs));
 		jsonObj.put("tagid", tagid);
 		String postData = jsonObj.toString();
 		StringEntity requestEntity = new StringEntity(postData, ContentType.create(
-				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return false;
 		}
 	}
@@ -266,20 +266,20 @@ public class UserOperations {
 	public boolean unmarkUsersWithTag(AbstractAccessToken token, String[] openIDs, int tagid){
 		String uri = "https://api.weixin.qq.com/cgi-bin/tags/members/batchuntagging";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("openid_list", Arrays.asList(openIDs));
 		jsonObj.put("tagid", tagid);
 		String postData = jsonObj.toString();
 		StringEntity requestEntity = new StringEntity(postData, ContentType.create(
-				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return false;
 		}
 	}
@@ -288,16 +288,16 @@ public class UserOperations {
 	public int[] getTagGroupsOfUser(AbstractAccessToken token, String openID) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/tags/getidlist";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject obj = new JSONObject();
 		obj.put("openid", openID);
 		StringEntity requestEntity = new StringEntity(obj.toJSONString(), ContentType.create(
-				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
         int[] tagids = null;
-        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			JSONArray array = json.getJSONArray("tagid_list");
 			tagids = new int[array.size()];
 			for(int i=0; i<array.size(); i++){
@@ -305,7 +305,7 @@ public class UserOperations {
 			}
 			return tagids;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 	}
@@ -314,20 +314,20 @@ public class UserOperations {
 	public boolean addNickName(AbstractAccessToken token, String openID, String nickName) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/user/info/updateremark";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("openid", openID);
 		jsonObj.put("remark", nickName);
 		String postData = jsonObj.toString();
 		StringEntity requestEntity = new StringEntity(postData, ContentType.create(
-				IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return false;
 		}
 	}
@@ -336,17 +336,17 @@ public class UserOperations {
 	public SubscribedCountInfo getSubscribedUsers(AbstractAccessToken token, String nextOpenID) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/user/get";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		if(StringUtils.isNotBlank(nextOpenID))
 			nextOpenID = "";
 		queryStr.add(new BasicNameValuePair("next_openid", nextOpenID));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, SubscribedCountInfo.class);
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 	}
@@ -355,18 +355,18 @@ public class UserOperations {
 	public UserBlackList getBlacklist(AbstractAccessToken token, String beginOpenID){
 		String uri = "https://api.weixin.qq.com/cgi-bin/tags/members/getblacklist";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		postData.put("begin_openid", beginOpenID);
 		HttpEntity requestEntity = new StringEntity(postData.toJSONString(), 
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return JSONObject.parseObject(result, UserBlackList.class);
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 	}
@@ -383,11 +383,11 @@ public class UserOperations {
 		
 		String result = this.blacklist(token, openIDs, uri);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return false;
 		}
 	}
@@ -397,24 +397,24 @@ public class UserOperations {
 		String uri = "https://api.weixin.qq.com/cgi-bin/tags/members/batchunblacklist";
 		String result = this.blacklist(token, openIDs, uri);
 		JSONObject json = JSONObject.parseObject(result);
-        String returnCode = json.getString(IWechatConstants.ERROR_CODE);
-        if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+        String returnCode = json.getString(WechatConstants.ERROR_CODE);
+        if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 			return true;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return false;
 		}
 	}
 	
 	private String blacklist(AbstractAccessToken token, String[] openIDs, String uri){
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		JSONArray array = new JSONArray();
 		array.addAll(Arrays.asList(openIDs));
 		postData.put("openid_list", array);
 		HttpEntity requestEntity = new StringEntity(postData.toJSONString(), 
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		return HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 	}
 }

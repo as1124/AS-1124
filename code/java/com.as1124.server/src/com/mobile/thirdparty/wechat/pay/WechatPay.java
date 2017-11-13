@@ -23,7 +23,7 @@ import org.dom4j.io.SAXReader;
 
 import com.alibaba.fastjson.JSONObject;
 import com.mobile.thirdparty.access.HttpExecuter;
-import com.mobile.thirdparty.wechat.IWechatConstants;
+import com.mobile.thirdparty.wechat.WechatConstants;
 import com.mobile.thirdparty.wechat.model.pay.PayMetadata;
 import com.mobile.thirdparty.wechat.model.pay.PrePayInfo;
 import com.mobile.thirdparty.wechat.model.pay.WechatTradeStatus;
@@ -63,12 +63,12 @@ public class WechatPay {
 		String[] array = nodes.toArray(new String[] {});
 		String paySecret = metadata.getPaySecret();
 
-		String sign = generateSign(array, paySecret, IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateSign(array, paySecret, WechatConstants.CHARSET_UTF8);
 		String postContent = getPostContent(array, sign);
 		String requestURL = "https://api.mch.weixin.qq.com/pay/orderquery";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		StringEntity requestEntity = new StringEntity(postContent, ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, 
-					IWechatConstants.DEFAULT_CHARSET));
+		StringEntity requestEntity = new StringEntity(postContent, ContentType.create(WechatConstants.CONTENT_TYPE_JSON, 
+					WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr,
 				requestEntity);
 
@@ -158,13 +158,13 @@ public class WechatPay {
 
 		String[] array = nodes.toArray(new String[] {});
 		String key = metadata.getPaySecret();
-		String sign = generateSign(array, key, IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateSign(array, key, WechatConstants.CHARSET_UTF8);
 		String postContent = getPostContent(array, sign);
 
 		String requestURL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		StringEntity requestEntity = new StringEntity(postContent, ContentType.create(IWechatConstants.CONTENT_TYPE_XML, 
-				IWechatConstants.DEFAULT_CHARSET));
+		StringEntity requestEntity = new StringEntity(postContent, ContentType.create(WechatConstants.CONTENT_TYPE_XML, 
+				WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr, requestEntity);
 
 		JSONObject json = parseResult2JSON(result);
@@ -219,7 +219,7 @@ public class WechatPay {
 
 		String[] array = nodes.toArray(new String[] {});
 		String paySecret = metadata.getPaySecret();
-		String sign = generateSign(array, paySecret, IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateSign(array, paySecret, WechatConstants.CHARSET_UTF8);
 		nodes.add("sign=" + sign);
 
 		result.put("apppId", appid);
@@ -306,7 +306,7 @@ public class WechatPay {
 		SAXReader reader = new SAXReader(false);
 		JSONObject json = new JSONObject();
 		try {
-			Document doc = reader.read(new ByteArrayInputStream(result.getBytes(IWechatConstants.DEFAULT_CHARSET)));
+			Document doc = reader.read(new ByteArrayInputStream(result.getBytes(WechatConstants.CHARSET_UTF8)));
 			Element root = doc.getRootElement();
 			List<?> returnNodes = root.elements();
 			for (int i = 0; i < returnNodes.size(); i++) {
@@ -343,12 +343,12 @@ public class WechatPay {
 
 		String[] array = nodes.toArray(new String[] {});
 
-		String sign = generateSign(array, metadata.getPaySecret(), IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateSign(array, metadata.getPaySecret(), WechatConstants.CHARSET_UTF8);
 		String postContent = getPostContent(array, sign);
 		String requestURL = "https://api.mch.weixin.qq.com/pay/closeorder";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		StringEntity requestEntity = new StringEntity(postContent, ContentType.create(IWechatConstants.CONTENT_TYPE_JSON,
-					IWechatConstants.DEFAULT_CHARSET));
+		StringEntity requestEntity = new StringEntity(postContent, ContentType.create(WechatConstants.CONTENT_TYPE_JSON,
+					WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr,
 				requestEntity);
 

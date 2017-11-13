@@ -13,6 +13,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mobile.thirdparty.access.AccessTokenFactory;
 import com.mobile.thirdparty.access.HttpExecuter;
 import com.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
+import com.mobile.thirdparty.wechat.model.WechatJSAccessToken;
 import com.mobile.thirdparty.wechat.model.WechatJSTicket;
 
 /**
@@ -41,17 +42,17 @@ public class WechatJSOperations {
 			String uri = "https://api.weixin.qq.com/cgi-bin/ticket/getticket";
 			List<NameValuePair> query = new ArrayList<NameValuePair>();
 			query.add(new BasicNameValuePair("access_token", 
-					AccessTokenFactory.getWechatToken(appid, appSecret).getAccess_token()));
+					WechatJSAccessToken.getWechatToken(appid, appSecret).getAccessToken()));
 			query.add(new BasicNameValuePair("type", "jsapi"));
 			String result = HttpExecuter.executeGetAsString(uri, query);
-			String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-			if(returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
+			String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
+			if(returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)){
 				jsToken = JSONObject.parseObject(result, WechatJSTicket.class);
 				jsToken.setCreateTime(System.currentTimeMillis());
 				jsticketManager.put(appid, jsToken);
 				return jsToken.getTicket();
 			} else {
-				System.err.println(IWechatConstants.MSG_TAG+result);
+				System.err.println(WechatConstants.MSG_TAG+result);
 				return null;
 			}
 		} else {

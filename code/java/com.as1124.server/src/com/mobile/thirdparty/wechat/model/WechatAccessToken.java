@@ -11,7 +11,7 @@ import com.mobile.thirdparty.access.AbstractAccessToken;
 import com.mobile.thirdparty.access.AccessTokenFactory;
 import com.mobile.thirdparty.access.HttpExecuter;
 import com.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
-import com.mobile.thirdparty.wechat.IWechatConstants;
+import com.mobile.thirdparty.wechat.WechatConstants;
 
 /**
  * 接口调用时的票据对象（access_token）.
@@ -62,18 +62,18 @@ public class WechatAccessToken extends AbstractAccessToken {
 		return super.hashCode();
 	}
 
-	protected void initFields(List<BasicNameValuePair> parameters) throws ThirdPartyRequestExceprion {
+	protected void initFields(List<NameValuePair> parameters) throws ThirdPartyRequestExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/token";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.addAll(parameters);
 		JSONObject json = JSONObject.parseObject(HttpExecuter.executeGetAsString(uri, queryStr));
-		String err = json.getString(IWechatConstants.ERROR_CODE);
-		if (err == null || err.equals(IWechatConstants.RETURN_CODE_SUCCESS)) {
+		String err = json.getString(WechatConstants.ERROR_CODE);
+		if (err == null || err.equals(WechatConstants.RETURN_CODE_SUCCESS)) {
 			setCreateTime(System.currentTimeMillis());
-			setAccessToken(json.getString(IWechatConstants.KEY_ACCESS_TOKEN));
+			setAccessToken(json.getString(WechatConstants.KEY_ACCESS_TOKEN));
 			setExpireIn(json.getLong("expires_in"));
 		} else {
-			String errMsg = json.getString(IWechatConstants.ERROR_MSG);
+			String errMsg = json.getString(WechatConstants.ERROR_MSG);
 			ThirdPartyRequestExceprion exp = new ThirdPartyRequestExceprion("[errCode=" + err + "], " + errMsg);
 			throw exp;
 		}
@@ -88,10 +88,10 @@ public class WechatAccessToken extends AbstractAccessToken {
 	 * @throws ThirdPartyRequestExceprion
 	 */
 	public static WechatAccessToken getWechatToken(String appid, String appSecret) throws ThirdPartyRequestExceprion {
-		List<BasicNameValuePair> parameters = new ArrayList<BasicNameValuePair>();
+		List<NameValuePair> parameters = new ArrayList<NameValuePair>();
 		parameters.add(new BasicNameValuePair("appid", appid));
 		parameters.add(new BasicNameValuePair("secret", appSecret));
 		parameters.add(new BasicNameValuePair("grant_type", "client_credential"));
-		return getToken(appid, parameters, WechatAccessToken.class);
+		return AccessTokenFactory.getToken(appid, parameters, WechatAccessToken.class);
 	}
 }

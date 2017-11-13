@@ -121,12 +121,12 @@ public class WechatPayOperations {
 		
 		String[] array = nodes.toArray(new String[] {});
 		String key = metadata.getPaySecret();
-		String sign = generateWXPaySign(array, key, IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateWXPaySign(array, key, WechatConstants.CHARSET_UTF8);
 		String postContent = getPostContent(array, sign);
 
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		StringEntity requestEntity = new StringEntity(postContent, 
-				ContentType.create(IWechatConstants.CONTENT_TYPE_XML, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_XML, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr, requestEntity);
 		JSONObject json = parseXml2JSON(result);
 		WechatPrePayInfo instance = JSONObject.parseObject(json.toJSONString(), WechatPrePayInfo.class);
@@ -178,7 +178,7 @@ public class WechatPayOperations {
 
 		String[] array = nodes.toArray(new String[] {});
 		String paySecret = metadata.getPaySecret();
-		String sign = generateWXPaySign(array, paySecret, IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateWXPaySign(array, paySecret, WechatConstants.CHARSET_UTF8);
 
 		result.put("appid", appid);
 		result.put("partnerid", partnerid);
@@ -234,7 +234,7 @@ public class WechatPayOperations {
 		nodes.add("signType=MD5");
 		String[] array = nodes.toArray(new String[] {});
 		String paySecret = metadata.getPaySecret();
-		String sign = generateWXPaySign(array, paySecret, IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateWXPaySign(array, paySecret, WechatConstants.CHARSET_UTF8);
 
 		result.put("appId", appid);
 		result.put("timeStamp", timeStamp+"");
@@ -318,12 +318,12 @@ public class WechatPayOperations {
 		String[] array = nodes.toArray(new String[] {});
 		String paySecret = metadata.getPaySecret();
 
-		String sign = generateWXPaySign(array, paySecret, IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateWXPaySign(array, paySecret, WechatConstants.CHARSET_UTF8);
 		String postContent = getPostContent(array, sign);
 		
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		StringEntity requestEntity = new StringEntity(postContent, 
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr, requestEntity);
 		JSONObject json = parseXml2JSON(result);
 		WechatTradeStatus instance = JSONObject.parseObject(json.toJSONString(), WechatTradeStatus.class);
@@ -356,18 +356,18 @@ public class WechatPayOperations {
 
 		String[] array = nodes.toArray(new String[] {});
 
-		String sign = generateWXPaySign(array, metadata.getPaySecret(), IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateWXPaySign(array, metadata.getPaySecret(), WechatConstants.CHARSET_UTF8);
 		
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		StringEntity requestEntity = new StringEntity(getPostContent(array, sign), 
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr, requestEntity);
 		JSONObject json = parseXml2JSON(result);
 		if("SUCCESS".equals(json.getString("return_code")) &&
 				(json.getString("err_code")==null || json.getString("err_code").trim().equals(""))){
 			return true;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return false;
 		}
 	}
@@ -396,11 +396,11 @@ public class WechatPayOperations {
 		
 		String[] array = nodes.toArray(new String[] {});
 
-		String sign = generateWXPaySign(array, metadata.getPaySecret(), IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateWXPaySign(array, metadata.getPaySecret(), WechatConstants.CHARSET_UTF8);
 		
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		StringEntity requestEntity = new StringEntity(getPostContent(array, sign), 
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr, requestEntity);
 		JSONObject json = parseXml2JSON(result);
 		String jsonData = json.toJSONString();
@@ -451,11 +451,11 @@ public class WechatPayOperations {
 		
 		String[] array = nodes.toArray(new String[] {});
 
-		String sign = generateWXPaySign(array, metadata.getPaySecret(), IWechatConstants.DEFAULT_CHARSET);
+		String sign = generateWXPaySign(array, metadata.getPaySecret(), WechatConstants.CHARSET_UTF8);
 		
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		StringEntity requestEntity = new StringEntity(getPostContent(array, sign), 
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(requestURL, queryStr, requestEntity);
 		JSONObject json = parseXml2JSON(result);
 		return JSONObject.parseObject(json.toJSONString());
@@ -530,7 +530,7 @@ public class WechatPayOperations {
 		SAXReader reader = new SAXReader(false);
 		JSONObject json = new JSONObject();
 		try {
-			Document doc = reader.read(new ByteArrayInputStream(result.getBytes(IWechatConstants.DEFAULT_CHARSET)));
+			Document doc = reader.read(new ByteArrayInputStream(result.getBytes(WechatConstants.CHARSET_UTF8)));
 			Element root = doc.getRootElement();
 			List<?> returnNodes = root.elements();
 			for (int i = 0; i < returnNodes.size(); i++) {

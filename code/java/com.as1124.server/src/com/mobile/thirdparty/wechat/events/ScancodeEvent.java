@@ -8,7 +8,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
-import com.mobile.thirdparty.wechat.IWechatConstants;
+import com.mobile.thirdparty.wechat.WechatConstants;
 import com.mobile.thirdparty.wechat.model.AbstractDataPackage;
 
 /**
@@ -41,7 +41,7 @@ public class ScancodeEvent extends AbstractWechatEvent {
 	public Document decodeFromXML(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
-			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes(IWechatConstants.DEFAULT_CHARSET)));
+			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes(WechatConstants.CHARSET_UTF8)));
 			Element root = document.getRootElement();
 			this.setToUser(root.element("ToUserName").getText());
 			this.setFromUser(root.element("FromUserName").getText());

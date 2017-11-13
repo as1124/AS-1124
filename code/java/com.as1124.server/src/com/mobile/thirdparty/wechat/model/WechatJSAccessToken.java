@@ -10,7 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.mobile.thirdparty.access.AccessTokenFactory;
 import com.mobile.thirdparty.access.HttpExecuter;
 import com.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
-import com.mobile.thirdparty.wechat.IWechatConstants;
+import com.mobile.thirdparty.wechat.WechatConstants;
 
 /**
  * 微信网页授权access_token模型，
@@ -31,7 +31,7 @@ public class WechatJSAccessToken extends WechatAccessToken {
 	private String openid;
 
 	@Override
-	protected void initFields(List<BasicNameValuePair> parameters) throws ThirdPartyRequestExceprion {
+	protected void initFields(List<NameValuePair> parameters) throws ThirdPartyRequestExceprion {
 		String uri = "https://api.weixin.qq.com/sns/oauth2/access_token";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		//		queryStr.add(new BasicNameValuePair("grant_type", "authorization_code"));
@@ -40,17 +40,17 @@ public class WechatJSAccessToken extends WechatAccessToken {
 		//		queryStr.add(new BasicNameValuePair(IWechatConstants.KEY_APP_SECRET, appSecret));
 		queryStr.addAll(parameters);
 		JSONObject json = JSONObject.parseObject(HttpExecuter.executeGetAsString(uri, queryStr));
-		String err = json.getString(IWechatConstants.ERROR_CODE);
-		if (err == null || err.equals(IWechatConstants.RETURN_CODE_SUCCESS)) {
+		String err = json.getString(WechatConstants.ERROR_CODE);
+		if (err == null || err.equals(WechatConstants.RETURN_CODE_SUCCESS)) {
 			setCreateTime(System.currentTimeMillis());
 			setRefreshCreateTime(getCreateTime());
-			setAccessToken(json.getString(IWechatConstants.KEY_ACCESS_TOKEN));
+			setAccessToken(json.getString(WechatConstants.KEY_ACCESS_TOKEN));
 			setExpireIn(json.getLong("expires_in"));
 			setRefreshToken(json.getString("refresh_token"));
 			setOpenid(json.getString("openid"));
 			setScope(json.getString("scope"));
 		} else {
-			String errMsg = json.getString(IWechatConstants.ERROR_MSG);
+			String errMsg = json.getString(WechatConstants.ERROR_MSG);
 			ThirdPartyRequestExceprion exp = new ThirdPartyRequestExceprion("[errCode=" + err + "], " + errMsg);
 			throw exp;
 		}
@@ -68,23 +68,23 @@ public class WechatJSAccessToken extends WechatAccessToken {
 		queryStr.add(new BasicNameValuePair("refresh_token", getRefreshToken()));
 		for (BasicNameValuePair param : parameters) {
 			String key = param.getName();
-			if (key.equals(IWechatConstants.KEY_APP_ID)) {
-				queryStr.add(new BasicNameValuePair(IWechatConstants.KEY_APP_ID, param.getValue()));
+			if (key.equals(WechatConstants.KEY_APP_ID)) {
+				queryStr.add(new BasicNameValuePair(WechatConstants.KEY_APP_ID, param.getValue()));
 				break;
 			}
 		}
 
 		JSONObject json = JSONObject.parseObject(HttpExecuter.executeGetAsString(uri, queryStr));
-		String err = json.getString(IWechatConstants.ERROR_CODE);
-		if (err == null || err.equals(IWechatConstants.RETURN_CODE_SUCCESS)) {
+		String err = json.getString(WechatConstants.ERROR_CODE);
+		if (err == null || err.equals(WechatConstants.RETURN_CODE_SUCCESS)) {
 			setCreateTime(System.currentTimeMillis());
-			setAccessToken(json.getString(IWechatConstants.KEY_ACCESS_TOKEN));
+			setAccessToken(json.getString(WechatConstants.KEY_ACCESS_TOKEN));
 			setExpireIn(json.getLong("expires_in"));
 			setRefreshToken(json.getString("refresh_token"));
 			this.openid = json.getString("openid");
 			setScope(json.getString("scope"));
 		} else {
-			String errMsg = json.getString(IWechatConstants.ERROR_MSG);
+			String errMsg = json.getString(WechatConstants.ERROR_MSG);
 			ThirdPartyRequestExceprion exp = new ThirdPartyRequestExceprion("[errCode=" + err + "], " + errMsg);
 			throw exp;
 		}
@@ -143,11 +143,11 @@ public class WechatJSAccessToken extends WechatAccessToken {
 	 */
 	public static WechatJSAccessToken getWechatWebAuthorizeToken(String appid, String appSecret, String code)
 			throws ThirdPartyRequestExceprion {
-		List<BasicNameValuePair> queryStr = new ArrayList<BasicNameValuePair>();
+		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
 		queryStr.add(new BasicNameValuePair("grant_type", "authorization_code"));
 		queryStr.add(new BasicNameValuePair("code", code));
-		queryStr.add(new BasicNameValuePair(IWechatConstants.KEY_APP_ID, appid));
-		queryStr.add(new BasicNameValuePair(IWechatConstants.KEY_APP_SECRET, appSecret));
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_APP_ID, appid));
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_APP_SECRET, appSecret));
 		WechatJSAccessToken token = AccessTokenFactory.getToken(appid, queryStr, WechatJSAccessToken.class);
 		return token;
 	}

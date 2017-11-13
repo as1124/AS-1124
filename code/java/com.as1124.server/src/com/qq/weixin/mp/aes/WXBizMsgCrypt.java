@@ -23,7 +23,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.mobile.thirdparty.wechat.IWechatConstants;
+import com.mobile.thirdparty.wechat.WechatConstants;
 
 /**
  * 提供接收和推送给公众平台消息的加解密接口(UTF8编码的字符串).
@@ -67,7 +67,7 @@ public class WXBizMsgCrypt {
 		this.appId = appId;
 		byte[] encodingBytes;
 		try {
-			encodingBytes = (encodingAesKey + "=").getBytes(IWechatConstants.DEFAULT_CHARSET);
+			encodingBytes = (encodingAesKey + "=").getBytes(WechatConstants.CHARSET_UTF8);
 			aesKey = Base64.decodeBase64(encodingBytes);
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
@@ -116,10 +116,10 @@ public class WXBizMsgCrypt {
 	 */
 	String encrypt(String randomStr, String text) throws AesException, UnsupportedEncodingException {
 		ByteGroup byteCollector = new ByteGroup();
-		byte[] randomStrBytes = randomStr.getBytes(IWechatConstants.DEFAULT_CHARSET);
-		byte[] textBytes = text.getBytes(IWechatConstants.DEFAULT_CHARSET);
+		byte[] randomStrBytes = randomStr.getBytes(WechatConstants.CHARSET_UTF8);
+		byte[] textBytes = text.getBytes(WechatConstants.CHARSET_UTF8);
 		byte[] networkBytesOrder = getNetworkBytesOrder(textBytes.length);
-		byte[] appidBytes = appId.getBytes(IWechatConstants.DEFAULT_CHARSET);
+		byte[] appidBytes = appId.getBytes(WechatConstants.CHARSET_UTF8);
 
 		byteCollector.addBytes(randomStrBytes);
 		byteCollector.addBytes(networkBytesOrder);
@@ -144,7 +144,7 @@ public class WXBizMsgCrypt {
 			byte[] encrypted = cipher.doFinal(unencrypted);
 
 			// 使用BASE64对加密后的字符串进行编码
-			String base64Encrypted = new String(base64.encode(encrypted), IWechatConstants.DEFAULT_CHARSET);
+			String base64Encrypted = new String(base64.encode(encrypted), WechatConstants.CHARSET_UTF8);
 
 			return base64Encrypted;
 		} catch (Exception e) {
@@ -170,7 +170,7 @@ public class WXBizMsgCrypt {
 			cipher.init(Cipher.DECRYPT_MODE, key_spec, iv);
 
 			// 使用BASE64对密文进行解码
-			byte[] encrypted = Base64.decodeBase64(text.getBytes(IWechatConstants.DEFAULT_CHARSET));
+			byte[] encrypted = Base64.decodeBase64(text.getBytes(WechatConstants.CHARSET_UTF8));
 
 			// 解密
 			original = cipher.doFinal(encrypted);
@@ -190,9 +190,9 @@ public class WXBizMsgCrypt {
 			int xmlLength = recoverNetworkBytesOrder(networkOrder);
 
 			xmlContent = new String(Arrays.copyOfRange(bytes, 20, 20 + xmlLength), 
-					IWechatConstants.DEFAULT_CHARSET);
+					WechatConstants.CHARSET_UTF8);
 			from_appid = new String(Arrays.copyOfRange(bytes, 20 + xmlLength, bytes.length),
-					IWechatConstants.DEFAULT_CHARSET);
+					WechatConstants.CHARSET_UTF8);
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new AesException(AesException.IllegalBuffer);

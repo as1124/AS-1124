@@ -8,22 +8,18 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.entity.ContentType;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import com.mobile.thirdparty.access.HttpExecuter;
-import com.mobile.thirdparty.wechat.HotlineService;
 
 public class TEST {
 
@@ -76,13 +72,13 @@ public class TEST {
 			method.setHeader("Accept-Encoding", "gzip, deflate");
 			method.setHeader("Accept-Language", "zh-Hans-CN, zh-Hans; q=0.8, en-GB; q=0.5, en; q=0.3");
 			method.setHeader("Cache-Control", "no-cache");
-//			method.setHeader(HTTP.CONTENT_LEN, "6184");
-//			method.setHeader(HTTP.CONTENT_TYPE, "application/x-www-form-urlencoded; charset=UTF-8");
-//			method.setHeader("Cookie", "pgv_pvid=1461483326; pgv_pvi=795770880; pgv_si=s6366810112");
+			//			method.setHeader(HTTP.CONTENT_LEN, "6184");
+			//			method.setHeader(HTTP.CONTENT_TYPE, "application/x-www-form-urlencoded; charset=UTF-8");
+			//			method.setHeader("Cookie", "pgv_pvid=1461483326; pgv_pvi=795770880; pgv_si=s6366810112");
 			method.setHeader("Referer", "https://wj.qq.com/s/1624532/6505");
 			method.setHeader("User-Agent", "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)");
 			method.setHeader("X-Requested-With", "XMLHttpRequest");
-//			HttpEntity requestEntity = new StringEntity(new String(buffs), ContentType.create("application/x-www-form-urlencoded", "UTF-8"));
+			//			HttpEntity requestEntity = new StringEntity(new String(buffs), ContentType.create("application/x-www-form-urlencoded", "UTF-8"));
 			HttpEntity requestEntity = MultipartEntityBuilder.create()
 					.addTextBody("answer_survey", new String(buffs), ContentType.create("application/json", "UTF-8"))
 					.addTextBody("survey_id", "1624532").build();
@@ -107,10 +103,10 @@ public class TEST {
 		account.setKf_account("kf2001@gh_c27d5e63d22d");
 		account.setNickname("元宝");
 		account.setPassword("000000");
-		HotlineService service = new HotlineService();
+		//		HotlineService service = new HotlineService();
 		//		service.addHotlineAccount(token, account);
 		//		service.getAllServiceAccount(token.getAccess_token());
-		service.setAccountImage(token, account.getKf_account(), "d:/icon.png");
+		//		service.setAccountImage(token, account.getKf_account(), "d:/icon.png");
 		//		service.getOnlineServiceAccounts(token);
 
 	}

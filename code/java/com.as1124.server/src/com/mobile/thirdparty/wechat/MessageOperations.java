@@ -107,7 +107,7 @@ public class MessageOperations {
 	public <T extends AbstractDataPackage>T dealReceivedMessage(String xmlContent) {
 		SAXReader reader = new SAXReader(false);
 		try {
-			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes(IWechatConstants.DEFAULT_CHARSET)));
+			Document document = reader.read(new ByteArrayInputStream(xmlContent.getBytes(WechatConstants.CHARSET_UTF8)));
 			Element root = document.getRootElement();
 			String msgType = root.element("MsgType").getText();
 			
@@ -160,7 +160,7 @@ public class MessageOperations {
 	public JSONObject sendNews2Group(AbstractAccessToken token, int groupID, String mediaID, boolean reprintContinue) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		
 		JSONObject filterData = new JSONObject();
@@ -175,14 +175,14 @@ public class MessageOperations {
 		postData.put("sned_ignore_reprint", reprintContinue?1:0);
 		
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
 		JSONObject resultJson = JSONObject.parseObject(result);
-		String returnCode = resultJson.getString(IWechatConstants.ERROR_CODE);
-		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		String returnCode = resultJson.getString(WechatConstants.ERROR_CODE);
+		if (returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return resultJson;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 	}
@@ -228,7 +228,7 @@ public class MessageOperations {
 	 */
 	
 	public String sendImage2Group(AbstractAccessToken token, int groupID, File localFile) {
-		WechatMedia imageMedia = new MediaOperations().uploadTempImage(token, localFile.getAbsolutePath());
+		WechatMedia imageMedia = MediaOperations.uploadTempImage(token, localFile.getAbsolutePath());
 		JSONObject data = new JSONObject();
 		data.put("media_id", imageMedia.getMedia_id());
 		return sendMessage2Group(token, "image", groupID, data);
@@ -264,7 +264,7 @@ public class MessageOperations {
 		WechatMedia videoMedia = new MediaOperations().uploadTempVideo(token, localFile.getAbsolutePath());
 		String uri = "http://api.weixin.qq.com/cgi-bin/media/uploadvideo";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		
 		JSONObject postData = new JSONObject();
 		postData.put("media_id", videoMedia.getMedia_id());
@@ -272,16 +272,16 @@ public class MessageOperations {
 		postData.put("description", desc);
 		
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject uploadResult = JSONObject.parseObject(result);
-		String returnCode = uploadResult.getString(IWechatConstants.ERROR_CODE);
-		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		String returnCode = uploadResult.getString(WechatConstants.ERROR_CODE);
+		if (returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			postData.clear();
 			postData.put("media_id", uploadResult.getString("media_id"));
 			return sendMessage2Group(token, "mpvideo", groupID, postData);
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 		
@@ -290,7 +290,7 @@ public class MessageOperations {
 	private String sendMessage2Group(AbstractAccessToken token, String type, int groupID, JSONObject data) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/sendall";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		
 		JSONObject group = new JSONObject();
@@ -300,13 +300,13 @@ public class MessageOperations {
 		postData.put(type, data);
 		postData.put("msgtype", type);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
+		if (returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return JSONObject.parseObject(result).getString("msg_id");
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 	}
@@ -322,7 +322,7 @@ public class MessageOperations {
 	public JSONObject sendNews2Users(AbstractAccessToken token, String[] userOpenIDs, String mediaID, boolean reprintContinue) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/send";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		JSONArray users = new JSONArray();
 		users.addAll(Arrays.asList(userOpenIDs));
@@ -335,14 +335,14 @@ public class MessageOperations {
 		postData.put("sned_ignore_reprint", reprintContinue?1:0);
 		
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
 		JSONObject resultJson = JSONObject.parseObject(result);
-		String returnCode = resultJson.getString(IWechatConstants.ERROR_CODE);
-		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		String returnCode = resultJson.getString(WechatConstants.ERROR_CODE);
+		if (returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return resultJson;
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 	}
@@ -403,7 +403,7 @@ public class MessageOperations {
 		WechatMedia videoMedia = new MediaOperations().uploadTempVideo(token, localFile.getAbsolutePath());
 		String uri = "http://api.weixin.qq.com/cgi-bin/media/uploadvideo";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		
 		JSONObject postData = new JSONObject();
 		postData.put("media_id", videoMedia.getMedia_id());
@@ -411,16 +411,16 @@ public class MessageOperations {
 		postData.put("description", desc);
 		
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
 		JSONObject uploadResult = JSONObject.parseObject(result);
-		String returnCode = uploadResult.getString(IWechatConstants.ERROR_CODE);
-		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		String returnCode = uploadResult.getString(WechatConstants.ERROR_CODE);
+		if (returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			postData.clear();
 			postData.put("media_id", uploadResult.getString("media_id"));
 			return sendMessage2Users(token, userOpenIDs, "mpvideo", postData);
 		} else {
-			System.err.println(IWechatConstants.MSG_TAG+result);
+			System.err.println(WechatConstants.MSG_TAG+result);
 			return null;
 		}
 		
@@ -442,7 +442,7 @@ public class MessageOperations {
 	private String sendMessage2Users(AbstractAccessToken token, String[] userOpenIDs, String type, JSONObject data) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/send";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		JSONArray users = new JSONArray();
 		users.addAll(Arrays.asList(userOpenIDs));
@@ -450,10 +450,10 @@ public class MessageOperations {
 		postData.put(type, data);
 		postData.put("msgtype", type);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
+		if (returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return JSONObject.parseObject(result).getString("msg_id");
 		}
 		return null;
@@ -470,14 +470,14 @@ public class MessageOperations {
 	public boolean deleteSendBatchMessage(AbstractAccessToken token, String msgID) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/delete";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		postData.put("msg_id", msgID);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
+		if (returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			return true;
 		}
 		return false;
@@ -494,14 +494,14 @@ public class MessageOperations {
 	public boolean isBatchMessageSuccess(AbstractAccessToken token, String msgID) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/mass/get";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		postData.put("msg_id", msgID);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
-				ContentType.create(IWechatConstants.CONTENT_TYPE_JSON, IWechatConstants.DEFAULT_CHARSET));
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(IWechatConstants.ERROR_CODE);
-		if (returnCode==null || IWechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
+		if (returnCode==null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
 			String isSuccess =  JSONObject.parseObject(result).getString("msg_status");
 			return isSuccess.equals("SEND_SUCCESS");
 		}
@@ -518,7 +518,7 @@ public class MessageOperations {
 	public String getAutoReplyRule(AbstractAccessToken token){
 		String uri = "https://api.weixin.qq.com/cgi-bin/get_current_autoreply_info";
 		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
 		return result;
 	}

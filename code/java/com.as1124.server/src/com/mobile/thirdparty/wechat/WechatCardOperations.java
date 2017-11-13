@@ -22,7 +22,7 @@ public class WechatCardOperations {
 	public void createWXCard(AbstractAccessToken token){
 		String uri = "https://api.weixin.qq.com/card/create";
 		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair("access_token", token.getAccess_token()));
+		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
 		
 	}
 }
