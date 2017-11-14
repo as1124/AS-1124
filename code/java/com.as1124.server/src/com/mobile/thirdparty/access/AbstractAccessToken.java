@@ -16,6 +16,7 @@ import com.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
  * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
+@SuppressWarnings("rawtypes")
 public abstract class AbstractAccessToken implements IAccessToken {
 
 	/**

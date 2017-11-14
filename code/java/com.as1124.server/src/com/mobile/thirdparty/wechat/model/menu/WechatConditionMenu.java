@@ -14,7 +14,7 @@ package com.mobile.thirdparty.wechat.model.menu;
  * </ol>
  * </p>
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
 public class WechatConditionMenu {
@@ -22,19 +22,20 @@ public class WechatConditionMenu {
 	/**
 	 * 菜单
 	 */
-	WechatMenu[] button;
-	
+	private WechatMenu[] button = new WechatMenu[0];
+
 	/**
 	 * 菜单匹配规则
 	 */
-	WechatMenuRuler matchrule;
-	
+	private WechatMenuRuler matchrule;
+
 	/**
 	 * 个性化菜单的id
 	 */
-	String menuid;
-	
+	private String menuid = "";
+
 	public WechatConditionMenu() {
+		// default constructor
 	}
 
 	/**

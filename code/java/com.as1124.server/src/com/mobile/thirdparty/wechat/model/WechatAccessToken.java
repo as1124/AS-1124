@@ -1,5 +1,6 @@
 package com.mobile.thirdparty.wechat.model;
 
+import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,8 @@ import com.mobile.thirdparty.wechat.WechatConstants;
 /**
  * 接口调用时的票据对象（access_token）.
  * <p>access_token是公众号/企业号的全局唯一票据，公众号/企业号调用各接口时都需使用access_token。
- * access_token的有效期为2个小时，超时后调用{@link WechatAccessToken#getToken(String, String)}将自动刷新。</p>
+ * access_token的有效期为2个小时，超时后调用{@link WechatAccessToken#getToken(String, String)}将自动刷新。
+ * </p>
  * 
  * @author huangjw(mailto:as1124huang@gmail.com)
  *
@@ -41,18 +43,18 @@ public class WechatAccessToken extends AbstractAccessToken {
 
 		// 已经花费的时间（单位：毫秒）
 		long differ = System.currentTimeMillis() - getCreateTime();
-		long seconds = differ / 1000;
+		long differInSeconds = differ / 1000;
 
 		// 预留10分钟的意外时间
-		seconds = seconds + 10 * 60;
+		differInSeconds = differInSeconds + 10 * 60;
 
-		return (seconds >= this.getExpireIn());
+		return (differInSeconds >= this.getExpireIn());
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj instanceof WechatAccessToken) {
-			return getAccessToken().equals(((WechatAccessToken) obj).getAccessToken());
+		if (obj != null && WechatAccessToken.class.isInstance(obj)) {
+			return ((WechatAccessToken) obj).getAccessToken().equals(getAccessToken());
 		} else
 			return false;
 	}
@@ -62,23 +64,27 @@ public class WechatAccessToken extends AbstractAccessToken {
 		return super.hashCode();
 	}
 
+	@Override
+	public String toString() {
+		return MessageFormat.format("[{0}] {1}", this.clientID, this.accessToken);
+	}
+
 	protected void initFields(List<NameValuePair> parameters) throws ThirdPartyRequestExceprion {
 		String uri = "https://api.weixin.qq.com/cgi-bin/token";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.addAll(parameters);
 		JSONObject json = JSONObject.parseObject(HttpExecuter.executeGetAsString(uri, queryStr));
-		String err = json.getString(WechatConstants.ERROR_CODE);
-		if (err == null || err.equals(WechatConstants.RETURN_CODE_SUCCESS)) {
+		int err = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (err == WechatConstants.RETURN_CODE_SUCCESS) {
 			setCreateTime(System.currentTimeMillis());
 			setAccessToken(json.getString(WechatConstants.KEY_ACCESS_TOKEN));
 			setExpireIn(json.getLong("expires_in"));
 		} else {
 			String errMsg = json.getString(WechatConstants.ERROR_MSG);
-			ThirdPartyRequestExceprion exp = new ThirdPartyRequestExceprion("[errCode=" + err + "], " + errMsg);
-			throw exp;
+			throw new ThirdPartyRequestExceprion("[errCode=" + err + "], " + errMsg);
 		}
 	}
-
 
 	/**
 	 * 获取微信公众号接口调用凭据

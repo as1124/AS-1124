@@ -9,23 +9,24 @@ import com.mobile.thirdparty.wechat.IWechatModel;
 /**
  * 当前公众号自定义菜单的配置信息.
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
-public class WechatMenuConfiguration implements IWechatModel{
+public class WechatMenuConfiguration implements IWechatModel {
 
 	/**
 	 * 菜单是否开启, <code>0</code>代表未开启, 
 	 * <code>1</code>代表开启
 	 */
-	int is_menu_open;
-	
+	private int is_menu_open = 0;
+
 	/**
 	 * 菜单信息
 	 */
-	String selfmenu_info;
-	
+	private String selfmenu_info = "";
+
 	public WechatMenuConfiguration() {
+		// default constructor
 	}
 
 	/**
@@ -39,10 +40,10 @@ public class WechatMenuConfiguration implements IWechatModel{
 
 	/**
 	 * 设置菜单状态
-	 * @param is_menu_open
+	 * @param isMenuOpen
 	 */
-	public void setIs_menu_open(int is_menu_open) {
-		this.is_menu_open = is_menu_open;
+	public void setIs_menu_open(int isMenuOpen) {
+		this.is_menu_open = isMenuOpen;
 	}
 
 	/**
@@ -54,14 +55,14 @@ public class WechatMenuConfiguration implements IWechatModel{
 	}
 
 	/**
-	 * 将菜单信息的json串解析成java对象返回
+	 * 将菜单信息的JSON串解析成java对象返回
 	 * @return List<WechatMenu>
 	 */
-	public List<WechatMenu> parseInfo2Menu(){
+	public List<WechatMenu> parseInfo2Menu() {
 		String butoonStr = JSONObject.parseObject(this.selfmenu_info).getString("button");
 		JSONArray array = JSONObject.parseArray(butoonStr);
 		JSONArray newArray = new JSONArray();
-		for(int i=0; i<array.size(); i++){
+		for (int i = 0; i < array.size(); i++) {
 			JSONObject json = array.getJSONObject(i);
 			JSONArray subButtons = json.getJSONObject("sub_button").getJSONArray("list");
 			json.remove("sub_button");
@@ -70,23 +71,23 @@ public class WechatMenuConfiguration implements IWechatModel{
 		}
 		return JSONObject.parseArray(newArray.toJSONString(), WechatMenu.class);
 	}
-	
+
 	/**
 	 * @see #selfmenu_info
-	 * @param selfmenu_info
+	 * @param selfMenuInfo
 	 */
-	public void setSelfmenu_info(String selfmenu_info) {
-		this.selfmenu_info = selfmenu_info;
+	public void setSelfmenu_info(String selfMenuInfo) {
+		this.selfmenu_info = selfMenuInfo;
 	}
 
 	/**
-	 * 将java模型反序列化成json串形式的，以此来描述菜单信息
+	 * 将java模型反序列化成JSON串形式的，以此来描述菜单信息
 	 * @param menus
 	 */
-	public void parseMenu2Json(List<WechatMenu> menus){
+	public void parseMenu2Json(List<WechatMenu> menus) {
 		JSONArray buttons = new JSONArray();
 		buttons.addAll(menus);
 		this.selfmenu_info = JSONArray.toJSONString(buttons);
 	}
-	
+
 }

@@ -50,12 +50,14 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.util.EntityUtils;
 
+import com.mobile.common.util.LoggerUtil;
+
 /**
  * 
  * 封装基础的HttpClient操作.
  * 
  * <pre>
- * <p>eg:GET请求调用示例
+ * eg:GET请求调用示例
  * <code>
  * String url = "https://api.weixin.qq.com/cgi-bin/token";
  * List&lt;NameValuePair> parameters = new ArrayList&lt;NameValuePair>();
@@ -71,7 +73,7 @@ import org.apache.http.util.EntityUtils;
  * String postData = "{"filter":{"is_to_all":false, "tag_id":2}}";
  * StringEntity requestEntity = new StringEntity(postData, ContentType.create("text/json", "UTF-8"));
  * {@link HttpExecuter}.{@link #executePostAsString(url, queryStr, requestEntity)};
- * </code></p>
+ * </code>
  * </pre>
  * 
  * @author huangjw(mailto:as1124huang@gmail.com)
@@ -79,7 +81,7 @@ import org.apache.http.util.EntityUtils;
  */
 public class HttpExecuter {
 
-	static Logger logger = Logger.getLogger(HttpExecuter.class.getName());
+	static Logger logger = LoggerUtil.getLogger(HttpExecuter.class);
 
 	private HttpExecuter() {
 	}
@@ -496,9 +498,7 @@ public class HttpExecuter {
 			context.init(null, new TrustManager[] { manager }, null);
 			// NoopHostnameVerifier.INSTANCE)是什么鬼
 			socketFactory = new SSLConnectionSocketFactory(context, new BrowserCompatHostnameVerifier());
-		} catch (NoSuchAlgorithmException e) {
-			logger.log(Level.SEVERE, e.getMessage(), e);
-		} catch (KeyManagementException e) {
+		} catch (NoSuchAlgorithmException | KeyManagementException e) {
 			logger.log(Level.SEVERE, e.getMessage(), e);
 		}
 		return socketFactory;

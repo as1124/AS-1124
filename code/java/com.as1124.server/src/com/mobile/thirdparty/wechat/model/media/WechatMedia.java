@@ -5,10 +5,10 @@ import com.mobile.thirdparty.wechat.IWechatModel;
 /**
  * 微信多媒体素材基础模型。可描述<code>image/voice/thumb</code>
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
-public class WechatMedia implements IWechatModel{
+public class WechatMedia implements IWechatModel {
 
 	/**
 	 * 素材类型
@@ -16,41 +16,46 @@ public class WechatMedia implements IWechatModel{
 	 * <li>voice, 语音
 	 * <li>thumb, 视频与音乐格式的缩略图
 	 */
-	String type;
-	
+	private String type = "";
+
 	/**
 	 * 服务器上的素材ID
 	 */
-	String media_id;
-	
+	private String media_id = "";
+
 	/**
 	 * 缩略图文件时返回的json数据名称不叫media_id，而是thumb_media_id
 	 */
-	String thumb_media_id;
-	
+	private String thumb_media_id = "";
+
 	/**
 	 * 素材上传的时间戳
 	 */
-	String create_at;
+	private String create_at = "";
 
 	/**
-	 * 新增的图片素材的图片URL；永久视频素材的下载url
+	 * 新增的图片素材的图片URL；永久视频素材的下载URL
 	 */
-	String url;
-	
+	private String url = "";
+
 	/**
 	 * 文件名称（图片）
 	 */
-	String name;
-	
+	private String name = "";
+
 	/**
 	 * 素材最后更新时间
 	 */
-	long update_time;
-	
+	private long update_time = 0;
+
+	private String title = "";
+
+	private String description = "";
+
 	public WechatMedia() {
+		// default constructor
 	}
-	
+
 	/**
 	 * @see #type
 	 * @return
@@ -77,10 +82,10 @@ public class WechatMedia implements IWechatModel{
 
 	/**
 	 * @see #media_id
-	 * @param media_id
+	 * @param mediaID
 	 */
-	public void setMedia_id(String media_id) {
-		this.media_id = media_id;
+	public void setMedia_id(String mediaID) {
+		this.media_id = mediaID;
 	}
 
 	/**
@@ -93,10 +98,10 @@ public class WechatMedia implements IWechatModel{
 
 	/**
 	 * @see #create_at
-	 * @param create_at
+	 * @param createAt
 	 */
-	public void setCreate_at(String create_at) {
-		this.create_at = create_at;
+	public void setCreate_at(String createAt) {
+		this.create_at = createAt;
 	}
 
 	/**
@@ -125,10 +130,10 @@ public class WechatMedia implements IWechatModel{
 
 	/**
 	 * @see #thumb_media_id
-	 * @param thumb_media_id
+	 * @param thumbMediaID
 	 */
-	public void setThumb_media_id(String thumb_media_id) {
-		this.thumb_media_id = thumb_media_id;
+	public void setThumb_media_id(String thumbMediaID) {
+		this.thumb_media_id = thumbMediaID;
 	}
 
 	public String getName() {
@@ -143,8 +148,36 @@ public class WechatMedia implements IWechatModel{
 		return update_time;
 	}
 
-	public void setUpdate_time(long update_time) {
-		this.update_time = update_time;
+	public void setUpdate_time(long updateTime) {
+		this.update_time = updateTime;
 	}
-	
+
+	/**
+	 * @return Returns the title.
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * @param title The title to set.
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * @return Returns the description.
+	 */
+	public String getDescription() {
+		return description;
+	}
+
+	/**
+	 * @param description The description to set.
+	 */
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 }

@@ -1,5 +1,6 @@
 package com.mobile.thirdparty.wechat.model.media;
 
+import java.util.Collections;
 import java.util.List;
 
 import com.mobile.thirdparty.wechat.IWechatModel;
@@ -7,7 +8,7 @@ import com.mobile.thirdparty.wechat.IWechatModel;
 /**
  * 素材数量描述模型(image/voice/video)
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
 public class WechatMediaList implements IWechatModel{
@@ -15,19 +16,20 @@ public class WechatMediaList implements IWechatModel{
 	/**
 	 * 该类型的素材的总数 
 	 */
-	int total_count;
+	private int total_count = 0;
 	
 	/**
 	 * 本次调用获取的素材的数量
 	 */
-	int item_count;
+	private int item_count = 0;
 	
 	/**
 	 * 素材列表
 	 */
-	List<WechatMedia> item;
+	private List<WechatMedia> item = Collections.emptyList();
 	
 	public WechatMediaList() {
+		// default constructor
 	}
 
 	/**
@@ -40,10 +42,10 @@ public class WechatMediaList implements IWechatModel{
 
 	/**
 	 * @see #total_count
-	 * @param total_count
+	 * @param totalCount
 	 */
-	public void setTotal_count(int total_count) {
-		this.total_count = total_count;
+	public void setTotal_count(int totalCount) {
+		this.total_count = totalCount;
 	}
 
 	/**
@@ -56,17 +58,17 @@ public class WechatMediaList implements IWechatModel{
 
 	/**
 	 * @see #item_count
-	 * @param item_count
+	 * @param itemCount
 	 */
-	public void setItem_count(int item_count) {
-		this.item_count = item_count;
+	public void setItem_count(int itemCount) {
+		this.item_count = itemCount;
 	}
 
 	/**
 	 * @see #item
 	 * @return
 	 */
-	public List<WechatMedia> getItem() {
+	public List getItem() {
 		return item;
 	}
 
@@ -77,5 +79,4 @@ public class WechatMediaList implements IWechatModel{
 	public void setItem(List<WechatMedia> item) {
 		this.item = item;
 	}
-	
 }

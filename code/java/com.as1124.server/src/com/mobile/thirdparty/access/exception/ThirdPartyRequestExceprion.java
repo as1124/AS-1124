@@ -17,4 +17,7 @@ public class ThirdPartyRequestExceprion extends Exception {
 		super(message);
 	}
 
+	public ThirdPartyRequestExceprion(Exception cause) {
+		super(cause);
+	}
 }

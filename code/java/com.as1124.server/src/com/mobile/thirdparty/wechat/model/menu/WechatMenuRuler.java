@@ -3,7 +3,7 @@ package com.mobile.thirdparty.wechat.model.menu;
 /**
  * 微信个性化菜单匹配规则
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
 public class WechatMenuRuler {
@@ -11,40 +11,40 @@ public class WechatMenuRuler {
 	/**
 	 * 用户标签id
 	 */
-	String tag_id;
-	
+	private String tag_id = "";
+
 	/**
 	 * 性别：1代表男，2代表女
 	 */
-	String sex;
-	
+	private String sex = "";
+
 	/**
 	 * 国家
 	 */
-	String country;
-	
+	private String country = "";
+
 	/**
 	 * 省份
 	 */
-	String province;
-	
+	private String province = "";
+
 	/**
 	 * 城市
 	 */
-	String city;
-	
+	private String city = "";
+
 	/**
 	 * 客户端系统类型
 	 * <li>1-iOS
 	 * <li>2-Android
 	 * <li>3-others
 	 */
-	String client_platform_type;
-	
+	private String client_platform_type = "";
+
 	/**
 	 * 语言，如zh_CN
 	 */
-	String language;
+	private String language = "";
 
 	/**
 	 * @return the {@link #tag_id}
@@ -56,8 +56,8 @@ public class WechatMenuRuler {
 	/**
 	 * @param tag_id the {@link #tag_id} to set
 	 */
-	public void setTag_id(String tag_id) {
-		this.tag_id = tag_id;
+	public void setTag_id(String tagID) {
+		this.tag_id = tagID;
 	}
 
 	/**
@@ -124,10 +124,10 @@ public class WechatMenuRuler {
 	}
 
 	/**
-	 * @param client_platform_type the {@link #client_platform_type} to set
+	 * @param clientPlatform the {@link #client_platform_type} to set
 	 */
-	public void setClient_platform_type(String client_platform_type) {
-		this.client_platform_type = client_platform_type;
+	public void setClient_platform_type(String clientPlatform) {
+		this.client_platform_type = clientPlatform;
 	}
 
 	/**
@@ -143,5 +143,5 @@ public class WechatMenuRuler {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	
+
 }
