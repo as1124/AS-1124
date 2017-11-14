@@ -1,7 +1,7 @@
 package com.mobile.thirdparty.wechat.model.pay;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mobile.thirdparty.wechat.IWechatModel;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 微信支付，预订单信息模型

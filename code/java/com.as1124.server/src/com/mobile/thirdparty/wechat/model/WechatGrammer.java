@@ -2,7 +2,6 @@ package com.mobile.thirdparty.wechat.model;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mobile.thirdparty.wechat.IWechatModel;
 
 /**
  * 微信语义模型.

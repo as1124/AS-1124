@@ -1,7 +1,7 @@
 package com.mobile.thirdparty.wechat.model.statistics;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.mobile.thirdparty.wechat.IWechatModel;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 消息统计分析的数据

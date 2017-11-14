@@ -1,7 +1,5 @@
 package com.mobile.thirdparty.wechat.model;
 
-import com.mobile.thirdparty.wechat.IWechatModel;
-
 /**
  * 微信js-api ticket模型对象
  * 

@@ -5,19 +5,25 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
+/**
+ * 黑名单模型
+ * 
+ * @author huangjw (mailto:as1124huang@gmail.com)
+ */
+public class UserBlackList implements IWechatModel {
 
-public class UserBlackList {
+	private long total = 0;
 
-	long total;
-	
-	long count;
-	
-	String data;
-	
-	String next_openid;
-	
+	private long count = 0;
+
+	private String data = "";
+
+	private String next_openid = "";
+
 	public UserBlackList() {
+		// default constructor
 	}
 
 	/**
@@ -62,8 +68,8 @@ public class UserBlackList {
 		this.data = data;
 	}
 
-	public String[] getOpenIDs(){
-		if(StringUtils.isNotBlank(data)){
+	public String[] getOpenIDs() {
+		if (StringUtils.isNotBlank(data)) {
 			String json = JSONObject.parseObject(this.data).getString("openid");
 			List<String> openids = JSONObject.parseArray(json, String.class);
 			return openids.toArray(new String[openids.size()]);
@@ -71,7 +77,7 @@ public class UserBlackList {
 			return null;
 		}
 	}
-	
+
 	/**
 	 * @return the {@link #next_openid}
 	 */
@@ -80,10 +86,10 @@ public class UserBlackList {
 	}
 
 	/**
-	 * @param next_openid the {@link #next_openid} to set
+	 * @param nextOpenID the {@link #next_openid} to set
 	 */
-	public void setNext_openid(String next_openid) {
-		this.next_openid = next_openid;
+	public void setNext_openid(String nextOpenID) {
+		this.next_openid = nextOpenID;
 	}
 
 }

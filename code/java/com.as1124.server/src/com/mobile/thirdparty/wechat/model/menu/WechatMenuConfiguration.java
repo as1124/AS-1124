@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.mobile.thirdparty.wechat.IWechatModel;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 当前公众号自定义菜单的配置信息.

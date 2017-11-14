@@ -1,6 +1,6 @@
 package com.mobile.thirdparty.wechat.model.media;
 
-import com.mobile.thirdparty.wechat.IWechatModel;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 微信图文素材模型(新闻).

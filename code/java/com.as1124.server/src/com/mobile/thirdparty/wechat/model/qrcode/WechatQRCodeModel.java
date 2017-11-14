@@ -1,72 +1,67 @@
 package com.mobile.thirdparty.wechat.model.qrcode;
 
-import com.mobile.thirdparty.wechat.IWechatModel;
-
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 微信二维码模型
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
 public class WechatQRCodeModel implements IWechatModel {
 
 	/**
-	 * 永久二维码
+	 * 临时字符串二维码
 	 * @see #getAction_name()
 	 */
-	public static final String QR_IMAGE_FOREVER = "QR_LIMIT_SCENE";
-	
-	/**
-	 * 临时二维码
-	 * @see #getAction_name()
-	 */
-	public static final String QR_IMAGE_TEMPORARY = "QR_SCENE";
-	
+	public static final String QR_IMAGE_TEMPORARY = "QR_STR_SCENE";
+
 	/**
 	 * 永久字符串二维码
 	 * @see #getAction_name()
 	 */
-	public static final String QR_STR_FOREVER = "QR_LIMIT_STR_SCENE";
-	
+	public static final String QR_IMAGE_STR_FOREVER = "QR_LIMIT_STR_SCENE";
+
+	/**
+	 * 永久数字场景二维码
+	 * @see #getAction_name()
+	 */
+	public static final String QR_IMAGE_FOREVER = "QR_LIMIT_SCENE";
+
 	/**
 	 * 临时二维码有效时间，以秒为单位。 最大不超过604800（即7天）。 
 	 */
-	int expire_secondes;
-	
+	private int expire_secondes = 0;
+
 	/**
 	 * 二维码类型
 	 */
-	String action_name;
-	
-	/**
-	 * 二维码详细信息
-	 */
-	String action_info;
-	
+	private String action_name = "";
+
 	/**
 	 * 场景值ID，临时二维码时为32位非0整型，永久二维码时最大值为100000（目前参数只支持1--100000）
 	 */
-	int scene_id;
-	
+	private int scene_id = 0;
+
 	/**
 	 * 场景值ID（字符串形式的ID），字符串类型，长度限制为1到64，<strong>仅永久二维码支持此字段</strong>
 	 */
-	String scene_str;
+	private String scene_str = "";
 
 	/**
 	 * 接口调用后创建后获取的二维码ticket，凭借此ticket可以在有效时间内换取二维码。
 	 */
-	String ticket;
-	
+	private String ticket = "";
+
 	/**
 	 * 二维码图片解析后的地址，开发者可根据该地址自行生成需要的二维码图片
 	 */
-	String url;
-	
+	String url = "";
+
 	public WechatQRCodeModel() {
+		// default constructor
 	}
-	
+
 	/**
 	 * @see #expire_secondes
 	 * @return
@@ -99,21 +94,6 @@ public class WechatQRCodeModel implements IWechatModel {
 	 */
 	public void setAction_name(String action_name) {
 		this.action_name = action_name;
-	}
-
-	/**
-	 * @see #action_info
-	 * @return
-	 */
-	public String getAction_info() {
-		return action_info;
-	}
-
-	/**
-	 * @see #action_info
-	 */
-	public void setAction_info(String action_info) {
-		this.action_info = action_info;
 	}
 
 	/**
@@ -176,5 +156,5 @@ public class WechatQRCodeModel implements IWechatModel {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 }

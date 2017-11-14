@@ -1,36 +1,37 @@
 package com.mobile.thirdparty.wechat.model.user;
 
 import com.alibaba.fastjson.JSONObject;
-import com.mobile.thirdparty.wechat.IWechatModel;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 公众号关注用户的统计信息
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
-public class SubscribedCountInfo implements IWechatModel{
+public class SubscribedCountInfo implements IWechatModel {
 
 	/**
 	 * 关注该公众号的总人数
 	 */
-	long total;
-	
+	private long total = 0;
+
 	/**
 	 * 本次拉取的openid个数，最大值为10000
 	 */
-	int count;
-	
+	private int count = 0;
+
 	/**
 	 * json格式的openID列表数据
 	 */
-	String data;
-	
+	private String data = "";
+
 	/**
 	 * 拉取列表的后一个用户的openid 
 	 */
-	String next_openid;
-	
+	private String next_openid = "";
+
 	public SubscribedCountInfo() {
+		// default constructor
 	}
 
 	/**
@@ -70,7 +71,7 @@ public class SubscribedCountInfo implements IWechatModel{
 	 * @return
 	 */
 	public String[] getData() {
-		return JSONObject.parseArray(JSONObject.parseObject(data).getString("openid")).toArray(new String[]{});
+		return JSONObject.parseArray(JSONObject.parseObject(data).getString("openid")).toArray(new String[] {});
 	}
 
 	/**
@@ -91,10 +92,10 @@ public class SubscribedCountInfo implements IWechatModel{
 
 	/**
 	 * @see #next_openid
-	 * @param next_openid
+	 * @param nextOpenID
 	 */
-	public void setNext_openid(String next_openid) {
-		this.next_openid = next_openid;
+	public void setNext_openid(String nextOpenID) {
+		this.next_openid = nextOpenID;
 	}
-	
+
 }

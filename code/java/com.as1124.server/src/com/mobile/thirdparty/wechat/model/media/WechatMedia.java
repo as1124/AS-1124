@@ -1,6 +1,6 @@
 package com.mobile.thirdparty.wechat.model.media;
 
-import com.mobile.thirdparty.wechat.IWechatModel;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 微信多媒体素材基础模型。可描述<code>image/voice/thumb</code>

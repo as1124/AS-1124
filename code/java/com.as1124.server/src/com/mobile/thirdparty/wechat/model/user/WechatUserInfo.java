@@ -2,96 +2,93 @@ package com.mobile.thirdparty.wechat.model.user;
 
 import org.apache.commons.lang.StringUtils;
 
-import com.mobile.thirdparty.wechat.IWechatModel;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 微信用户模型.
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
-/**
- * @author huangjw(mailto:huangjw@primeton.com)
- *
- */
-public class WechatUserInfo implements IWechatModel{
+public class WechatUserInfo implements IWechatModel {
 
 	/**
 	 * 是否订阅该公众号，值为0时，代表此用户没有关注该公众号，拉取不到其余信息。
 	 */
-	int subscribe;
-	
+	private int subscribe = 0;
+
 	/**
 	 * 用户微信号的对外标识，对当前公众号唯一
 	 */
-	String openid;
-	
+	private String openid = "";
+
 	/**
 	 * 用户昵称
 	 */
-	String nickname;
-	
+	private String nickname = "";
+
 	/**
 	 * 性别
 	 * <li>1 代表男性
 	 * <li>2 代表女性
 	 * <li>0 代表未知
 	 */
-	int sex;
-	
+	private int sex = 0;
+
 	/**
 	 * 语言
 	 */
-	String language;
-	
+	private String language = "";
+
 	/**
 	 * 用户所在城市
 	 */
-	String city;
-	
+	private String city = "";
+
 	/**
 	 * 省份
 	 */
-	String province;
-	
+	private String province = "";
+
 	/**
 	 * 国家
 	 */
-	String country;
-	
+	private String country = "";
+
 	/**
 	 * 用户头像url
 	 */
-	String headimgurl;
-	
+	private String headimgurl = "";
+
 	/**
 	 * 用户关注时间，是一个时间戳。如果曾多次关注，则取最后的关注时间
 	 */
-	String subscrible_time;
-	
+	private String subscrible_time = "";
+
 	/**
 	 * 只有在用户将公众号绑定到微信开放平台后，才会出现该字段
 	 */
-	String unionid;
-	
+	private String unionid = "";
+
 	/**
 	 * 公众号运营者对粉丝的备注
 	 */
-	String remark;
-	
+	private String remark = "";
+
 	/**
 	 * 用户所在的分组ID
 	 */
-	int groupid;
-	
+	private int groupid = -1;
+
 	/**
 	 * 用户被打上的标签ID列表
 	 */
-	int[] tagid_list;
-	
-	public WechatUserInfo(){
+	int[] tagid_list = null;
+
+	public WechatUserInfo() {
+		// default constructor
 	}
-	
+
 	/**
 	 * @see #subscribe
 	 * @return
@@ -143,17 +140,17 @@ public class WechatUserInfo implements IWechatModel{
 	 * @param nickName
 	 * @return
 	 */
-	public String getFilteredNickName(){
-		if(StringUtils.isNotBlank(this.nickname)){
+	public String getFilteredNickName() {
+		if (StringUtils.isNotBlank(this.nickname)) {
 			int length = nickname.length();
 			StringBuilder temp = new StringBuilder();
-			for(int i=0; i<length; i++){
+			for (int i = 0; i < length; i++) {
 				char a = nickname.charAt(i);
 				int codePoint = nickname.codePointAt(i);
-				if(codePoint>33 && codePoint < 127){
+				if (codePoint > 33 && codePoint < 127) {
 					//英文字符
 					temp.append(a);
-				} else if(codePoint>=19968 && codePoint<=40869){
+				} else if (codePoint >= 19968 && codePoint <= 40869) {
 					//匹配中文字符的正则表达式： [\u4e00-\u9fa5]
 					temp.append(a);
 				}
@@ -162,9 +159,9 @@ public class WechatUserInfo implements IWechatModel{
 		} else {
 			return "";
 		}
-		
+
 	}
-	
+
 	/**
 	 * @see #sex
 	 * @return
@@ -265,10 +262,11 @@ public class WechatUserInfo implements IWechatModel{
 	}
 
 	/**
+	 * @param subscribleTime
 	 * @see #subscrible_time
 	 */
-	public void setSubscrible_time(String subscrible_time) {
-		this.subscrible_time = subscrible_time;
+	public void setSubscrible_time(String subscribleTime) {
+		this.subscrible_time = subscribleTime;
 	}
 
 	/**
@@ -327,10 +325,11 @@ public class WechatUserInfo implements IWechatModel{
 	}
 
 	/**
-	 * @param tagid_list the {@link #tagid_list} to set
+	 * 
+	 * @param tagidList the {@link #tagid_list} to set
 	 */
-	public void setTagid_list(int[] tagid_list) {
-		this.tagid_list = tagid_list;
+	public void setTagid_list(int[] tagidList) {
+		this.tagid_list = tagidList;
 	}
-	
+
 }

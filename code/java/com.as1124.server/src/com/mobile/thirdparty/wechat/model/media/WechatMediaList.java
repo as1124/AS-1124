@@ -3,7 +3,7 @@ package com.mobile.thirdparty.wechat.model.media;
 import java.util.Collections;
 import java.util.List;
 
-import com.mobile.thirdparty.wechat.IWechatModel;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 素材数量描述模型(image/voice/video)

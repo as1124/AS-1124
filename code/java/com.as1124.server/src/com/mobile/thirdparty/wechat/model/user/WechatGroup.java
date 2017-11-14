@@ -1,12 +1,12 @@
 package com.mobile.thirdparty.wechat.model.user;
 
-import com.mobile.thirdparty.wechat.IWechatModel;
+import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 
  * 微信用户组模型。
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
 public class WechatGroup implements IWechatModel{
@@ -14,19 +14,20 @@ public class WechatGroup implements IWechatModel{
 	/**
 	 * 分组ID
 	 */
-	int id;
+	private int id = -1;
 
 	/**
 	 * 分组名称
 	 */
-	String name;
+	private String name = "";
 	
 	/**
 	 * 该分组下用户数量
 	 */
-	int count = 0;
+	private int count = 0;
 	
 	public WechatGroup() {
+		// default constructor
 	}
 
 	/**
