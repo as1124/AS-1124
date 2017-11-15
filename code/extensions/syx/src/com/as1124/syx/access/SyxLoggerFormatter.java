@@ -14,7 +14,6 @@ import java.util.logging.Logger;
  *
  * @author huangjw (mailto:as1124huang@gmail.com)
  */
-
 public class SyxLoggerFormatter {
 
 	static Logger logger = Logger.getLogger(SyxLoggerFormatter.class.getName());

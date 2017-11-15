@@ -33,23 +33,25 @@ public class WechatService {
 	@POST
 	@Path("/js_token")
 	@Produces("application/json; charset=UTF-8")
-	public Response getJSToken(@FormParam("code")String code) {
+	public Response getJSToken(@FormParam("code") String code) {
 		Object result = new String("{}");
 		try {
-			result = WechatJSAccessToken.getWechatWebAuthorizeToken(SyxConstants.SYX_APPID, SyxConstants.SYX_APP_SECRET, code);
+			result = WechatJSAccessToken.getWechatWebAuthorizeToken(SyxConstants.SYX_APPID, SyxConstants.SYX_APP_SECRET,
+				code);
 		} catch (ThirdPartyRequestExceprion e) {
 			e.printStackTrace();
 		}
 		return Response.status(Status.OK).entity(result).build();
 	}
-	
+
 	@POST
 	@Path("/userinfo")
 	@Produces("application/json; charset=UTF-8")
 	public Response getUserInfo(String openid) {
 		String result = "{}";
 		try {
-			IAccessToken token = WechatJSAccessToken.getWechatWebAuthorizeToken(SyxConstants.SYX_APPID, SyxConstants.SYX_APP_SECRET, "");
+			IAccessToken token = WechatJSAccessToken.getWechatWebAuthorizeToken(SyxConstants.SYX_APPID,
+				SyxConstants.SYX_APP_SECRET, "");
 			String url = "https://api.weixin.qq.com/sns/userinfo";
 			List<NameValuePair> queryStr = new ArrayList<>();
 			queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
@@ -61,6 +63,5 @@ public class WechatService {
 		}
 		return Response.status(Status.OK).entity(result).build();
 	}
-	
-}
 
+}

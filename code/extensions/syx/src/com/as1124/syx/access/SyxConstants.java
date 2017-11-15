@@ -8,7 +8,6 @@ package com.as1124.syx.access;
 public class SyxConstants {
 
 	public static final String SYX_APPID = "";
-	
+
 	public static final String SYX_APP_SECRET = "";
 }
-

@@ -14,8 +14,7 @@ import javax.ws.rs.core.MediaType;
 public class SignupService {
 
 	public void addRecord() {
-		
-	}
-	
-}
 
+	}
+
+}

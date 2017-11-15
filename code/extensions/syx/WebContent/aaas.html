@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=0">
+	<meta name="renderer" content="webkit">
+	<title>活动报名</title>
+	<link href="//res.wx.qq.com/open/libs/weui/1.1.2/weui.css" rel="stylesheet" type="text/css">
+	<script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js" type="text/javascript"></script>
+	<script src="//res.wx.qq.com/open/libs/weuijs/1.0.0/weui.min.js"></script>
+	
+
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" 
+		integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<script src="//code.jquery.com/jquery-3.2.1.js" 
+		integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+	<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<a href="javascript:;" up-type-id="1" class="btn btn-default small-btn switch-upload-method">
+	<span>本地上传 </span>
+</a>
+<a href="javascript:;" up-type-id="2" class="upload-file-instead btn btn-default small-btn switch-upload-method">
+	<span>打包工具 </span>
+</a>
+<input type="file" name="apkFiles[]" id="local-upload-real-file" class="upload-file-real hide" 
+	response-id="local-upload-container" multiple="multiple" />
+<input type="file" name="apkToolFiles[]" id="apk-tool-real-file" class="upload-file-real hide" 
+	response-id="apk-tool-container-textarea" />
+<script>
+$(function(){
+	var alertTitle = '系统提示：';
+	var submitId = '#do-submit';
+	$('#taskForm').Validform({
+		btnSubmit: submitId,
+		tiptype: 1,
+		ignoreHidden: true,
+		dragonfly: false,
+		tipSweep: true,
+		label: ".label",
+		showAllError:false,
+		postonce:true,
+		ajaxPost:true,
+		datatype:{},
+		beforeCheck:function(curform) {},
+		beforeSubmit: function(curform) {
+			$('.upload-file-real').attr('disabled', 'disabled');
+			$(submitId).attr('disabled', 'disabled');//提交前禁用按钮
+			ajaxSubmitForm(curform);
+			$(submitId).removeAttr('disabled');//失败后恢复可提交
+			return false;
+		},
+		submitForm: function() {}//不再起作用
+	});//切换上传方法
+	
+	$('.switch-upload-method').off().on('click', function() {
+		//   $(submitId).attr('disabled', 'disabled');
+		var pObj = $(this).parent().find('.switch-upload-method');
+		var index = pObj.index(this);
+		var uploadTypeId = $('#upload-type-id').val();//上传方式：1:打包工具;2:本地上传,0:没有上传方式
+		var uploadType = $(this).attr('up-type-id');
+		if (parseInt($('#sub-channel-count').html()) > 0) {
+			if (uploadTypeId != uploadType) {
+				layer.alert('还有子渠道包数据，不能完成切换，请先确认清除再切换！');
+				return false;
+			}
+		}
+		pObj.not(':eq(' + index + ')').removeClass('btn-danger').addClass('btn-default');
+		pObj.eq(index).removeClass('btn-default').addClass('btn-danger');
+		if (uploadType == 36) {//local-upload
+			$('#upload-type-id').val(uploadType);
+			$('#init-apk-container').show();
+			$('#apk-tool-container').hide();
+			$('#upload-main-control').find('.del-it-main').css({
+				display: 'inline-block'
+			});
+			$('#local-upload-real-file').trigger('click');
+		} else if (uploadType == 35) {//apk-tool
+			$('#upload-type-id').val(uploadType);
+			$('#init-apk-container').hide();
+			$('#local-upload-container').hide();
+			$('#upload-main-control').find('.del-it-main').hide();
+			$('#apk-tool-container').show();
+		}
+	});//本地上传
+	
+	$('#local-upload-real-file').off().on('change',
+        function() {   
+            if (!$(this).val()) {    
+                return false;   
+            }   file_size = 0;   filepath = $(this).val();   maxFileSize = 30 * 1024 * 1024;   
+            var browserCfg = {};   
+            var ua = window.navigator.userAgent;   
+            if (ua.indexOf("MSIE") >= 1) {    browserCfg.ie = true;   
+            } else if (ua.indexOf("Firefox") >= 1) {    browserCfg.firefox = true;   
+            } else if (ua.indexOf("Chrome") >= 1) {    browserCfg.chrome = true;   
+            }   
+            if (browserCfg.ie) {    
+                var img = new Image();    img.src = filepath;    file_size = img.fileSize;    
+                while (true) {     
+                    if (img.fileSize > 0) {      
+                        if (img.fileSize > maxFileSize) {       alert("上传包超过30MB限制，请使用打包工具上传！");       
+                            return false;      
+                        }      
+                        break;     
+                    }    
+                }   
+            } else {    file_size = this.files[0].size;    
+                if (file_size > maxFileSize) {     alert("上传包超过30MB限制，请使用打包工具上传！");     
+                    return false;    
+                }   
+            }    
+            var responseObjId = $(this).attr('response-id');   
+            var responseObj = $('#' + responseObjId);   $('#taskForm').ajaxSubmit({    url: '/aa/bb/uploadTmpApk',
+                    resetForm: false,
+                    dataType: 'json',
+                    beforeSubmit: function(option) {     window.loading = layer.load(2);    
+                },
+                    success: function(data, statusText) {     layer.close(window.loading);     
+                    if (data.status == 1) {      $('#version-identifier').val(data.version);      responseObj.html(data.apkInfoHtml);      responseObj.show();      
+                        var delObj = $('#upload-main-control').find('.del-it-main');      delObj.css({
+                            'display': 'inline-block'
+                        });      $('#sub-channel-count').html(data.apkTotal);      $('#init-apk-container').hide();      $(submitId).removeAttr('disabled');     
+                    } else {      layer.alert(data.info, {
+                            title: alertTitle
+                        });     
+                    }    
+                },
+                    error: function(data) {     layer.close(window.loading);     layer.alert('未知错误，请稍后再试！');    
+                }   
+            });   
+            return false; //防止dialog 自动关闭
+              
+        });   //打包工具
+          $('#apk-tool-real-file').off().on('change',
+        function() {   
+            if (!$(this).val()) {    
+                return false;   
+            }   
+            var responseObjId = $(this).attr('response-id');   
+            var responseObj = $('#' + responseObjId);   $('#Form').ajaxSubmit({    url: '/aa/bb/uploadTmpApkTool',
+                    resetForm: false,
+                    dataType: 'json',
+                    beforeSubmit: function(option) {     window.loading = layer.load(2);    
+                },
+                    success: function(data, statusText) {     layer.close(window.loading);     
+                    if (data.status == 1) {      $('#version-identifier').val(data.version);      responseObj.html(data.infoHtml);      
+                        var parentContainer = responseObj.parent().parent(),
+                               nameContainer = parentContainer.find('.apk-name-container'),
+                                delObj = parentContainer.find('.del-it-apk-tool');      nameContainer.html(data.apkName);      nameContainer.attr('title', data.apkName);      $('#apk-tool-file-tmp').html(data.fileInfo);      $(submitId).removeAttr('disabled');     
+                    } else {      layer.alert(data.info, {
+                            title: alertTitle
+                        });     
+                    }    
+                },
+                    error: function(data) {     layer.close(window.loading);     layer.alert('未知错误，请稍后再试！');    
+                }   
+            });   
+            return false; //防止dialog 自动关闭
+              
+        });  $('.apk-tool-upload-button').on('click',
+        function() {   $('#apk-tool-real-file').trigger('click');  
+        }); 
+    });
+</script>
+
+</body>
+</html>

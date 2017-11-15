@@ -41,7 +41,6 @@ public class OriginalFilter implements Filter {
 		config = null;
 	}
 
-
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {

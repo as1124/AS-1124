@@ -9,6 +9,9 @@ import javax.ws.rs.core.Application;
 import org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap;
 
 import com.as1124.syx.service.LoginService;
+import com.as1124.syx.service.SignupService;
+import com.as1124.syx.service.SurveyService;
+import com.as1124.syx.service.SurveyUserService;
 import com.as1124.syx.service.WechatService;
 
 /**
@@ -32,6 +35,9 @@ public class SyxRestApplication extends Application {
 		if (singletons.isEmpty()) {
 			singletons.add(new LoginService());
 			singletons.add(new WechatService());
+			singletons.add(new SignupService());
+			singletons.add(new SurveyService());
+			singletons.add(new SurveyUserService());
 		}
 		Set<Object> superSingletons = super.getSingletons();
 		if (superSingletons != null && !superSingletons.isEmpty()) {
