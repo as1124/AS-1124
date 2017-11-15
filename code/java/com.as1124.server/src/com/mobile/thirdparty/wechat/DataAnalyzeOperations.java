@@ -1,6 +1,7 @@
 package com.mobile.thirdparty.wechat;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -11,6 +12,7 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONObject;
+import com.mobile.common.util.LoggerUtil;
 import com.mobile.thirdparty.access.AbstractAccessToken;
 import com.mobile.thirdparty.access.HttpExecuter;
 import com.mobile.thirdparty.wechat.model.statistics.InterfaceStatisticData;
@@ -26,7 +28,7 @@ import com.mobile.thirdparty.wechat.model.statistics.UserStatisticsData;
  */
 public class DataAnalyzeOperations {
 
-	static Logger logger = Logger.getLogger(DataAnalyzeOperations.class.getName());
+	static Logger logger = LoggerUtil.getLogger(DataAnalyzeOperations.class);
 
 	private DataAnalyzeOperations() {
 	}
@@ -40,15 +42,14 @@ public class DataAnalyzeOperations {
 	 * @return
 	 */
 	public static List<UserStatisticsData> getUserSummary(AbstractAccessToken token, String beginDate, String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getusersummary");
+		String result = getReturnJson(beginDate, endDate, token, "https://api.weixin.qq.com/datacube/getusersummary");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(json.getString("list"), UserStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<UserStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -62,15 +63,14 @@ public class DataAnalyzeOperations {
 	 */
 	public static List<UserStatisticsData> getUserCumulate(AbstractAccessToken token, String beginDate,
 			String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getusercumulate");
+		String result = getReturnJson(beginDate, endDate, token, "https://api.weixin.qq.com/datacube/getusercumulate");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(json.getString("list"), UserStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<UserStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -82,15 +82,14 @@ public class DataAnalyzeOperations {
 	 * @return
 	 */
 	public static List<NewsStatisticsData> getArticleSummary(AbstractAccessToken token, String date) {
-		String result = getReturnJson(date, date, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getarticlesummary");
+		String result = getReturnJson(date, date, token, "https://api.weixin.qq.com/datacube/getarticlesummary");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<NewsStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -102,15 +101,14 @@ public class DataAnalyzeOperations {
 	 * @return
 	 */
 	public static List<NewsStatisticsData> getArticleTotal(AbstractAccessToken token, String date) {
-		String result = getReturnJson(date, date, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getarticletotal");
+		String result = getReturnJson(date, date, token, "https://api.weixin.qq.com/datacube/getarticletotal");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<NewsStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -123,15 +121,14 @@ public class DataAnalyzeOperations {
 	 * @return
 	 */
 	public static List<NewsStatisticsData> getUserRead(AbstractAccessToken token, String beginDate, String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getuserread");
+		String result = getReturnJson(beginDate, endDate, token, "https://api.weixin.qq.com/datacube/getuserread");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<NewsStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -143,15 +140,14 @@ public class DataAnalyzeOperations {
 	 * @return
 	 */
 	public static List<NewsStatisticsData> getUserReadByHour(AbstractAccessToken token, String date) {
-		String result = getReturnJson(date, date, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getuserreadhour");
+		String result = getReturnJson(date, date, token, "https://api.weixin.qq.com/datacube/getuserreadhour");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<NewsStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -164,15 +160,14 @@ public class DataAnalyzeOperations {
 	 * @return
 	 */
 	public static List<NewsStatisticsData> getUserShare(AbstractAccessToken token, String beginDate, String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getusershare");
+		String result = getReturnJson(beginDate, endDate, token, "https://api.weixin.qq.com/datacube/getusershare");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<NewsStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -184,15 +179,14 @@ public class DataAnalyzeOperations {
 	 * @return
 	 */
 	public static List<NewsStatisticsData> getUserShareByHour(AbstractAccessToken token, String date) {
-		String result = getReturnJson(date, date, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getusersharehour");
+		String result = getReturnJson(date, date, token, "https://api.weixin.qq.com/datacube/getusersharehour");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), NewsStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<NewsStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -206,15 +200,14 @@ public class DataAnalyzeOperations {
 	 */
 	public static List<MessageStatisticsData> getMsgSummary(AbstractAccessToken token, String beginDate,
 			String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getupstreammsg");
+		String result = getReturnJson(beginDate, endDate, token, "https://api.weixin.qq.com/datacube/getupstreammsg");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<MessageStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -226,15 +219,14 @@ public class DataAnalyzeOperations {
 	 * @return
 	 */
 	public static List<MessageStatisticsData> getMsgSummaryByHour(AbstractAccessToken token, String date) {
-		String result = getReturnJson(date, date, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getupstreammsghour");
+		String result = getReturnJson(date, date, token, "https://api.weixin.qq.com/datacube/getupstreammsghour");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<MessageStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -248,15 +240,15 @@ public class DataAnalyzeOperations {
 	 */
 	public static List<MessageStatisticsData> getMsgSummaryByWeek(AbstractAccessToken token, String beginDate,
 			String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
+		String result = getReturnJson(beginDate, endDate, token,
 			"https://api.weixin.qq.com/datacube/getupstreammsgweek");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<MessageStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -270,15 +262,15 @@ public class DataAnalyzeOperations {
 	 */
 	public static List<MessageStatisticsData> getMsgSummaryByMonth(AbstractAccessToken token, String beginDate,
 			String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
+		String result = getReturnJson(beginDate, endDate, token,
 			"https://api.weixin.qq.com/datacube/getupstreammsgmonth");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<MessageStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -292,15 +284,15 @@ public class DataAnalyzeOperations {
 	 */
 	public static List<MessageStatisticsData> getMsgDistSummary(AbstractAccessToken token, String beginDate,
 			String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
+		String result = getReturnJson(beginDate, endDate, token,
 			"https://api.weixin.qq.com/datacube/getupstreammsgdist");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<MessageStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -314,15 +306,15 @@ public class DataAnalyzeOperations {
 	 */
 	public static List<MessageStatisticsData> getMsgDistSummaryByWeek(AbstractAccessToken token, String beginDate,
 			String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
+		String result = getReturnJson(beginDate, endDate, token,
 			"https://api.weixin.qq.com/datacube/getupstreammsgdistweek");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<MessageStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -336,15 +328,15 @@ public class DataAnalyzeOperations {
 	 */
 	public static List<MessageStatisticsData> getMsgDistSummaryByMonth(AbstractAccessToken token, String beginDate,
 			String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
+		String result = getReturnJson(beginDate, endDate, token,
 			"https://api.weixin.qq.com/datacube/getupstreammsgdistmonth");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"), MessageStatisticsData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<MessageStatisticsData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -358,16 +350,16 @@ public class DataAnalyzeOperations {
 	 */
 	public static List<InterfaceStatisticData> getInterfaceSummary(AbstractAccessToken token, String beginDate,
 			String endDate) {
-		String result = getReturnJson(beginDate, endDate, token.getAccessToken(),
+		String result = getReturnJson(beginDate, endDate, token,
 			"https://api.weixin.qq.com/datacube/getinterfacesummary");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"),
 				InterfaceStatisticData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<InterfaceStatisticData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -379,16 +371,15 @@ public class DataAnalyzeOperations {
 	 * @return
 	 */
 	public static List<InterfaceStatisticData> getInterfaceSummaryHour(AbstractAccessToken token, String date) {
-		String result = getReturnJson(date, date, token.getAccessToken(),
-			"https://api.weixin.qq.com/datacube/getinterfacesummaryhour");
+		String result = getReturnJson(date, date, token, "https://api.weixin.qq.com/datacube/getinterfacesummaryhour");
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseArray(JSONObject.parseObject(result).getString("list"),
 				InterfaceStatisticData.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<InterfaceStatisticData>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -397,13 +388,13 @@ public class DataAnalyzeOperations {
 	 * 
 	 * @param beginDate
 	 * @param endDate
-	 * @param accessToken
+	 * @param token
 	 * @param uri
 	 * @return
 	 */
-	private static String getReturnJson(String beginDate, String endDate, String accessToken, String uri) {
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
-		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, accessToken));
+	private static String getReturnJson(String beginDate, String endDate, AbstractAccessToken token, String uri) {
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		JSONObject jsonObj = new JSONObject();
 		jsonObj.put("begin_date", beginDate);
 		jsonObj.put("end_date", endDate);

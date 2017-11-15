@@ -7,7 +7,7 @@ import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 图文分析统计数据
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
 public class NewsStatisticsData implements IWechatModel {

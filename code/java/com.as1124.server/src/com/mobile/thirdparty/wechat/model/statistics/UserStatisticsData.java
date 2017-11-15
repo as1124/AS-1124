@@ -6,38 +6,51 @@ import com.mobile.thirdparty.wechat.model.IWechatModel;
 /**
  * 用户分析统计数据
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
 public class UserStatisticsData implements IWechatModel {
 
 	/**
-	 * 数据d日期
+	 * 数据的日期
 	 */
-	String ref_date;
+	private String ref_date = "2014-12-01";
 	
 	/**
-	 * 用户渠道, 0-其他，30-扫码，17-名片分享，35-搜索号码，39-查询微信公众号，
-	 * 43-图文右上角菜单
+	 * 用户渠道
+	 * <p>
+	 * <li>0-其他
+	 * <li>1-公众号搜索
+	 * <li>17-名片分享
+	 * <li>30-扫码
+	 * <li>35-搜索号码
+	 * <li>39-查询微信公众号
+	 * <li>43-图文右上角菜单
+	 * <li>51-支付后关注
+	 * <li>57-图文页内公众号名称
+	 * <li>75-公众号文章广告
+	 * <li>78-朋友圈广告
+	 * </p>
 	 */
-	int user_source;
+	private int user_source = 0;
 	
 	/**
 	 * 新增的用户数量
 	 */
-	int new_user;
+	private int new_user = 0;
 	
 	/**
 	 * 取消关注的用户数量
 	 */
-	int cancel_user;
+	private int cancel_user = 0;
 	
 	/**
 	 * 总用户数量
 	 */
-	int cumulate_user;
+	private int cumulate_user = 0;
 	
 	public UserStatisticsData() {
+		// default constructor
 	}
 	
 	public String toJSON() {

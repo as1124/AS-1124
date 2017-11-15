@@ -2,6 +2,7 @@ package com.mobile.thirdparty.wechat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -15,9 +16,10 @@ import org.apache.http.message.BasicNameValuePair;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.mobile.common.util.LoggerUtil;
 import com.mobile.thirdparty.access.AbstractAccessToken;
 import com.mobile.thirdparty.access.HttpExecuter;
-import com.mobile.thirdparty.wechat.model.HotlineAccount;
+import com.mobile.thirdparty.wechat.model.hotline.HotlineAccount;
 import com.mobile.thirdparty.wechat.model.message.ArticleMessage.Article;
 
 /**
@@ -33,7 +35,7 @@ import com.mobile.thirdparty.wechat.model.message.ArticleMessage.Article;
  */
 public class HotlineOperations {
 
-	static Logger logger = Logger.getLogger(HotlineOperations.class.getName());
+	static Logger logger = LoggerUtil.getLogger(HotlineOperations.class);
 
 	private HotlineOperations() {
 	}
@@ -47,13 +49,13 @@ public class HotlineOperations {
 	 */
 	public static boolean addHotlineAccount(AbstractAccessToken token, HotlineAccount account) {
 		String uri = "https://api.weixin.qq.com/customservice/kfaccount/add";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		StringEntity requestEntity = new StringEntity(JSONObject.toJSONString(account),
 				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return true;
 		} else {
 			logger.log(Level.SEVERE, result);
@@ -71,7 +73,7 @@ public class HotlineOperations {
 	 */
 	public static boolean invite4Binding(AbstractAccessToken token, String kfAccount, String wxAccount) {
 		String uri = "https://api.weixin.qq.com/customservice/kfaccount/inviteworker";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		postData.put("kf_account", kfAccount);
@@ -79,8 +81,8 @@ public class HotlineOperations {
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
 				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return true;
 		} else {
 			logger.log(Level.SEVERE, result);
@@ -97,13 +99,13 @@ public class HotlineOperations {
 	 */
 	public static boolean updateHotlineAccount(AbstractAccessToken token, HotlineAccount account) {
 		String uri = "https://api.weixin.qq.com/customservice/kfaccount/update";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		StringEntity requestEntity = new StringEntity(JSONObject.toJSONString(account),
 				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return true;
 		} else {
 			logger.log(Level.SEVERE, result);
@@ -120,12 +122,12 @@ public class HotlineOperations {
 	 */
 	public static boolean deleteHotlineAccount(AbstractAccessToken token, HotlineAccount account) {
 		String uri = "https://api.weixin.qq.com/customservice/kfaccount/del";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		queryStr.add(new BasicNameValuePair("kf_account", account.getKf_account()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return true;
 		} else {
 			logger.log(Level.SEVERE, result);
@@ -142,14 +144,14 @@ public class HotlineOperations {
 	 */
 	public static boolean setAccountImage(AbstractAccessToken token, String kfAccount, String imgPath) {
 		String uri = "https://api.weixin.qq.com/customservice/kfaccount/uploadheadimg";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		queryStr.add(new BasicNameValuePair("kf_account", kfAccount));
 		String url = uri + "?" + URLEncodedUtils.format(queryStr, WechatConstants.CHARSET_UTF8);
 
 		String result = HttpExecuter.executeUploadFile(null, url, imgPath, "media");
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return true;
 		} else {
 			logger.log(Level.SEVERE, result);
@@ -165,16 +167,16 @@ public class HotlineOperations {
 	 */
 	public static List<HotlineAccount> getAllServiceAccount(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/customservice/getkflist";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONArray.parseArray(json.getString("kf_list"), HotlineAccount.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<HotlineAccount>();
+			return Collections.emptyList();
 		}
 	}
 
@@ -186,16 +188,148 @@ public class HotlineOperations {
 	 */
 	public static List<HotlineAccount> getOnlineServiceAccounts(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/cgi-bin/customservice/getonlinekflist";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		String result = HttpExecuter.executeGetAsString(uri, queryStr);
 		JSONObject json = JSONObject.parseObject(result);
-		String returnCode = json.getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONArray.parseArray(json.getString("kf_online_list"), HotlineAccount.class);
 		} else {
 			logger.log(Level.SEVERE, result);
-			return new ArrayList<HotlineAccount>();
+			return Collections.emptyList();
+		}
+	}
+
+	/**
+	 * 此接口在客服和用户之间创建一个会话，如果该客服和用户会话已存在，
+	 * 则直接返回0。指定的客服帐号必须已经绑定微信号且在线。
+	 * @param token
+	 * @param kfAccount
+	 * @param openID
+	 */
+	public static boolean openConversation(AbstractAccessToken token, String kfAccount, String openID) {
+		String uri = "https://api.weixin.qq.com/customservice/kfsession/create";
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
+
+		JSONObject postData = new JSONObject();
+		postData.put("kf_account", kfAccount);
+		postData.put("openid", openID);
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+		JSONObject json = JSONObject.parseObject(result);
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
+			return true;
+		} else {
+			logger.log(Level.SEVERE, result);
+			return false;
+		}
+	}
+
+	/**
+	 * 关闭客服和粉丝之间的会话
+	 * 
+	 * @param token
+	 * @param kfAccount
+	 * @param openID
+	 * @return
+	 */
+	public static boolean closeConversation(AbstractAccessToken token, String kfAccount, String openID) {
+		String uri = "https://api.weixin.qq.com/customservice/kfsession/close";
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
+
+		JSONObject postData = new JSONObject();
+		postData.put("kf_account", kfAccount);
+		postData.put("openid", openID);
+		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
+				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
+		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
+		JSONObject json = JSONObject.parseObject(result);
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
+			return true;
+		} else {
+			logger.log(Level.SEVERE, result);
+			return false;
+		}
+	}
+
+	/**
+	 * 返回当前为指定粉丝服务的客服ID，没有则为空（会话未创建）
+	 * @param token
+	 * @param openID
+	 * @return
+	 */
+	public static String getConversationStatus(AbstractAccessToken token, String openID) {
+		String uri = "https://api.weixin.qq.com/customservice/kfsession/getsession";
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
+		queryStr.add(new BasicNameValuePair("openid", openID));
+		String result = HttpExecuter.executeGetAsString(uri, queryStr);
+		JSONObject json = JSONObject.parseObject(result);
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
+			return json.getString("kf_account");
+		} else {
+			logger.log(Level.SEVERE, result);
+			return "";
+		}
+	}
+
+	/**
+	 * 获取指定客服当前处理的会话列表
+	 * 
+	 * @param token
+	 * @param kfAccount
+	 * @return
+	 */
+	public static List<String> getConversationList(AbstractAccessToken token, String kfAccount) {
+		String uri = "https://api.weixin.qq.com/customservice/kfsession/getsession";
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
+		queryStr.add(new BasicNameValuePair("kf_account", kfAccount));
+		String result = HttpExecuter.executeGetAsString(uri, queryStr);
+		JSONObject json = JSONObject.parseObject(result);
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
+			List<String> openids = new ArrayList<>();
+			JSONArray array = json.getJSONArray("sessionlist");
+			for (int i = 0; i < array.size(); i++)
+				openids.add(array.getJSONObject(i).getString("openid"));
+			return openids;
+		} else {
+			logger.log(Level.SEVERE, result);
+			return Collections.emptyList();
+		}
+	}
+
+	/**
+	 * 获取等待客服接入的粉丝
+	 * 
+	 * @param token
+	 * @return
+	 */
+	// ATTENTION 未完成
+	public static List<String> getWaitFans(AbstractAccessToken token) {
+		String uri = "https://api.weixin.qq.com/customservice/kfsession/getwaitcase";
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
+		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
+		String result = HttpExecuter.executeGetAsString(uri, queryStr);
+		JSONObject json = JSONObject.parseObject(result);
+		int returnCode = json.getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
+			List<String> openids = new ArrayList<>();
+			JSONArray array = json.getJSONArray("waitcaselist");
+			for (int i = 0; i < array.size(); i++)
+				openids.add(array.getJSONObject(i).getString("openid"));
+			return openids;
+		} else {
+			logger.log(Level.SEVERE, result);
+			return Collections.emptyList();
 		}
 	}
 
@@ -226,11 +360,11 @@ public class HotlineOperations {
 	}
 
 	/**
-	 * 给用户发送图片消息 {@link MediaOperations}
+	 * 给用户发送图片消息
 	 * 
 	 * @param token
 	 * @param touser
-	 * @param mediaID 通过素材接口上传获取到的素材的<code>media_id</code>
+	 * @param mediaID 通过素材接口 {@link MediaOperations}上传获取到的素材的<code>media_id</code>
 	 * @return
 	 */
 	public static boolean sendImage(AbstractAccessToken token, String touser, String mediaID) {
@@ -238,11 +372,11 @@ public class HotlineOperations {
 	}
 
 	/**
-	 * 通过指定客服给用户发送图片消息 {@link MediaOperations}
+	 * 通过指定客服给用户发送图片消息
 	 * 
 	 * @param token
 	 * @param touser
-	 * @param mediaID 通过素材接口上传获取到的素材的<code>media_id</code>
+	 * @param mediaID 通过素材接口 {@link MediaOperations}上传获取到的素材的<code>media_id</code>
 	 * @param kfID
 	 * @return
 	 */
@@ -307,7 +441,6 @@ public class HotlineOperations {
 	 * @param kfID
 	 * @return
 	 */
-
 	public static boolean sendVideoUseAccount(AbstractAccessToken token, String touser, String mediaID,
 			String thumbMediaID, String title, String description, String kfID) {
 		JSONObject json = new JSONObject();
@@ -446,7 +579,7 @@ public class HotlineOperations {
 	private static boolean sendMessage(AbstractAccessToken token, String touser, String type, JSONObject data,
 			String kfID) {
 		String url = "https://api.weixin.qq.com/cgi-bin/message/custom/send";
-		ArrayList<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		ArrayList<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.add(new BasicNameValuePair(WechatConstants.KEY_ACCESS_TOKEN, token.getAccessToken()));
 		JSONObject postData = new JSONObject();
 		postData.put("touser", touser);
@@ -463,11 +596,11 @@ public class HotlineOperations {
 		StringEntity requestEntity = new StringEntity(postData.toJSONString(),
 				ContentType.create(WechatConstants.CONTENT_TYPE_JSON, WechatConstants.CHARSET_UTF8));
 		String result = HttpExecuter.executePostAsString(url, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return true;
 		} else {
-			logger.log(Level.SEVERE, result + "[" + data.toJSONString() + "]");
+			logger.log(Level.SEVERE, result);
 			return false;
 		}
 	}

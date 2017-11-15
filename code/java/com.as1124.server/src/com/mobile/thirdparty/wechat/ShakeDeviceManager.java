@@ -52,8 +52,8 @@ public class ShakeDeviceManager {
 		postData.put("poi_id", poiID);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString());
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return JSONObject.parseObject(result, DeviceApplication.class);
 		} else
 			throw new ThirdPartyRequestExceprion("[WechatDeviceManager#applyDeviceID]" + result);
@@ -78,8 +78,8 @@ public class ShakeDeviceManager {
 		postData.put("comment", comment);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString());
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return true;
 		} else
 			throw new ThirdPartyRequestExceprion("[WechatDeviceManager#updateDeviceInfo]" + result);
@@ -104,8 +104,8 @@ public class ShakeDeviceManager {
 		postData.put("poi_id", poiID);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString());
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return true;
 		} else
 			throw new ThirdPartyRequestExceprion("[WechatDeviceManager#bindDeviceWithPoi]" + result);
@@ -121,8 +121,8 @@ public class ShakeDeviceManager {
 		postData.put("device_identifier", deviceIdentifier);
 		StringEntity requestEntity = new StringEntity(postData.toJSONString());
 		String result = HttpExecuter.executePostAsString(uri, queryStr, requestEntity);
-		String returnCode = JSONObject.parseObject(result).getString(WechatConstants.ERROR_CODE);
-		if (returnCode == null || WechatConstants.RETURN_CODE_SUCCESS.equals(returnCode)) {
+		int returnCode = JSONObject.parseObject(result).getIntValue(WechatConstants.ERROR_CODE);
+		if (returnCode == WechatConstants.RETURN_CODE_SUCCESS) {
 			return true;
 		} else
 			throw new ThirdPartyRequestExceprion("[WechatDeviceManager#bindDeviceWithPoi]" + result);

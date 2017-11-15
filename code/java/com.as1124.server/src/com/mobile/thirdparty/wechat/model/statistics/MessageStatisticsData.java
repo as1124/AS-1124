@@ -1,11 +1,10 @@
 package com.mobile.thirdparty.wechat.model.statistics;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 消息统计分析的数据
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
 public class MessageStatisticsData implements IWechatModel {
@@ -13,49 +12,41 @@ public class MessageStatisticsData implements IWechatModel {
 	/**
 	 * 数据的日期
 	 */
-	@JSONField
 	String ref_date;
 	
 	/**
 	 * 数据的小时
 	 */
-	@JSONField
 	String ref_hour;
 	
 	/**
 	 * 消息类型，1-文字，2-图片，3-语音，4-视频，6-第三方应用消息
 	 */
-	@JSONField
 	int msg_type;
 	
 	/**
 	 * 向公众号发送了消息的用户数量
 	 */
-	@JSONField
 	int msg_user;
 	
 	/**
 	 * 向公众号发送的消息数量
 	 */
-	@JSONField
 	int msg_count;
 	
 	/**
 	 * 当日发送消息量分布区间
 	 */
-	@JSONField
 	int count_interval;
 	
 	/**
 	 * 图文页的阅读次数
 	 */
-	@JSONField
 	int int_page_read_count;
 	
 	/**
 	 * 原文页的阅读人数
 	 */
-	@JSONField
 	int ori_page_read_user;
 	
 	public MessageStatisticsData() {

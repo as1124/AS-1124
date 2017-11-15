@@ -15,14 +15,14 @@ import com.mobile.thirdparty.access.AbstractAccessToken;
  */
 public class WechatCardOperations {
 
-	public String uploadCardImg(AbstractAccessToken token, String imgPath){
-		return new MediaOperations().uploadNewsImg(token, imgPath);
+	public String uploadCardImg(AbstractAccessToken token, String imgPath) {
+		return MediaOperations.uploadImgForNews(token, imgPath);
 	}
-	
-	public void createWXCard(AbstractAccessToken token){
+
+	public void createWXCard(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/card/create";
-		List<NameValuePair> queryStr = new ArrayList<NameValuePair>();
+		List<NameValuePair> queryStr = new ArrayList<>();
 		queryStr.add(new BasicNameValuePair("access_token", token.getAccessToken()));
-		
+
 	}
 }

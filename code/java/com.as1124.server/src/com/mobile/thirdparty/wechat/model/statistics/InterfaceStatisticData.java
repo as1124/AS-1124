@@ -1,11 +1,10 @@
 package com.mobile.thirdparty.wechat.model.statistics;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.mobile.thirdparty.wechat.model.IWechatModel;
 
 /**
  * 接口统计分析数据
- * @author huangjw(mailto:huangjw@primeton.com)
+ * @author huangjw(mailto:as1124huang@gmail.com)
  *
  */
 public class InterfaceStatisticData implements IWechatModel {
@@ -13,37 +12,31 @@ public class InterfaceStatisticData implements IWechatModel {
 	/**
 	 * 数据的日期
 	 */
-	@JSONField
 	String ref_date;
 	
 	/**
 	 * 数据的小时
 	 */
-	@JSONField
 	String ref_hour;
 	
 	/**
 	 * 通过服务器配置地址获得消息后，被动回复用户消息的次数
 	 */
-	@JSONField
 	int callback_count;
 	
 	/**
 	 * 调用失败的次数
 	 */
-	@JSONField
 	int fail_count;
 	
 	/**
 	 * 总耗时。除以callback_count即为平均耗时
 	 */
-	@JSONField
 	int total_time_cost;
 	
 	/**
 	 * 最大耗时
 	 */
-	@JSONField
 	int max_time_cost;
 	
 	public InterfaceStatisticData() {
