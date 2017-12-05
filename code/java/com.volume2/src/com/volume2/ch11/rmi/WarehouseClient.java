@@ -29,19 +29,19 @@ public class WarehouseClient {
 
 		System.out.println("RMI registry bindings: ");
 		// 返回一个枚举列表, 其中列出了所有匹配的绑定对象。使用"rmi:"调用该方法列出所有RMI对象
-		NamingEnumeration<NameClassPair> remoteServices = namingContext.list("rmi://localhost");
+		NamingEnumeration<NameClassPair> remoteServices = namingContext.list("rmi://localhost:9090");
 		while (remoteServices.hasMoreElements()) {
 			NameClassPair service = remoteServices.next();
 			System.out.println(service.getName() + ", class=" + service.getClassName());
 		}
 
-		String url = "rmi://localhost/central_warehouse";
+		String url = "rmi://localhost:9090/central_warehouse";
 		try {
 			Warehouse centralHouse = (Warehouse) namingContext.lookup(url);
 			double price = centralHouse.getPrice("Blackwell Toaster");
 			System.out.println("Price = " + price);
 
-			Product info = centralHouse.getProduct(Arrays.asList(new String[] {}));
+			Product info = centralHouse.getProduct(Arrays.asList(new String[0]));
 			System.out.println(info);
 		} catch (NamingException e) {
 			JavaCoreLogger.log(Level.SEVERE, e.getMessage(), e);

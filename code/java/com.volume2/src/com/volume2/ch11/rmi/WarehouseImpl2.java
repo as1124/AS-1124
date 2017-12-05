@@ -23,9 +23,10 @@ public class WarehouseImpl2 extends Activatable implements Warehouse {
 
 	private Map<String, Double> prices = null;
 
-	protected WarehouseImpl2(ActivationID ID, MarshalledObject<?> data)
-			throws ActivationException, ClassNotFoundException, IOException {
-		super(ID, 0);
+	protected WarehouseImpl2(ActivationID activationID, MarshalledObject<?> data)
+			throws ClassNotFoundException, IOException {
+		// 让系统自动分配端口是不是有得挂
+		super(activationID, 0);
 
 		prices = (Map<String, Double>) data.get();
 	}

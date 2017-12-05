@@ -7,8 +7,9 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class is the implementation for the remote Warehouse interface.
- *
+ * This class is the implementation for the remote Warehouse interface.<br/>
+ * 通过继承{@link UnicastRemoteObject}可以方便的暴露远程服务，具体方法请参考其JavaDoc
+ * 
  * @author huangjw (mailto:huangjw@primeton.com)
  */
 public class WareHouseImpl extends UnicastRemoteObject implements Warehouse {
@@ -18,17 +19,21 @@ public class WareHouseImpl extends UnicastRemoteObject implements Warehouse {
 	 */
 	private static final long serialVersionUID = 3419605232274679110L;
 
-	private transient Map<String, Product> products = null;
+	private transient Map<String, Product> products = new HashMap<>();
 
-	private Warehouse backup = null;
+	private transient Warehouse backup = null;
 
+	/**
+	 * 调用父类构造方法暴露Remote服务
+	 * 
+	 * @throws RemoteException
+	 */
 	public WareHouseImpl() throws RemoteException {
 		super();
-		products = new HashMap<String, Product>();
 	}
 
 	public WareHouseImpl(Warehouse backup) throws RemoteException {
-		this();
+		super();
 		this.backup = backup;
 	}
 
