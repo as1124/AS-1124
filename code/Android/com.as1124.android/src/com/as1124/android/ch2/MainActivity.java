@@ -71,7 +71,7 @@ public class MainActivity extends Activity {
 
 		//设置状态栏透明 
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-		
+
 		//设置导航栏透明
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
 	}
@@ -113,7 +113,7 @@ public class MainActivity extends Activity {
 			resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
 			result = context.getResources().getDimensionPixelSize(resourceId);
 		}
-		
+
 		return result;
 	}
 
