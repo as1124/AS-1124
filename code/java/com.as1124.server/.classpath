@@ -2,8 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/wechat/fastjson-1.1.6.jar"/>
-	<classpathentry kind="lib" path="lib/wechat/httpclient-4.3.4.jar" sourcepath="C:/Users/as-1124/AppData/Local/Temp/.org.sf.feeling.decompiler1509411169162/source/httpclient-4.3.4-sources.jar"/>
+	<classpathentry kind="lib" path="lib/wechat/httpclient-4.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/wechat/httpcore-4.3.2.jar"/>
 	<classpathentry kind="lib" path="lib/wechat/httpmime-4.3.4.jar"/>
 	<classpathentry kind="lib" path="lib/org.apache.commons.codec_1.9.0.v20170208-1614.jar"/>
@@ -31,6 +30,8 @@
 	<classpathentry kind="lib" path="lib/document/wmf2svg-0.9.8.jar"/>
 	<classpathentry kind="lib" path="lib/document/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="lib" path="lib/wechat/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="/Users/as-1124/work/primeton/EOS_7.6GA/apache-tomcat-7.0.54/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="lib/wechat/commons-logging-1.0.4.jar"/>
+	<classpathentry kind="lib" path="lib/lombok-1.16.18.jar"/>
+	<classpathentry kind="lib" path="lib/wechat/fastjson-1.2.5.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
