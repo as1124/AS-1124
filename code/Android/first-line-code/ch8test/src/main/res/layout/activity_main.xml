@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/ch8_but_tonotify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="通知Activity" />
+
+    <Button
+        android:id="@+id/ch8_but_tocamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="相机Activity" />
+
+    <Button
+        android:id="@+id/ch8_but_toaudio"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="音频播放Activity" />
+
+    <Button
+        android:id="@+id/ch8_but_tovideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="视频Activity" />
+</LinearLayout>

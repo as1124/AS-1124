@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="52dp"
+    android:orientation="horizontal"
+    android:gravity="bottom">
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:text="返回"
+        android:maxLines="1"
+        android:id="@+id/titlebar_left"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:id="@+id/titlebar_textview"
+        android:text="中间正文标题"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <Button
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:text="菜单"
+        android:id="@+id/titlebar_right"/>
+</LinearLayout>

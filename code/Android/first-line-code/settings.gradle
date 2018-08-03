@@ -1,0 +1,1 @@
+include ':ch3test', ':ch4test', ':ch8test', ':ch7test'

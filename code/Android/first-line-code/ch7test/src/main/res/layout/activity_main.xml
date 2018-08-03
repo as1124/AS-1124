@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:overScrollMode="ifContentScrolls">
+
+    <Button
+        android:id="@+id/ch7_but_phonecall"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拨打电话-动态申请权限" />
+
+    <Button
+        android:id="@+id/ch7_but_tocontact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查看联系人" />
+
+</LinearLayout>
