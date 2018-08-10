@@ -1,0 +1,14 @@
+/* pages/test.wxss */
+
+.mydivstyle {
+  flex-direction: column;
+  height: 800rpx;
+  width: 100%;
+  align-items: center;
+  justify-content: bottom;
+  visibility: show;
+  font-weight: bold;
+  text-align: middle;
+  vertical-align: middle;
+  overflow: hidden; text-overflow: ellipsis; display: inline-block;
+}

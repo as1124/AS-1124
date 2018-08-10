@@ -1,14 +1,17 @@
 {
   "pages": [
-    "pages/login/login",
+    "pages/test/test",
     "pages/index/index",
+    "pages/login/login",
     "pages/logs/logs"
   ],
   "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "浦发银行POC-Demo",
+    "navigationStyle": "default",
+    "backgroundColor": "#ffffff",
     "backgroundTextStyle": "dark",
-    "navigationBarBackgroundColor": "#ff0000",
-    "navigationBarTitleText": "浦发POC-Demo",
-    "navigationBarTextStyle": "white",
     "enablePullDownRefresh": true
   },
   "networkTimeout": {
