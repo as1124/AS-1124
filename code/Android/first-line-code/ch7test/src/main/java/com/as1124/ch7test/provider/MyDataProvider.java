@@ -21,7 +21,7 @@ public class MyDataProvider extends ContentProvider {
 
     private static UriMatcher uriMatcher;
 
-    private MyDatabaseHelper dbHelper;
+//    private MyDatabaseHelper dbHelper;
 
     @Override
     public boolean onCreate() {

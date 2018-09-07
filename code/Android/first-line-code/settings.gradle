@@ -1,1 +1,1 @@
-include ':ch3test', ':ch4test', ':ch8test', ':ch7test'
+include ':ch3test', ':ch4test', ':ch5test', ':ch7test', ':ch8test', ':googleDoc', ':ch9test', ':ch10test', ':ch11test', ':ch12test', ':testinstall', ':xiaomi_im'

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/but_to_async"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="异步更新UI内容" />
+
+    <Button
+        android:id="@+id/but_start_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启动服务" />
+
+    <Button
+        android:id="@+id/but_stop_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="停止服务" />
+
+    <Button
+        android:id="@+id/but_bind_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="绑定服务Service" />
+
+    <Button
+        android:id="@+id/but_unbind_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="解绑服务Service" />
+
+    <Button
+        android:id="@+id/but_test_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试服务状态、Binder状态" />
+
+    <Button
+        android:id="@+id/but_start_foreground"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="让服务在前台运行" />
+
+    <Button
+        android:id="@+id/but_start_intentservice"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启动IntentService" />
+</LinearLayout>
