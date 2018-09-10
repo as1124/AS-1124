@@ -3,34 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
-            android:text="Button1"/>
+            android:text="Button1" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Button2"/>
+            android:text="Button2" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="Button3"/>
+            android:text="Button3" />
 
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
-            android:text="Button4"/>
+            android:text="Button4" />
     </LinearLayout>
 
     <LinearLayout
@@ -38,17 +40,20 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="horizontal">
+
         <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
             android:layout_weight="1"
-            android:hint="请输入要发送的内容"
-            android:layout_gravity="bottom"/>
+            android:hint="请输入要发送的内容" />
+
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="发   送"
-            android:layout_gravity="bottom"/>
+            android:layout_gravity="bottom"
+            android:text="发   送" />
+
     </LinearLayout>
 
 </LinearLayout>

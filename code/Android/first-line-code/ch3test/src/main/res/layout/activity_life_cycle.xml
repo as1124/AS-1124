@@ -3,13 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondActivity">
+    tools:context=".LifeCycleActivity">
 
-    <TextView
-        android:id="@+id/secondActivityText"
+    <ImageView
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center"
-        android:text="Second Activity, Default launch mode is singleInstance" />
-
+        android:layout_height="match_parent"
+        android:scaleType="fitCenter"
+        android:src="@drawable/activity_lifecycle" />
 </android.support.constraint.ConstraintLayout>

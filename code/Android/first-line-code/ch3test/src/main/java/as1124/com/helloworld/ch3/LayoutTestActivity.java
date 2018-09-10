@@ -12,7 +12,7 @@ import as1124.com.helloworld.ch3.list.TestWechatActivity;
 /**
  * android布局管理器学习
  *
- * @author huangjw(as1124huang @ primeton.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class LayoutTestActivity extends Activity {
 

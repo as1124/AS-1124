@@ -2,49 +2,50 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:overScrollMode="ifContentScrolls">
 
     <Button
+        android:id="@+id/ch3_test_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ch3_test_linear"
         android:text="LinearLayout 线性布局" />
 
     <Button
+        android:id="@+id/ch3_test_relative"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/ch3_test_relative"
         android:text="RelativeLayout相对布局" />
 
     <Button
+        android:id="@+id/ch3_test_titleimport"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:id="@+id/ch3_test_titleimport"
         android:text="自定义Title引入" />
 
     <Button
+        android:id="@+id/ch3_test_basic_listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试基础的listview"
-        android:id="@+id/ch3_test_basic_listview"/>
+        android:text="测试基础的listview" />
 
     <Button
+        android:id="@+id/ch3_test_recyclerlist_but"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试RecyclerListView"
-        android:id="@+id/ch3_test_recyclerlist_but"/>
+        android:text="测试RecyclerListView" />
 
     <Button
+        android:id="@+id/ch3_test_pubulist_but"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试瀑布流样式RecyclerListView"
-        android:id="@+id/ch3_test_pubulist_but"/>
+        android:text="测试瀑布流样式RecyclerListView" />
 
     <Button
+        android:id="@+id/ch3_test_wechatlist_but"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试微信聊天界面的列子"
-        android:id="@+id/ch3_test_wechatlist_but"/>
+        android:text="测试微信聊天界面的列子" />
 
 </LinearLayout>

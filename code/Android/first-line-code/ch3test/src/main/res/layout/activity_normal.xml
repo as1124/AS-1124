@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".lifecycle.NormalActivity">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
+        android:id="@+id/normal_layout_root"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This is a normal activity"/>
+            android:text="This is a normal activity" />
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="这是输入提醒"
-            android:singleLine="false"/>
+            android:singleLine="false" />
 
         <Button
+            android:id="@+id/test_alert_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="测试AlertDialog"
-            android:id="@+id/test_alert_dialog"/>
+            android:text="测试AlertDialog" />
 
         <Button
+            android:id="@+id/test_progress_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="测试ProgressDialog"
-            android:id="@+id/test_progress_dialog"/>
+            android:text="测试ProgressDialog" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

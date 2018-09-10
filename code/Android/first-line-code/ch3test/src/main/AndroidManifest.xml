@@ -9,26 +9,30 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".HelloWorldActivity">
+        <activity
+            android:name=".HelloWorldActivity"
+            android:configChanges="orientation|locale">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FirstActivity" />
-        <activity
-            android:name=".SecondActivity"
-            android:launchMode="singleInstance">
+        <activity android:name=".FirstActivity">
             <intent-filter>
                 <category android:name="android.intent.category.DEFAULT" />
 
                 <action android:name="as1124.com.helloworld.huangjw" />
             </intent-filter>
         </activity>
-        <activity android:name=".lifecycle.NormalActivity" />
         <activity
-            android:name=".lifecycle.DialogActivity"
+            android:name=".SecondActivity"
+            android:launchMode="singleInstance" />
+        <activity
+            android:name=".dialog.NormalActivity"
+            android:launchMode="standard" />
+        <activity
+            android:name=".dialog.DialogActivity"
             android:theme="@android:style/Theme.Dialog" />
         <activity android:name=".ch3.LayoutTestActivity" />
         <activity android:name=".ch3.TestLinearLayout" />
@@ -38,7 +42,9 @@
         <activity android:name=".ch3.TestListview" />
         <activity android:name=".ch3.list.TestRecyclerListView" />
         <activity android:name=".ch3.list.ExpandableRecycleList" />
-        <activity android:name=".ch3.list.TestWechatActivity"></activity>
+        <activity android:name=".ch3.list.TestWechatActivity" />
+        <activity android:name=".LifeCycleActivity" />
+        <activity android:name=".DeepLinkActivity"></activity>
     </application>
 
 </manifest>
