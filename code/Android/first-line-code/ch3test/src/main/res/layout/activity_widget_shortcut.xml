@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/but_static_shortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Static Shortcut" />
+
+    <Button
+        android:id="@+id/but_dynamic_shortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="动态 Shortcut" />
+
+    <Button
+        android:id="@+id/but_pinned_shortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pinned Shortcut" />
+
+    <Button
+        android:id="@+id/but_change_app_logo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="变更应用图标" />
+
+    <Button
+        android:id="@+id/but_add_desktop_shortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加桌面快捷方式" />
+
+    <Button
+        android:id="@+id/but_remove_desktop_shortcut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="移除桌面快捷方式" />
+
+
+    <Button
+        android:id="@+id/but_create_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="添加桌面Widget" />
+
+    <Button
+        android:id="@+id/but_remove_widget"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="删除桌面Widget" />
+
+</LinearLayout>

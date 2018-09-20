@@ -1,12 +1,13 @@
-package as1124.com.helloworld.ch3;
+package com.as1124.musicplayer;
 
 import android.app.Activity;
 import android.os.Bundle;
 
-public class TestFrameLayout extends Activity {
+public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
     }
 }

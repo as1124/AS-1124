@@ -1,0 +1,28 @@
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/shortcut_eclipse"
+        android:shortcutDisabledMessage="@string/app_name"
+        android:shortcutId="shortcut_id_eclipse"
+        android:shortcutLongLabel="@string/app_name"
+        android:shortcutShortLabel="@string/app_name">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="as1124.com.helloworld.DeepLinkActivity"
+            android:targetPackage="as1124.com.helloworld" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+    <shortcut
+        android:enabled="true"
+        android:icon="@drawable/shortcut_bing"
+        android:shortcutDisabledMessage="@string/app_name"
+        android:shortcutId="shortcut_id_bing"
+        android:shortcutLongLabel="@string/app_name"
+        android:shortcutShortLabel="@string/app_name">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetClass="as1124.com.helloworld.DeepLinkActivity"
+            android:targetPackage="as1124.com.helloworld" />
+        <categories android:name="android.shortcut.conversation" />
+    </shortcut>
+</shortcuts>

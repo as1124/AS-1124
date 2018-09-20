@@ -24,9 +24,10 @@ public class RecycleItemAdapter extends RecyclerView.Adapter<RecycleItemAdapter.
     @Override
     public FruitViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.listview_item_fruit, parent, false);
-        final FruitViewHolder holder = new FruitViewHolder(itemView);
-        holder.fruitView.setOnClickListener(v -> {
-            int position = holder.getAdapterPosition();
+        FruitViewHolder holder = new FruitViewHolder(itemView);
+        holder.itemView.setOnClickListener(v -> {
+            // 只有执行onBindViewHolder之后才能获取到getAdapterPosition()的值，否则一直为(-1)
+            Integer position = (Integer) v.getTag();
             FruitItem itemData = fruits.get(position);
             Toast.makeText(v.getContext(), "U clicked view: " + itemData.getName(), Toast.LENGTH_SHORT).show();
         });
@@ -39,6 +40,7 @@ public class RecycleItemAdapter extends RecyclerView.Adapter<RecycleItemAdapter.
         FruitItem itemData = fruits.get(position);
         holder.itemName.setText(itemData.getName());
         holder.itemImg.setImageResource(itemData.getImageRes());
+        holder.itemView.setTag(Integer.valueOf(position));
     }
 
     @Override
@@ -46,15 +48,13 @@ public class RecycleItemAdapter extends RecyclerView.Adapter<RecycleItemAdapter.
         return fruits.size();
     }
 
-    class FruitViewHolder extends RecyclerView.ViewHolder {
+    protected class FruitViewHolder extends RecyclerView.ViewHolder {
 
         ImageView itemImg;
         TextView itemName;
-        View fruitView;
 
         public FruitViewHolder(View itemView) {
             super(itemView);
-            fruitView = itemView;
             itemImg = itemView.findViewById(R.id.fruit_image);
             itemName = itemView.findViewById(R.id.fruit_name);
         }

@@ -2,6 +2,29 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="as1124.com.helloworld">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.UNINSTALL_SHORTCUT" />
+
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.android.launcher2.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher2.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS" />
+
+    <uses-permission android:name="com.huawei.launcher3.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.launcher3.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.huawei.launcher2.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.launcher2.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.huawei.android.launcher.permission.WRITE_SETTINGS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -17,6 +40,10 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <!-- 通过xml资源设置static shortcuts -->
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:value="@xml/shortcuts" />
         </activity>
         <activity android:name=".FirstActivity">
             <intent-filter>
@@ -34,7 +61,16 @@
         <activity
             android:name=".dialog.DialogActivity"
             android:theme="@android:style/Theme.Dialog" />
-        <activity android:name=".ch3.LayoutTestActivity" />
+        <activity
+            android:name=".ch3.LayoutTestActivity"
+            android:icon="@drawable/user_icon"
+            android:label="@string/multiple_main_activity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ch3.TestLinearLayout" />
         <activity android:name=".ch3.TestRelativeLayout" />
         <activity android:name=".ch3.TestFrameLayout" />
@@ -42,9 +78,47 @@
         <activity android:name=".ch3.TestListview" />
         <activity android:name=".ch3.list.TestRecyclerListView" />
         <activity android:name=".ch3.list.ExpandableRecycleList" />
-        <activity android:name=".ch3.list.TestWechatActivity" />
+        <activity
+            android:name=".ch3.list.TestWechatActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".LifeCycleActivity" />
-        <activity android:name=".DeepLinkActivity"></activity>
+        <activity
+            android:name=".DeepLinkActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="goods"
+                    android:path="/default"
+                    android:scheme="huangjw" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RecentTaskActivity"
+            android:launchMode="standard" />
+        <activity android:name=".widget.WidgetShortcutActivity" />
+
+        <receiver
+            android:name=".widget.WidgetShortcutReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
     </application>
 
 </manifest>

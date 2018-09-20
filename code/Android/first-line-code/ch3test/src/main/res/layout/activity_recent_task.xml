@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_info"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center" />
+
+    <Button
+        android:id="@+id/but_test1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="任务中心：New_Task" />
+
+    <Button
+        android:id="@+id/but_test2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="任务中心：Document" />
+
+    <Button
+        android:id="@+id/but_test3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="任务中心：Multiple_task" />
+
+    <Button
+        android:id="@+id/but_test4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="任务中心：Document|Multiple_task" />
+
+
+</LinearLayout>

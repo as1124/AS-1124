@@ -9,9 +9,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试自定对话框引入"/>
+        android:text="测试自定对话框引入" />
 
-    <as1124.com.helloworld.ch3.TestTitleLayout
+    <as1124.com.helloworld.ch3.TitleLayoutView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"></as1124.com.helloworld.ch3.TestTitleLayout>
+        android:layout_height="wrap_content"></as1124.com.helloworld.ch3.TitleLayoutView>
 </LinearLayout>

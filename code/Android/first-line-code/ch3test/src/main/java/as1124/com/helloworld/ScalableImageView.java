@@ -1,13 +1,13 @@
 package as1124.com.helloworld;
 
-        import android.content.Context;
-        import android.graphics.Matrix;
-        import android.support.annotation.Nullable;
-        import android.util.AttributeSet;
-        import android.view.GestureDetector;
-        import android.view.MotionEvent;
-        import android.view.ScaleGestureDetector;
-        import android.widget.ImageView;
+import android.content.Context;
+import android.graphics.Matrix;
+import android.support.annotation.Nullable;
+import android.util.AttributeSet;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
+import android.widget.ImageView;
 
 /**
  * 实现ImageView控件的手势支持功能，如缩放，双击等

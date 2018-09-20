@@ -1,9 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DeepLinkActivity">
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:id="@+id/text_deep_link"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="请在浏览器中输入链接：\n huangjw://goods/default?data=index" />
+
+    <Button
+        android:id="@+id/but_query_activities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="查询可解析的Activity" />
+
+    <WebView
+        android:id="@+id/webview_deep_link"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></WebView>
+
+</LinearLayout>

@@ -9,9 +9,9 @@ import android.widget.Toast;
 
 import as1124.com.helloworld.R;
 
-public class TestTitleLayout extends LinearLayout {
+public class TitleLayoutView extends LinearLayout {
 
-    public TestTitleLayout(Context context, AttributeSet attrs) {
+    public TitleLayoutView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         LayoutInflater.from(context).inflate(R.layout.title, this);

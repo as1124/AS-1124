@@ -10,6 +10,7 @@ import java.text.MessageFormat;
 import as1124.com.helloworld.ch3.LayoutTestActivity;
 import as1124.com.helloworld.dialog.DialogActivity;
 import as1124.com.helloworld.dialog.NormalActivity;
+import as1124.com.helloworld.widget.WidgetShortcutActivity;
 
 /**
  * 内容包括
@@ -22,6 +23,9 @@ import as1124.com.helloworld.dialog.NormalActivity;
  * <li>常见布局</li>
  * <li>Listview的使用</li>
  * <li>RecyclerListview的使用</li>
+ * <li>Link问题</li>
+ * <li>Recent Screen相关问题</li>
+ * <li>Android Shortcuts and Widgets</li>
  * </ol>
  *
  * @author as-1124 (mailto:as1124huang@gmail.com)
@@ -76,6 +80,14 @@ public class HelloWorldActivity extends Activity {
         });
         findViewById(R.id.button_ch3_main).setOnClickListener(v -> {
             Intent intent = new Intent(HelloWorldActivity.this, LayoutTestActivity.class);
+            startActivity(intent);
+        });
+        findViewById(R.id.button_recent_screen).setOnClickListener(v -> {
+            Intent intent = new Intent(HelloWorldActivity.this, RecentTaskActivity.class);
+            startActivity(intent);
+        });
+        findViewById(R.id.button_widget_shortcut).setOnClickListener(v -> {
+            Intent intent = new Intent(HelloWorldActivity.this, WidgetShortcutActivity.class);
             startActivity(intent);
         });
     }

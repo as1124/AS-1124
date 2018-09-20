@@ -25,14 +25,14 @@ public class TestListview extends Activity implements View.OnClickListener {
         initFruits();
         FruitAdapter dataAdapter = new FruitAdapter(this, R.layout.listview_item_fruit, fruits, this);
         listView.setAdapter(dataAdapter);
-        listView.setOnItemClickListener(((parent, view, position, id) -> {
+        listView.setOnItemClickListener((parent, view, position, id) -> {
             // parent 是ListView的示例
             // view 是ListView中发生点击事件的Item
             // position 是被点击元素在ListView中的位置，从0开始
             // id 是
             FruitItem itemData = fruits.get(position);
             Toast.makeText(parent.getContext(), itemData.getName(), Toast.LENGTH_SHORT).show();
-        }));
+        });
     }
 
     private void initFruits() {
