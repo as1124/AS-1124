@@ -5,15 +5,20 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/to_permission_activity"
+        android:id="@+id/but_persistent_file"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Android应用权限" />
+        android:text="文件存储" />
 
     <Button
-        android:id="@+id/to_intent_activity"
+        android:id="@+id/but_persistent_preference"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Intent-IntentFilter" />
+        android:text="Preference存储" />
 
+    <Button
+        android:id="@+id/but_persistent_database"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="数据库存储" />
 </LinearLayout>

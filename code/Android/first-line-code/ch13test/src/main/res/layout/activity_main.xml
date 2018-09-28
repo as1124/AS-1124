@@ -5,15 +5,20 @@
     android:orientation="vertical">
 
     <Button
-        android:id="@+id/to_permission_activity"
+        android:id="@+id/but_different_context"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Android应用权限" />
+        android:text="getBaseContext区别getApplicationContext" />
 
     <Button
-        android:id="@+id/to_intent_activity"
+        android:id="@+id/but_intent_parcelable"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Intent-IntentFilter" />
+        android:text="Intent传递非基本类型数据" />
 
+    <Button
+        android:id="@+id/but_timer_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/task_name" />
 </LinearLayout>

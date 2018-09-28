@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.as1124.googledoc.intent.IntentActivity;
 import com.as1124.googledoc.permission.PermissionActivity;
 
 public class MainActivity extends Activity {
@@ -15,6 +16,11 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.to_permission_activity).setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, PermissionActivity.class);
+            startActivity(intent);
+        });
+
+        findViewById(R.id.to_intent_activity).setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, IntentActivity.class);
             startActivity(intent);
         });
     }
