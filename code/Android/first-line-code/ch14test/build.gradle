@@ -1,5 +1,8 @@
 apply plugin: 'com.android.application'
 
+// 应用greendao 组件
+apply plugin: 'org.greenrobot.greendao'
+
 android {
     compileSdkVersion 27
     defaultConfig {
@@ -23,6 +26,12 @@ android {
     }
 }
 
+greendao {
+    schemaVersion 1
+    daoPackage 'com.as1124.ch14test.db'
+    targetGenDir 'src/main/java'
+}
+
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'com.android.support:appcompat-v7:27.1.1'
@@ -30,5 +39,9 @@ dependencies {
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.google.code.gson:gson:2.8.5'
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+
+    // 需要同时添加GreenDAO的library和gradle插件
     implementation 'org.greenrobot:greendao:3.2.2'
+//    implementation 'org.greenrobot:greendao-gradle-plugin:3.2.2' //加到root-project中
+    implementation 'com.android.support:support-v4:27.1.1'
 }

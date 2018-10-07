@@ -4,4 +4,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <Button
+        android:id="@+id/but_province_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拉取Province信息" />
+
+    <Button
+        android:id="@+id/but_province_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拉取City信息" />
+
+    <Button
+        android:id="@+id/but_province_counry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="拉取Country信息" />
+
 </LinearLayout>
