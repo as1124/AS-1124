@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="3"
+    android:orientation="horizontal"
+    tools:context=".NetworkSettingActivity">
+
+    <Button
+        android:layout_columnSpan="1"
+        android:layout_row="0"
+        android:text="士大夫艰苦" />
+
+    <Button
+        android:layout_columnSpan="1"
+        android:layout_row="0"
+        android:text="士大夫艰苦2222" />
+
+    <Button
+        android:layout_row="0"
+        android:text="44444444444" />
+
+</GridLayout>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".bluetooth.BluetoothMainActivity">
+
+    <Button
+        android:id="@+id/but_open_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开蓝牙" />
+
+    <Button
+        android:id="@+id/but_close_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="关闭蓝牙" />
+
+    <Button
+        android:id="@+id/but_scan_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="扫描蓝牙设备" />
+
+    <Button
+        android:id="@+id/but_pair_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="蓝牙配对" />
+
+    <Button
+        android:id="@+id/but_send_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="连接并发送文件" />
+
+</LinearLayout>
