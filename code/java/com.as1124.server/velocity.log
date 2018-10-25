@@ -1,0 +1,866 @@
+2018-10-17 08:26:33,867 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:33,868 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:33,869 - ResourceManager : found button.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:33,869 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:33,870 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,119 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,119 - ************************************************************** 
+2018-10-17 08:26:34,119 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,119 - RuntimeInstance initializing.
+2018-10-17 08:26:34,119 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,119 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,120 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,120 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,120 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,120 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,120 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,120 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,120 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,121 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,121 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,121 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,121 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,122 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,122 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,122 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,122 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,123 - Created: 20 parsers.
+2018-10-17 08:26:34,123 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,124 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,124 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,124 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,124 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,124 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,125 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,125 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,125 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,125 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,125 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,126 - Velocity successfully started.
+2018-10-17 08:26:34,127 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,128 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,129 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,130 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,131 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,133 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,134 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,134 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,135 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,136 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,137 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,138 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,139 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,140 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,140 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,141 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,395 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,395 - ************************************************************** 
+2018-10-17 08:26:34,396 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,396 - RuntimeInstance initializing.
+2018-10-17 08:26:34,396 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,396 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,397 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,397 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,397 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,397 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,398 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,398 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,398 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,398 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,400 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,400 - Created: 20 parsers.
+2018-10-17 08:26:34,400 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,400 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,401 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,401 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,401 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,401 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,401 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,402 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,402 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,402 - Velocity successfully started.
+2018-10-17 08:26:34,403 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,403 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,404 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,405 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,407 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,408 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,409 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,410 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,412 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,414 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,670 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,670 - ************************************************************** 
+2018-10-17 08:26:34,670 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,670 - RuntimeInstance initializing.
+2018-10-17 08:26:34,670 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,670 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,671 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,671 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,671 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,671 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,671 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,672 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,672 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,672 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,674 - Created: 20 parsers.
+2018-10-17 08:26:34,674 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,674 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,674 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,674 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,675 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,675 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,676 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,676 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,676 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,676 - Velocity successfully started.
+2018-10-17 08:26:34,677 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,678 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,678 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,679 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - ResourceManager : found webview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,681 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+.FileResourceLoader
+2018-10-17 08:26:34,407 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,408 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,409 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,410 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,412 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,414 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,670 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,670 - ************************************************************** 
+2018-10-17 08:26:34,670 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,670 - RuntimeInstance initializing.
+2018-10-17 08:26:34,670 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,670 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,671 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,671 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,671 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,671 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,671 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,672 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,672 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,672 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,674 - Created: 20 parsers.
+2018-10-17 08:26:34,674 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,674 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,674 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,674 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,675 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,675 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,676 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,676 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,676 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,676 - Velocity successfully started.
+2018-10-17 08:26:34,677 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,678 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,678 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,679 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - ResourceManager : found webview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,681 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+26:34,133 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,134 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,134 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,135 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,136 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,137 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,138 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,139 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,140 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,140 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,141 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,395 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,395 - ************************************************************** 
+2018-10-17 08:26:34,396 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,396 - RuntimeInstance initializing.
+2018-10-17 08:26:34,396 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,396 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,397 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,397 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,397 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,397 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,398 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,398 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,398 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,398 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,400 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,400 - Created: 20 parsers.
+2018-10-17 08:26:34,400 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,400 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,401 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,401 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,401 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,401 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,401 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,402 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,402 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,402 - Velocity successfully started.
+2018-10-17 08:26:34,403 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,403 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,404 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,405 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,407 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,408 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,409 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,410 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,412 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,414 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,670 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,670 - ************************************************************** 
+2018-10-17 08:26:34,670 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,670 - RuntimeInstance initializing.
+2018-10-17 08:26:34,670 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,670 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,671 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,671 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,671 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,671 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,671 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,672 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,672 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,672 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,674 - Created: 20 parsers.
+2018-10-17 08:26:34,674 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,674 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,674 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,674 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,675 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,675 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,676 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,676 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,676 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,676 - Velocity successfully started.
+2018-10-17 08:26:34,677 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,678 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,678 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,679 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - ResourceManager : found webview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,681 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,675 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,675 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,676 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,676 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,676 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,676 - Velocity successfully started.
+2018-10-17 08:26:34,677 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,678 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,678 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,679 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - ResourceManager : found webview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,681 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,137 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,138 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,138 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,138 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,139 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,139 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,139 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,140 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,140 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,140 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,140 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,140 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,140 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,141 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,141 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,141 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,395 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,395 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,395 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,395 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,395 - ************************************************************** 
+2018-10-17 08:26:34,395 - ************************************************************** 
+2018-10-17 08:26:34,395 - ************************************************************** 
+2018-10-17 08:26:34,395 - ************************************************************** 
+2018-10-17 08:26:34,396 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,396 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,396 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,396 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,396 - RuntimeInstance initializing.
+2018-10-17 08:26:34,396 - RuntimeInstance initializing.
+2018-10-17 08:26:34,396 - RuntimeInstance initializing.
+2018-10-17 08:26:34,396 - RuntimeInstance initializing.
+2018-10-17 08:26:34,396 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,396 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,396 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,396 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,396 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,396 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,396 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,396 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,396 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,397 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,397 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,397 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,397 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,397 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,397 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,397 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,397 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,397 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,397 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,397 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,397 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,397 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,397 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,397 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,397 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,398 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,398 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,398 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,398 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,398 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,398 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,398 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,398 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,398 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,398 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,398 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,398 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,398 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,398 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,398 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,398 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,399 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,400 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,400 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,400 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,400 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,400 - Created: 20 parsers.
+2018-10-17 08:26:34,400 - Created: 20 parsers.
+2018-10-17 08:26:34,400 - Created: 20 parsers.
+2018-10-17 08:26:34,400 - Created: 20 parsers.
+2018-10-17 08:26:34,400 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,400 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,400 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,400 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,400 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,400 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,400 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,400 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,401 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,401 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,401 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,401 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,401 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,401 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,401 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,401 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,401 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,401 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,401 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,401 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,401 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,401 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,401 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,401 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,401 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,401 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,401 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,401 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,401 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,402 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,402 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,402 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,402 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,402 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,402 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,402 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,402 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,402 - Velocity successfully started.
+2018-10-17 08:26:34,402 - Velocity successfully started.
+2018-10-17 08:26:34,402 - Velocity successfully started.
+2018-10-17 08:26:34,402 - Velocity successfully started.
+2018-10-17 08:26:34,403 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,403 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,403 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,403 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,403 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,403 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,403 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,403 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,404 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,404 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,404 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,404 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,405 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,405 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,405 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,405 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,406 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,407 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,407 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,407 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,407 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,408 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,408 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,408 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,408 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,409 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,409 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,409 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,409 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,410 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,410 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,410 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,410 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,411 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,412 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,412 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,412 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,412 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,413 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,413 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,413 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,413 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,414 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,414 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,414 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,414 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,670 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,670 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,670 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,670 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,670 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,670 - ************************************************************** 
+2018-10-17 08:26:34,670 - ************************************************************** 
+2018-10-17 08:26:34,670 - ************************************************************** 
+2018-10-17 08:26:34,670 - ************************************************************** 
+2018-10-17 08:26:34,670 - ************************************************************** 
+2018-10-17 08:26:34,670 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,670 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,670 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,670 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,670 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,670 - RuntimeInstance initializing.
+2018-10-17 08:26:34,670 - RuntimeInstance initializing.
+2018-10-17 08:26:34,670 - RuntimeInstance initializing.
+2018-10-17 08:26:34,670 - RuntimeInstance initializing.
+2018-10-17 08:26:34,670 - RuntimeInstance initializing.
+2018-10-17 08:26:34,670 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,670 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,670 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,670 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,670 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,670 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,670 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,670 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,670 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,670 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,671 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,671 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,671 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,671 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,671 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,671 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,671 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,671 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,671 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,671 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,671 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,671 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,671 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,671 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,671 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,671 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,671 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,671 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,671 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,671 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,671 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,671 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,671 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,671 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,671 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,671 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,672 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,672 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,672 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,672 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,672 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,672 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,672 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,672 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,672 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,672 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,672 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,672 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,672 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,672 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,672 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,672 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,673 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,674 - Created: 20 parsers.
+2018-10-17 08:26:34,674 - Created: 20 parsers.
+2018-10-17 08:26:34,674 - Created: 20 parsers.
+2018-10-17 08:26:34,674 - Created: 20 parsers.
+2018-10-17 08:26:34,674 - Created: 20 parsers.
+2018-10-17 08:26:34,674 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,674 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,674 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,674 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,674 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,674 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,674 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,674 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,674 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,674 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,674 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,674 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,674 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,674 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,674 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,674 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,674 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,674 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,674 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,674 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,675 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,675 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,675 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,675 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,675 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,675 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,675 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,675 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,675 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,675 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,675 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,676 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,676 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,676 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,676 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,676 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,676 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,676 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,676 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,676 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,676 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,676 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,676 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,676 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,676 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,676 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,676 - Velocity successfully started.
+2018-10-17 08:26:34,676 - Velocity successfully started.
+2018-10-17 08:26:34,676 - Velocity successfully started.
+2018-10-17 08:26:34,676 - Velocity successfully started.
+2018-10-17 08:26:34,676 - Velocity successfully started.
+2018-10-17 08:26:34,677 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,677 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,677 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,677 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,677 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,678 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,678 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,678 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,678 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,678 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,678 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,678 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,678 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,678 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,678 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,679 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,679 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,679 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,679 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,679 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - ResourceManager : found webview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - ResourceManager : found webview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - ResourceManager : found webview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - ResourceManager : found webview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - ResourceManager : found webview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,680 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,680 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,680 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,680 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,680 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,681 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,681 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,681 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,681 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,681 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,964 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:34,964 - ************************************************************** 
+2018-10-17 08:26:34,964 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:34,964 - RuntimeInstance initializing.
+2018-10-17 08:26:34,964 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:34,964 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:34,964 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:34,965 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,965 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:34,965 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:34,965 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,965 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:34,965 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:34,965 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:34,965 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:34,965 - Default ResourceManager initialization complete.
+2018-10-17 08:26:34,965 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:34,965 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:34,966 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:34,966 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:34,966 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:34,966 - Created: 20 parsers.
+2018-10-17 08:26:34,966 - Velocimacro : initialization starting.
+2018-10-17 08:26:34,966 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:34,967 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:34,967 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:34,967 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:34,967 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:34,967 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:34,967 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:34,967 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:34,967 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:34,967 - Velocimacro : initialization complete.
+2018-10-17 08:26:34,967 - Velocity successfully started.
+2018-10-17 08:26:34,968 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,968 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,969 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,970 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,971 - ResourceManager : found listview.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,972 - ResourceManager : found template.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,973 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,974 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,974 - ResourceManager : found img.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,975 - ResourceManager : found label.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,976 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:34,976 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:34,976 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,242 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:35,242 - SimpleLog4JLogSystem initialized using logfile 'velocity.log'
+2018-10-17 08:26:35,242 - ************************************************************** 
+2018-10-17 08:26:35,242 - ************************************************************** 
+2018-10-17 08:26:35,242 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:35,242 - Starting Jakarta Velocity v1.4
+2018-10-17 08:26:35,242 - RuntimeInstance initializing.
+2018-10-17 08:26:35,242 - RuntimeInstance initializing.
+2018-10-17 08:26:35,243 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:35,243 - Default Properties File: org\apache\velocity\runtime\defaults\velocity.properties
+2018-10-17 08:26:35,243 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:35,243 - Trying to use logger class org.apache.velocity.runtime.log.AvalonLogSystem
+2018-10-17 08:26:35,243 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:35,243 - Couldn't find class org.apache.velocity.runtime.log.AvalonLogSystem or necessary supporting classes in classpath. Exception : java.lang.NoClassDefFoundError: org/apache/log/format/Formatter
+2018-10-17 08:26:35,243 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:35,243 - Trying to use logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:35,243 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:35,243 - Using logger class org.apache.velocity.runtime.log.SimpleLog4JLogSystem
+2018-10-17 08:26:35,243 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:35,243 - Default ResourceManager initializing. (class org.apache.velocity.runtime.resource.ResourceManagerImpl)
+2018-10-17 08:26:35,243 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,243 - Resource Loader Instantiated: org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,243 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:35,243 - FileResourceLoader : initialization starting.
+2018-10-17 08:26:35,243 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:35,243 - FileResourceLoader : adding path 'D:/work/primeton/EOS_760_Mobile/ide/eclipse/configuration/org.eclipse.osgi/bundles/32/1/.cp/template'
+2018-10-17 08:26:35,244 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:35,244 - FileResourceLoader : initialization complete.
+2018-10-17 08:26:35,244 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:35,244 - ResourceCache : initialized. (class org.apache.velocity.runtime.resource.ResourceCacheImpl)
+2018-10-17 08:26:35,244 - Default ResourceManager initialization complete.
+2018-10-17 08:26:35,244 - Default ResourceManager initialization complete.
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Literal
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Macro
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Parse
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Include
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:35,244 - Loaded System Directive: org.apache.velocity.runtime.directive.Foreach
+2018-10-17 08:26:35,245 - Created: 20 parsers.
+2018-10-17 08:26:35,245 - Created: 20 parsers.
+2018-10-17 08:26:35,245 - Velocimacro : initialization starting.
+2018-10-17 08:26:35,245 - Velocimacro : initialization starting.
+2018-10-17 08:26:35,245 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:35,245 - Velocimacro : adding VMs from VM library template : VM_global_library.vm
+2018-10-17 08:26:35,246 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:35,246 - ResourceManager : unable to find resource 'VM_global_library.vm' in any resource loader.
+2018-10-17 08:26:35,246 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:35,246 - Velocimacro : error using  VM library template VM_global_library.vm : org.apache.velocity.exception.ResourceNotFoundException: Unable to find resource 'VM_global_library.vm'
+2018-10-17 08:26:35,246 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:35,246 - Velocimacro :  VM library template macro registration complete.
+2018-10-17 08:26:35,246 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:35,246 - Velocimacro : allowInline = true : VMs can be defined inline in templates
+2018-10-17 08:26:35,246 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:35,246 - Velocimacro : allowInlineToOverride = false : VMs defined inline may NOT replace previous VM definitions
+2018-10-17 08:26:35,246 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:35,246 - Velocimacro : allowInlineLocal = false : VMs defined inline will be  global in scope if allowed.
+2018-10-17 08:26:35,246 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:35,246 - Velocimacro : messages on  : VM system will output logging messages
+2018-10-17 08:26:35,246 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:35,246 - Velocimacro : autoload off  : VM system will not automatically reload global library macros
+2018-10-17 08:26:35,246 - Velocimacro : initialization complete.
+2018-10-17 08:26:35,246 - Velocimacro : initialization complete.
+2018-10-17 08:26:35,246 - Velocity successfully started.
+2018-10-17 08:26:35,246 - Velocity successfully started.
+2018-10-17 08:26:35,248 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,248 - ResourceManager : found page.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,248 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:35,248 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:35,249 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,249 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,250 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,250 - ResourceManager : found div.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,251 - ResourceManager : found img.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,251 - ResourceManager : found img.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,252 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:35,252 - RHS of #set statement is null. Context will not be modified. page.vm [line 9, column 8]
+2018-10-17 08:26:35,252 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
+2018-10-17 08:26:35,252 - ResourceManager : found script.vm with loader org.apache.velocity.runtime.resource.loader.FileResourceLoader
