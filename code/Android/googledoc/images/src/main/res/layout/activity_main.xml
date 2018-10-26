@@ -24,6 +24,12 @@
             android:layout_height="wrap_content"
             android:text="Bitmap学习" />
 
+        <Button
+            android:id="@+id/but_palette"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Palette-Builder" />
+
     </LinearLayout>
 
 </ScrollView>

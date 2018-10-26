@@ -13,7 +13,8 @@ import android.widget.ImageView;
 
 import com.as1124.images.R;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.GlideBuilder;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.apache.commons.io.IOUtils;
 
@@ -102,10 +103,14 @@ public class BitmapActivity extends Activity {
      * 用Glide提供的API进行图像处理
      */
     private void showByGlide() {
-        Glide.with(imageView).load(imgUrl).into(imageView);
+//        Glide.with(imageView).load(imgUrl).into(imageView);
 
         // 出现了OOM问题
-        Glide.with(this).load(getResources().getDrawable(R.drawable.test_glide)).into(imageView);
+//        Glide.with(this).load(getResources().getDrawable(R.drawable.test_glide)).thumbnail(0.3f).into(imageView);
+        RequestOptions requestOptions = new RequestOptions();
+        requestOptions.placeholder(R.drawable.ic_launcher_background).error(R.drawable.add_btn)
+                .centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL);
+        Glide.with(imageView).load(R.drawable.test_glide).apply(requestOptions).into(imageView);
     }
 
     @Override
