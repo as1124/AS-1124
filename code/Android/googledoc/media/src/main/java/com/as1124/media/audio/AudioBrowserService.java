@@ -17,9 +17,7 @@ public class AudioBrowserService extends MediaBrowserService {
     private static final String MY_MEDIA_ROOT_ID = "media_root_id";
     private static final String MY_EMPTY_MEDIA_ROOT_ID = "empty_root_id";
 
-    private MediaSession mediaSession;
-
-    private PlaybackState.Builder stateBuilder;
+    private static MediaSession mediaSession;
 
     public AudioBrowserService() {
     }
@@ -28,18 +26,22 @@ public class AudioBrowserService extends MediaBrowserService {
     public void onCreate() {
         super.onCreate();
 
-        // create a MediaSession
-        mediaSession = new MediaSession(this, "huangjw-audio-session");
+        if (mediaSession == null) {
+            // create a MediaSession
+            mediaSession = new MediaSession(this, "huangjw-audio-session");
+        }
 
         // Enable callbacks from MediaButtons and TransportControls
         mediaSession.setFlags(MediaSession.FLAG_HANDLES_MEDIA_BUTTONS | MediaSession.FLAG_HANDLES_TRANSPORT_CONTROLS);
-        stateBuilder = new PlaybackState.Builder()
+        PlaybackState.Builder stateBuilder = new PlaybackState.Builder()
                 .setActions(PlaybackState.ACTION_PLAY | PlaybackState.ACTION_PAUSE
-                        | PlaybackState.ACTION_PLAY_PAUSE);
-        mediaSession.setPlaybackState(stateBuilder.build());
+                        | PlaybackState.ACTION_PLAY_PAUSE | PlaybackState.ACTION_STOP);
+        PlaybackState playbackState = stateBuilder.build();
+        mediaSession.setPlaybackState(playbackState);
 
         // handel callbacks from the media controller
         mediaSession.setCallback(new AudioSessionCallback());
+        mediaSession.setActive(true);
 
         // set the session's token so that client activities can communicate with it
         setSessionToken(mediaSession.getSessionToken());
@@ -77,5 +79,15 @@ public class AudioBrowserService extends MediaBrowserService {
             // and put the children of that menu in the mediaItems list...
         }
         result.sendResult(mediaItems);
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mediaSession.release();
+    }
+
+    public static MediaSession getMediaSession() {
+        return mediaSession;
     }
 }
