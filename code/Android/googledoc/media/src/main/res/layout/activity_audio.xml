@@ -7,48 +7,21 @@
     tools:context=".audio.AudioActivity">
 
     <Button
-        android:id="@+id/but_audio_service"
+        android:id="@+id/but_to_media_notification"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="启动MediaService" />
+        android:text="MediaStyle样式的通知" />
 
     <Button
-        android:id="@+id/but_show_audio_notify"
+        android:id="@+id/but_to_foreground_music"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="show MediaStyle-Notification" />
+        android:text="只能前台播放的MusicPlayer" />
 
     <Button
-        android:id="@+id/but_media_browser"
+        android:id="@+id/but_to_background_music"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="创建并启用MediaBrowser" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <Button
-            android:id="@+id/but_audio_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="开始播放" />
-
-        <Button
-            android:id="@+id/but_audio_pause"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="暂停" />
-
-        <Button
-            android:id="@+id/but_audio_stop"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="停止" />
-    </LinearLayout>
+        android:text="类似于系统样子的MusicPlayer" />
 
 </LinearLayout>

@@ -10,11 +10,17 @@
         android:id="@+id/but_to_audio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Audio Session" />
+        android:text="音乐播放器" />
+
+    <Button
+        android:id="@+id/but_to_record"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="录音机" />
 
     <Button
         android:id="@+id/but_to_video"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Video Session" />
+        android:text="视频播放器" />
 </LinearLayout>
