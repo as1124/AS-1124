@@ -8,7 +8,6 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-
     <application
         android:allowBackup="true"
         android:hardwareAccelerated="true"
@@ -31,7 +30,8 @@
             android:name=".drawable.NinePatchActivity"
             android:hardwareAccelerated="false" />
         <activity android:name=".bitmap.BitmapActivity" />
-        <activity android:name=".bitmap.PaletteActivity"></activity>
+        <activity android:name=".bitmap.PaletteActivity" />
+        <activity android:name=".selector.PictureSelectorActivity"></activity>
     </application>
 
 </manifest>

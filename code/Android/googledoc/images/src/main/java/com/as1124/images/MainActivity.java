@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.as1124.images.bitmap.BitmapActivity;
 import com.as1124.images.bitmap.PaletteActivity;
 import com.as1124.images.drawable.DrawableActivity;
+import com.as1124.images.selector.PictureSelectorActivity;
 
 /**
  * 资源处理时一定要注意的就是OOM问题，不管是Drawable还是Bitmap都需要注意，
@@ -20,6 +21,7 @@ import com.as1124.images.drawable.DrawableActivity;
  * <li>drawable资源处理及展现，图片、自定义drawable绘制</li>
  * <li>Bitmap资源处理</li>
  * <li>Hardware acceleration 绘图，从app/activity/window/view四个层面可以控制</li>
+ * <li>实现了类似于微信选择图片的多选功能</li>
  * </ol>
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
@@ -43,6 +45,11 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.but_palette).setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, PaletteActivity.class);
+            startActivity(intent);
+        });
+
+        findViewById(R.id.but_to_select_image).setOnClickListener(v -> {
+            Intent intent = new Intent(getBaseContext(), PictureSelectorActivity.class);
             startActivity(intent);
         });
 

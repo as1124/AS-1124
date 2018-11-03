@@ -30,6 +30,11 @@
             android:layout_height="wrap_content"
             android:text="Palette-Builder" />
 
+        <Button
+            android:id="@+id/but_to_select_image"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="图片多选功能" />
     </LinearLayout>
 
 </ScrollView>

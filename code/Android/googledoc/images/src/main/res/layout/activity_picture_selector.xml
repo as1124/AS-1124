@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/pic_select_bg"
+    android:orientation="vertical"
+    tools:context=".selector.PictureSelectorActivity">
+
+    <LinearLayout
+        android:id="@+id/navigator_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="5dp">
+
+        <ImageView
+            android:id="@+id/but_image_back"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_marginLeft="15dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_normal" />
+
+        <TextView
+            android:id="@+id/textview_title"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="20dp"
+            android:text="图片和视频"
+            android:textColor="#ffffff"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/but_finish_select"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:text="发送" />
+
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/images_grid"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:numColumns="4"></GridView>
+
+    <LinearLayout
+        android:id="@+id/bottom_action_pane"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/my_border"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"></LinearLayout>
+</LinearLayout>
