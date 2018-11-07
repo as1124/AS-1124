@@ -1,8 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+    <style name="AppTheme" parent="android:Theme.Holo.Light.NoActionBar">
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="picture_selector_checkbox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/picture_selector_checkbox</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:gravity">center</item>
+        <item name="android:stretchMode">spacingWidth</item>
+    </style>
+
+    <style name="picture_selector_is_original" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/picture_selector_radio</item>
+    </style>
 </resources>

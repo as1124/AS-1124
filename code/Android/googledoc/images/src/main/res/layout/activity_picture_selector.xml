@@ -5,58 +5,86 @@
     android:layout_height="match_parent"
     android:background="@drawable/pic_select_bg"
     android:orientation="vertical"
-    tools:context=".selector.PictureSelectorActivity">
+    tools:context=".selector.ImageSelectorActivity">
 
-    <LinearLayout
-        android:id="@+id/navigator_bar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:paddingTop="5dp">
-
-        <ImageView
-            android:id="@+id/but_image_back"
-            android:layout_width="wrap_content"
-            android:layout_height="22dp"
-            android:layout_marginLeft="15dp"
-            android:adjustViewBounds="true"
-            android:scaleType="fitCenter"
-            android:src="@drawable/back_normal" />
-
-        <TextView
-            android:id="@+id/textview_title"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="20dp"
-            android:text="图片和视频"
-            android:textColor="#ffffff"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/but_finish_select"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:text="发送" />
-
-    </LinearLayout>
+    <include layout="@layout/navigation_bar" />
 
     <GridView
         android:id="@+id/images_grid"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:numColumns="4"></GridView>
+        android:background="#ffffff"
+        android:horizontalSpacing="@dimen/image_selector_padding"
+        android:numColumns="4"
+        android:padding="@dimen/image_selector_padding"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/image_selector_padding"></GridView>
 
     <LinearLayout
-        android:id="@+id/bottom_action_pane"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@drawable/my_border"
+        android:layout_height="55dp"
         android:gravity="center_vertical"
-        android:orientation="horizontal"></LinearLayout>
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:id="@+id/panel_folder"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textview_folder"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="20dp"
+                android:gravity="center"
+                android:text="@string/picture_selector_title"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/aoc" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <CheckBox
+                android:id="@+id/checkbox_is_original"
+                style="@style/picture_selector_is_original"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="原图"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/but_to_preview"
+            style="@style/picture_selector_is_original"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="@string/picture_selector_preview"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+    </LinearLayout>
 </LinearLayout>
