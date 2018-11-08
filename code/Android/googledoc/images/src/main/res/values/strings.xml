@@ -3,4 +3,5 @@
     <string name="picture_selector_title">图片和视频</string>
     <string name="picture_selector_preview">预览({0})</string>
     <string name="picture_selector_send">选择({0}/{1})</string>
+    <string name="picture_original">原图</string>
 </resources>

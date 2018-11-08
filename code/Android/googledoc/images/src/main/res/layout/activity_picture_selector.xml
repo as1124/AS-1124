@@ -68,11 +68,12 @@
                 android:gravity="center" />
 
             <TextView
+                android:id="@+id/textview_original"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="5dp"
                 android:gravity="center"
-                android:text="原图"
+                android:text="@string/picture_original"
                 android:textColor="#fff"
                 android:textSize="16sp" />
         </LinearLayout>

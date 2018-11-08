@@ -34,7 +34,7 @@ public class ImageViewPagerAdapter extends PagerAdapter {
 
         requestOptions = new RequestOptions().placeholder(R.drawable.mis_default_error)
                 .error(R.drawable.mis_default_error)
-                .centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL);
+                .fitCenter().diskCacheStrategy(DiskCacheStrategy.ALL);
     }
 
     @Override
@@ -55,6 +55,7 @@ public class ImageViewPagerAdapter extends PagerAdapter {
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         imageView.setLayoutParams(params);
         imageView.setAdjustViewBounds(true);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
         File imageFile = new File(contextReference.get().getAllPaths().get(position));
         Glide.with(container).load(imageFile).apply(requestOptions).into(imageView);
         // 不要调用 container.addView(imageView, position) 去处理起始位置不为0的情况，这样会产生
@@ -65,11 +66,6 @@ public class ImageViewPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
-        Log.i(getClass().getSimpleName(), "移除Item");
-        if (object instanceof ImageView) {
-            container.removeView((View) object);
-        } else {
-            container.removeViewAt(position);
-        }
+        container.removeView((View) object);
     }
 }

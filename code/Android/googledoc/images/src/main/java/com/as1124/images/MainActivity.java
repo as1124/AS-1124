@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
         });
 
         findViewById(R.id.but_to_select_image).setOnClickListener(
-                v -> ImageSelectorActivity.startForResult(this, 1122, true, false, 3));
+                v -> ImageSelectorActivity.startForResult(this, true, false, 3));
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -75,7 +75,7 @@ public class MainActivity extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (1122 == requestCode) {
+        if (ImageSelectorActivity.REQUEST_CODE == requestCode) {
             if (RESULT_OK == resultCode) {
                 String[] paths = data.getStringArrayExtra(ImageSelectorActivity.KEY_RESULT);
                 Log.i("IMAGE_SELECTOR", paths.toString());

@@ -13,9 +13,51 @@
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"></android.support.v4.view.ViewPager>
+        android:layout_weight="1"
+        android:background="#fff"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"></android.support.v4.view.ViewPager>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="55dp"></LinearLayout>
+        android:layout_height="55dp"
+        android:layout_gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:gravity="center">
+
+            <CheckBox
+                android:id="@+id/checkbox_is_original"
+                style="@style/picture_selector_is_original"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/textview_original"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:gravity="center"
+                android:text="@string/picture_original"
+                android:textColor="#fff"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <CheckBox
+            android:id="@+id/checkbox_preview_select"
+            style="@style/picture_selector_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginRight="20dp"
+            android:gravity="center"
+            android:text="选择"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+    </LinearLayout>
 </LinearLayout>

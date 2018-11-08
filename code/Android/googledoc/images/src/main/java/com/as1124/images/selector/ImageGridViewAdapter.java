@@ -44,21 +44,23 @@ public class ImageGridViewAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        View itemView = null;
+        View itemView;
         if (convertView == null) {
             itemView = LayoutInflater.from(getContext()).inflate(layout, parent, false);
         } else {
             itemView = convertView;
         }
+        itemView.setTag(position);
         ImageView itemPic = itemView.findViewById(R.id.image_selector_item);
         itemPic.setOnClickListener(activityReference.get());
-        String path = activityReference.get().getAllImages().get(position);
+        String path = getItem(position);
         Glide.with(getContext()).load(new File(path)).apply(requestOptions).into(itemPic);
-
         CheckBox itemCheck = itemView.findViewById(R.id.checkbox_selector_item);
+        itemCheck.setTag(position);
         itemCheck.setOnClickListener(activityReference.get());
+        itemView.findViewById(R.id.div_item_check).setOnClickListener(activityReference.get());
 
-        itemView.setTag(Integer.valueOf(position));
         return itemView;
     }
+
 }

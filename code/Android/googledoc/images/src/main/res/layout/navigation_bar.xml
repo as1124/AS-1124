@@ -6,15 +6,15 @@
     android:gravity="center_vertical"
     android:orientation="horizontal"
     android:paddingLeft="5dp"
-    android:paddingRight="5dp"
-    android:paddingTop="5dp">
+    android:paddingTop="5dp"
+    android:paddingRight="5dp">
 
     <ImageView
         android:id="@+id/but_image_back"
-        android:layout_width="wrap_content"
+        android:layout_width="42dp"
         android:layout_height="22dp"
         android:layout_marginLeft="15dp"
-        android:adjustViewBounds="true"
+        android:adjustViewBounds="false"
         android:scaleType="fitCenter"
         android:src="@drawable/back_normal" />
 
@@ -35,6 +35,7 @@
         android:layout_height="match_parent"
         android:gravity="center"
         android:text="@string/picture_selector_send"
-        android:textColor="#09bb07" />
+        android:textColor="#09bb07"
+        android:textSize="16sp" />
 
 </LinearLayout>

@@ -41,6 +41,7 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
     public static final String KEY_FOR_PREVIEW = "can_preview";
     public static final String KEY_FOR_NUMBER = "max_count";
     public static final String KEY_RESULT = "image_paths";
+    public static final int REQUEST_CODE = 1122;
 
     /**
      * 是否原图
@@ -59,23 +60,23 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
     private ArrayList<String> mAllImages = new ArrayList<>();
     private Set<String> mSelectedImages = new HashSet<>();
 
+    private GridView mGridView;
     private CheckBox mIsOriginalBut;
     private TextView mFinishSelectBut;
     private TextView mPreviewBut;
 
     /**
-     * @param from        提供Context的调用方
-     * @param requestCode 请求码
-     * @param canPreview  是否可以预览
-     * @param isOriginal  是否原图
-     * @param number      最大选择张数
+     * @param from       提供Context的调用方
+     * @param canPreview 是否可以预览
+     * @param isOriginal 是否原图
+     * @param number     最大选择张数
      */
-    public static void startForResult(Activity from, int requestCode, boolean canPreview, boolean isOriginal, int number) {
+    public static void startForResult(Activity from, boolean canPreview, boolean isOriginal, int number) {
         Intent intent = new Intent(from, ImageSelectorActivity.class);
         intent.putExtra(KEY_FOR_ORIGINAL, isOriginal);
         intent.putExtra(KEY_FOR_PREVIEW, canPreview);
         intent.putExtra(KEY_FOR_NUMBER, number);
-        from.startActivityForResult(intent, requestCode);
+        from.startActivityForResult(intent, REQUEST_CODE);
     }
 
     @Override
@@ -94,7 +95,7 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
             canPreview = postedIntent.getBooleanExtra(KEY_FOR_PREVIEW, false);
             maxCount = postedIntent.getIntExtra(KEY_FOR_NUMBER, 3);
         }
-        GridView mGridView = findViewById(R.id.images_grid);
+        mGridView = findViewById(R.id.images_grid);
         queryAlbums(this);
         ListAdapter adapter = new ImageGridViewAdapter(this, R.layout.item_picture_selector, mAllImages);
         mGridView.setAdapter(adapter);
@@ -106,6 +107,7 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
         mIsOriginalBut = findViewById(R.id.checkbox_is_original);
         mIsOriginalBut.setChecked(isOriginal);
         mIsOriginalBut.setOnClickListener(this);
+        findViewById(R.id.textview_original).setOnClickListener(this);
         mPreviewBut = findViewById(R.id.but_to_preview);
         if (isCanPreview()) {
             mPreviewBut.setOnClickListener(this);
@@ -156,7 +158,25 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
+        if (requestCode == ImagePreviewActivity.REQUEST_CODE) {
+            String[] paths = data.getStringArrayExtra(ImagePreviewActivity.KEY_RESULT);
+            if (resultCode == RESULT_OK) {
+                this.mSelectedImages.clear();
+                for (String path : paths) {
+                    this.mSelectedImages.add(path);
+                    int position = mAllImages.indexOf(path);
+                    View itemView = mGridView.getChildAt(position);
+                    CheckBox itemCheckbox = itemView.findViewById(R.id.checkbox_selector_item);
+                    itemCheckbox.setChecked(true);
+                }
+                updateInfoButtons();
+            } else if (resultCode == ImagePreviewActivity.RESULT_FINISH_ALL) {
+                Intent retIntent = new Intent();
+                retIntent.putExtra(KEY_RESULT, paths);
+                setResult(RESULT_OK, retIntent);
+                this.finish();
+            }
+        }
     }
 
     @Override
@@ -166,9 +186,8 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         this.setResult(RESULT_CANCELED);
-        this.finish();
+        super.onBackPressed();
     }
 
     /**
@@ -193,6 +212,12 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
             case R.id.image_selector_item:
                 handleImageClicked((ImageView) v);
                 break;
+            case R.id.div_item_check:
+                CheckBox itemCheck = v.findViewById(R.id.checkbox_selector_item);
+                itemCheck.setChecked(!itemCheck.isChecked());
+                handleCheckboxClicked(itemCheck);
+                updateInfoButtons();
+                break;
             case R.id.checkbox_selector_item:
                 handleCheckboxClicked((CheckBox) v);
                 updateInfoButtons();
@@ -212,10 +237,14 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
             case R.id.panel_folder:
                 //ATTENTION 切换folder功能
                 break;
+            case R.id.textview_original:
+                mIsOriginalBut.setChecked(!mIsOriginalBut.isChecked());
+                break;
             case R.id.checkbox_is_original:
                 this.isOriginal = mIsOriginalBut.isChecked();
                 break;
             case R.id.but_to_preview:
+                // ATTENTION 只预览选中的图
                 break;
             default:
                 break;
@@ -231,7 +260,7 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
         View parentView = (View) itemImage.getParent();
         Integer position = (Integer) parentView.getTag();
         if (isCanPreview()) {
-            ImagePreviewActivity.startForResult(this, 2233, this.mAllImages,
+            ImagePreviewActivity.startForResult(this, this.mAllImages,
                     this.mSelectedImages, this.maxCount, this.isOriginal, position);
         } else {
             // 不可预览的时候点击图片认为是选中操作
@@ -258,7 +287,7 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
      * @param itemCheckbox Item-View on GridView
      */
     private void handleCheckboxClicked(CheckBox itemCheckbox) {
-        Integer position = (Integer) ((View) itemCheckbox.getParent()).getTag();
+        Integer position = (Integer) itemCheckbox.getTag();
         String imgPath = getAllImages().get(position);
         if (itemCheckbox.isChecked()) {
             if (checkMaxCount()) {
