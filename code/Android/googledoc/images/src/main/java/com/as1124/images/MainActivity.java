@@ -14,7 +14,7 @@ import com.as1124.images.bitmap.BitmapActivity;
 import com.as1124.images.bitmap.PaletteActivity;
 import com.as1124.images.drawable.DrawableActivity;
 import com.as1124.images.selector.ImageSelectorActivity;
-import com.as1124.images.utils.WindowUtils;
+import com.as1124.selflib.WindowUtils;
 
 /**
  * 资源处理时一定要注意的就是OOM问题，不管是Drawable还是Bitmap都需要注意，

@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.graphics.Palette;
 import android.widget.ImageView;
@@ -56,7 +57,9 @@ public class PaletteActivity extends Activity {
             int backgroundColor = vibrantSwatch.getRgb();
             int textColor = vibrantSwatch.getTitleTextColor();
             toolbar.setBackgroundColor(backgroundColor);
-            toolbar.setTitleTextColor(textColor);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                toolbar.setTitleTextColor(textColor);
+            }
         }
     }
 }

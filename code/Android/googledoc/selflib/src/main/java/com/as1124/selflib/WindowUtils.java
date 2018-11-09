@@ -1,4 +1,4 @@
-package com.as1124.images.utils;
+package com.as1124.selflib;
 
 import android.app.Activity;
 import android.content.Context;

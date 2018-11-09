@@ -10,6 +10,11 @@ import android.webkit.WebViewClient;
 
 import com.as1124.images.R;
 
+/**
+ * Android 9切图的作用和场景
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class NinePatchActivity extends Activity {
 
     @Override

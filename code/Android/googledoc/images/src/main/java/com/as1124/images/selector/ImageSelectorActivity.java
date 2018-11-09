@@ -2,16 +2,11 @@ package com.as1124.images.selector;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.GridView;
@@ -21,7 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.as1124.images.R;
-import com.as1124.images.utils.WindowUtils;
+import com.as1124.selflib.MediaUtils;
+import com.as1124.selflib.WindowUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -126,33 +122,7 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
      * @param context 上下文
      */
     public void queryAlbums(Context context) {
-        ContentResolver resolver = context.getContentResolver();
-        Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DISPLAY_NAME,
-                MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
-                MediaStore.Images.Media.TITLE, MediaStore.Images.Media.DESCRIPTION};
-        Cursor cursor = resolver.query(uri, projection, null, null, null);
-        if (cursor != null) {
-            try {
-                int idIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
-                int dataIndex = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
-                int bucketNameIndex = cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME);
-                int size = cursor.getCount();
-                for (int i = 0; i < size; i++) {
-                    cursor.moveToPosition(i);
-                    long id = cursor.getLong(idIndex);
-                    String path = cursor.getString(dataIndex);
-                    // 文件夹名称
-                    String bucketName = cursor.getString(bucketNameIndex);
-                    Log.i("IMAGE-INFO", id + " = " + path + ", " + bucketName);
-                    if (!mAllImages.contains(path)) {
-                        mAllImages.add(path);
-                    }
-                }
-            } finally {
-                cursor.close();
-            }
-        }
+        this.mAllImages.addAll(MediaUtils.queryImages(context));
     }
 
     @Override

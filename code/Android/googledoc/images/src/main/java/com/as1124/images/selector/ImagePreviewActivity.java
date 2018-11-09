@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.as1124.images.R;
 import com.as1124.images.selector.transformer.ScaleTransformer;
-import com.as1124.images.utils.WindowUtils;
+import com.as1124.selflib.WindowUtils;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;

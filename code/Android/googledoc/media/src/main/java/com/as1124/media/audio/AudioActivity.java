@@ -9,10 +9,12 @@ import android.content.Intent;
 import android.media.browse.MediaBrowser;
 import android.media.session.MediaController;
 import android.media.session.MediaSession;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
 import com.as1124.media.R;
+import com.as1124.media.music.MusicPlayerActivity;
 
 /**
  * 音乐播放器设计模型为C/S形式
@@ -69,7 +71,7 @@ public class AudioActivity extends Activity {
             showMediaNotification();
         });
         findViewById(R.id.but_to_foreground_music).setOnClickListener(v -> {
-            Intent intent = new Intent(AudioActivity.this, ForegroundMusicActivity.class);
+            Intent intent = new Intent(AudioActivity.this, MusicPlayerActivity.class);
             startActivity(intent);
         });
         findViewById(R.id.but_to_background_music).setOnClickListener(v -> {
@@ -84,20 +86,22 @@ public class AudioActivity extends Activity {
     public void showMediaNotification() {
         // ATTENTION 没处理完
         Notification.Builder builder = new Notification.Builder(AudioActivity.this);
-        Intent intent = new Intent(AudioActivity.this, ForegroundMusicActivity.class);
+        Intent intent = new Intent(AudioActivity.this, MusicPlayerActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pIntent = PendingIntent.getActivity(getApplicationContext(), 111, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         builder.setContentTitle("AS-1124 Foreground Music Player")
                 .setContentText("正在播放你妹妹")
                 .setSubText("呵呵，SubText is a what ghost")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setVisibility(Notification.VISIBILITY_PUBLIC)
-                // Add a pause button
-                .addAction(new Notification.Action(R.drawable.audio_play, "播放", pIntent))
-                // Take advantage of MediaStyle features
-                .setStyle(new Notification.MediaStyle()
+                .setSmallIcon(R.mipmap.ic_launcher);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            builder.setVisibility(Notification.VISIBILITY_PUBLIC)
+                    // Add a pause button
+                    .addAction(new Notification.Action(R.drawable.audio_play, "播放", pIntent))
+                    // Take advantage of MediaStyle features
+                    .setStyle(new Notification.MediaStyle()
 //                        .setMediaSession(AudioBrowserService.getMediaSession().getSessionToken())
-                        .setShowActionsInCompactView(0));
+                            .setShowActionsInCompactView(0));
+        }
         NotificationManager manager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         manager.notify(1, builder.build());
     }
