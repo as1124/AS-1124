@@ -14,13 +14,15 @@ import com.as1124.images.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 
+/**
+ * 通过{@link Palette}调色板来实现导航栏、状态栏、actionBar背景色和Theme主色调保持一致的能力
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class PaletteActivity extends Activity {
 
     private Toolbar toolbar;
-
     private Palette.Swatch vibrantSwatch;
-
-    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class PaletteActivity extends Activity {
             actionBar.hide();
         }
 
-        imageView = findViewById(R.id.img_palette);
+        ImageView imageView = findViewById(R.id.img_palette);
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.myaaa);
         RequestManager requestManager = Glide.with(imageView);
         if (bitmap == null) {
@@ -46,9 +48,7 @@ public class PaletteActivity extends Activity {
         Palette palette = Palette.from(bitmap).generate();
         vibrantSwatch = palette.getVibrantSwatch();
 
-        findViewById(R.id.but_change_toolbar).setOnClickListener(v -> {
-            changeColor();
-        });
+        findViewById(R.id.but_change_toolbar).setOnClickListener(v -> changeColor());
     }
 
     private void changeColor() {

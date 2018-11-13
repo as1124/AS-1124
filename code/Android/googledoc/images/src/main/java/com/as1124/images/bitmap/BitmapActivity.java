@@ -23,12 +23,16 @@ import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
 
+/**
+ * 演示通过{@link BitmapFactory}和Glide加载网络图、应用内资源图的区别以及效率对比
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class BitmapActivity extends Activity {
 
     private static String imgUrl = "http://pic1.win4000.com/mobile/3/59a50c32d3f53.jpg";
 
     private ImageView imageView;
-
     private Bitmap bitmap = null;
 
     Handler loadHandler = new Handler() {
@@ -55,12 +59,8 @@ public class BitmapActivity extends Activity {
         }
 
         imageView = findViewById(R.id.img_bitmap);
-        findViewById(R.id.but_use_bitmap).setOnClickListener(v -> {
-            showByBitmap();
-        });
-        findViewById(R.id.but_use_glide).setOnClickListener(v -> {
-            showByGlide();
-        });
+        findViewById(R.id.but_use_bitmap).setOnClickListener(v -> showByBitmap());
+        findViewById(R.id.but_use_glide).setOnClickListener(v -> showByGlide());
     }
 
     /**
@@ -105,7 +105,7 @@ public class BitmapActivity extends Activity {
     private void showByGlide() {
 //        Glide.with(imageView).load(imgUrl).into(imageView);
 
-        // 出现了OOM问题
+        // 不设置Options直接加载会出现了OOM问题, 应用内的JPG图大小有1M多
 //        Glide.with(this).load(getResources().getDrawable(R.drawable.test_glide)).thumbnail(0.3f).into(imageView);
         RequestOptions requestOptions = new RequestOptions();
         requestOptions.placeholder(R.drawable.ic_launcher_background).error(R.drawable.add_btn)

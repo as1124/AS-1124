@@ -34,26 +34,20 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         WindowUtils.fullScreen(this);
 
-        findViewById(R.id.but_to_drawable).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, DrawableActivity.class);
-            startActivity(intent);
-        });
-
-        findViewById(R.id.but_to_bitmap).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, BitmapActivity.class);
-            startActivity(intent);
-        });
-
-        findViewById(R.id.but_palette).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, PaletteActivity.class);
-            startActivity(intent);
-        });
-
+        findViewById(R.id.but_to_drawable).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, DrawableActivity.class))
+        );
+        findViewById(R.id.but_to_bitmap).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, BitmapActivity.class))
+        );
+        findViewById(R.id.but_palette).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, PaletteActivity.class))
+        );
         findViewById(R.id.but_to_select_image).setOnClickListener(
-                v -> ImageSelectorActivity.startForResult(this, true, false, 3));
+                v -> ImageSelectorActivity.startForResult(this, true, false, 5)
+        );
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -78,7 +72,7 @@ public class MainActivity extends Activity {
         if (ImageSelectorActivity.REQUEST_CODE == requestCode) {
             if (RESULT_OK == resultCode) {
                 String[] paths = data.getStringArrayExtra(ImageSelectorActivity.KEY_RESULT);
-                Log.i("IMAGE_SELECTOR", paths.toString());
+                Log.i("IMAGE_SELECTOR", Integer.toString(paths.length));
             } else if (RESULT_CANCELED == resultCode) {
                 Toast.makeText(this, "用户取消了", Toast.LENGTH_SHORT).show();
             }

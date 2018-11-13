@@ -3,7 +3,6 @@ package com.as1124.images.drawable;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.TransitionDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Display;
@@ -14,6 +13,7 @@ import com.as1124.images.views.CustomerDrawable;
 
 /**
  * Android Drawable资源介绍
+ *
  * @author as-1124 (mailto:as1124huang@gmail.com)
  */
 public class DrawableActivity extends Activity {
@@ -45,7 +45,6 @@ public class DrawableActivity extends Activity {
         Display display = getWindowManager().getDefaultDisplay();
         DisplayMetrics metrics = new DisplayMetrics();
         display.getRealMetrics(metrics);
-        android.util.Log.i(getClass().getSimpleName(), "屏幕宽像素值==" + metrics.widthPixels);
     }
 
 }

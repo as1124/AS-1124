@@ -35,7 +35,6 @@ public class ImageGridViewAdapter extends ArrayAdapter<String> {
         super(context, resource, objects);
         layout = resource;
         activityReference = new WeakReference<>(context);
-
         requestOptions = new RequestOptions().placeholder(R.drawable.mis_default_error)
                 .error(R.drawable.mis_default_error)
                 .centerCrop().diskCacheStrategy(DiskCacheStrategy.ALL);

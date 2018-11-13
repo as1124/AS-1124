@@ -4,14 +4,17 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.CancellationSignal;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +30,12 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * 图片多选Activity
+ * 图片多选Activity, 包含了两种图片资源查询方式
+ * <ol>
+ * <li>通过基础的 {@link android.content.ContentResolver#query(Uri, String[], Bundle, CancellationSignal)},
+ * 功能完整,查询完成后释放{@link Cursor}, 系统图片资源库发生变化时当前APP不会收到通知</li>
+ * <li>通过 {@link Loader}实现，可以实现异步查询，查询完成后资源库变化能接收通知</li>
+ * </ol>
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
@@ -92,9 +100,19 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
             maxCount = postedIntent.getIntExtra(KEY_FOR_NUMBER, 3);
         }
         mGridView = findViewById(R.id.images_grid);
-        queryAlbums(this);
-        ListAdapter adapter = new ImageGridViewAdapter(this, R.layout.item_picture_selector, mAllImages);
-        mGridView.setAdapter(adapter);
+        {
+            // 通过正常ContentResolver实现的图片结果查询
+//            queryAlbums(this);
+//            ListAdapter adapter = new ImageGridViewAdapter(this, R.layout.item_picture_selector, mAllImages);
+//            mGridView.setAdapter(adapter);
+        }
+        {
+            // 通过Loader实现的图片结果查询
+            ImageGridViewAdapterWithLoader adapter = new ImageGridViewAdapterWithLoader(this, R.layout.item_picture_selector);
+            getLoaderManager().initLoader(ImageGridViewAdapterWithLoader.LOADER_ID, null, adapter);
+            mGridView.setAdapter(adapter);
+        }
+
 
         findViewById(R.id.but_image_back).setOnClickListener(this);
         mFinishSelectBut = findViewById(R.id.but_finish_select);
@@ -152,6 +170,7 @@ public class ImageSelectorActivity extends Activity implements View.OnClickListe
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        getLoaderManager().destroyLoader(ImageGridViewAdapterWithLoader.LOADER_ID);
     }
 
     @Override

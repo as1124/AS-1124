@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 
 /**
  * 自定义图形显示部件
+ *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class CustomerDrawable extends Drawable {
@@ -40,7 +41,6 @@ public class CustomerDrawable extends Drawable {
     @Override
     public void setColorFilter(ColorFilter colorFilter) {
         // This method is required
-
     }
 
     @Override

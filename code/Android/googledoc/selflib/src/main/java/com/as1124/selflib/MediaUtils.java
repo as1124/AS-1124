@@ -22,6 +22,10 @@ import java.util.List;
  */
 public class MediaUtils {
 
+    public static String[] IMAGE_PROJECTION = new String[]{MediaStore.Images.Media.DATA, MediaStore.Images.Media._ID,
+            MediaStore.Images.Media.DISPLAY_NAME, MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
+            MediaStore.Images.Media.TITLE, MediaStore.Images.Media.DESCRIPTION};
+
     /**
      * 查询文件存储存储中的图片
      *
@@ -31,10 +35,7 @@ public class MediaUtils {
         List<String> imagePaths = new ArrayList<>();
         ContentResolver resolver = context.getContentResolver();
         Uri uri = MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
-        String[] projection = new String[]{MediaStore.Images.Media._ID, MediaStore.Images.Media.DATA, MediaStore.Images.Media.DISPLAY_NAME,
-                MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME,
-                MediaStore.Images.Media.TITLE, MediaStore.Images.Media.DESCRIPTION};
-        Cursor cursor = resolver.query(uri, projection, null, null, null);
+        Cursor cursor = resolver.query(uri, IMAGE_PROJECTION, null, null, null);
         if (cursor != null) {
             try {
                 int idIndex = cursor.getColumnIndex(MediaStore.Images.Media._ID);
@@ -58,7 +59,6 @@ public class MediaUtils {
         }
         return imagePaths;
     }
-
 
     /**
      * 搜索本地存储卡上的音频文件
