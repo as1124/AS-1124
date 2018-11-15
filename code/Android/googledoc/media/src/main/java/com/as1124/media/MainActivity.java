@@ -11,29 +11,35 @@ import android.widget.Toast;
 
 import com.as1124.media.audio.AudioActivity;
 import com.as1124.media.video.VideoActivity;
+import com.as1124.selflib.MediaUtils;
+import com.as1124.selflib.WindowUtils;
 
+/**
+ * 多媒体处理，音频、视频的播放
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class MainActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        WindowUtils.fullScreen(this);
 
         // 音乐播放器
-        findViewById(R.id.but_to_audio).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, AudioActivity.class);
-            startActivity(intent);
-        });
+        findViewById(R.id.but_to_audio).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, AudioActivity.class))
+        );
 
         // 录音机
         findViewById(R.id.but_to_record).setOnClickListener(v -> {
         });
 
         // 视频播放器
-        findViewById(R.id.but_to_video).setOnClickListener(v -> {
-            Intent intent = new Intent(MainActivity.this, VideoActivity.class);
-            startActivity(intent);
-        });
+        findViewById(R.id.but_to_video).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, VideoActivity.class))
+        );
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
@@ -53,6 +59,5 @@ public class MainActivity extends Activity {
             }
         }
         Toast.makeText(this, "拒绝了权限申请", Toast.LENGTH_SHORT).show();
-
     }
 }

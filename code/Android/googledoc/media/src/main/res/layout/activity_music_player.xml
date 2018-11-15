@@ -11,13 +11,17 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:padding="10dp">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <ImageView
+            android:id="@+id/image_back"
+            android:layout_width="45dp"
+            android:layout_height="30dp"
             android:layout_alignParentStart="true"
-            android:text="返回" />
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/but_back" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -25,26 +29,77 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="歌单"
-            android:textColor="#fff"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
-        <Button
+        <ImageView
+            android:id="@+id/image_more"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="30dp"
             android:layout_alignParentEnd="true"
-            android:text="更多。。。" />
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/but_more" />
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignBottom="@id/music_action_bar">
+        android:layout_above="@id/play_control_bar"
+        android:layout_below="@id/music_action_bar">
 
-    </android.support.v7.widget.RecyclerView>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-    <RelativeLayout
+            <include layout="@layout/item_album_info" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/list_songs"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1">
+
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/play_control_bar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:layout_alignParentBottom="true"
-        android:background="#ff0000"></RelativeLayout>
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="XX音乐 让音乐充满生活"
+            android:textColor="#000"
+            android:textSize="18dp" />
+
+        <ImageView
+            android:id="@+id/image_play"
+            android:layout_width="wrap_content"
+            android:layout_height="45dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:src="@drawable/player_btn_play" />
+
+        <ImageView
+            android:id="@+id/image_playlist"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="5dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            android:src="@drawable/playlist_normal" />
+    </LinearLayout>
 </RelativeLayout>

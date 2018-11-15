@@ -16,12 +16,12 @@
         android:id="@+id/but_to_foreground_music"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="只能前台播放的MusicPlayer" />
+        android:text="音乐播放器" />
 
     <Button
         android:id="@+id/but_to_background_music"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="类似于系统样子的MusicPlayer" />
+        android:text="类似于系统样子可后台的MusicPlayer" />
 
 </LinearLayout>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:paddingLeft="10dp"
+    android:paddingTop="5dp"
+    android:paddingRight="10dp"
+    android:paddingBottom="5dp">
+
+    <TextView
+        android:id="@+id/text_song_index"
+        android:layout_width="50dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/text_song_name"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_toRightOf="@id/text_song_index"
+        android:gravity="center_horizontal"
+        android:text="看到付即可"
+        android:textAlignment="center"
+        android:textColor="#000"
+        android:textSize="20sp" />
+
+    <LinearLayout
+        android:id="@+id/div_song_quality"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:orientation="horizontal">
+        <!-- 多个歌曲描述图片 -->
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/text_song_singer"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_below="@id/text_song_name"
+        android:layout_toRightOf="@id/text_song_index"
+        android:text="士大夫艰苦大师傅"
+        android:textColor="#a9a9a9"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/image_more_control"
+        android:layout_width="40dp"
+        android:layout_height="34dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/but_more_gray" />
+
+    <ImageView
+        android:id="@+id/image_play_mv"
+        android:layout_width="30dp"
+        android:layout_height="24dp"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@id/image_more_control"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/mv" />
+
+</RelativeLayout>

@@ -2,15 +2,16 @@ package com.as1124.selflib;
 
 import android.annotation.TargetApi;
 import android.content.ContentResolver;
-import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.media.MediaDescription;
 import android.media.browse.MediaBrowser;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,17 +84,21 @@ public class MediaUtils {
                 for (int i = 0; i < size; i++) {
                     cursor.moveToPosition(i);
                     long itemID = cursor.getLong(idColumn);
-                    Uri itemURI = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, itemID);
+//                    Uri itemURI = ContentUris.withAppendedId(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI, itemID);
                     String itemTitle = cursor.getString(titleColumn);
                     String artist = cursor.getString(artistColumn);
                     String album = cursor.getString(albumColumn);
                     int isMusic = cursor.getInt(audioTypeColumn);
+                    Bundle extras = new Bundle();
+                    extras.putString(MediaStore.Audio.Media.ALBUM, album);
+                    extras.putString(MediaStore.Audio.Media.ARTIST, artist);
                     if (isMusic == 1) {
-                        builder.setTitle(itemTitle)
+                        builder.setMediaId(Long.toString(itemID))
+                                .setTitle(itemTitle)
                                 .setDescription(artist + "-" + album)
-                                .setMediaId(Long.toString(itemID));
 //                            .setMediaUri(itemURI)
-//                            .setIconUri();
+//                            .setIconUri()
+                                .setExtras(extras);
                         MediaBrowser.MediaItem item = new MediaBrowser.MediaItem(builder.build(), MediaBrowser.MediaItem.FLAG_PLAYABLE);
                         items.add(item);
                     }
@@ -103,6 +108,7 @@ public class MediaUtils {
             }
         } else {
             // query failed, handle error
+            Toast.makeText(context, "该手机上无音频资源", Toast.LENGTH_SHORT).show();
         }
         return items;
     }

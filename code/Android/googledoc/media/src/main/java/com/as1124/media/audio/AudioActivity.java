@@ -67,17 +67,13 @@ public class AudioActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_audio);
 
-        findViewById(R.id.but_to_media_notification).setOnClickListener(v -> {
-            showMediaNotification();
-        });
-        findViewById(R.id.but_to_foreground_music).setOnClickListener(v -> {
-            Intent intent = new Intent(AudioActivity.this, MusicPlayerActivity.class);
-            startActivity(intent);
-        });
-        findViewById(R.id.but_to_background_music).setOnClickListener(v -> {
-            Intent intent = new Intent(AudioActivity.this, BackgroundMusicActivity.class);
-            startActivity(intent);
-        });
+        findViewById(R.id.but_to_media_notification).setOnClickListener(v -> showMediaNotification());
+        findViewById(R.id.but_to_foreground_music).setOnClickListener(v ->
+                startActivity(new Intent(AudioActivity.this, MusicPlayerActivity.class))
+        );
+        findViewById(R.id.but_to_background_music).setOnClickListener(v ->
+                startActivity(new Intent(AudioActivity.this, BackgroundMusicActivity.class))
+        );
     }
 
     /**
