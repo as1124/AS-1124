@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/but_list_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="获取传感器列表" />
+
+    <Button
+        android:id="@+id/but_light_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试光照传感器" />
+
+    <Button
+        android:id="@+id/but_motion_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Motion Sensors"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/but_position_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Position Sensors"
+        android:textAllCaps="false" />
+
+    <Button
+        android:id="@+id/but_environmental_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Environmental Sensors"
+        android:textAllCaps="false" />
+
+</LinearLayout>

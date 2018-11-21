@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".motion.MotionSensorActivity">
+
+    <Button
+        android:id="@+id/but_gravity_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="重力传感器" />
+
+    <Button
+        android:id="@+id/but_fingerprint_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="指纹传感器" />
+
+    <Button
+        android:id="@+id/but_step_counter_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="计步器" />
+
+    <Button
+        android:id="@+id/but_step_detect_sensor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="计步检测器" />
+</LinearLayout>

@@ -20,14 +20,33 @@
 
 
     <Button
+        android:id="@+id/but_media_scanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="调用系统相机" />
+        android:text="保存照片并被Media_Scanner发现" />
+
+    <Button
+        android:id="@+id/but_scale_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Decode a scaled image" />
+
+    <Button
+        android:id="@+id/but_to_selfcamera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自建Camera应用" />
+
+    <Button
+        android:id="@+id/but_to_selfvideo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自建Video-Capture应用" />
 
     <ImageView
         android:id="@+id/image_camera"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
         android:adjustViewBounds="true" />
 
 
