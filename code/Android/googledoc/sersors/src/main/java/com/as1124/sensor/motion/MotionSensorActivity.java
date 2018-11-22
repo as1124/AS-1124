@@ -16,7 +16,12 @@ import com.as1124.sensor.R;
 import java.text.MessageFormat;
 
 /**
- * 运动传感器示例
+ * 运动传感器示例，主要有
+ * <ul>
+ *     <li>重力传感器</li>
+ *     <li>计步器</li>
+ *     <li>步数移动传感器</li>
+ * </ul>
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */

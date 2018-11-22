@@ -11,7 +11,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.as1124.selflib.WindowUtils;
+import com.as1124.sensor.environment.EnvirSensorActivity;
 import com.as1124.sensor.motion.MotionSensorActivity;
+import com.as1124.sensor.position.PositionSensorActivity;
 
 import java.util.List;
 
@@ -59,12 +61,10 @@ public class MainActivity extends Activity implements SensorEventListener {
         });
         findViewById(R.id.but_motion_sensor).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, MotionSensorActivity.class)));
-        findViewById(R.id.but_position_sensor).setOnClickListener(v -> {
-
-        });
-        findViewById(R.id.but_environmental_sensor).setOnClickListener(v -> {
-
-        });
+        findViewById(R.id.but_position_sensor).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, PositionSensorActivity.class)));
+        findViewById(R.id.but_environmental_sensor).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, EnvirSensorActivity.class)));
     }
 
     @Override

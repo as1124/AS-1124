@@ -116,9 +116,9 @@ public class SelfVideoActivity extends Activity implements SurfaceHolder.Callbac
             mediaRecorder = new MediaRecorder();
             mCamera.unlock();
             mediaRecorder.setCamera(mCamera);
-            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+            mediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
             mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
-//            mediaRecorder.setProfile(CamcorderProfile.get(cameraID, CamcorderProfile.QUALITY_720P));
+            mediaRecorder.setProfile(CamcorderProfile.get(cameraID, CamcorderProfile.QUALITY_HIGH));
             mediaRecorder.setOutputFile(outputFile.getAbsolutePath());
             mediaRecorder.setPreviewDisplay(mHolder.getSurface());
             try {
