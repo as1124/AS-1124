@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.as1124.touch_input">
+    package="com.as1124.ui">
+
+    <uses-permission android:name="com.primeton.mobile.client.SECURE_CALL" />
+
+    <uses-permission android:name="android.permission.BROADCAST_STICKY" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -16,8 +21,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".gesture.GestureActivity" />
-        <activity android:name=".gesture.SelfScrollableActivity"></activity>
+        <activity android:name=".layout.CardViewActivity" />
+
+        <receiver
+            android:name=".MyReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.as1124.huangjw.XiaoXianNv" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

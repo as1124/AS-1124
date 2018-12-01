@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".gesture.GestureActivity">
+
+    <TextView
+        android:id="@+id/text_test_gesture"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#00ff00"
+        android:gravity="center_vertical"
+        android:text="Hello World!" />
+
+    <EditText
+        android:id="@+id/text_test_pointer"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:background="#ffff00"
+        android:gravity="center_vertical"
+        android:text="Hello Pointer Capture!" />
+
+    <Button
+        android:id="@+id/but_self_gesture_detector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="自定义手势检测" />
+
+    <Button
+        android:id="@+id/but_pointer_capture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Request Pointer Capture" />
+
+    <Button
+        android:id="@+id/but_scroll_gesture"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="实现滚动条动效" />
+
+    <Button
+        android:id="@+id/but_multi_touch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="多点触控" />
+
+</LinearLayout>

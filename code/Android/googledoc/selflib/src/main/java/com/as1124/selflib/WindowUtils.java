@@ -102,4 +102,14 @@ public class WindowUtils {
         }
     }
 
+    /**
+     * ATTENTION 沉浸式状态栏下设置Light_status_bar的话就变得不是沉浸式状态栏了
+     *
+     * @param activity
+     */
+    public static void lightStatusBar(Activity activity) {
+        View contentView = activity.getWindow().getDecorView();
+        contentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+    }
+
 }

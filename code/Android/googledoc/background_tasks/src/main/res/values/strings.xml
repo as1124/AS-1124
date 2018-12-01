@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">BackgroundTasks</string>
+    <string name="app_description">Android后台任务管理, 包括Service/Broadcast Receiver</string>
+</resources>
