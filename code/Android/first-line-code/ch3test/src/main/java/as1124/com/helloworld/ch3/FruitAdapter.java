@@ -70,7 +70,7 @@ public class FruitAdapter extends ArrayAdapter<FruitItem> {
     }
 
     class ViewHolder {
-        ImageView img;
-        TextView fruitName;
+        public ImageView img;
+        public TextView fruitName;
     }
 }
