@@ -1,54 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".service.ServiceMainActivity">
 
     <Button
-        android:id="@+id/but_to_multitask"
-        android:layout_width="match_parent"
+        android:id="@+id/but_to_normal_service"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="多Thread/Task管理"
+        android:text="普通Service使用"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/but_to_scheduler"
+        android:id="@+id/but_to_intent_service"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="定时任务"
+        android:text="IntentService使用"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_to_multitask" />
+        app:layout_constraintTop_toBottomOf="@id/but_to_normal_service" />
 
     <Button
-        android:id="@+id/but_to_service"
+        android:id="@+id/but_job_intent_service"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Service"
+        android:text="V4中JobIntentService"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/but_to_scheduler" />
+        app:layout_constraintTop_toBottomOf="@id/but_to_intent_service" />
 
     <Button
-        android:id="@+id/but_to_receiver"
+        android:id="@+id/but_to_stop_service"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="BroadcastReceiver"
+        android:text="停止Service"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_to_service" />
+        app:layout_constraintTop_toBottomOf="@id/but_job_intent_service" />
+
+    <Button
+        android:id="@+id/but_bind_service"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="绑定服务"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/but_to_stop_service" />
 </android.support.constraint.ConstraintLayout>

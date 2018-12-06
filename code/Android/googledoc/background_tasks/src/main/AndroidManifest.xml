@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BIND_JOB_SERVICE" />
 
     <application
         android:allowBackup="false"
@@ -21,7 +22,22 @@
             </intent-filter>
         </activity>
         <activity android:name=".threadpool.MultiThreadActivity" />
-        <activity android:name=".schedule.SchedulerActivity"></activity>
+        <activity android:name=".schedule.SchedulerActivity" />
+        <activity android:name=".service.ServiceMainActivity" />
+        <activity android:name=".broadcast.BroadcastManiActivity" />
+
+        <service
+            android:name=".service.As1124IntentService"
+            android:exported="false" />
+        <service
+            android:name=".service.As1124NormalService"
+            android:enabled="true"
+            android:exported="false" />
+        <service
+            android:name=".service.As1124JobIntentService"
+            android:exported="false"
+            android:permission="android.permission.BIND_JOB_SERVICE" />
+
     </application>
 
 </manifest>
