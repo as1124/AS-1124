@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">APP Permission</string>
+    <string name="permission_group_label">As-1124 权限组</string>
+    <string name="permission_group_desc">自定义权限组Description</string>
+    <string name="self_permission_label">自定义Permission</string>
+    <string name="self_permission_desc">自定义保护级别Dangerous的权限</string>
+</resources>
