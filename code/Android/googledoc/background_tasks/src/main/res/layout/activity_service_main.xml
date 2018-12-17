@@ -50,8 +50,26 @@
         android:id="@+id/but_bind_service"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="绑定服务"
+        android:text="IBinder绑定服务通信"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/but_to_stop_service" />
+
+    <Button
+        android:id="@+id/but_unbind_service"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="取消绑定服务"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/but_bind_service" />
+
+    <Button
+        android:id="@+id/but_bind_messenger"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Messenger绑定服务通信"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/but_unbind_service" />
 </android.support.constraint.ConstraintLayout>

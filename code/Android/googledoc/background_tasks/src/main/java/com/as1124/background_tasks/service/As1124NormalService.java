@@ -13,7 +13,10 @@ import android.os.IBinder;
  */
 public class As1124NormalService extends Service {
 
+    private As1124NormalServiceBinder binder;
+
     public As1124NormalService() {
+        binder = new As1124NormalServiceBinder(this);
     }
 
     @Override
@@ -24,18 +27,20 @@ public class As1124NormalService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         String action = intent.getAction();
-
-
         return Service.START_STICKY;
     }
 
     @Override
     public IBinder onBind(Intent intent) {
-        return null;
+        return this.binder;
     }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
+    }
+
+    public String tellMeWhy() {
+        return "此情无计可消除, 月上西楼, 望断天涯路";
     }
 }

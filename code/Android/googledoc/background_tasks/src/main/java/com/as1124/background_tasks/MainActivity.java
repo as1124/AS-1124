@@ -2,6 +2,7 @@ package com.as1124.background_tasks;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import com.as1124.background_tasks.broadcast.BroadcastManiActivity;
@@ -38,5 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
         findViewById(R.id.but_to_receiver).setOnClickListener(v ->
                 startActivity(new Intent(getBaseContext(), BroadcastManiActivity.class)));
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }
