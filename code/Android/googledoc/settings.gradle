@@ -1,1 +1,2 @@
-include ':connectivity', ':images', ':media', ':selflib', ':appdata', ':camera', ':sersors', ':touch_input', ':user_interface', ':background_tasks', ':app_permissions'
+include ':connectivity', ':images', ':media', ':selflib', ':appdata', ':camera', ':sersors', ':touch_input', ':user_interface', ':architecture',
+        ':background_tasks', ':app_manifest', ':app_permissions'
