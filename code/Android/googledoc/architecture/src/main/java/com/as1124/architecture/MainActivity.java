@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.as1124.architecture.binding.DataBindingActivity;
+import com.as1124.architecture.lifecycle.LifeAwareActivity;
 
 /**
  * Android Architecture Component, Jet-Pack相关的内容
@@ -20,5 +21,8 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.but_to_binding).setOnClickListener(
                 v -> startActivity(new Intent(getBaseContext(), DataBindingActivity.class)));
+
+        findViewById(R.id.but_to_lifecycle).setOnClickListener(
+                v -> startActivity(new Intent(getBaseContext(), LifeAwareActivity.class)));
     }
 }
