@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+
+    <Button
+        android:id="@+id/but_to_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Intent处理Activity" />
+
+    <Button
+        android:id="@+id/but_to_broadcast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Intent处理Broadcast" />
+
+    <Button
+        android:id="@+id/but_to_service"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Intent处理Service" />
+
+    <Button
+        android:id="@+id/but_to_system_intent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="系统常用Intent" />
+</LinearLayout>

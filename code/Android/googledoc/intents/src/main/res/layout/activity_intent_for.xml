@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.IntentForActivity">
+
+    <Button
+        android:id="@+id/but_start_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="startActivity" />
+
+    <Button
+        android:id="@+id/but_start_resutl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="startActivityForResult" />
+
+    <Button
+        android:id="@+id/but_implicit_intent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="隐式Intent调用" />
+
+    <Button
+        android:id="@+id/but_background_explicit_activity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="前台/后台定时显式启动Activity" />
+
+    <Button
+        android:id="@+id/but_background_implicit_intent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="前台/后台定时隐式启动Activity" />
+
+</LinearLayout>
