@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.view.Window;
 
 import com.as1124.ui.R;
 
@@ -24,7 +26,16 @@ public class RecyclerViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recycler_view);
 
+        Window window = getWindow();
+        window.setStatusBarColor(getResources().getColor(R.color.colorAccent));
+        View decorRoot = window.getDecorView();
+        decorRoot.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_IMMERSIVE);
+
         mEmailList = findViewById(R.id.recyclerview_like_gmail);
+
+        // use this setting to improve performance if you know that changes in content
+        // do not change the layout size of the RecyclerView
+        mEmailList.setHasFixedSize(true);
         mEmailList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mEmailList.setAdapter(new EMailRecyclerListAdapter(getEMails()));
     }

@@ -8,38 +8,38 @@
 
 
     <Button
-        android:id="@+id/but_to_recyclerview"
+        android:id="@+id/but_to_layout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="RecyclerView 的使用"
+        android:text="认识布局管理器"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/but_to_cardview"
+        android:id="@+id/but_to_material"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="CardView 的使用"
+        android:text="认识Material-Design"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_to_recyclerview" />
+        app:layout_constraintTop_toBottomOf="@+id/but_to_layout" />
 
     <Button
-        android:id="@+id/but_test_activity"
+        android:id="@+id/but_to_notification"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="测试Activity的安全使用"
+        android:text="Notification"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_to_cardview" />
+        app:layout_constraintTop_toBottomOf="@+id/but_to_material" />
 </android.support.constraint.ConstraintLayout>

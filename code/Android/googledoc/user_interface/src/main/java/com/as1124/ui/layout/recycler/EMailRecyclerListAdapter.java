@@ -30,7 +30,8 @@ public class EMailRecyclerListAdapter extends RecyclerView.Adapter<EMailRecycler
     @Override
     public void onBindViewHolder(@NonNull EMailItemHolder viewHolder, int i) {
         EMailModel modelSource = itemArray.get(i);
-//        viewHolder.contactIcon.setImageBitmap();
+
+//        Glide.with(viewHolder.itemView.getContext()).load(R.drawable.x2).into(viewHolder.contactIcon);
         viewHolder.senderText.setText(modelSource.getFrom());
         viewHolder.topicText.setText(modelSource.getTopic());
         viewHolder.summaryText.setText(modelSource.getSummary());
