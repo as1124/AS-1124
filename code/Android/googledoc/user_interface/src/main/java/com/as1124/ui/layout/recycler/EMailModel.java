@@ -1,5 +1,10 @@
 package com.as1124.ui.layout.recycler;
 
+/**
+ * 模型对象
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class EMailModel {
 
     private String topic;

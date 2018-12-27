@@ -78,7 +78,5 @@ public class MyDividerItemDecoration extends RecyclerView.ItemDecoration {
         } else if (mOrientation == LinearLayoutManager.HORIZONTAL) {
             outRect.set(0, 0, 0, mDivider.getIntrinsicWidth());
         }
-
-//        super.getItemOffsets(outRect, view, parent, state);
     }
 }

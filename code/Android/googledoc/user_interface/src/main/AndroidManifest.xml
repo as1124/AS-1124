@@ -19,11 +19,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".layout.CardViewActivity" />
+
         <activity android:name=".layout.LayoutTopicActivity" />
         <activity android:name=".material.MaterialTopicActivity" />
         <activity android:name=".nc.NotificationTopicActivity" />
-        <activity android:name=".layout.recycler.RecyclerViewActivity"></activity>
+        <activity android:name=".layout.cardview.CardViewActivity" />
+        <activity
+            android:name=".layout.recycler.RecyclerViewActivity"
+            android:exported="true"></activity>
     </application>
 
 </manifest>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp">
+    android:layout_height="80dp"
+    android:padding="5dp">
 
     <ImageView
         android:id="@+id/image_email_contact"
@@ -9,18 +10,20 @@
         android:layout_height="50dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="15dp"
         android:adjustViewBounds="true"
         android:scaleType="fitCenter" />
 
     <TextView
         android:id="@+id/text_email_sender"
         android:layout_width="wrap_content"
-        android:layout_height="40dp"
+        android:layout_height="30dp"
         android:layout_toLeftOf="@id/text_email_date"
         android:layout_toRightOf="@id/image_email_contact"
         android:gravity="center_vertical"
-        android:textColor="#000000" />
+        android:textColor="#000000"
+        android:textSize="16dp" />
 
     <TextView
         android:id="@+id/text_email_topic"
@@ -30,7 +33,7 @@
         android:layout_toLeftOf="@id/text_email_date"
         android:layout_toRightOf="@id/image_email_contact"
         android:ellipsize="end"
-        android:gravity="center_vertical"
+        android:gravity="left|center_vertical"
         android:maxLines="1"
         android:textColor="#868686" />
 
@@ -39,10 +42,11 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_below="@+id/text_email_topic"
-        android:layout_toLeftOf="@id/text_email_date"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_toRightOf="@id/image_email_contact"
         android:ellipsize="end"
-        android:gravity="center_vertical"
+        android:gravity="left|center_vertical"
         android:maxLines="1"
         android:textColor="#868686" />
 
@@ -52,8 +56,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginRight="5dp"
         android:textColor="#868686" />
 </RelativeLayout>

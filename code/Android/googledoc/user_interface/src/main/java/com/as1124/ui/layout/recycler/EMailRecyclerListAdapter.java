@@ -9,9 +9,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.as1124.ui.R;
+import com.bumptech.glide.Glide;
 
 import java.util.List;
 
+/**
+ * 数据处理Adapter
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class EMailRecyclerListAdapter extends RecyclerView.Adapter<EMailRecyclerListAdapter.EMailItemHolder> {
 
     private List<EMailModel> itemArray = null;
@@ -31,7 +37,32 @@ public class EMailRecyclerListAdapter extends RecyclerView.Adapter<EMailRecycler
     public void onBindViewHolder(@NonNull EMailItemHolder viewHolder, int i) {
         EMailModel modelSource = itemArray.get(i);
 
-//        Glide.with(viewHolder.itemView.getContext()).load(R.drawable.x2).into(viewHolder.contactIcon);
+        int resourceID = 0;
+        switch (i % 7) {
+            case 0:
+                resourceID = R.drawable.x1;
+                break;
+            case 1:
+                resourceID = R.drawable.x2;
+                break;
+            case 2:
+                resourceID = R.drawable.x3;
+                break;
+            case 3:
+                resourceID = R.drawable.x4;
+                break;
+            case 4:
+                resourceID = R.drawable.x5;
+                break;
+            case 5:
+                resourceID = R.drawable.x6;
+                break;
+            case 6:
+            default:
+                resourceID = R.drawable.x7;
+                break;
+        }
+        Glide.with(viewHolder.itemView.getContext()).load(resourceID).into(viewHolder.contactIcon);
         viewHolder.senderText.setText(modelSource.getFrom());
         viewHolder.topicText.setText(modelSource.getTopic());
         viewHolder.summaryText.setText(modelSource.getSummary());
