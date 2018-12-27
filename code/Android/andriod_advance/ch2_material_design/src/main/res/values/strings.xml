@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">Material-Design</string>
+    <string name="field_account">账号：</string>
+    <string name="field_auth_code">密钥：</string>
+    <string name="account_hint">请输入注册邮箱/手机号</string>
+    <string name="auth_code_hint">请输入验证码</string>
 </resources>
