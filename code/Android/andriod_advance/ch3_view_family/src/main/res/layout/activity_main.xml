@@ -6,7 +6,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <Button
         android:id="@+id/but_to_coordinate"
         android:layout_width="match_parent"
@@ -14,8 +13,20 @@
         android:text="View坐标系" />
 
     <Button
-        android:id="@+id/but_to_scroll"
+        android:id="@+id/but_to_move"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="View滑动" />
+
+    <Button
+        android:id="@+id/but_to_animation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="属性动画" />
+
+    <Button
+        android:id="@+id/but_to_scroller"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="解析Scroller" />
 </LinearLayout>

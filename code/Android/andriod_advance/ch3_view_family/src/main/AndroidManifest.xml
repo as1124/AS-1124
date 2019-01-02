@@ -19,7 +19,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".axis.ViewCoordinateActivity" />
-        <activity android:name=".scroll.ViewScrollActivity"></activity>
+        <activity android:name=".move.ViewMovementActivity" />
+        <activity android:name=".anim.AnimationActivity" />
+        <activity android:name=".scroller.ScrollerActivity"></activity>
     </application>
 
 </manifest>

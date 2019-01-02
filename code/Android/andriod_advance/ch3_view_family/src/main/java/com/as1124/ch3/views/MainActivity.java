@@ -7,8 +7,10 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
+import com.as1124.ch3.views.anim.AnimationActivity;
 import com.as1124.ch3.views.axis.ViewCoordinateActivity;
-import com.as1124.ch3.views.scroll.ViewScrollActivity;
+import com.as1124.ch3.views.move.ViewMovementActivity;
+import com.as1124.ch3.views.scroller.ScrollerActivity;
 
 public class MainActivity extends Activity {
 
@@ -24,8 +26,12 @@ public class MainActivity extends Activity {
 //            this.finish();
         });
 
-        findViewById(R.id.but_to_scroll).setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, ViewScrollActivity.class)));
+        findViewById(R.id.but_to_move).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, ViewMovementActivity.class)));
+        findViewById(R.id.but_to_animation).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, AnimationActivity.class)));
+        findViewById(R.id.but_to_scroller).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, ScrollerActivity.class)));
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
