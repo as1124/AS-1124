@@ -16,7 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".textinput.LoginActivity"></activity>
+        <activity android:name=".textinput.LoginActivity" />
+        <activity android:name=".FloatingButtonActivity" />
+        <activity android:name=".tab.TabLayoutActivity"></activity>
     </application>
 
 </manifest>

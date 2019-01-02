@@ -99,4 +99,11 @@
                 android:maxLines="1" />
         </android.support.design.widget.TextInputLayout>
     </RelativeLayout>
+
+    <Button
+        android:id="@+id/but_login_account"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:text="Login" />
 </LinearLayout>

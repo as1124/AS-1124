@@ -7,8 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
+import com.as1124.ch2_material.tab.TabLayoutActivity;
 import com.as1124.ch2_material.textinput.LoginActivity;
 
+/**
+ * Material Design Support控件苦的使用
+ * <ol>
+ * <li>{@link Snackbar}</li>
+ * <li>{@link android.support.design.widget.TextInputLayout}</li>
+ * </ol>
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class MainActivity extends AppCompatActivity {
 
 
@@ -18,7 +29,12 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.but_snackbar).setOnClickListener(v -> snackbarUsage());
-        findViewById(R.id.but_to_login).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, LoginActivity.class)));
+        findViewById(R.id.but_to_login).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, LoginActivity.class)));
+        findViewById(R.id.but_to_floating).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, FloatingButtonActivity.class)));
+        findViewById(R.id.but_to_tablayout).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, TabLayoutActivity.class)));
 
     }
 
