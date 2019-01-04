@@ -9,7 +9,7 @@ import android.widget.CalendarView;
 import android.widget.Toast;
 
 /**
- * 网页JavaScript和原生方法交互接口
+ * 网页JavaScript调用原生端方法接口
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
@@ -22,9 +22,10 @@ public class WebviewScriptBridge {
     }
 
     @JavascriptInterface
-    public void executeAndroid(String args) {
+    public String executeAndroid(String args) {
         Toast.makeText(mContext, "哈哈哈, 我是Android", Toast.LENGTH_SHORT).show();
         showDialog();
+        return "client return success!";
     }
 
 

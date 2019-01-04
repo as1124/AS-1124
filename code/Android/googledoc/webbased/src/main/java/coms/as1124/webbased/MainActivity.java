@@ -2,18 +2,23 @@ package coms.as1124.webbased;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.webkit.GeolocationPermissions;
+import android.webkit.JsPromptResult;
+import android.webkit.JsResult;
 import android.webkit.PermissionRequest;
 import android.webkit.RenderProcessGoneDetail;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
+
+import java.lang.ref.WeakReference;
 
 /**
  * WebView功能使用
@@ -41,7 +46,10 @@ public class MainActivity extends Activity {
         mWebview = findViewById(R.id.webview);
         if (Build.VERSION.SDK_INT >= 26) {
             PackageInfo packageInfo = WebView.getCurrentWebViewPackage();
-            Toast.makeText(this, "当前WebView内核信息：" + packageInfo.packageName + ", V-" + packageInfo.versionName, Toast.LENGTH_LONG).show();
+            if (packageInfo != null) {
+                Toast.makeText(this, "当前WebView内核信息：" + packageInfo.packageName + ", V-" + packageInfo.versionName,
+                        Toast.LENGTH_LONG).show();
+            }
         }
 
         String defaultAgent = WebSettings.getDefaultUserAgent(this);
@@ -50,35 +58,25 @@ public class MainActivity extends Activity {
         webviewSettings.setJavaScriptEnabled(true);
         webviewSettings.setDomStorageEnabled(true);
         webviewSettings.setAllowContentAccess(true);
+        webviewSettings.setGeolocationEnabled(true);
+        webviewSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         if (Build.VERSION.SDK_INT >= 26) {
             webviewSettings.setSafeBrowsingEnabled(false);
         }
         mWebview.addJavascriptInterface(new WebviewScriptBridge(this), "as1124");
         mWebview.setWebViewClient(new As1124WebviewClient(this, mWebview));
-        mWebview.setWebChromeClient(new WebChromeClient() {
-            @Override
-            public void onPermissionRequest(PermissionRequest request) {
-                super.onPermissionRequest(request);
-                Toast.makeText(MainActivity.this, "【网页】onPermissionRequest", Toast.LENGTH_SHORT).show();
-            }
+        mWebview.setWebChromeClient(new As1124WebChromeClient(this));
+//        mWebview.loadUrl("https://www.baidu.com");
+        mWebview.loadUrl("file:///android_asset/4webview.html");
 
-            @Override
-            public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
-                super.onGeolocationPermissionsShowPrompt(origin, callback);
-                if (Build.VERSION.SDK_INT >= 23) {
-                    if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        // 网址url, 是否允许, 是否保存权限申请状态
-                        callback.invoke(origin, true, false);
-                    } else {
-                        locationCallback = callback;
-                        previewOrigin = origin;
-                        requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1234);
-                    }
-                }
-            }
-        });
-//        mWebview.loadUrl("http://192.168.8.145:8080/hetong.html");
-        mWebview.loadUrl("https://www.baidu.com");
+        // 从原生端调用网页 javascript 的两种方式
+        findViewById(R.id.but_load_url).setOnClickListener(v ->
+                mWebview.loadUrl("javascript:callFromClient('黄先生')"));
+        findViewById(R.id.but_eval_js).setOnClickListener(v ->
+                // API 19及以上版本可以调用
+                mWebview.evaluateJavascript("callFromClientWithReturn(89)",
+                        retValue -> Toast.makeText(MainActivity.this, retValue, Toast.LENGTH_SHORT).show())
+        );
     }
 
     @Override
@@ -101,4 +99,59 @@ public class MainActivity extends Activity {
             mWebview.destroy();
         }
     }
+
+    class As1124WebChromeClient extends WebChromeClient {
+
+        private WeakReference<MainActivity> activityWeakReference;
+
+        As1124WebChromeClient(MainActivity context) {
+            activityWeakReference = new WeakReference<>(context);
+        }
+
+        @Override
+        public void onPermissionRequest(PermissionRequest request) {
+            String[] resource = new String[0];
+            if (Build.VERSION.SDK_INT >= 21) {
+                resource = request.getResources();
+            }
+            Toast.makeText(activityWeakReference.get(), "【网页】onPermissionRequest", Toast.LENGTH_SHORT).show();
+            Log.i("[As1124WebChromeClient]", "请求资源： " + resource);
+        }
+
+        @Override
+        public void onGeolocationPermissionsShowPrompt(String origin, GeolocationPermissions.Callback callback) {
+            if (Build.VERSION.SDK_INT >= 23) {
+                if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // 网址url, 是否允许, 是否保存权限申请状态
+                    callback.invoke(origin, true, false);
+                } else {
+                    locationCallback = callback;
+                    previewOrigin = origin;
+                    requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, 1234);
+                }
+            }
+        }
+
+        @Override
+        public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
+            if (message.startsWith("as1124://")) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(activityWeakReference.get());
+                builder.setMessage("拦截了网页的Alert弹窗").show();
+                return false;
+            } else {
+                return false;
+            }
+        }
+
+        @Override
+        public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+            return super.onJsPrompt(view, url, message, defaultValue, result);
+        }
+
+        @Override
+        public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
+            return super.onJsConfirm(view, url, message, result);
+        }
+
+    } // end of class
 }

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
+</head>
+<body>
+<div>
+    <input type="button" value="JavascriptInterface调用原生端Android方法"
+           onclick="butClick()" style="margin-top: 10px; height: 30px;"/>
+    <input type="button" value="shouldOverrideUrlLoading调用原生端Android方法"
+           onclick="callAndroid1()" style="margin-top: 10px; height: 30px;"/>
+    <input type="button" value="onJsAlert 调用原生端Android方法"
+           onclick="callAndroid2()" style="margin-top: 10px; height: 30px;"/>
+    <input type="button" value="onJsPrompt 调用原生端Android方法"
+           onclick="callAndroid3()" style="margin-top: 10px; height: 30px;"/>
+
+</div>
+</body>
+<script type="text/javascript">
+	function butClick() {
+		var str = as1124.executeAndroid("你好, 小姑娘");
+		alert("client-return:  " + str);
+	}
+
+	function callAndroid1() {
+	    // 只有改变请求地址才能触发 Android 端的shouldOverrideUrlLoading()
+		document.location = "as1124://webviewCall?name=huangAA&password=1234";
+	}
+
+	function callAndroid2(){
+	    alert("as1124:// 不开森");
+	}
+
+	function callAndroid3(){
+	}
+
+	function callFromClient(name) {
+		alert(name + ", 沙雕先生！");
+	}
+
+	function callFromClientWithReturn(ab) {
+		return "计算结果==" + (5 + ab);
+	}
+</script>
+
+</html>
