@@ -7,6 +7,12 @@
     tools:context=".MainActivity">
 
     <Button
+        android:id="@+id/but_to_https"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HttpsURLConnection and Configuration changes" />
+
+    <Button
         android:id="@+id/but_get_network"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

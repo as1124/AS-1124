@@ -31,26 +31,19 @@ public class MainActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        android.util.Log.i("1111111", "MainActivity OnCreated!!");
-//        FragmentManager manager = getFragmentManager();
-//        if (manager != null) {
-//            BlankFragment.getInstance(manager);
-//        }
-
+        findViewById(R.id.but_to_https).setOnClickListener(this);
         findViewById(R.id.but_get_network).setOnClickListener(this);
         findViewById(R.id.but_to_bluetooth).setOnClickListener(this);
 
-        if (Build.VERSION.SDK_INT >= 23) {
-            if (checkSelfPermission(Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissions(new String[]{Manifest.permission.INTERNET, Manifest.permission.ACCESS_NETWORK_STATE}, 1001);
-            }
-        }
     }
 
     @Override
     public void onClick(View v) {
         int id = v.getId();
         switch (id) {
+            case R.id.but_to_https:
+                startActivity(new Intent(this, HttpsConnectionActivity.class));
+                break;
             case R.id.but_get_network:
                 showNetworkInfo();
                 break;
@@ -66,8 +59,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        android.util.Log.i("11111", "Configuration Changed!!");
+        android.util.Log.i(getClass().getSimpleName(), "Configuration Changed!!");
     }
+
 
     private void showNetworkInfo() {
         ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -80,7 +74,8 @@ public class MainActivity extends Activity implements View.OnClickListener {
             for (Network network : allType) {
                 NetworkInfo info = manager.getNetworkInfo(network);
                 if (info != null) {
-                    Log.i("Connectivity", info.getTypeName() + "==" + info.isAvailable() + ", isConnected=" + info.isConnected());
+                    Log.i("Connectivity", info.getTypeName() + "==" + info.isAvailable()
+                            + ", isConnected=" + info.isConnected());
                 }
             }
         }
