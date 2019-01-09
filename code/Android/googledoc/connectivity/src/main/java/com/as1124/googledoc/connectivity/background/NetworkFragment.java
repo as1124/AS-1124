@@ -19,7 +19,7 @@ import com.as1124.googledoc.connectivity.R;
 
 public class NetworkFragment extends Fragment implements IDownloadCallback {
 
-    public static final String FRAME_TAG = "background_network";
+    public static final String FRAGMENT_TAG = "background_network";
 
     private static String TAG = "[NetworkFragment]";
 
@@ -28,13 +28,12 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
 
     public static NetworkFragment getInstance(FragmentManager manager) {
         NetworkFragment one;
-//        if (manager.findFragmentByTag(FRAME_TAG) != null) {
-//            one = (NetworkFragment) manager.findFragmentByTag(FRAME_TAG);
-//        } else {
-        one = new NetworkFragment();
-        manager.beginTransaction().add(R.id.frame_layout_https, one, FRAME_TAG).commit();
-//        }
-
+        if (manager.findFragmentByTag(FRAGMENT_TAG) != null) {
+            one = (NetworkFragment) manager.findFragmentByTag(FRAGMENT_TAG);
+        } else {
+            one = new NetworkFragment();
+            manager.beginTransaction().add(R.id.frame_layout_https, one, FRAGMENT_TAG).commit();
+        }
         return one;
     }
 
@@ -53,7 +52,10 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         android.util.Log.i(TAG, "Fragment onCreated!!!");
-//        this.setRetainInstance(true);
+
+        // Retain this Fragment across configuration changes in the host Activity.
+        // 这里阻止了Fragment#onDestory(), 但是和Activity相关的onDetach()、onAttach还是会调用
+        this.setRetainInstance(true);
     }
 
     @Override
@@ -64,12 +66,16 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
         android.util.Log.i(TAG, "Fragment OnCreateView!!!");
 
         topView.findViewById(R.id.but_alpha_dialog).setOnClickListener(v -> {
-
         });
 
         return topView;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        android.util.Log.i(TAG, "Fragment onActivityCreated!!!");
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -78,36 +84,31 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
     }
 
     @Override
-    public void onDetach() {
+    public void onDestroy() {
+        // 放在 onDestroy() 而不是放在 onDetach() 方法中
         cancelDownload();
+
+        super.onDestroy();
+        android.util.Log.i(TAG, "Fragment onDestroy ");
+    }
+
+    @Override
+    public void onDetach() {
         super.onDetach();
         android.util.Log.i(TAG, "Fragment OnDetach ");
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        android.util.Log.i(TAG, "Fragment onDestroy ");
-    }
-
-
-    @Override
     public void startDownload(String downloadURL) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        AlertDialog dialog = builder.create();
         ProgressBar bar = new ProgressBar(getActivity());
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(300, 300);
         bar.setLayoutParams(layoutParams);
         bar.setIndeterminate(true);
         bar.setVisibility(View.VISIBLE);
-        bar.setAlpha(0.5f);
+        builder.setView(bar).create().show();
 
-        LinearLayout view = new LinearLayout(getActivity());
-        view.setBackgroundColor(Color.rgb(0, 255, 0));
-        view.setLayoutParams(layoutParams);
-        builder.setView(view).setMessage("sdfsdf").setCustomTitle(bar).create().show();
-
-        DownloadTask downloadTask = new DownloadTask(this.getActivity(), this);
+        downloadTask = new DownloadTask(this.getActivity(), this);
         downloadTask.execute("https://wx2.sinaimg.cn/mw1024/d8203382ly1fty09ydhlmj21481kwk05.jpg");
     }
 

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">GoogleDoc</string>
-
+    <string name="app_name">Connectivity</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

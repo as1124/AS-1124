@@ -19,6 +19,24 @@
         android:text="获取当前网络状态信息" />
 
     <Button
+        android:id="@+id/but_network_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="网络设置" />
+
+    <Button
+        android:id="@+id/but_data_whitelist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="请求加入流量白名单" />
+
+    <Button
+        android:id="@+id/but_sync_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sync Adapter(账号信息同步)" />
+
+    <Button
         android:id="@+id/but_to_bluetooth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

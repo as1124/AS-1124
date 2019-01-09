@@ -36,4 +36,28 @@
         android:layout_height="wrap_content"
         android:text="连接并发送文件" />
 
+    <Button
+        android:id="@+id/but_connect_headset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开蓝牙耳机连接服务" />
+
+    <Button
+        android:id="@+id/but_call_headset"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="调用已连接蓝牙耳机功能" />
+
+    <Button
+        android:id="@+id/but_scan_ble"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="扫描BLE设备" />
+
+    <Button
+        android:id="@+id/but_connect_gatt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="连接GATT设备" />
+
 </LinearLayout>

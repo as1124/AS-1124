@@ -16,13 +16,14 @@
         android:id="@+id/but_alpha_dialog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/but_https_image"
         android:text="半透明遮罩" />
 
     <ImageView
         android:id="@+id/img_https_background"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/but_https_image"
+        android:layout_below="@id/but_alpha_dialog"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"

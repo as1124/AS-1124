@@ -28,6 +28,7 @@ import java.lang.ref.WeakReference;
  * <li>动态权限处理：Android 7.0之后非https网站默认不允许申请定位, 没有提醒框</li>
  * <li>回收：当WebView崩溃或者Android强制回收内存时、{@link android.webkit.WebViewClient#onRenderProcessGone(WebView, RenderProcessGoneDetail)}</li>
  * <li>API 19之后提供了基于Chromium内核的WebView</li>
+ * <li>WebView内存泄漏: 不要在xml中申明使用WebView</li>
  * </ul>
  *
  * @author as-1124(mailto:as1124huang@gmai.com)

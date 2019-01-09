@@ -39,7 +39,6 @@ public class DownloadTask extends AsyncTask<String, Integer, Object> {
                 (info.getType() != ConnectivityManager.TYPE_WIFI && info.getType() != ConnectivityManager.TYPE_MOBILE)) {
             // 无网络可用, 取消
             this.cancel(true);
-
             if (mCallback != null) {
                 mCallback.cancelDownload();
             }
