@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.as1124.googledoc.connectivity.background.HttpsConnectionActivity;
 import com.as1124.googledoc.connectivity.bluetooth.BluetoothMainActivity;
+import com.as1124.googledoc.connectivity.nfc.NFCMainActivity;
 
 /**
  * 手机网络相关学习
@@ -89,6 +90,9 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.but_to_bluetooth:
                 Intent bluetoothIntent = new Intent(this, BluetoothMainActivity.class);
                 startActivity(bluetoothIntent);
+                break;
+            case R.id.but_to_nfc:
+                startActivity(new Intent(this, NFCMainActivity.class));
                 break;
             default:
                 break;

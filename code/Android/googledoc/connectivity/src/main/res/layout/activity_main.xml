@@ -42,5 +42,16 @@
         android:layout_height="wrap_content"
         android:text="蓝牙管理" />
 
+    <Button
+        android:id="@+id/but_to_nfc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="NFC功能" />
+
+    <Button
+        android:id="@+id/but_to_wifi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="WI-FI功能" />
 
 </LinearLayout>
