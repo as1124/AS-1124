@@ -24,6 +24,5 @@ public class NFCMainActivity extends Activity {
             return;
         }
 
-
     }
 }

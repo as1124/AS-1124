@@ -54,4 +54,15 @@
         android:layout_height="wrap_content"
         android:text="WI-FI功能" />
 
+    <Button
+        android:id="@+id/but_to_usb"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="USB 功能" />
+
+    <Button
+        android:id="@+id/but_to_vpn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="VPN 功能" />
 </LinearLayout>

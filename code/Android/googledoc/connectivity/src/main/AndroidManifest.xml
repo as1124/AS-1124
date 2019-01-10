@@ -5,6 +5,7 @@
     <!-- Network -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
     <!-- Bluetooth -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -96,8 +97,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".wifi.WIFIMainActivity"></activity>
+        <activity android:name=".wifi.WIFIMainActivity" />
+        <activity android:name=".usb.USBMainActivity" />
+        <activity android:name=".vpn.VPNMainActivity" />
+        <activity android:name=".wifi.CompanionPairActivity"></activity>
     </application>
 
 </manifest>

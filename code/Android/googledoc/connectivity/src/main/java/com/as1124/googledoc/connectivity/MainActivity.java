@@ -21,6 +21,9 @@ import android.widget.Toast;
 import com.as1124.googledoc.connectivity.background.HttpsConnectionActivity;
 import com.as1124.googledoc.connectivity.bluetooth.BluetoothMainActivity;
 import com.as1124.googledoc.connectivity.nfc.NFCMainActivity;
+import com.as1124.googledoc.connectivity.usb.USBMainActivity;
+import com.as1124.googledoc.connectivity.vpn.VPNMainActivity;
+import com.as1124.googledoc.connectivity.wifi.WIFIMainActivity;
 
 /**
  * 手机网络相关学习
@@ -52,6 +55,10 @@ public class MainActivity extends Activity implements View.OnClickListener {
         findViewById(R.id.but_data_whitelist).setOnClickListener(this);
         findViewById(R.id.but_sync_adapter).setOnClickListener(this);
         findViewById(R.id.but_to_bluetooth).setOnClickListener(this);
+        findViewById(R.id.but_to_nfc).setOnClickListener(this);
+        findViewById(R.id.but_to_wifi).setOnClickListener(this);
+        findViewById(R.id.but_to_usb).setOnClickListener(this);
+        findViewById(R.id.but_to_vpn).setOnClickListener(this);
 
         IntentFilter intentFilter = new IntentFilter();
         intentFilter.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
@@ -86,6 +93,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 }
                 break;
             case R.id.but_sync_adapter:
+                // ATTENTION 账号数据同步管理
                 break;
             case R.id.but_to_bluetooth:
                 Intent bluetoothIntent = new Intent(this, BluetoothMainActivity.class);
@@ -93,6 +101,15 @@ public class MainActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.but_to_nfc:
                 startActivity(new Intent(this, NFCMainActivity.class));
+                break;
+            case R.id.but_to_wifi:
+                startActivity(new Intent(this, WIFIMainActivity.class));
+                break;
+            case R.id.but_to_usb:
+                startActivity(new Intent(MainActivity.this, USBMainActivity.class));
+                break;
+            case R.id.but_to_vpn:
+                startActivity(new Intent(MainActivity.this, VPNMainActivity.class));
                 break;
             default:
                 break;
