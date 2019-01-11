@@ -3,10 +3,15 @@ package com.as1124.camera;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.hardware.Camera;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraCharacteristics;
+import android.hardware.camera2.CameraManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -23,6 +28,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 照相机相关功能
@@ -62,14 +68,12 @@ public class MainActivity extends Activity {
                 startActivityForResult(intent, 0);
             }
         });
-
         findViewById(R.id.but_photo_file).setOnClickListener(v -> savePhoto());
         findViewById(R.id.but_media_scanner).setOnClickListener(v -> testAutoShare2Gallery());
         findViewById(R.id.but_scale_photo).setOnClickListener(v -> decodeImageSize());
-        findViewById(R.id.but_to_selfcamera).setOnClickListener(
-                v -> startActivity(new Intent(MainActivity.this, SelfCameraActivity.class)));
-        findViewById(R.id.but_to_selfvideo).setOnClickListener(
-                v -> startActivity(new Intent(MainActivity.this, SelfVideoActivity.class)));
+        findViewById(R.id.but_camera_info).setOnClickListener(v -> getDeviceCameraInfo());
+        findViewById(R.id.but_to_selfcamera).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SelfCameraActivity.class)));
+        findViewById(R.id.but_to_selfvideo).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SelfVideoActivity.class)));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // 请求相机和存储权限
@@ -81,6 +85,7 @@ public class MainActivity extends Activity {
                 }, 1234);
             }
         }
+
     }
 
     @Override
@@ -124,14 +129,12 @@ public class MainActivity extends Activity {
                 storeDir.mkdirs();
             }
             File image = File.createTempFile(imageName, ".jpg", storeDir);
-            if (image != null) {
-                Uri imageUri = FileProvider.getUriForFile(this, "com.as1124.camera.fileprovider", image);
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            Uri imageUri = FileProvider.getUriForFile(this, "com.as1124.camera.fileprovider", image);
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 //              直接使用Uri.fromFile(image))会报FileUriExposedException
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);//Uri.fromFile(image));
-                if (intent.resolveActivity(getPackageManager()) != null) {
-                    startActivityForResult(intent, 1);
-                }
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri); //Uri.fromFile(image));
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivityForResult(intent, 1);
             }
         } catch (IOException e) {
             Log.e("Camera-Image", e.getMessage(), e);
@@ -187,5 +190,37 @@ public class MainActivity extends Activity {
         bitmap.recycle();
         bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.img1419, options);
         imageView.setImageBitmap(bitmap);
+    }
+
+    private void getDeviceCameraInfo() {
+        if (Build.VERSION.SDK_INT >= 21) {
+            CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+            try {
+                String[] ids = cameraManager.getCameraIdList();
+                for (String id : ids) {
+                    CameraCharacteristics cameraInfo = cameraManager.getCameraCharacteristics(id);
+                    List<CameraCharacteristics.Key<?>> keys = cameraInfo.getKeys();
+//                    if (Build.VERSION.SDK_INT >= 23) {
+//                        // 打开相机Flash作为手电筒
+//                        cameraManager.setTorchMode(id, true);
+//                    }
+                    for (CameraCharacteristics.Key<?> key : keys) {
+                        String keyName = key.getName();
+                        Object value = cameraInfo.get(key);
+                        Log.i("Camera-info", keyName + "=" + value);
+                    }
+                }
+            } catch (CameraAccessException e) {
+                e.printStackTrace();
+            }
+        } else {
+            int cameraCount = Camera.getNumberOfCameras();
+            for (int i = 0; i < cameraCount; i++) {
+                Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+                Camera.getCameraInfo(i, cameraInfo);
+                boolean isFront = cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_BACK;
+                Log.i("Camera-Info", "摄像头" + i + "是前置摄像头 = " + isFront + ", 图片旋转角 = " + cameraInfo.orientation);
+            }
+        }
     }
 }

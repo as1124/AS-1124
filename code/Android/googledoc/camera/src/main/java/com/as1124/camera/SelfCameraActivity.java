@@ -13,6 +13,8 @@ import android.hardware.camera2.CameraDevice;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Surface;
@@ -36,8 +38,22 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
 
     private CameraManager cameraManager;
     private Camera mCamera;
-    private CameraDevice mDevice;
+    private CameraDevice mCameraDevice;
     private List<Camera.Size> localPreviewSize;
+
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case -1:
+                    // close camera and free system resource
+                    break;
+                case 1:
+                    //open camera and start to preview
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,16 +65,11 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
         // Install a SurfaceHolder.Callback so we got notified when underlying surface is created and destroyed
         mHolder.addCallback(this);
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissions(new String[]{Manifest.permission.CAMERA}, 111);
-                    return;
-                }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.CAMERA}, 111);
+                return;
             }
-            openCameraAbove21();
-        } else {
-            openCameraBelow21();
         }
     }
 
@@ -68,12 +79,22 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        if (mCamera == null) {
+//            if (Build.VERSION.SDK_INT >= 21) {
+//                openCameraAbove21();
+//            } else {
+            openCameraBelow21();
+//            }
+        }
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
-        if (Build.VERSION.SDK_INT >= 21) {
-
-        } else {
-//        stopPreviewAndFreeCamera();
+        if (mCamera != null) {
+            //        stopPreviewAndFreeCamera();
             try {
                 // Important: Call startPreview() to start updating the preview surface.
                 // Preview must be started before you can take a picture
@@ -121,12 +142,15 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
                 @Override
                 public void onOpened(@NonNull CameraDevice camera) {
                     Log.i("Self-Camera", "CameraDevice-opened");
-                    mDevice = camera;
+                    mCameraDevice = camera;
+                    handler.obtainMessage(1).sendToTarget();
                 }
 
                 @Override
                 public void onDisconnected(@NonNull CameraDevice camera) {
                     Log.i("Self-Camera", "CameraDevice-disconnected");
+                    camera.close();
+                    handler.obtainMessage(-1).sendToTarget();
                 }
 
                 @Override
@@ -144,7 +168,6 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
     }
 
     private void openCameraBelow21() {
-        Log.i("Camera-ID<21", "一共有" + Camera.getNumberOfCameras() + "个摄像头");
         Camera.CameraInfo info = new Camera.CameraInfo();
         for (int i = 0; i < Camera.getNumberOfCameras(); i++) {
             Camera.getCameraInfo(i, info);
@@ -160,25 +183,19 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
         int degrees = 0;
         switch (rotation) {
             case Surface.ROTATION_0:
-                degrees = 0;
+                degrees = info.orientation + 0;
                 break;
             case Surface.ROTATION_90:
-                degrees = 90;
+                degrees = info.orientation - 90;
                 break;
             case Surface.ROTATION_180:
-                degrees = 180;
+                degrees = info.orientation + 180;
                 break;
             case Surface.ROTATION_270:
-                degrees = 270;
+                degrees = info.orientation + 270;
                 break;
         }
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-            degrees = (info.orientation + degrees) % 360;
-            degrees = (360 - degrees) % 360;
-        } else {
-            degrees = (info.orientation - degrees + 360) % 360;
-        }
-        mCamera.setDisplayOrientation(degrees);
+        mCamera.setDisplayOrientation(Math.abs(degrees) % 360);
     }
 
     private void stopPreviewAndFreeCamera() {
@@ -197,7 +214,9 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
     public void surfaceCreated(SurfaceHolder holder) {
         Log.i("My_Camera", "Surface created");
         try {
-            mCamera.setPreviewDisplay(mHolder);
+            if (mCamera != null) {
+                mCamera.setPreviewDisplay(mHolder);
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -206,7 +225,9 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
     @Override
     public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
         // Now that the size is known, set up the camera parameter and begin the preview
-        Camera.Parameters parameters = mCamera.getParameters();
+        if (mCamera != null) {
+            Camera.Parameters parameters = mCamera.getParameters();
+        }
 
         Log.i("My_Camera", "SurfaceChanged");
     }
