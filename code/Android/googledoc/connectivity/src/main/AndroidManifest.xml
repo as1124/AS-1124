@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.as1124.googledoc.connectivity">
 
+    <uses-feature android:name="android.software.companion_device_setup" />
+
     <!-- Network -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -27,6 +29,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE" />
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -34,6 +37,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-library android:name="com.android.future.usb.accessory" />
+
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|uiMode">
@@ -100,7 +105,17 @@
         <activity android:name=".wifi.WIFIMainActivity" />
         <activity android:name=".usb.USBMainActivity" />
         <activity android:name=".vpn.VPNMainActivity" />
-        <activity android:name=".wifi.CompanionPairActivity"></activity>
+        <activity android:name=".wifi.CompanionPairActivity" />
+
+        <service
+            android:name=".vpn.As1124VPNService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_VPN_SERVICE">
+            <intent-filter>
+                <action android:name="android.net.VpnService" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

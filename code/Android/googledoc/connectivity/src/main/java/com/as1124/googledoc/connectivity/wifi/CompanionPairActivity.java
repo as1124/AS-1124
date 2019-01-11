@@ -17,11 +17,12 @@ import com.as1124.googledoc.connectivity.R;
 
 import java.util.regex.Pattern;
 
+/**
+ * 设置过滤请求，附近发现匹配设备时会自动进行配对（不是连接）
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class CompanionPairActivity extends Activity {
-
-    private CompanionDeviceManager deviceManager;
-    private AssociationRequest pairingRequest;
-    private BluetoothDeviceFilter bluetoothFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,15 +34,15 @@ public class CompanionPairActivity extends Activity {
             builder.setTitle("Companion Device Manager").setMessage("附件设备配对连接功能只能在 Android 8.0及以上设备试用");
             builder.create().show();
         } else {
-            deviceManager = (CompanionDeviceManager) getSystemService(Context.COMPANION_DEVICE_SERVICE);
+            CompanionDeviceManager deviceManager = (CompanionDeviceManager) getSystemService(Context.COMPANION_DEVICE_SERVICE);
 
             // To skip filtering based on name and supported feature flags(UUIDs).
             // don't include calls to setNamePattern() and addServiceUuid().
-            bluetoothFilter = new BluetoothDeviceFilter.Builder().setNamePattern(Pattern.compile("JBL")).build();
+            BluetoothDeviceFilter bluetoothFilter = new BluetoothDeviceFilter.Builder().setNamePattern(Pattern.compile("JBL")).build();
 
             // The argument provided in setSingleDevice() determines whether single device name or a list of device
             // name is presented to the user as pairing options.
-            pairingRequest = new AssociationRequest.Builder().addDeviceFilter(bluetoothFilter)
+            AssociationRequest pairingRequest = new AssociationRequest.Builder().addDeviceFilter(bluetoothFilter)
                     .setSingleDevice(true).build();
 
             deviceManager.associate(pairingRequest, new CompanionDeviceManager.Callback() {

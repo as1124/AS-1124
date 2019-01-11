@@ -14,6 +14,7 @@ import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.aware.DiscoverySessionCallback;
 import android.net.wifi.aware.PublishConfig;
+import android.net.wifi.aware.SubscribeConfig;
 import android.net.wifi.aware.WifiAwareManager;
 import android.net.wifi.p2p.WifiP2pConfig;
 import android.net.wifi.p2p.WifiP2pDevice;
@@ -65,6 +66,16 @@ public class WIFIMainActivity extends Activity {
     // Wi-Fi Aware
     private WifiAwareManager awareManager = null;
     private WiFiAwareAttachCallback awareAttachCallback = new WiFiAwareAttachCallback();
+    private DiscoverySessionCallback discoverySessionCallback = null;
+    private BroadcastReceiver awareReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (WifiAwareManager.ACTION_WIFI_AWARE_STATE_CHANGED.equals(action)) {
+                Toast.makeText(context, "Wi-Fi Aware状态发生变化", Toast.LENGTH_SHORT).show();
+            }
+        }
+    };
 
 
     @Override
@@ -99,9 +110,9 @@ public class WIFIMainActivity extends Activity {
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             awareManager = (WifiAwareManager) getSystemService(Context.WIFI_AWARE_SERVICE);
-            findViewById(R.id.but_aware_session).setOnClickListener(v -> wifiAwareSession());
-            findViewById(R.id.but_aware_publish);
-            findViewById(R.id.but_aware_subscribe);
+            findViewById(R.id.but_aware_session).setOnClickListener(v -> obtainWifiAwareSession());
+            findViewById(R.id.but_aware_publish).setOnClickListener(v -> publishAwareService());
+            findViewById(R.id.but_aware_subscribe).setOnClickListener(v -> subscribeAwareService());
             findViewById(R.id.but_aware_transform);
         }
 
@@ -122,6 +133,10 @@ public class WIFIMainActivity extends Activity {
         filter.addAction(WifiP2pManager.WIFI_P2P_STATE_CHANGED_ACTION);
         filter.addAction(WifiP2pManager.WIFI_P2P_THIS_DEVICE_CHANGED_ACTION);
         registerReceiver(p2pReceiver, filter);
+
+        IntentFilter awareFilter = new IntentFilter();
+        awareFilter.addAction(WifiAwareManager.ACTION_WIFI_AWARE_STATE_CHANGED);
+        registerReceiver(awareReceiver, awareFilter);
     }
 
     @Override
@@ -130,6 +145,7 @@ public class WIFIMainActivity extends Activity {
 
         unregisterReceiver(wifiScanReceiver);
         unregisterReceiver(p2pReceiver);
+        unregisterReceiver(awareReceiver);
     }
 
     @Override
@@ -218,7 +234,7 @@ public class WIFIMainActivity extends Activity {
     }
 
     @TargetApi(Build.VERSION_CODES.O)
-    private void wifiAwareSession() {
+    private void obtainWifiAwareSession() {
         if (!awareManager.isAvailable()) {
             Toast.makeText(this, "设备上Wi-Fi Aware功能关闭 ? ", Toast.LENGTH_SHORT).show();
         }
@@ -226,12 +242,19 @@ public class WIFIMainActivity extends Activity {
     }
 
     @TargetApi(Build.VERSION_CODES.O)
-    private void publishService() {
+    private void publishAwareService() {
         if (awareAttachCallback.awareSession != null) {
             PublishConfig config = new PublishConfig.Builder().setServiceName("As1124_Aware_Service").build();
-            DiscoverySessionCallback discoverySessionCallback = new WiFiAwareDiscoveryCallback();
+            discoverySessionCallback = new WiFiAwareDiscoveryCallback();
             awareAttachCallback.awareSession.publish(config, discoverySessionCallback, null);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.O)
+    private void subscribeAwareService() {
+        SubscribeConfig config = new SubscribeConfig.Builder().setServiceName("As1124_Aware_Sbuscribe")
+                .build();
+        awareAttachCallback.awareSession.subscribe(config, discoverySessionCallback, null);
     }
 
 

@@ -40,19 +40,19 @@
         android:id="@+id/but_aware_session"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="[Wi-Fi Aware] Session" />
+        android:text="[Wi-Fi Aware] Obtain Session" />
 
     <Button
         android:id="@+id/but_aware_publish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="[Wi-Fi Aware] Publish Service" />
+        android:text="[Wi-Fi Aware] Publish a Service" />
 
     <Button
         android:id="@+id/but_aware_subscribe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="[Wi-Fi Aware] Subscribe" />
+        android:text="[Wi-Fi Aware] Subscribe to service" />
 
     <Button
         android:id="@+id/but_aware_transform"
