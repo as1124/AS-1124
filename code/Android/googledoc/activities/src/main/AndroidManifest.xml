@@ -2,6 +2,19 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.as1124.activities">
 
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
+    <uses-permission android:name="android.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.UNINSTALL_SHORTCUT" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.android.launcher2.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher2.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="com.android.launcher3.permission.READ_SETTINGS" />
+    <uses-permission android:name="com.android.launcher3.permission.WRITE_SETTINGS" />
+
     <application
         android:name=".As1124Application"
         android:allowBackup="false"
@@ -20,8 +33,79 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.shortcuts"
+                android:resource="@xml/shortcuts" />
         </activity>
-        <activity android:name=".parcel.ParcelDataActivity"></activity>
+        <activity android:name=".parcel.ParcelDataActivity" />
+        <activity
+            android:name=".shortcuts.ShortcutMainActivity"
+            android:exported="true"
+            android:label="ShortcutMain">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="android.intent.action.CREATE_SHORTCUT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".shortcuts.ShortcutAActivity" />
+        <activity
+            android:name=".shortcuts.DynamicShortcutActivity"
+            android:exported="true"
+            android:label="ShortcutInfo">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.as1124.shortcuts.DynamicShortcut" />
+            </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.as1124.shortcuts.PinnedShortcut" />
+            </intent-filter>
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT" />
+
+                <action android:name="com.as1124.shortcuts.DesktopShortcut" />
+            </intent-filter>
+            <!-- <intent-filter> -->
+            <!-- <category android:name="android.intent.category.DEFAULT" /> -->
+
+
+            <!-- <action android:name="android.intent.action.CREATE_SHORTCUT" /> -->
+            <!-- </intent-filter> -->
+        </activity>
+
+        <receiver
+            android:name=".shortcuts.ShortcutReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <activity android:name=".widgets.WidgetMainActivity" />
+
+        <receiver android:name=".widgets.As1124WidgetEventReceiver">
+            <intent-filter>
+
+                <!-- 根据自身需要添加需要接收的action 广播 -->
+                <action android:name="android.appwidget.action.APPWIDGET_DISABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_ENABLED" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="android.appwidget.action.APPWIDGET_DELETED" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/as1124_appwidgets" />
+        </receiver>
+
+        <activity android:name=".widgets.WidgetSettingActivity">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

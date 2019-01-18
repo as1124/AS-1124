@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="com.as1124.activities.widgets.WidgetSettingActivity"
+    android:initialLayout="@layout/widget_as1124_layout"
+    android:minWidth="40dp"
+    android:minHeight="40dp"
+    android:previewImage="@drawable/widget1"
+    android:resizeMode="horizontal|vertical"
+    android:updatePeriodMillis="2000"
+    android:widgetCategory="home_screen|searchbox">
+    <!-- configure: 点击 Widget 启动哪个Activity-->
+    <!-- updatePeriodMillis 指定发送onUpdate广播的事件间隔 -->
+    <!-- initialLayout attribute points to  the layout resource that defines the App Widget layout -->
+    <!-- widgetCategory: keyguard means the lock screen -->
+</appwidget-provider>

@@ -6,21 +6,39 @@
 </head>
 <body>
 <div>
-    <input type="button" value="JavascriptInterface调用原生端Android方法"
-           onclick="butClick()" style="margin-top: 10px; height: 30px;"/>
-    <input type="button" value="shouldOverrideUrlLoading调用原生端Android方法"
-           onclick="callAndroid1()" style="margin-top: 10px; height: 30px;"/>
-    <input type="button" value="onJsAlert 调用原生端Android方法"
-           onclick="callAndroid2()" style="margin-top: 10px; height: 30px;"/>
-    <input type="button" value="onJsPrompt 调用原生端Android方法"
-           onclick="callAndroid3()" style="margin-top: 10px; height: 30px;"/>
+    <input type="button" value="JavascriptInterface调用原生端Android方法" onclick="butClick()" style="margin-top: 10px; height: 30px;"/>
+    <input type="button" value="调用原生端Android方法" onclick="butClick2()" style="margin-top: 10px; height: 30px;"/>
+    <input type="button" value="shouldOverrideUrlLoading调用原生端Android方法" onclick="callAndroid1()" style="margin-top: 10px; height: 30px;"/>
+    <input type="button" value="onJsAlert 调用原生端Android方法" onclick="callAndroid2()" style="margin-top: 10px; height: 30px;"/>
+    <input type="button" value="onJsPrompt 调用原生端Android方法" onclick="callAndroid3()" style="margin-top: 10px; height: 30px;"/>
 
+    <input type="button" value="Android注入执行漏洞" onclick="testbug()" style="margin-top: 10px; height: 30px;"/>
 </div>
 </body>
 <script type="text/javascript">
+
+    function testbug(){
+        alert("hhhhhAAA");
+        document.write("注入开始:");
+        try{
+            var claName = as1124.getClass().getName();
+            document.write(claName);
+            alert(claName);
+            var method = as1124.getClass().getMethod("showYourName", String.class);
+            method.invoke(as1124, "注入的姓名");
+        } catch(Exception e){
+            alert("出现异常");
+        }
+    }
+
 	function butClick() {
 		var str = as1124.executeAndroid("你好, 小姑娘");
 		alert("client-return:  " + str);
+	}
+
+    function butClick2() {
+        // showYourName 没有添加 JavaScriptInterface注解
+		as1124.showYourName("狗子");
 	}
 
 	function callAndroid1() {
@@ -42,6 +60,6 @@
 	function callFromClientWithReturn(ab) {
 		return "计算结果==" + (5 + ab);
 	}
-</script>
 
+</script>
 </html>

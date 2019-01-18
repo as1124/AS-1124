@@ -2,8 +2,12 @@ package com.as1124.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+
+import com.as1124.activities.shortcuts.ShortcutMainActivity;
+import com.as1124.activities.widgets.WidgetMainActivity;
 
 /**
  * @author as-1124(mailto:as1124huang@gmail.com)
@@ -25,6 +29,14 @@ public class MainActivity extends Activity {
                     .setNegativeButton("那就这样吧", (dialog, which) -> dialog.dismiss())
                     .setCancelable(false).show();
         });
+        findViewById(R.id.but_to_data).setOnClickListener(v -> {
+        });
+        findViewById(R.id.but_to_loader).setOnClickListener(v -> {
+        });
+        findViewById(R.id.but_multi_window).setOnClickListener(v -> {
+        });
+        findViewById(R.id.but_to_shortcut).setOnClickListener(v -> startActivity(new Intent(this, ShortcutMainActivity.class)));
+        findViewById(R.id.but_to_widget).setOnClickListener(v -> startActivity(new Intent(this, WidgetMainActivity.class)));
     }
 
     @Override

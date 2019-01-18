@@ -28,6 +28,10 @@ public class WebviewScriptBridge {
         return "client return success!";
     }
 
+    public void showYourName(String args) {
+        Toast.makeText(mContext, "你好, 沙雕：【" + args + "】", Toast.LENGTH_LONG).show();
+    }
+
 
     private void showDialog() {
         CalendarView customerView = new CalendarView(mContext);

@@ -3,11 +3,11 @@ package com.as1124.activities;
 import android.app.Activity;
 import android.app.Application;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
 import java.util.Stack;
-
 
 /**
  * 自定义{@link Application}
@@ -68,6 +68,9 @@ public class As1124Application extends Application {
         activityStack.clear();
         mApplication = this;
         Log.i(LOG_TAG, "[Application onCreate called]");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+            Log.i(LOG_TAG, "Process Name is = " + getProcessName());
+        }
         this.registerActivityLifecycleCallbacks(this.lifecycleCallbacks);
     }
 
