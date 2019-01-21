@@ -106,6 +106,12 @@
                 <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".multiwindow.MultiWindowActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout"
+            android:resizeableActivity="true"
+            android:supportsPictureInPicture="true" />
+        <activity android:name=".loaders.LoaderMainActivity"></activity>
     </application>
 
 </manifest>

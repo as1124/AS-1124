@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.as1124.activities.loaders.LoaderMainActivity;
+import com.as1124.activities.multiwindow.MultiWindowActivity;
 import com.as1124.activities.shortcuts.ShortcutMainActivity;
 import com.as1124.activities.widgets.WidgetMainActivity;
 
@@ -31,10 +33,8 @@ public class MainActivity extends Activity {
         });
         findViewById(R.id.but_to_data).setOnClickListener(v -> {
         });
-        findViewById(R.id.but_to_loader).setOnClickListener(v -> {
-        });
-        findViewById(R.id.but_multi_window).setOnClickListener(v -> {
-        });
+        findViewById(R.id.but_to_loader).setOnClickListener(v -> startActivity(new Intent(this, LoaderMainActivity.class)));
+        findViewById(R.id.but_multi_window).setOnClickListener(v -> startActivity(new Intent(this, MultiWindowActivity.class)));
         findViewById(R.id.but_to_shortcut).setOnClickListener(v -> startActivity(new Intent(this, ShortcutMainActivity.class)));
         findViewById(R.id.but_to_widget).setOnClickListener(v -> startActivity(new Intent(this, WidgetMainActivity.class)));
     }

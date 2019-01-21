@@ -1,4 +1,4 @@
-package com.as1124.selflib;
+package com.as1124.selflib.view;
 
 import android.app.Activity;
 import android.content.Context;

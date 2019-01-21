@@ -1,7 +1,6 @@
 package com.as1124.selflib;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
@@ -21,11 +20,11 @@ public class WindowUtils {
     /**
      * 获取手机状态栏高度
      *
-     * @param context 应用Context
+     * @param activity 具体activity
      * @return Height count by pixel
      */
-    public static int getStatusBarHeight(Context context) {
-        Resources resources = context.getResources();
+    public static int getStatusBarHeight(Activity activity) {
+        Resources resources = activity.getResources();
         return resources.getDimensionPixelSize(
                 resources.getIdentifier("status_bar_height", "dimen", "android"));
     }
@@ -33,13 +32,25 @@ public class WindowUtils {
     /**
      * 获取手机虚拟导航按键栏的高度
      *
-     * @param context 应用的Context
+     * @param activity 具体的activity
      * @return Height count by pixel
      */
-    public static int getNavigationHeight(Context context) {
-        Resources resources = context.getResources();
+    public static int getNavigationHeight(Activity activity) {
+        Resources resources = activity.getResources();
         return resources.getDimensionPixelSize(
                 resources.getIdentifier("navigation_bar_height", "dimen", "android"));
+    }
+
+    /**
+     * 设置顶部状态栏颜色
+     *
+     * @param activity 具体的Activity实例
+     * @param color    颜色值
+     */
+    public static void setStatusBarColor(Activity activity, int color) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            activity.getWindow().setStatusBarColor(color);
+        }
     }
 
     /**
@@ -51,8 +62,8 @@ public class WindowUtils {
     public static void fullScreen(Activity activity) {
         Window window = activity.getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // Android P 以上版本使用Google官方
             WindowManager.LayoutParams attributes = window.getAttributes();
+            // Android P以上版本使用Google官方推荐：设置成【缺口刘海屏】模式
             attributes.flags = attributes.flags | WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_DEFAULT;
             activity.getWindow().setAttributes(attributes);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -60,14 +71,13 @@ public class WindowUtils {
             View decorView = window.getDecorView();
             // 两个flag要结合使用，表示让应用的布局内容占用系统状态栏的空间
             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
             // 5.0开始需要把颜色设置透明，否则导航栏会以APP的Theme主题色呈现
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(Color.TRANSPARENT);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             // [4.4, 5.0)之间的版本
             WindowManager.LayoutParams attributes = window.getAttributes();
-            int flagTranslucentStatus = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS;
+            int flagTranslucentStatus = WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS; // 半透明
             int flagTranslucentNavigation = WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION;
             attributes.flags = attributes.flags | flagTranslucentStatus | flagTranslucentNavigation;
             window.setAttributes(attributes);
@@ -75,7 +85,6 @@ public class WindowUtils {
             // 不支持沉浸式状态栏
             return;
         }
-
         resolvePadding(activity);
     }
 
@@ -93,7 +102,8 @@ public class WindowUtils {
             if (activityRoot != null) {
                 activityRoot.setPadding(activityRoot.getPaddingLeft(),
                         activityRoot.getPaddingTop() + getStatusBarHeight(activity),
-                        activityRoot.getPaddingRight(), activityRoot.getPaddingBottom());
+                        activityRoot.getPaddingRight(),
+                        activityRoot.getPaddingBottom());
             }
 
             // ATTENTION 需要判断是否有虚拟导航栏并且导航栏是显示的
