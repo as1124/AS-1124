@@ -32,21 +32,21 @@ public class As1124WidgetEventReceiver extends AppWidgetProvider {
         // it is called when each App Widget is added to a host.
         Log.i(TAG, "AppWidget onUpdate !!!");
 
-        int N = appWidgetIds.length;
-        // Perform this loop procedure for each App Widget that belongs to this provider
-        for (int i = 0; i < N; i++) {
-            int appWidgetID = appWidgetIds[i];
-            // Create an Intent to launch the activity
-            Intent intent = new Intent(context, WidgetMainActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 248, intent, 0);
-
-            // Get the layout for the App Widget and attach an on-click listener to the button
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_as1124_layout);
-            views.setOnClickPendingIntent(R.id.but_widget_next, pendingIntent);
-
-            // Tell the AppWidgetManager to perform an update on the current app widget
-            appWidgetManager.updateAppWidget(appWidgetID, views);
-        }
+//        int N = appWidgetIds.length;
+//        // Perform this loop procedure for each App Widget that belongs to this provider
+//        for (int i = 0; i < N; i++) {
+//            int appWidgetID = appWidgetIds[i];
+//            // Create an Intent to launch the activity
+//            Intent intent = new Intent(context, WidgetMainActivity.class);
+//            PendingIntent pendingIntent = PendingIntent.getActivity(context, 248, intent, 0);
+//
+//            // Get the layout for the App Widget and attach an on-click listener to the button
+//            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_as1124_layout);
+//            views.setOnClickPendingIntent(R.id.but_widget_next, pendingIntent);
+//
+//            // Tell the AppWidgetManager to perform an update on the current app widget
+//            appWidgetManager.updateAppWidget(appWidgetID, views);
+//        }
     }
 
     @Override

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <StackView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/stack_widget_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:loopViews="true"></StackView>
+
+    <TextView
+        android:id="@+id/text_widget_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#0f806A"
+        android:gravity="center"
+        android:text="Stack Widget View's 文本"
+        android:textColor="#ffffff"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+</FrameLayout>

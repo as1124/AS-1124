@@ -48,6 +48,18 @@
         android:layout_height="wrap_content"
         android:text="自建Video-Capture应用" />
 
+    <Button
+        android:id="@+id/but_camera2_photo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Camera2 拍照" />
+
+    <Button
+        android:id="@+id/but_camera2_video"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Camera2 录像" />
+
     <ImageView
         android:id="@+id/image_camera"
         android:layout_width="400dp"

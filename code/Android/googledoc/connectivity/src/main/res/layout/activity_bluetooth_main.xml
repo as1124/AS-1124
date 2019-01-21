@@ -31,6 +31,12 @@
         android:text="蓝牙配对" />
 
     <Button
+        android:id="@+id/but_listen_bluetooth"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="启用蓝牙ServerSocket" />
+
+    <Button
         android:id="@+id/but_send_bluetooth"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

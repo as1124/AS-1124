@@ -1,28 +1,18 @@
 package com.as1124.camera;
 
 import android.Manifest;
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.hardware.Camera;
-import android.hardware.camera2.CameraAccessException;
-import android.hardware.camera2.CameraCharacteristics;
-import android.hardware.camera2.CameraDevice;
-import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.io.IOException;
-import java.util.List;
 
 /**
  * 在应用内使用相机预览，不打开第三方相机。
@@ -36,24 +26,7 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
     private SurfaceView mSurfaceView;
     private SurfaceHolder mHolder;
 
-    private CameraManager cameraManager;
     private Camera mCamera;
-    private CameraDevice mCameraDevice;
-    private List<Camera.Size> localPreviewSize;
-
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case -1:
-                    // close camera and free system resource
-                    break;
-                case 1:
-                    //open camera and start to preview
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +41,6 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.CAMERA}, 111);
-                return;
             }
         }
     }
@@ -82,11 +54,7 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
     protected void onStart() {
         super.onStart();
         if (mCamera == null) {
-//            if (Build.VERSION.SDK_INT >= 21) {
-//                openCameraAbove21();
-//            } else {
             openCameraBelow21();
-//            }
         }
     }
 
@@ -94,7 +62,6 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
     protected void onResume() {
         super.onResume();
         if (mCamera != null) {
-            //        stopPreviewAndFreeCamera();
             try {
                 // Important: Call startPreview() to start updating the preview surface.
                 // Preview must be started before you can take a picture
@@ -121,51 +88,51 @@ public class SelfCameraActivity extends Activity implements SurfaceHolder.Callba
         }
     }
 
-    @TargetApi(21)
-    private void openCameraAbove21() {
-        cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
-        try {
-            String[] cameraIDs = cameraManager.getCameraIdList();
-            String ss = "";
-            String id2open = "";
-            for (String id : cameraIDs) {
-                ss = id + "," + ss;
-                CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(id);
-                Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
-                if (CameraCharacteristics.LENS_FACING_BACK == facing) {
-                    // 后置摄像头
-                    id2open = id;
-                }
-            }
-
-            cameraManager.openCamera(id2open, new CameraDevice.StateCallback() {
-                @Override
-                public void onOpened(@NonNull CameraDevice camera) {
-                    Log.i("Self-Camera", "CameraDevice-opened");
-                    mCameraDevice = camera;
-                    handler.obtainMessage(1).sendToTarget();
-                }
-
-                @Override
-                public void onDisconnected(@NonNull CameraDevice camera) {
-                    Log.i("Self-Camera", "CameraDevice-disconnected");
-                    camera.close();
-                    handler.obtainMessage(-1).sendToTarget();
-                }
-
-                @Override
-                public void onError(@NonNull CameraDevice camera, int error) {
-                    Log.i("Self-Camera", "CameraDevice-onError");
-                }
-            }, null);
-            Log.i("Camera-ID>=21", "一共有" + cameraIDs.length + "个摄像头, 标识为==" + ss);
-        } catch (CameraAccessException e) {
-            e.printStackTrace();
-        } catch (SecurityException e) {
-            Log.e("Self-Camera", "请检查权限");
-            Log.e("Self-Camera", e.getMessage(), e);
-        }
-    }
+//    @TargetApi(21)
+//    private void openCameraAbove21() {
+//        cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+//        try {
+//            String[] cameraIDs = cameraManager.getCameraIdList();
+//            String ss = "";
+//            String id2open = "";
+//            for (String id : cameraIDs) {
+//                ss = id + "," + ss;
+//                CameraCharacteristics characteristics = cameraManager.getCameraCharacteristics(id);
+//                Integer facing = characteristics.get(CameraCharacteristics.LENS_FACING);
+//                if (CameraCharacteristics.LENS_FACING_BACK == facing) {
+//                    // 后置摄像头
+//                    id2open = id;
+//                }
+//            }
+//
+//            cameraManager.openCamera(id2open, new CameraDevice.StateCallback() {
+//                @Override
+//                public void onOpened(@NonNull CameraDevice camera) {
+//                    Log.i("Self-Camera", "CameraDevice-opened");
+//                    mCameraDevice = camera;
+//                    handler.obtainMessage(1).sendToTarget();
+//                }
+//
+//                @Override
+//                public void onDisconnected(@NonNull CameraDevice camera) {
+//                    Log.i("Self-Camera", "CameraDevice-disconnected");
+//                    camera.close();
+//                    handler.obtainMessage(-1).sendToTarget();
+//                }
+//
+//                @Override
+//                public void onError(@NonNull CameraDevice camera, int error) {
+//                    Log.i("Self-Camera", "CameraDevice-onError");
+//                }
+//            }, null);
+//            Log.i("Camera-ID>=21", "一共有" + cameraIDs.length + "个摄像头, 标识为==" + ss);
+//        } catch (CameraAccessException e) {
+//            e.printStackTrace();
+//        } catch (SecurityException e) {
+//            Log.e("Self-Camera", "请检查权限");
+//            Log.e("Self-Camera", e.getMessage(), e);
+//        }
+//    }
 
     private void openCameraBelow21() {
         Camera.CameraInfo info = new Camera.CameraInfo();

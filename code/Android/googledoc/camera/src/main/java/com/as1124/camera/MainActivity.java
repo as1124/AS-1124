@@ -74,6 +74,8 @@ public class MainActivity extends Activity {
         findViewById(R.id.but_camera_info).setOnClickListener(v -> getDeviceCameraInfo());
         findViewById(R.id.but_to_selfcamera).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SelfCameraActivity.class)));
         findViewById(R.id.but_to_selfvideo).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SelfVideoActivity.class)));
+        findViewById(R.id.but_camera2_photo).setOnClickListener();
+        findViewById(R.id.but_camera2_video).setOnClickListener();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             // 请求相机和存储权限

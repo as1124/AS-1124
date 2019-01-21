@@ -3,7 +3,6 @@ package com.as1124.activities.shortcuts;
 import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender;
@@ -15,7 +14,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.drawable.Icon;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.content.pm.ShortcutManagerCompat;
 import android.util.Log;
 import android.widget.Toast;
 

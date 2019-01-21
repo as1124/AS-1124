@@ -9,6 +9,7 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothHeadset;
 import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
+import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -33,6 +34,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * 蓝牙管理
@@ -155,6 +157,7 @@ public class BluetoothMainActivity extends Activity implements View.OnClickListe
         findViewById(R.id.but_close_bluetooth).setOnClickListener(this);
         findViewById(R.id.but_scan_bluetooth).setOnClickListener(this);
         findViewById(R.id.but_pair_bluetooth).setOnClickListener(this);
+        findViewById(R.id.but_listen_bluetooth).setOnClickListener(this);
         findViewById(R.id.but_send_bluetooth).setOnClickListener(this);
         findViewById(R.id.but_connect_headset).setOnClickListener(this);
         findViewById(R.id.but_call_headset).setOnClickListener(this);
@@ -237,6 +240,9 @@ public class BluetoothMainActivity extends Activity implements View.OnClickListe
                 break;
             case R.id.but_pair_bluetooth:
                 new Thread(() -> pairDevice()).start();
+                break;
+            case R.id.but_listen_bluetooth:
+                createServerListener();
                 break;
             case R.id.but_send_bluetooth:
                 sendFile();
@@ -324,6 +330,12 @@ public class BluetoothMainActivity extends Activity implements View.OnClickListe
         // 方式一, not worked
 //        UUID uuid = UUID.randomUUID();
 //        socket = pairedDevice.createRfcommSocketToServiceRecord(uuid);
+        try {
+            socket = pairedDevice.createRfcommSocketToServiceRecord(serverUID);
+            socket.connect();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         // 方式二, not worked
 //        ParcelUuid[] uuids = pairedDevice.getUuids();
@@ -454,6 +466,33 @@ public class BluetoothMainActivity extends Activity implements View.OnClickListe
         device.createBond();
         BluetoothGatt bluetoothGatt = device.connectGatt(this, true, new As1124GattCallback());
         bluetoothGatt.connect();
+    }
+
+
+    static final UUID serverUID = UUID.randomUUID();
+    BluetoothServerSocket blueServer = null;
+
+    private void createServerListener() {
+        try {
+            blueServer = bluetoothAdapter.listenUsingRfcommWithServiceRecord("As1124BlueServer", serverUID);
+            new Thread(() -> {
+                try {
+                    blueServer.accept();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                } finally {
+                    if (blueServer != null) {
+                        try {
+                            blueServer.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            }).start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
