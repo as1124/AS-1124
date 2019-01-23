@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Context;
 import android.os.Build;
 
+import java.io.File;
 import java.util.List;
 
 public class ComponentUtils {
@@ -77,4 +78,7 @@ public class ComponentUtils {
         return activity.hasWindowFocus();
     }
 
+    public static void installAPK(Context context, File apkFile) {
+        // ATTENTION 安装APK文件
+    }
 }

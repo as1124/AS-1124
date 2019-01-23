@@ -4,4 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
     <color name="itemDivider">#DEDEDE</color>
+    <color name="windowBackground">#A8505A</color>
+    <color name="blueStatusBar">#273A6A</color>
 </resources>

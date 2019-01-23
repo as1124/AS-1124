@@ -38,7 +38,7 @@ public class RecyclerViewActivity extends Activity {
         mEmailList.setHasFixedSize(true);
         mEmailList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         mEmailList.setAdapter(new EMailRecyclerListAdapter(getEMails()));
-        mEmailList.addItemDecoration(new EMailItemDecoration(this));
+        mEmailList.addItemDecoration(new EMailItemDecoration());
     }
 
     private List<EMailModel> getEMails() {

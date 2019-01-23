@@ -3,9 +3,9 @@ package com.as1124.ui.layout;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
 
 import com.as1124.ui.R;
+import com.as1124.ui.layout.cardview.CardViewActivity;
 import com.as1124.ui.layout.recycler.RecyclerViewActivity;
 
 /**
@@ -23,6 +23,6 @@ public class LayoutTopicActivity extends Activity {
         findViewById(R.id.but_to_recyclerview).setOnClickListener(v ->
                 startActivity(new Intent(LayoutTopicActivity.this, RecyclerViewActivity.class)));
         findViewById(R.id.but_to_cardview).setOnClickListener(v ->
-                startActivity(new Intent(LayoutTopicActivity.this, CardView.class)));
+                startActivity(new Intent(LayoutTopicActivity.this, CardViewActivity.class)));
     }
 }

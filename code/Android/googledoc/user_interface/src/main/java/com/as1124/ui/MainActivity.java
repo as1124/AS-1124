@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        WindowUtils.fullScreen(this);
+//        WindowUtils.fullScreen(this);
 
         findViewById(R.id.but_to_layout).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, LayoutTopicActivity.class)));

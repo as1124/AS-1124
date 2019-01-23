@@ -118,6 +118,7 @@ public class WindowUtils {
      * @param activity
      */
     public static void lightStatusBar(Activity activity) {
+        // light_status_bar 设置后,状态信息颜色由白色变成黑色
         View contentView = activity.getWindow().getDecorView();
         contentView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
     }
