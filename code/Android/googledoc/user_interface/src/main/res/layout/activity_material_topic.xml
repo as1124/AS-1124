@@ -10,11 +10,11 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <TextView
+        <Button
+            android:id="@+id/but_to_fab"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="小仙女"
-            android:textAppearance="@android:style/TextAppearance.Material.Large" />
+            android:layout_height="wrap_content"
+            android:text="FloatingActionBar" />
     </LinearLayout>
 
 </ScrollView>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".material.FloatingBarActivity">
+
+    <LinearLayout
+        android:id="@+id/layout_fab_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/but_background_tint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改背景着色" />
+
+        <Button
+            android:id="@+id/but_change_alpha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改透明度" />
+    </LinearLayout>
+
+    <com.as1124.ui.material.As1124FloatingButton
+        android:id="@+id/fab_left_top"
+        style="@style/Widget.MaterialComponents.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:fabCustomSize="50dp"
+        app:layout_anchor="@id/layout_fab_content"
+        app:layout_anchorGravity="left|top"
+        app:useCompatPadding="true" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_left_bottom"
+        style="@style/Widget.Design.FloatingActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|bottom"
+        android:layout_margin="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/x4"
+        app:fabSize="mini" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_right_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:layout_margin="16dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/x6"
+        app:fabSize="auto" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_home"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="right|bottom"
+        android:layout_margin="16dp"
+        android:alpha="0.2"
+        android:src="@drawable/icon_fab_home"
+        app:backgroundTint="#2B2B2B"
+        app:fabCustomSize="48dp" />
+
+
+</android.support.design.widget.CoordinatorLayout>
