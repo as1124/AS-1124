@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".selfdefine.SelfViewActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,7 +22,7 @@
         <activity android:name=".axis.ViewCoordinateActivity" />
         <activity android:name=".move.ViewMovementActivity" />
         <activity android:name=".anim.AnimationActivity" />
-        <activity android:name=".scroller.ScrollerActivity"></activity>
+        <activity android:name=".scroller.ScrollerActivity" />
     </application>
 
 </manifest>

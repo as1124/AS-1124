@@ -2,6 +2,7 @@ package com.as1124.ch3.views.scroller;
 
 import android.app.Activity;
 import android.os.Bundle;
+
 import com.as1124.ch3.views.R;
 
 /**

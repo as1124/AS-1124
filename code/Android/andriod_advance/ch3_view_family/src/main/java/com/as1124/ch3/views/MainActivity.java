@@ -7,10 +7,12 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.Toast;
+
 import com.as1124.ch3.views.anim.AnimationActivity;
 import com.as1124.ch3.views.axis.ViewCoordinateActivity;
 import com.as1124.ch3.views.move.ViewMovementActivity;
 import com.as1124.ch3.views.scroller.ScrollerActivity;
+import com.as1124.ch3.views.selfdefine.SelfViewActivity;
 
 public class MainActivity extends Activity {
 
@@ -32,12 +34,15 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, AnimationActivity.class)));
         findViewById(R.id.but_to_scroller).setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, ScrollerActivity.class)));
+        findViewById(R.id.but_to_selfview).setOnClickListener(v ->
+                startActivity(new Intent(this, SelfViewActivity.class)));
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
                 requestPermissions(new String[]{Manifest.permission.READ_PHONE_STATE}, 111);
             }
         }
+
     }
 
     @Override
