@@ -7,12 +7,36 @@
     tools:context=".anim.AnimationActivity">
 
     <Button
-        android:id="@+id/but_start_anim"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:id="@+id/but_animator_stop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:text="停止动画" />
+
+    <Button
+        android:id="@+id/but_animator_holder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/but_animator_stop"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:text="组合动画：PropertyValuesHolder" />
+
+    <Button
+        android:id="@+id/but_animator_xml"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/but_animator_holder"
+        android:text="加载XML中动画" />
+
+    <Button
+        android:id="@+id/but_start_anim"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_below="@id/but_animator_xml"
+        android:layout_marginLeft="50dp"
         android:layout_marginTop="100dp"
         android:text="开始属性动画" />
 </RelativeLayout>
