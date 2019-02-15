@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
+    <!-- 生物识别认证 -->
+    <uses-permission android:name="android.permission.USE_FINGERPRINT" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
