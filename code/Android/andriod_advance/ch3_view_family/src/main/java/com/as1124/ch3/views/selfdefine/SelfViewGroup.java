@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Scroller;
 
 /**
  * 继承自原始ViewGroup，实现自定义布局容器
@@ -14,25 +16,47 @@ import android.view.ViewGroup;
  * <li>处理WRAP_CONTENT</li>
  * <li>计算子View布局</li>
  * <li>处理滑动冲突：这里做的是横向布局，所以当前ViewGroup只支持横向滑动</li>
+ * <li>实现弹性滑动到其他页面</li>
+ * <li>支持快速滑动到其他页面</li>
+ * <li>实现再次触摸屏幕中断滑动：在{@link #onInterceptTouchEvent(MotionEvent)}中ACTION_DOWN
+ * 时判断, 如果Scroller滑动未执行完则立即中断Scroller</li>
  * </ol>
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class SelfViewGroup extends ViewGroup {
 
-    private float offsetX = 0;
-    private float offsetY = 0;
+    private float lastX = 0;
+    private float lastY = 0;
+
+    // 当前子元素下标
+    private int currentIndex = 0;
+    private int childWidth;
+    private Scroller mScroller;
+    // 滑动速度计量
+    private VelocityTracker vTracker;
+
 
     public SelfViewGroup(Context context) {
         super(context);
+        init(context);
     }
 
     public SelfViewGroup(Context context, AttributeSet attrs) {
         super(context, attrs);
+        init(context);
     }
 
     public SelfViewGroup(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        init(context);
+    }
+
+    private void init(Context context) {
+        mScroller = new Scroller(context);
+        vTracker = VelocityTracker.obtain();
+
+        childWidth = context.getResources().getDisplayMetrics().widthPixels;
     }
 
     @Override
@@ -106,7 +130,7 @@ public class SelfViewGroup extends ViewGroup {
             View view = getChildAt(i);
             // 不考虑处理 padding、margin
             if (view.getVisibility() == View.GONE) {
-                view.layout(offsetX, 0, offsetX + 0, 0);
+                view.layout(offsetX, 0, offsetX, 0);
             } else {
                 int childH = view.getMeasuredHeight();
                 int childW = view.getMeasuredWidth();
@@ -133,22 +157,27 @@ public class SelfViewGroup extends ViewGroup {
         float x = ev.getX();
         float y = ev.getY();
         switch (ev.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                intercept = false;
+                if (!mScroller.isFinished()) {
+                    mScroller.abortAnimation();
+                }
+                break;
             case MotionEvent.ACTION_MOVE:
                 // 只处理滑动
-                float deltaX = x - offsetX;
-                float deltaY = y - offsetY;
+                float deltaX = x - lastX;
+                float deltaY = y - lastY;
                 if (Math.abs(deltaX) > Math.abs(deltaY)) {
                     // 分发到自身的 onTouch() 中进行处理
                     intercept = true;
                 }
                 break;
-            case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_UP:
             default:
                 break;
         }
-        offsetX = x;
-        offsetY = y;
+        lastX = x;
+        lastY = y;
         return intercept;
     }
 
@@ -156,6 +185,72 @@ public class SelfViewGroup extends ViewGroup {
     public boolean onTouchEvent(MotionEvent event) {
         // S3: 如果event没有被子View消费（出发点在ViewGroup上而非子View上）是会调用
         Log.i("SelfViewGroup", "onTouchEvent called!");
-        return super.onTouchEvent(event);
+
+        vTracker.addMovement(event);
+        float x = event.getX();
+        float y = event.getY();
+        switch (event.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+//                if (!mScroller.isFinished()) {
+//                    mScroller.abortAnimation();
+//                }
+                break;
+            case MotionEvent.ACTION_MOVE:
+                int deltaX = (int) (x - lastX);
+                scrollBy(-deltaX, 0); // 不处理Y轴滑动
+                break;
+            case MotionEvent.ACTION_UP:
+                // 滑动一段后当前X轴edge坐标减去left原始位置
+                int distance = getScrollX() - currentIndex * childWidth;
+                if (Math.abs(distance) > childWidth / 2) {
+                    if (distance > 0) {
+                        currentIndex++;
+                    } else {
+                        currentIndex--;
+                    }
+                } else {
+                    // 距离不足一半但是快速滑动
+                    vTracker.computeCurrentVelocity(1000);
+                    float xv = vTracker.getXVelocity();
+                    if (Math.abs(xv) >= 50) {
+                        if (xv > 0) {
+                            currentIndex--; // 从左向右
+                        } else {
+                            currentIndex++;
+                        }
+                    }
+                }
+                currentIndex = currentIndex < 0 ? 0 : currentIndex > getChildCount() - 1 ? getChildCount() - 1 : currentIndex;
+                smoothScrollTo(currentIndex * childWidth, 0);
+                vTracker.clear();
+                break;
+            default:
+                break;
+        }
+
+        lastX = x;
+        lastY = y;
+
+        return true;
+    }
+
+    @Override
+    public void computeScroll() {
+        super.computeScroll();
+        if (mScroller.computeScrollOffset()) {
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            postInvalidate();
+        }
+    }
+
+    /**
+     * 弹性滑动到指定位置
+     *
+     * @param destX
+     * @param destY
+     */
+    private void smoothScrollTo(int destX, int destY) {
+        mScroller.startScroll(getScrollX(), getScrollY(), destX - getScrollX(), destY - getScrollY(), 1000);
+        invalidate();
     }
 }

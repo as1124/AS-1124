@@ -9,12 +9,14 @@
 
     <com.as1124.ch3.views.selfdefine.SelfTextView
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:text="哈哈哈哈，醉了" />
+        android:layout_height="50dp"
+        android:text="哈哈哈哈，醉了"
+        android:textSize="22sp" />
 
+    <!-- 占位 -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="10dp"
         android:backgroundTint="#000000ff" />
 
     <com.as1124.ch3.views.selfdefine.SelfRectView
@@ -25,7 +27,7 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="20dp"
+        android:layout_height="10dp"
         android:backgroundTint="#000000ff" />
 
     <com.as1124.ch3.views.selfdefine.SelfTitleBar
@@ -33,22 +35,37 @@
         android:layout_height="80dp"
         android:background="#ffffff"
         app:title_color="#00ffff"
-        app:title_text="欢哥，哈哈哈" />
+        app:title_text="欢哥，哈哈哈, TitleBar" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="10dp" />
+
+    <!-- 自定义ViewGroup -->
     <com.as1124.ch3.views.selfdefine.SelfViewGroup
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="400dp">
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:text="按钮111" />
+        <!--<Button-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:text="按钮111" />-->
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="75dp"
-            android:gravity="center"
-            android:text="酷酷酷的风景了"
-            android:textAlignment="center" />
+        <!--<Button-->
+        <!--android:layout_width="100dp"-->
+        <!--android:layout_height="75dp"-->
+        <!--android:gravity="center"-->
+        <!--android:text="酷酷酷的风景了"-->
+        <!--android:textAlignment="center" />-->
+
+        <ListView
+            android:id="@+id/listview_one"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
+
+        <ListView
+            android:id="@+id/listview_two"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></ListView>
     </com.as1124.ch3.views.selfdefine.SelfViewGroup>
 </LinearLayout>
