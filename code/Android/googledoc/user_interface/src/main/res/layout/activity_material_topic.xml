@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center_horizontal"
         android:orientation="vertical">
 
         <Button
@@ -15,6 +16,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="FloatingActionBar" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Widget" />
+
+        <EditText
+            android:id="@+id/text_test_elevation"
+            android:layout_width="300dp"
+            android:layout_height="80dp"
+            android:autoSizeTextType="uniform"
+            android:background="@drawable/bg_elevation"
+            android:elevation="10dp"
+            android:fontFamily="@font/butcherman"
+            android:gravity="top"
+            android:text="测试Background Elevation" />
     </LinearLayout>
 
 </ScrollView>

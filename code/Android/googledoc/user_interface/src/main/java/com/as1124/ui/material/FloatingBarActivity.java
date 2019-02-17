@@ -7,6 +7,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.SeekBar;
+import android.widget.Toast;
 
 import com.as1124.ui.R;
 
@@ -15,7 +20,11 @@ public class FloatingBarActivity extends Activity {
     private static int tintMode = 0;
 
     private FloatingActionButton floatingButton;
-    private FloatingActionButton fabHome;
+    private FloatingActionButton fabHome, fabToutiao, fabWeixin;
+
+    private boolean isOpen = false;
+
+    private View scaleTestView;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -28,9 +37,39 @@ public class FloatingBarActivity extends Activity {
 //        floatingButton.setExpanded(true);
 //        floatingButton.show();
         fabHome = findViewById(R.id.fab_home);
+        fabHome.setOnClickListener(v -> fabHomeClick());
+        fabToutiao = findViewById(R.id.fab_touxiao);
+        fabToutiao.setOnClickListener(v ->
+                Toast.makeText(this, "点击今日头条", Toast.LENGTH_SHORT).show());
+        fabWeixin = findViewById(R.id.fab_weixin);
+        fabWeixin.setOnClickListener(v ->
+                Toast.makeText(this, "点击微信", Toast.LENGTH_SHORT).show());
 
         findViewById(R.id.but_background_tint).setOnClickListener(v -> changeBackground());
         findViewById(R.id.but_change_alpha).setOnClickListener(v -> changeAlpha());
+
+
+        scaleTestView = findViewById(R.id.view_scale_test);
+        SeekBar seekBar = findViewById(R.id.seekbar_scale_test);
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                scaleTestView.setPivotX(0.5f);
+                scaleTestView.setPivotY(0.5f);
+                float scaleRate = progress / 100.0f;
+                scaleTestView.setScaleX(scaleRate);
+                scaleTestView.setScaleY(scaleRate);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
+
     }
 
     private void changeBackground() {
@@ -96,10 +135,36 @@ public class FloatingBarActivity extends Activity {
     }
 
     private void changeAlpha() {
-
+        floatingButton.setAlpha(0.9f);
     }
 
-    private void changeElevation() {
+    private void fabHomeClick() {
+        if (isOpen) {
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.fab_main_close);
+            Animation itemClose = AnimationUtils.loadAnimation(this, R.anim.fab_item_close);
+            fabHome.startAnimation(animation);
+            fabToutiao.setVisibility(View.INVISIBLE);
+            fabToutiao.startAnimation(itemClose);
+            fabToutiao.setClickable(false);
+            fabWeixin.setVisibility(View.INVISIBLE);
+            fabWeixin.startAnimation(itemClose);
+            fabWeixin.setClickable(false);
+            fabHome.startAnimation(animation);
 
+            isOpen = false;
+        } else {
+            Animation animation = AnimationUtils.loadAnimation(this, R.anim.fab_main_open);
+            Animation itemOpen = AnimationUtils.loadAnimation(this, R.anim.fab_item_open);
+            fabHome.startAnimation(animation);
+            fabToutiao.setVisibility(View.VISIBLE);
+            fabToutiao.startAnimation(itemOpen);
+            fabToutiao.setClickable(true);
+            fabWeixin.setVisibility(View.VISIBLE);
+            fabWeixin.startAnimation(itemOpen);
+            fabWeixin.setClickable(true);
+
+            isOpen = true;
+        }
     }
+
 }

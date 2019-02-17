@@ -22,6 +22,7 @@ import android.util.Log;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.as1124.camera.v2.Camera2PhotoActivity;
 import com.as1124.selflib.WindowUtils;
 
 import java.io.File;
@@ -72,9 +73,13 @@ public class MainActivity extends Activity {
         findViewById(R.id.but_media_scanner).setOnClickListener(v -> testAutoShare2Gallery());
         findViewById(R.id.but_scale_photo).setOnClickListener(v -> decodeImageSize());
         findViewById(R.id.but_camera_info).setOnClickListener(v -> getDeviceCameraInfo());
-        findViewById(R.id.but_to_selfcamera).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SelfCameraActivity.class)));
-        findViewById(R.id.but_to_selfvideo).setOnClickListener(v -> startActivity(new Intent(MainActivity.this, SelfVideoActivity.class)));
-//        findViewById(R.id.but_camera2_photo).setOnClickListener();
+        findViewById(R.id.but_to_selfcamera).setOnClickListener(
+                v -> startActivity(new Intent(this, SelfCameraActivity.class)));
+        findViewById(R.id.but_to_selfvideo).setOnClickListener(
+                v -> startActivity(new Intent(this, SelfVideoActivity.class)));
+        findViewById(R.id.but_camera2_photo).setOnClickListener(
+                v -> startActivity(new Intent(this, Camera2PhotoActivity.class))
+        );
 //        findViewById(R.id.but_camera2_video).setOnClickListener();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

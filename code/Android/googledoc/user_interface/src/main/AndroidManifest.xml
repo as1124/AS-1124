@@ -29,6 +29,10 @@
             android:name=".layout.recycler.RecyclerViewActivity"
             android:exported="true" />
         <activity android:name=".material.FloatingBarActivity"></activity>
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

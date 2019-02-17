@@ -36,7 +36,8 @@
         <activity
             android:name=".SelfCameraActivity"
             android:configChanges="orientation" />
-        <activity android:name=".SelfVideoActivity"></activity>
+        <activity android:name=".SelfVideoActivity" />
+        <activity android:name=".v2.Camera2PhotoActivity"></activity>
     </application>
 
 </manifest>

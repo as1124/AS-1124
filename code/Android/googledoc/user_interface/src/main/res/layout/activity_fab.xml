@@ -26,6 +26,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="修改透明度" />
+
+        <View
+            android:id="@+id/view_scale_test"
+            android:layout_width="300dp"
+            android:layout_height="400dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#00ffff" />
+
+        <SeekBar
+            android:id="@+id/seekbar_scale_test"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:interpolator="@android:anim/linear_interpolator"
+            android:max="100"
+            android:min="0"
+            android:progress="1" />
+
     </LinearLayout>
 
     <com.as1124.ui.material.As1124FloatingButton
@@ -60,9 +78,37 @@
         android:layout_gravity="right|top"
         android:layout_margin="16dp"
         android:adjustViewBounds="true"
+        android:elevation="0dp"
         android:scaleType="fitXY"
         android:src="@drawable/x6"
         app:fabSize="auto" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_touxiao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="132dp"
+        android:elevation="0dp"
+        android:src="@drawable/icon"
+        android:visibility="gone"
+        app:backgroundTint="#ffffff"
+        app:fabCustomSize="48dp"
+        app:pressedTranslationZ="12dp" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab_weixin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="74dp"
+        android:src="@drawable/x7"
+        android:visibility="gone"
+        app:backgroundTint="#2a2a2a"
+        app:fabCustomSize="48dp"
+        app:pressedTranslationZ="12dp" />
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_home"
@@ -70,10 +116,11 @@
         android:layout_height="match_parent"
         android:layout_gravity="right|bottom"
         android:layout_margin="16dp"
-        android:alpha="0.2"
+        android:alpha="0.7"
         android:src="@drawable/icon_fab_home"
         app:backgroundTint="#2B2B2B"
-        app:fabCustomSize="48dp" />
+        app:fabCustomSize="48dp"
+        app:pressedTranslationZ="12dp" />
 
 
 </android.support.design.widget.CoordinatorLayout>
