@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/but_thread_callable"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Callable 异步线程" />
+
+    <Button
+        android:id="@+id/but_thread_interrupt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Thread中断" />
+
+    <Button
+        android:id="@+id/but_to_sync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="线程同步" />
+</LinearLayout>
