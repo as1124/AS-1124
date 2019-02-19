@@ -1,9 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".sync.SyncMainActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/but_object_wait"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="wait()" />
+
+    <Button
+        android:id="@+id/but_object_notify"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="notify()/notifyAll()" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="理解Thread中 yield, sleep, join 吗?" />
+
+</LinearLayout>

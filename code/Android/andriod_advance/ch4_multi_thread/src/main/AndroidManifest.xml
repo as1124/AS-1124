@@ -11,7 +11,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".sync.SyncMainActivity"></activity>
+        <activity android:name=".blockqueue.BlockQueueActivity"></activity>
+        <activity android:name=".sync.SyncMainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

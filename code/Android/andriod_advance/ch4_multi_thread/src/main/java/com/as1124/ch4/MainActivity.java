@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.as1124.ch4.blockqueue.BlockQueueActivity;
 import com.as1124.ch4.sync.SyncMainActivity;
 
 import java.util.concurrent.Callable;
@@ -56,7 +57,10 @@ public class MainActivity extends Activity {
                 e.printStackTrace();
             }
         });
-        findViewById(R.id.but_to_sync).setOnClickListener(v -> startActivity(new Intent(this, SyncMainActivity.class)));
+        findViewById(R.id.but_to_sync).setOnClickListener(v ->
+                startActivity(new Intent(this, SyncMainActivity.class)));
+        findViewById(R.id.but_to_blocking).setOnClickListener(v ->
+                startActivity(new Intent(this, BlockQueueActivity.class)));
     }
 
     /**
