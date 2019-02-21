@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">Touch&amp;Input</string>
+    <string-array name="countries_array">
+        <item>Afghanistan</item>
+        <item>Albania</item>
+        <item>Algeria</item>
+        <item>American Samoa</item>
+        <item>Andorra</item>
+        <item>Angola</item>
+        <item>Anguilla</item>
+        <item>Antarctica</item>
+        <item>China</item>
+        <item>沙雕国家</item>
+        <item>我的小仙女</item>
+    </string-array>
 </resources>

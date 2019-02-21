@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.as1124.touch_input">
 
+    <uses-permission android:name="android.permission.BIND_INPUT_METHOD" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,6 +11,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service
+            android:name=".inputmethod.As1124InputMethodService"
+            android:enabled="true"
+            android:exported="true"
+            android:permission="android.permission.BIND_INPUT_METHOD">
+            <intent-filter>
+                <action android:name="android.view.InputMethod" />
+            </intent-filter>
+            <meta-data
+                android:name="android.view.im"
+                android:resource="@xml/input_method" />
+        </service>
+
+        <activity
+            android:name=".inputmethod.InputMethodActivity"
+            android:label="自定义输入法主入口">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+
+        <!-- stateVisible：每次打开Activity都会打开键盘 -->
+        <activity
+            android:name=".keyinput.KeyInputActivity"
+            android:windowSoftInputMode="stateVisible" />
+
+        <activity android:name=".gesture.drag.DragScaleActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,7 +46,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".gesture.GestureActivity" />
-        <activity android:name=".gesture.SelfScrollableActivity"></activity>
+        <activity android:name=".gesture.SelfScrollableActivity" />
     </application>
 
 </manifest>

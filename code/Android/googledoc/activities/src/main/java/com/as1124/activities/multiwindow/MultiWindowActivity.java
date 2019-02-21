@@ -109,8 +109,15 @@ public class MultiWindowActivity extends Activity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        Log.i(TAG, "Activity onDestroy");
+    }
+
+    @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Log.i(TAG, "Activity onConfigurationChanged");
+        Log.i(TAG, "Activity onConfigurationChanged[[ " + newConfig.orientation);
     }
 }

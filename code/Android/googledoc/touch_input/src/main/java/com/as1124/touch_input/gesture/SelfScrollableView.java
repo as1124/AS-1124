@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 import android.widget.OverScroller;
 
 /**
- * 可实现滚动的自定义view
+ * 自定义View处理滑动事件；{@link android.widget.Scroller}, {@link OverScroller}
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */

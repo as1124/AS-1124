@@ -3,15 +3,14 @@ package com.as1124.touch_input;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
 
 import com.as1124.selflib.WindowUtils;
 import com.as1124.touch_input.gesture.GestureActivity;
-import com.as1124.touch_input.gesture.MyGestureListener;
+import com.as1124.touch_input.inputmethod.InputMethodActivity;
+import com.as1124.touch_input.keyinput.KeyInputActivity;
 
 /**
  * @author as-1124(mailto:as1124huang@gmail.com)
@@ -27,8 +26,16 @@ public class MainActivity extends Activity {
             actionBar.hide();
         }
         WindowUtils.fullScreen(this);
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setStatusBarColor(Color.CYAN);
+        }
 
         findViewById(R.id.but_to_gesture).setOnClickListener(v ->
-                startActivity(new Intent(MainActivity.this, GestureActivity.class)));
+                startActivity(new Intent(this, GestureActivity.class)));
+        findViewById(R.id.but_to_keyinput).setOnClickListener(v ->
+                startActivity(new Intent(this, KeyInputActivity.class)));
+        findViewById(R.id.but_to_inputmethod).setOnClickListener(v ->
+                startActivity(new Intent(this, InputMethodActivity.class)));
+
     }
 }

@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".blockqueue.BlockQueueActivity">
+    tools:context=".gesture.drag.DragScaleActivity">
 
-    <Button
-        android:id="@+id/but_block_queue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="测试" />
+    <com.as1124.touch_input.gesture.drag.DragScaleView
+        android:id="@+id/view_drag_view"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="#237589" />
+
 </LinearLayout>

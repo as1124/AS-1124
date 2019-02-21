@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.as1124.selflib.WindowUtils;
 import com.as1124.touch_input.R;
+import com.as1124.touch_input.gesture.drag.DragScaleActivity;
 
 /**
  * 手势输入处理
@@ -40,8 +41,6 @@ import com.as1124.touch_input.R;
  */
 public class GestureActivity extends Activity {
 
-    private MyGestureListener gestureListener = new MyGestureListener();
-
     private GestureDetector mDetector;
 
     private VelocityTracker mVelocityTracker;
@@ -55,6 +54,11 @@ public class GestureActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gesture);
         WindowUtils.fullScreen(this);
+        if (getActionBar() != null) {
+            getActionBar().hide();
+        }
+
+        MyGestureListener gestureListener = new MyGestureListener();
         mDetector = new GestureDetector(this, gestureListener);
         // set the detector as the double tap listener
         mDetector.setOnDoubleTapListener(gestureListener);
@@ -80,8 +84,12 @@ public class GestureActivity extends Activity {
         });
 
         findViewById(R.id.but_scroll_gesture).setOnClickListener(
-                v -> startActivity(new Intent(GestureActivity.this, SelfScrollableActivity.class))
+                v -> startActivity(new Intent(this, SelfScrollableActivity.class))
         );
+        findViewById(R.id.but_multi_touch).setOnClickListener(v ->
+                Toast.makeText(this, "MotionEvent 类型 ACTION_POINTER_*", Toast.LENGTH_SHORT).show());
+        findViewById(R.id.but_to_drag).setOnClickListener(v ->
+                startActivity(new Intent(this, DragScaleActivity.class)));
     }
 
     @Override
@@ -106,15 +114,10 @@ public class GestureActivity extends Activity {
         switch (action) {
             case MotionEvent.ACTION_DOWN:// 用来标识手势操作开始
                 Log.i("MotionEvent", "Action was DOWN");
-                if (mVelocityTracker == null) {
-                    // Retrieve a new VelocityTracker object to watch the velocity of a motion.
-                    mVelocityTracker = VelocityTracker.obtain();
-                } else {
-                    // Reset the velocity back to it's initial state.
-                    mVelocityTracker.clear();
-                }
+                // Retrieve a new VelocityTracker object to watch the velocity of a motion.
+                mVelocityTracker = VelocityTracker.obtain();
                 mVelocityTracker.addMovement(event);
-                return true;
+                return true; // return true to gather the following e
             case MotionEvent.ACTION_MOVE:
                 Log.i("MotionEvent", "Action was MOVE");
                 mVelocityTracker.addMovement(event);
@@ -129,18 +132,32 @@ public class GestureActivity extends Activity {
                 return true;
             case MotionEvent.ACTION_UP:// 用来标识手势操作结束
                 Log.i("MotionEvent", "Action was UP");
-                mVelocityTracker.recycle();
-                return true;
+                mVelocityTracker.clear();
             case MotionEvent.ACTION_CANCEL:
                 Log.i("MotionEvent", "Action was CANCEL");
                 // Return a VelocityTracker object back to be re-used by others.
-                mVelocityTracker.recycle();
-                return true;
+                mVelocityTracker.clear();
             case MotionEvent.ACTION_OUTSIDE:
                 Log.i("MotionEvent", "Movement occurred outside bounds of current screen");
-                return true;
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                // ATTENTION 多点触控, POINTER_DOWN --> MOVE --> POINTER_UP
+                Log.i("MotionEvent", "Action was POINTER_DOWN");
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                Log.i("MotionEvent", "Action was POINTER_UP");
+                break;
             default:
-                return false;
+        }
+        return true;
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (mVelocityTracker != null) {
+            mVelocityTracker.clear();
+            mVelocityTracker.recycle();
         }
     }
 }

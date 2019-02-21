@@ -1,27 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".keyinput.KeyInputActivity">
 
-    <Button
-        android:id="@+id/but_to_gesture"
+    <com.as1124.touch_input.keyinput.As1124EditText
+        android:id="@+id/text_keyboard_event"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="手势输入" />
+        android:imeOptions="actionSend"
+        android:inputType="textCapSentences|textAutoCorrect" />
 
-    <Button
-        android:id="@+id/but_to_keyinput"
+    <AutoCompleteTextView
+        android:id="@+id/auto_text_keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="键盘输入" />
+        android:layout_marginTop="10dp" />
 
     <Button
-        android:id="@+id/but_to_inputmethod"
+        android:id="@+id/but_show_keyboard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="自定义输入发" />
+        android:text="显示键盘" />
 
 </LinearLayout>

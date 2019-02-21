@@ -6,6 +6,13 @@ import android.view.MotionEvent;
 
 /**
  * 自定义手势检测器，这里处理单击、长按、滑动、双击、快速移动(onFling)
+ * <ol>
+ * <li>single tap</li>
+ * <li>double tap</li>
+ * <li>long press</li>
+ * <li>scroll</li>
+ * <li>fling</li>
+ * </ol>
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
@@ -15,8 +22,15 @@ public class MyGestureListener implements GestureDetector.OnGestureListener, Ges
 
     @Override
     public boolean onDown(MotionEvent event) {
-        Log.i(DEBUG_TAG, "onDown: " + event.toString());
+        // ATTENTION ACTION_DOWN 时触发，用于决定是否处理后续Motion事件
+        Log.i(DEBUG_TAG, "onDown: ");
         return true;
+    }
+
+    @Override
+    public void onShowPress(MotionEvent event) {
+        // ACTION_DOWN 时触发, 不适合用来进行手势判断, 一般空处理
+        Log.i(DEBUG_TAG, "onShowPress: " + event.toString());
     }
 
     @Override
@@ -28,16 +42,11 @@ public class MyGestureListener implements GestureDetector.OnGestureListener, Ges
         // velocityX：X轴上的移动速度，像素/秒
         // velocityY：Y轴上的移动速度，像素/秒
 
-        float deltaX = event1.getX() - event2.getX();
-        if (deltaX > 0 && velocityX < 0) {
-            // 向左快速滑动：结束位置X坐标小于触发位置X坐标，且X轴移动速率为负数
-        }
-        if (deltaX < 0 && velocityX > 0) {
-            // 手指向右快速移动: 结束位置X轴坐标大于触发位置X轴坐标，沿X轴方向移动速率为正数
-        }
-        // 沿Y轴的移动判断同X轴
+        float deltaX = event2.getX() - event1.getX();
+        Log.i(DEBUG_TAG, "deltaX = " + deltaX + ", velocityX === " + velocityX);
         return true;
     }
+
 
     @Override
     public void onLongPress(MotionEvent event) {
@@ -45,20 +54,20 @@ public class MyGestureListener implements GestureDetector.OnGestureListener, Ges
     }
 
     @Override
-    public boolean onScroll(MotionEvent event1, MotionEvent event2, float distanceX,
-                            float distanceY) {
+    public boolean onScroll(MotionEvent event1, MotionEvent event2, float distanceX, float distanceY) {
         Log.i(DEBUG_TAG, "onScroll: " + event1.toString() + event2.toString());
         return true;
     }
 
     @Override
-    public void onShowPress(MotionEvent event) {
-        Log.i(DEBUG_TAG, "onShowPress: " + event.toString());
+    public boolean onSingleTapUp(MotionEvent event) {
+        Log.i(DEBUG_TAG, "onSingleTapUp: " + event.toString());
+        return true;
     }
 
     @Override
-    public boolean onSingleTapUp(MotionEvent event) {
-        Log.i(DEBUG_TAG, "onSingleTapUp: " + event.toString());
+    public boolean onSingleTapConfirmed(MotionEvent event) {
+        Log.i(DEBUG_TAG, "onSingleTapConfirmed: " + event.toString());
         return true;
     }
 
@@ -74,9 +83,4 @@ public class MyGestureListener implements GestureDetector.OnGestureListener, Ges
         return true;
     }
 
-    @Override
-    public boolean onSingleTapConfirmed(MotionEvent event) {
-        Log.i(DEBUG_TAG, "onSingleTapConfirmed: " + event.toString());
-        return true;
-    }
 }

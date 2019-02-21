@@ -108,7 +108,7 @@
         </activity>
         <activity
             android:name=".multiwindow.MultiWindowActivity"
-            android:configChanges="keyboard|keyboardHidden|screenLayout"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
             android:resizeableActivity="true"
             android:supportsPictureInPicture="true" />
         <activity android:name=".loaders.LoaderMainActivity"></activity>

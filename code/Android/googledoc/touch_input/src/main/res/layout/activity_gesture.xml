@@ -46,4 +46,10 @@
         android:layout_height="wrap_content"
         android:text="多点触控" />
 
+    <Button
+        android:id="@+id/but_to_drag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Drag and Drop 操作" />
+
 </LinearLayout>
