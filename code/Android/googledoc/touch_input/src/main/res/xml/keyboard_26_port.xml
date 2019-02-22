@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:horizontalGap="5dp"
+    android:keyWidth="50dp"
+    android:keyHeight="50dp"
+    android:verticalGap="5dp">
+    <!-- 26字母键盘横屏 -->
+
+    <!-- 如果row所有键的width和大于了屏幕width, 则KeyWidth取平均值 -->
+    <Row
+        android:horizontalGap="5dp"
+        android:keyWidth="50dp"
+        android:keyHeight="80dp"
+        android:rowEdgeFlags="top"
+        android:verticalGap="10dp">
+        <Key
+            android:codes="1"
+            android:isRepeatable="false"
+            android:keyEdgeFlags="left"
+            android:keyLabel="q"
+            android:popupCharacters="1" />
+        <Key
+            android:codes="2"
+            android:isRepeatable="false"
+            android:keyLabel="w" />
+        <Key
+            android:codes="3"
+            android:isRepeatable="false"
+            android:keyLabel="e" />
+        <Key
+            android:codes="4"
+            android:isRepeatable="false"
+            android:keyLabel="r" />
+        <Key
+            android:codes="5"
+            android:isRepeatable="false"
+            android:keyLabel="t" />
+        <Key
+            android:codes="6"
+            android:isRepeatable="false"
+            android:keyLabel="y" />
+        <Key
+            android:codes="7"
+            android:isRepeatable="false"
+            android:keyLabel="u" />
+        <Key
+            android:codes="8"
+            android:isRepeatable="false"
+            android:keyLabel="i" />
+        <Key
+            android:codes="9"
+            android:isRepeatable="false"
+            android:keyLabel="o" />
+        <Key
+            android:codes="10"
+            android:isRepeatable="false"
+            android:keyEdgeFlags="right"
+            android:keyLabel="p" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="11"
+            android:isRepeatable="false"
+            android:keyLabel="a" />
+        <Key
+            android:codes="12"
+            android:isRepeatable="false"
+            android:keyLabel="s" />
+        <Key
+            android:codes="13"
+            android:isRepeatable="false"
+            android:keyLabel="d" />
+        <Key
+            android:codes="14"
+            android:isRepeatable="false"
+            android:keyLabel="f" />
+        <Key
+            android:codes="15"
+            android:isRepeatable="false"
+            android:keyLabel="g" />
+        <Key
+            android:codes="16"
+            android:isRepeatable="false"
+            android:keyLabel="h" />
+        <Key
+            android:codes="17"
+            android:isRepeatable="false"
+            android:keyLabel="j" />
+        <Key
+            android:codes="18"
+            android:isRepeatable="false"
+            android:keyLabel="k" />
+        <Key
+            android:codes="19"
+            android:isRepeatable="false"
+            android:keyLabel="l" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="21"
+            android:iconPreview="@drawable/a56"
+            android:isModifier="true"
+            android:isRepeatable="false"
+            android:isSticky="true"
+            android:keyEdgeFlags="left"
+            android:keyIcon="@drawable/abe" />
+        <Key
+            android:codes="22"
+            android:isRepeatable="false"
+            android:keyLabel="z" />
+        <Key
+            android:codes="23"
+            android:isRepeatable="false"
+            android:keyLabel="x" />
+        <Key
+            android:codes="24"
+            android:isRepeatable="false"
+            android:keyLabel="c" />
+        <Key
+            android:codes="25"
+            android:isRepeatable="false"
+            android:keyLabel="v" />
+        <Key
+            android:codes="26"
+            android:isRepeatable="false"
+            android:keyLabel="b" />
+        <Key
+            android:codes="27"
+            android:isRepeatable="false"
+            android:keyLabel="n" />
+        <Key
+            android:codes="28"
+            android:isRepeatable="false"
+            android:keyLabel="m" />
+        <Key
+            android:codes="29"
+            android:isModifier="true"
+            android:isRepeatable="true"
+            android:keyEdgeFlags="right"
+            android:keyLabel="Del" />
+    </Row>
+
+    <Row android:rowEdgeFlags="bottom">
+        <Key
+            android:codes="36"
+            android:isRepeatable="false"
+            android:keyEdgeFlags="left"
+            android:keyLabel="123" />
+        <Key
+            android:codes="37"
+            android:isRepeatable="false"
+            android:keyLabel="," />
+        <Key
+            android:codes="38"
+            android:isRepeatable="false"
+            android:keyIcon="@drawable/a57" />
+        <Key
+            android:codes="39"
+            android:isRepeatable="false"
+            android:keyWidth="200dp"
+            android:keyLabel="English" />
+        <Key
+            android:codes="33"
+            android:isRepeatable="false"
+            android:keyLabel="." />
+        <Key
+            android:codes="34"
+            android:isModifier="true"
+            android:isRepeatable="false"
+            android:keyEdgeFlags="right"
+            android:keyLabel="Done" />
+    </Row>
+</Keyboard>

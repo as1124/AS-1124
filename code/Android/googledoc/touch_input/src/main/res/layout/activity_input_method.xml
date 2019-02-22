@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:orientation="vertical"
     tools:context=".inputmethod.InputMethodActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <Button
+        android:id="@+id/but_setting_keyboard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开键盘设置" />
+
+    <Button
+        android:id="@+id/but_switch_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="切换输入法" />
+
+    <EditText
+        android:id="@+id/input_self_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Name" />
+
+</LinearLayout>

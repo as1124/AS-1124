@@ -1,7 +1,11 @@
 package com.as1124.touch_input.inputmethod;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.view.inputmethod.InputMethodManager;
 
 import com.as1124.touch_input.R;
 
@@ -21,5 +25,14 @@ public class InputMethodActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_method);
+
+        findViewById(R.id.but_setting_keyboard).setOnClickListener(v -> {
+            Intent intent = new Intent(Settings.ACTION_INPUT_METHOD_SETTINGS);
+            startActivity(intent);
+        });
+        findViewById(R.id.but_switch_input).setOnClickListener(v -> {
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showInputMethodPicker();
+        });
     }
 }

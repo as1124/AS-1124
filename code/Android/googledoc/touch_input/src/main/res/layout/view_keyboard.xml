@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_horizontal"
+    android:background="#00f2e7"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <!-- 占位 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="50dp" />
+
+    <com.as1124.touch_input.inputmethod.As1124KeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#ffECECEC"
+        android:keyBackground="@color/keyBackground"
+        android:keyPreviewOffset="20dp"
+        android:keyTextColor="#000000"
+        android:keyTextSize="20sp"
+        android:shadowColor="#0000ff"
+        android:shadowRadius="10" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="7dp" />
+</LinearLayout>
