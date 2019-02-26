@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.as1124.ch3.views.anim.AnimationActivity;
@@ -15,6 +16,10 @@ import com.as1124.ch3.views.scroller.ScrollerActivity;
 import com.as1124.ch3.views.selfdefine.SelfViewActivity;
 
 public class MainActivity extends Activity {
+
+    public MainActivity() {
+        Log.i("Main-Activity", "Main init");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

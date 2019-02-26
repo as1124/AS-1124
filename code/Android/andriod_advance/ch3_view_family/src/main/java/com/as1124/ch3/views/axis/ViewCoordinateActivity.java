@@ -2,6 +2,8 @@ package com.as1124.ch3.views.axis;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
+
 import com.as1124.ch3.views.R;
 
 /**
@@ -10,6 +12,10 @@ import com.as1124.ch3.views.R;
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class ViewCoordinateActivity extends Activity {
+
+    public ViewCoordinateActivity() {
+        Log.i("Normal-Create", "Activity init");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
