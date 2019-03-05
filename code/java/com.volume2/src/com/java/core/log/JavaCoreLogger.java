@@ -50,7 +50,6 @@ public class JavaCoreLogger {
 	private static void init() {
 		Formatter msgFormatter = new Formatter() {
 
-			@Override
 			public String format(LogRecord record) {
 				String result = "[" + record.getLevel().getName() + "]";
 				Date now = new Date(record.getMillis());

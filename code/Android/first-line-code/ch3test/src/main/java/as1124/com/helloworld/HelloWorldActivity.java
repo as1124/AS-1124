@@ -1,9 +1,20 @@
 package as1124.com.helloworld;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import java.text.MessageFormat;
 
@@ -41,12 +52,12 @@ public class HelloWorldActivity extends Activity {
 
         String appInfo = MessageFormat.format("packageName={0}, processName={1}, taskAffinity={2}, taskID={3}",
                 getApplicationInfo().packageName, getApplicationInfo().processName, getApplicationInfo().taskAffinity, getTaskId());
-        android.util.Log.i(LOG_TAG, appInfo);
-        android.util.Log.i(LOG_TAG, "HelloWorldActivity is created!!");
+        Log.i(LOG_TAG, appInfo);
+        Log.i(LOG_TAG, "HelloWorldActivity is created!!");
         if (savedInstanceState != null) {
-            android.util.Log.i(LOG_TAG, "onCreated called base on extras");
+            Log.i(LOG_TAG, "onCreated called base on extras");
         } else {
-            android.util.Log.i(LOG_TAG, "onCreated called on first");
+            Log.i(LOG_TAG, "onCreated called on first");
         }
 
         findViewById(R.id.but_lifecycle).setOnClickListener(v -> {
@@ -90,6 +101,17 @@ public class HelloWorldActivity extends Activity {
             Intent intent = new Intent(HelloWorldActivity.this, WidgetShortcutActivity.class);
             startActivity(intent);
         });
+
+
+        ActionBar bar = this.getActionBar();
+        if (bar != null) {
+
+        }
+
+        AlarmManager manager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        if (Build.VERSION.SDK_INT >= 21) {
+            JobScheduler scheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+        }
     }
 
     @Override
@@ -128,13 +150,13 @@ public class HelloWorldActivity extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
-        android.util.Log.i(LOG_TAG, "HelloActivity stoped!!");
+        android.util.Log.i(LOG_TAG, "HelloActivity onStop!!");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        android.util.Log.i(LOG_TAG, "HelloActivity is destoried!!");
+        android.util.Log.i(LOG_TAG, "HelloActivity is onDestroy!!");
     }
 
     @Override
