@@ -1,8 +1,10 @@
 package com.as1124.images.selector;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
@@ -52,6 +54,25 @@ public class ImagePreviewActivity extends Activity implements ViewPager.OnPageCh
     private TextView confirmBut;
     private CheckBox originalBut;
     private CheckBox selectCheck;
+
+
+    class Abc extends ViewPager{
+
+        public Abc(@NonNull Context context) {
+            super(context);
+        }
+
+        @Override
+        public void setOffscreenPageLimit(int limit) {
+            super.setOffscreenPageLimit(limit);
+        }
+
+        @Override
+        public int getOffscreenPageLimit() {
+            return super.getOffscreenPageLimit();
+        }
+    }
+
 
     /**
      * @param from          提供Context的调用方

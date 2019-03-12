@@ -16,10 +16,11 @@
         android:valueTo="0" />
 
     <!-- half-way through the rotation, set the alpha to 1. -->
-    <!--<objectAnimator android:valueFrom="0"-->
-    <!--android:valueTo="1.0"-->
-    <!--android:propertyName="alpha"-->
-    <!--android:startOffset=""-->
-    <!--android:duration="1" />-->
+    <!--<objectAnimator-->
+        <!--android:duration="1"-->
+        <!--android:propertyName="alpha"-->
+        <!--android:startOffset=""-->
+        <!--android:valueFrom="0"-->
+        <!--android:valueTo="1.0" />-->
 
 </set>

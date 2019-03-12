@@ -71,27 +71,6 @@ public class ViewAnimationActivity extends Activity {
             }
         });
 
-        EditText text = findViewById(R.id.text_abcd);
-        text.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                Log.i("TEXT-TEST", "beforeTextChanged");
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                Log.i("TEXT-TEST", "onTextChanged");
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Log.i("TEXT-TEST", "afterTextChanged");
-            }
-        });
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
 }

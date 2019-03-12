@@ -31,7 +31,7 @@ public class As1124WebviewClient extends WebViewClient {
     /**
      * 当WebView渲染引擎崩溃时（网页存在错误导致、系统强制回收资源导致等）
      *
-     * @param view WebView
+     * @param view   WebView
      * @param detail 原因信息
      * @return
      */
@@ -59,6 +59,13 @@ public class As1124WebviewClient extends WebViewClient {
         return false;
     }
 
+    /**
+     * 直接表现：false-不override，导致页面链接调转无法打开（不进行重定向操作）
+     *
+     * @param view
+     * @param request
+     * @return
+     */
     @Override
     public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
         Uri uri = null;

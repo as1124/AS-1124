@@ -3,6 +3,8 @@ package com.as1124.animation;
 import android.animation.AnimatorInflater;
 import android.animation.StateListAnimator;
 import android.app.Activity;
+import android.app.ActivityManager;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -26,6 +28,9 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(this, ViewAnimationActivity.class)));
         findViewById(R.id.but_to_animator).setOnClickListener(v ->
                 startActivity(new Intent(this, PropertyAnimatorActivity.class)));
+
+
+        ActivityManager activityManager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
 
 
         if (Build.VERSION.SDK_INT >= 21) {
