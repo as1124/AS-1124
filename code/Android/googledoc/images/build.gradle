@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 //apply plugin: 'com.android.library'
 android {
     compileSdkVersion 28
@@ -35,4 +37,8 @@ dependencies {
     // 第三方jar用来支持沉浸式状态栏的
     //    implementation files('libs/com.gyf.immersionbar-2.3.1.jar')
     implementation project(':selflib')
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

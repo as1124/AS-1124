@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -30,4 +32,8 @@ dependencies {
 
     // Retrofit 是 Square公司基于OkHttp封装的一套 REST 风格的请求框架
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

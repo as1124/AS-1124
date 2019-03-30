@@ -48,6 +48,7 @@ public class MultiThreadActivity extends Activity {
                 TimeUnit.SECONDS, waitingQueue, threadFactory);
         for (int i = 0; i < 33; i++) {
             poolExecutor.execute(new SelfTask("[Task] " + (i + 1)));
+            Log.i("[ThreadPool]", "剩余容量===" + waitingQueue.remainingCapacity());
         }
 
     }
