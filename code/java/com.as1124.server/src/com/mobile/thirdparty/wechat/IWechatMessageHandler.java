@@ -1,10 +1,5 @@
 package com.mobile.thirdparty.wechat;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.mobile.thirdparty.wechat.model.AbstractDataPackage;
-
 /**
  * 
  * 微信请求处理, 不包含微信URL验证请求。
@@ -23,6 +18,6 @@ public interface IWechatMessageHandler {
 	 * @param response
 	 * @param xmlContent 消息内容原报文
 	 */
-	public void dealMessage(AbstractDataPackage msgModel, HttpServletRequest request, HttpServletResponse response,
-			String xmlContent);
+//	public void dealMessage(AbstractDataPackage msgModel, HttpServletRequest request, HttpServletResponse response,
+//			String xmlContent);
 }

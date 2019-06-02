@@ -6,13 +6,17 @@
 
     <data>
 
+        <import type="java.util.ArrayList" />
+
+        <import type="java.util.HashMap" />
+
         <variable
             name="user"
             type="com.as1124.architecture.model.User" />
 
         <variable
             name="myMap"
-            type="java.util.Map" />
+            type="java.util.Map&lt;String, String>" />
 
         <variable
             name="myKey"
@@ -24,93 +28,123 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/text_first"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{user.firstName}"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="FirstName: "
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/text_binding1"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text='@{user.firstName, default=""}'
+            android:hint="Hint: Please enter your First-Name"
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_first"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_first" />
+
+        <TextView
+            android:id="@+id/text_last"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
-            android:text="@{user.lastName}"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:text="LastName: "
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/text_first" />
+
+        <TextView
+            android:id="@+id/text_binding2"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text='@{user.lastName, default="Please entery your last-name"}'
+            app:layout_constraintBaseline_toBaselineOf="@+id/text_last"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/text_last" />
 
         <!-- 使用泛型编译报错,只能进行强转 -->
         <TextView
-            android:id="@+id/textView3"
+            android:id="@+id/text_binding3"
             android:layout_width="wrap_content"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:text="@{(String)myMap[myKey]}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/text_binding2" />
 
 
-        <Button
-            android:id="@+id/but_event_binding1"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:onClick="@{user::testMethodReference}"
-            android:text="事件绑定[Method References]"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
+            android:orientation="vertical"
+            app:layout_constraintTop_toBottomOf="@id/text_binding3">
 
-        <Button
-            android:id="@+id/but_event_binding2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:onClick="@{(butView)-> user.testListenerBinding(butView, user.firstName)}"
-            android:text="事件绑定[Listener Bindings]"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/but_event_binding1" />
+            <Button
+                android:id="@+id/but_event_binding1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{user::testMethodReference}"
+                android:text="事件绑定[Method References]"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
-        <Button
-            android:id="@+id/but_collections_binding"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="切换变量key"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/but_event_binding2" />
+            <Button
+                android:id="@+id/but_event_binding2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:onClick="@{(butView)-> user.testListenerBinding(butView, user.firstName)}"
+                android:text="事件绑定[Listener Bindings]"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/but_event_binding1" />
 
-        <Button
-            android:id="@+id/but_dynamic_change"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:text="@{user.addr}"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/but_collections_binding" />
+            <Button
+                android:id="@+id/but_collections_binding"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="切换变量key"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/but_event_binding2" />
+
+            <Button
+                android:id="@+id/but_dynamic_change"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@{user.addr}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/but_collections_binding" />
+        </LinearLayout>
+
+
     </android.support.constraint.ConstraintLayout>
 
 </layout>

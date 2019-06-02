@@ -10,6 +10,7 @@ import android.os.Bundle;
 import com.as1124.animation.movement.ViewMovementActivity;
 import com.as1124.animation.property.PropertyAnimatorActivity;
 import com.as1124.animation.view.ViewAnimationActivity;
+import com.as1124.selflib.WindowUtils;
 
 /**
  * Android动画、场景过度动效
@@ -44,5 +45,7 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(this, ViewMovementActivity.class)));
         findViewById(R.id.but_to_zoom).setOnClickListener(v ->
                 startActivity(new Intent(this, ZoomActivity.class)));
+
+        WindowUtils.fullScreen(this);
     }
 }

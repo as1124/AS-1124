@@ -5,10 +5,10 @@ import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
+import android.text.TextUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -32,12 +32,9 @@ public class DownloadTask extends AsyncTask<String, Integer, Object> {
     protected void onPreExecute() {
         super.onPreExecute();
 
-        // 调用发生在主线程
-
+        // Call on MainThread, To check the system network
         NetworkInfo info = networkManager.getActiveNetworkInfo();
-        if (info == null || !info.isConnected() ||
-                (info.getType() != ConnectivityManager.TYPE_WIFI && info.getType() != ConnectivityManager.TYPE_MOBILE)) {
-            // 无网络可用, 取消
+        if (info == null || !info.isConnected()) {
             this.cancel(true);
             if (mCallback != null) {
                 mCallback.cancelDownload();
@@ -50,6 +47,9 @@ public class DownloadTask extends AsyncTask<String, Integer, Object> {
         HttpsURLConnection connection = null;
         InputStream inputStream = null;
         try {
+            if (TextUtils.isEmpty(strings[0])) {
+                return null;
+            }
             URL url = new URL(strings[0]);
             if (url == null) {
                 return null;
@@ -72,18 +72,13 @@ public class DownloadTask extends AsyncTask<String, Integer, Object> {
             connection.connect();
             int responseCode = connection.getResponseCode();
             if (responseCode != HttpsURLConnection.HTTP_OK) {
-                connection.disconnect();
                 return Boolean.FALSE;
             }
-
             inputStream = connection.getInputStream();
             return Drawable.createFromStream(inputStream, "有坂深雪");
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-            // Close stream and disconnect HTTPS connection
             try {
                 if (inputStream != null) {
                     inputStream.close();
@@ -95,7 +90,6 @@ public class DownloadTask extends AsyncTask<String, Integer, Object> {
                 connection.disconnect();
             }
         }
-
         return null;
     }
 
@@ -103,8 +97,7 @@ public class DownloadTask extends AsyncTask<String, Integer, Object> {
     protected void onPostExecute(Object taskResult) {
         super.onPostExecute(taskResult);
 
-        // 调用发生在主线程
-
+        // Call on Main-Thread
         if (mCallback != null) {
             mCallback.onFinished(taskResult);
         }

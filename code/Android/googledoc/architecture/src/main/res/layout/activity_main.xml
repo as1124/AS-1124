@@ -1,32 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".MainActivity">
 
     <Button
         android:id="@+id/but_to_binding"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="DataBinding"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:text="DataBinding" />
 
     <Button
         android:id="@+id/but_to_lifecycle"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="LifeCycle Aware Management"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_to_binding" />
-</android.support.constraint.ConstraintLayout>
+        android:text="LifeCycle Aware Management" />
+
+    <Button
+        android:id="@+id/but_to_viewmodel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ViewModel" />
+
+    <Button
+        android:id="@+id/but_to_livedata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Live Data" />
+
+    <Button
+        android:id="@+id/but_to_room"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Room" />
+
+
+</LinearLayout>

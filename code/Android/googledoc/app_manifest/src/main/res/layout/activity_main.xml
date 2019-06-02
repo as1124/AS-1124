@@ -8,6 +8,17 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:text="测试复制、黏贴文本信息快速的减肥克里斯蒂使肌肤快乐圣诞节跟考拉时光" />
+
+    <com.as1124.app_manifest.AsEditText
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:hint="输入要进行复制、黏贴的信息"
+        android:textIsSelectable="false" />
+
     <Button
         android:id="@+id/but_to_another"
         android:layout_width="wrap_content"
@@ -19,5 +30,17 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="跳转ThirdActivity" />
+
+    <Button
+        android:id="@+id/but_aaa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="生物认证" />
+
+    <Button
+        android:id="@+id/but_disable_copy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="禁止复制、黏贴" />
 
 </LinearLayout>

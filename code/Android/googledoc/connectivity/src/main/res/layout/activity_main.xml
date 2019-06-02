@@ -65,4 +65,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="VPN 功能" />
+
+    <Button
+        android:id="@+id/but_to_volley"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volley 框架" />
+
+    <Button
+        android:id="@+id/but_to_okhttp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OKHttp 框架" />
+
+    <Button
+        android:id="@+id/but_to_retrofit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit 框架" />
 </LinearLayout>

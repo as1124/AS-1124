@@ -34,6 +34,7 @@ public class DataBindingActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 不需要 setContentView, 因为DataBindingUtil.setContentView中调用了Activity.setContentView
 //        setContentView(R.layout.activity_data_binding);
 
         // 返回的Binding实例相当于ContentView
@@ -58,5 +59,6 @@ public class DataBindingActivity extends Activity {
 
             dataBinding.getUser().addr.set("哈哈哈....老子搬家了!");
         });
+        
     }
 }

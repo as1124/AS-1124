@@ -111,6 +111,12 @@ public class MainActivity extends Activity implements View.OnClickListener {
             case R.id.but_to_vpn:
                 startActivity(new Intent(MainActivity.this, VPNMainActivity.class));
                 break;
+            case R.id.but_to_volley:
+                break;
+            case R.id.but_to_okhttp:
+                break;
+            case R.id.but_to_retrofit:
+                break;
             default:
                 break;
         }
@@ -120,6 +126,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         android.util.Log.i(getClass().getSimpleName(), "Configuration Changed!!");
+        Toast.makeText(this, "Activity Configuration change !", Toast.LENGTH_SHORT).show();
     }
 
     private void showNetworkInfo() {
@@ -130,6 +137,7 @@ public class MainActivity extends Activity implements View.OnClickListener {
         NetworkInfo activeNetwork = networkManager.getActiveNetworkInfo();
         if (activeNetwork == null) {
             Toast.makeText(this, "无可用网络链接", Toast.LENGTH_SHORT).show();
+            return;
         }
         if (Build.VERSION.SDK_INT >= 21) {
             Network[] allType = networkManager.getAllNetworks();

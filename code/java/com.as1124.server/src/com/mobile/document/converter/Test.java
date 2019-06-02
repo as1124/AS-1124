@@ -18,8 +18,8 @@ import java.io.IOException;
 
 public abstract class Test {
 
-	public static File inputFile = new File("D:/htmls/java&sonarlint.pdf");
-	public static File targetFile = new File("d:/htmls/pics/aaab.png");
+	public static File inputFile = new File("/Users/heyg/work/testhtml/excel.xlsx");
+	public static File targetFile = new File("/Users/heyg/work/testhtml/htmls/aa.html");
 
 	public static IImageConvertListener listener = new IImageConvertListener() {
 		
@@ -51,8 +51,8 @@ public abstract class Test {
 		});
 		th.start();
 		while(th.isAlive()){
-			System.out.println("Alive");
-			Thread.sleep(300);
+//			System.out.println("Alive");
+			Thread.sleep(1000);
 		}
 		System.out.println("Done!!!!");
 	}

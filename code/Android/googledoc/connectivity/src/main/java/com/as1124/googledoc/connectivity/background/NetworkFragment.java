@@ -1,22 +1,26 @@
 package com.as1124.googledoc.connectivity.background;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import com.as1124.googledoc.connectivity.R;
 
+/**
+ * Fragment's lifecycle rely on the context of Activity. When Activity is destroyed,
+ * fragment destroyed too.
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class NetworkFragment extends Fragment implements IDownloadCallback {
 
     public static final String FRAGMENT_TAG = "background_network";
@@ -24,6 +28,7 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
     private static String TAG = "[NetworkFragment]";
 
     private ImageView mImage;
+    private ProgressBar mProgress;
     private DownloadTask downloadTask;
 
     public static NetworkFragment getInstance(FragmentManager manager) {
@@ -51,7 +56,7 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        android.util.Log.i(TAG, "Fragment onCreated!!!");
+        Log.i(TAG, "Fragment onCreated!!!");
 
         // Retain this Fragment across configuration changes in the host Activity.
         // 这里阻止了Fragment#onDestory(), 但是和Activity相关的onDetach()、onAttach还是会调用
@@ -63,10 +68,11 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
         View topView = inflater.inflate(R.layout.fragment_blank, container, false);
         topView.findViewById(R.id.but_https_image).setOnClickListener(v -> startDownload(""));
         mImage = topView.findViewById(R.id.img_https_background);
-        android.util.Log.i(TAG, "Fragment OnCreateView!!!");
+        mProgress = topView.findViewById(R.id.progress_4_https);
 
         topView.findViewById(R.id.but_alpha_dialog).setOnClickListener(v -> {
         });
+        Log.i(TAG, "Fragment OnCreateView!!!");
 
         return topView;
     }
@@ -74,7 +80,7 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        android.util.Log.i(TAG, "Fragment onActivityCreated!!!");
+        Log.i(TAG, "Fragment onActivityCreated!!!");
     }
 
     @Override
@@ -89,25 +95,22 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
         cancelDownload();
 
         super.onDestroy();
-        android.util.Log.i(TAG, "Fragment onDestroy ");
+        Log.i(TAG, "Fragment onDestroy ");
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        android.util.Log.i(TAG, "Fragment OnDetach ");
+        Log.i(TAG, "Fragment OnDetach ");
     }
 
     @Override
     public void startDownload(String downloadURL) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        ProgressBar bar = new ProgressBar(getActivity());
-        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(300, 300);
-        bar.setLayoutParams(layoutParams);
-        bar.setIndeterminate(true);
-        bar.setVisibility(View.VISIBLE);
-        builder.setView(bar).create().show();
-
+        mProgress.setVisibility(View.VISIBLE);
+        if (downloadTask != null) {
+            downloadTask.cancel(true);
+            downloadTask = null;
+        }
         downloadTask = new DownloadTask(this.getActivity(), this);
         downloadTask.execute("https://wx2.sinaimg.cn/mw1024/d8203382ly1fty09ydhlmj21481kwk05.jpg");
     }
@@ -117,6 +120,7 @@ public class NetworkFragment extends Fragment implements IDownloadCallback {
         if (result != null && result instanceof Drawable) {
             mImage.setImageDrawable((Drawable) result);
         }
+        mProgress.setVisibility(View.INVISIBLE);
         downloadTask = null;
     }
 

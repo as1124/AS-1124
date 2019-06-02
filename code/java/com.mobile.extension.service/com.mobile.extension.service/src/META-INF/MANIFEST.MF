@@ -1,9 +1,0 @@
-Manifest-Version: 1.0
-Require-Bundle: 
-eos-webCtxPath: document
-Bundle-Vendor: huangjw
-Bundle-Version: 1.0.0
-Bundle-Name: com.mobile.document
-Bundle-Description: 
-Bundle-SymbolicName: com.mobile.extension.service
-
