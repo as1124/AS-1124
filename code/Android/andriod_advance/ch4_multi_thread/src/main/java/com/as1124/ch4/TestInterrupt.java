@@ -13,14 +13,13 @@ public class TestInterrupt {
         thread.interrupt();
     }
 
-    public static class MoonRunner implements Runnable {
+    protected static class MoonRunner implements Runnable {
 
         @Override
         public void run() {
             int i = 0;
             while (!Thread.currentThread().isInterrupted()) {
-                i++;
-                Log.i("MoonRunner", "i = " + i);
+                Log.i("MoonRunner", "i = " + (++i));
             }
             Log.i("MoonRunner", "====STOP=====");
         }

@@ -30,4 +30,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="阻塞队列" />
+
+    <Button
+        android:id="@+id/but_to_thread_pool"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="线程池" />
+
+    <Button
+        android:id="@+id/but_to_async_task"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="AsyncTask" />
 </LinearLayout>

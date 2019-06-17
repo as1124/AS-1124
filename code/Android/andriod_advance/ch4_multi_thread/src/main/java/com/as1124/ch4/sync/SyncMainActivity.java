@@ -48,6 +48,30 @@ public class SyncMainActivity extends Activity {
             }
             type++;
         });
+        findViewById(R.id.but_thread_join).setOnClickListener(v -> {
+
+        });
+        findViewById(R.id.but_lock).setOnClickListener(v -> {
+            final PayManagement payManagement = new PayManagement(5, 200.0d);
+            Thread thread1 = new Thread(() -> {
+                try {
+                    payManagement.transfer(0, 2, 300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }, "0--2 Transfer");
+            thread1.start();
+
+            Thread thread2 = new Thread(() -> {
+                try {
+                    payManagement.transfer(1, 0, 150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }, "1--0 Transfer");
+            thread2.start();
+
+        });
     }
 
 }

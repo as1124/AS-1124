@@ -20,8 +20,15 @@
         android:text="notify()/notifyAll()" />
 
     <Button
+        android:id="@+id/but_thread_join"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="理解Thread中 yield, sleep, join 吗?" />
+        android:text="理解Thread中 yield(), join(), sleep()" />
+
+    <Button
+        android:id="@+id/but_lock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="锁机制" />
 
 </LinearLayout>

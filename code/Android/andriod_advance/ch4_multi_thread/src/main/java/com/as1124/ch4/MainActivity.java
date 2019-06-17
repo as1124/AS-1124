@@ -40,37 +40,43 @@ public class MainActivity extends Activity {
         }
 
         findViewById(R.id.but_thread_callable).setOnClickListener(v -> {
-            Callable<String> myCall = new CallableThread();
+            Callable<String> myCall = new MyCallable();
             ExecutorService executor = Executors.newSingleThreadExecutor();
             Future<String> future = executor.submit(myCall);
             try {
-                // 等待线程结束, 并返回结果
-                Log.i("Multi-Thread", "执行结果====" + future.get());
+                // 当前线程在主线程, 执行Callable.call时在异步线程
+                // Future.get()会阻塞当前线程直到Callable执行结束, 并返回结果
+                Log.i("Multi-Thread", "Callable执行结果====" + future.get());
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
+
         findViewById(R.id.but_thread_interrupt).setOnClickListener(v -> {
             try {
                 TestInterrupt.interrupt();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                Log.i("MainThread", "====调用线程1捕获中断异常=====");
+            }
+
+            try {
+                TestInterrupt2.interrupt();
+            } catch (InterruptedException e) {
+                Log.i("MainThread", "====调用线程2捕获中断异常=====");
             }
         });
+
+
         findViewById(R.id.but_to_sync).setOnClickListener(v ->
                 startActivity(new Intent(this, SyncMainActivity.class)));
         findViewById(R.id.but_to_blocking).setOnClickListener(v ->
                 startActivity(new Intent(this, BlockQueueActivity.class)));
+        findViewById(R.id.but_to_thread_pool).setOnClickListener(v -> {
+
+        });
+        findViewById(R.id.but_to_async_task).setOnClickListener(v -> {
+
+        });
     }
 
-    /**
-     * 支持返回值, 支持抛出异常
-     */
-    class CallableThread implements Callable<String> {
-
-        @Override
-        public String call() throws Exception {
-            return "This is Callable Thread!!";
-        }
-    }
 }
