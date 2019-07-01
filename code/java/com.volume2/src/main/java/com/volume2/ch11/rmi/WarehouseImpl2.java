@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.rmi.MarshalledObject;
 import java.rmi.RemoteException;
 import java.rmi.activation.Activatable;
-import java.rmi.activation.ActivationException;
 import java.rmi.activation.ActivationID;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +22,7 @@ public class WarehouseImpl2 extends Activatable implements Warehouse {
 
 	private Map<String, Double> prices = null;
 
+	@SuppressWarnings("unchecked")
 	protected WarehouseImpl2(ActivationID activationID, MarshalledObject<?> data)
 			throws ClassNotFoundException, IOException {
 		// 让系统自动分配端口是不是有得挂
