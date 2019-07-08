@@ -78,6 +78,44 @@ public class ComponentUtils {
         return activity.hasWindowFocus();
     }
 
+    /**
+     * 判断给定Activity是否在前台
+     *
+     * @param appContext 具体Activity实例
+     * @return true-前台
+     */
+    public static boolean isAppForeground(Context appContext) {
+        ActivityManager am = (ActivityManager) appContext.getSystemService(Activity.ACTIVITY_SERVICE);
+
+        List<RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
+        if (runningApps == null) {
+            return false;
+        }
+        for (int k = 0; k < runningApps.size(); k++) {
+            RunningAppProcessInfo processInfo = runningApps.get(k);
+            if ((android.os.Process.myPid() == processInfo.pid)
+                    && appContext.getApplicationInfo().processName.equals(processInfo.processName)) {
+                return (processInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND);
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 设备是否处于熄屏幕状态
+     *
+     * @param context
+     * @return
+     */
+    public static boolean isScreenLocked(Context context) {
+        KeyguardManager guardManager = (KeyguardManager) context.getSystemService(Context.KEYGUARD_SERVICE);
+        if (guardManager == null) {
+            return false;
+        } else {
+            return guardManager.isKeyguardLocked();
+        }
+    }
+    
     public static void installAPK(Context context, File apkFile) {
         // ATTENTION 安装APK文件
     }

@@ -2,12 +2,12 @@ apply plugin: 'com.android.application'
 
 android {
     signingConfigs {
-        as1124 {
-            keyAlias 'huangjw'
-            keyPassword 'as1124huang'
-            storeFile file('E:/as1124')
-            storePassword 'as1124huang'
-        }
+//        as1124 {
+//            keyAlias 'huangjw'
+//            keyPassword 'as1124huang'
+//            storeFile file('E:/as1124')
+//            storePassword 'as1124huang'
+//        }
     }
     compileSdkVersion 27
     defaultConfig {
@@ -16,7 +16,7 @@ android {
         targetSdkVersion 27
         versionCode 1
         versionName "1.0"
-        signingConfig signingConfigs.as1124
+//        signingConfig signingConfigs.as1124
     }
     buildTypes {
         release {
