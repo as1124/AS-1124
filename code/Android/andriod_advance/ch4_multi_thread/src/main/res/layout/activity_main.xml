@@ -7,6 +7,16 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:paddingLeft="5dp"
+        android:text="独立线程的3种实现：\n1.继承Thread类\n2.实现Runnable接口\n3.实现Callable接口"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp" />
+
     <Button
         android:id="@+id/but_thread_callable"
         android:layout_width="match_parent"
@@ -24,6 +34,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="线程同步" />
+
+    <Button
+        android:id="@+id/but_lock"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="重入锁、条件锁" />
 
     <Button
         android:id="@+id/but_to_blocking"

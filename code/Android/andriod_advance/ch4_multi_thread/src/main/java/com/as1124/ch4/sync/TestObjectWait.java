@@ -5,12 +5,12 @@ import android.util.Log;
 class TestObjectWait {
 
     public synchronized void causeToWait() {
-        Log.i("Wait-Notify", Thread.currentThread().getName() + "]] Start wait-----");
+        Log.i("Wait-Notify", Thread.currentThread().getName() + "] Start wait-----");
         try {
             wait();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        Log.i("Wait-Notify", Thread.currentThread().getName() + "]] Finish===");
+        Log.i("Wait-Notify", Thread.currentThread().getName() + "] Finish===");
     }
 }

@@ -1,5 +1,7 @@
 package com.as1124.ch4;
 
+import android.util.Log;
+
 import java.util.concurrent.Callable;
 import java.lang.Runnable;
 
@@ -13,6 +15,7 @@ public class MyCallable implements Callable<String> {
 
     @Override
     public String call() throws Exception {
+        Log.i("MyCallable", "call方法执行完成");
         return "[Callable]线程返回的结果";
     }
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.as1124.ch4.blockqueue.BlockQueueActivity;
+import com.as1124.ch4.locker.PayManagement;
 import com.as1124.ch4.sync.SyncMainActivity;
 
 import java.util.concurrent.Callable;
@@ -44,9 +45,9 @@ public class MainActivity extends Activity {
             ExecutorService executor = Executors.newSingleThreadExecutor();
             Future<String> future = executor.submit(myCall);
             try {
-                // 当前线程在主线程, 执行Callable.call时在异步线程
+                // 执行Callable.call是在异步线程
                 // Future.get()会阻塞当前线程直到Callable执行结束, 并返回结果
-                Log.i("Multi-Thread", "Callable执行结果====" + future.get());
+                Log.i("Multi-Thread", "Callable返回结果====" + future.get());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -69,8 +70,31 @@ public class MainActivity extends Activity {
 
         findViewById(R.id.but_to_sync).setOnClickListener(v ->
                 startActivity(new Intent(this, SyncMainActivity.class)));
+
+        findViewById(R.id.but_lock).setOnClickListener(v->{
+            final PayManagement payManagement = new PayManagement(5, 200.0d);
+            Thread thread1 = new Thread(() -> {
+                try {
+                    payManagement.transfer(0, 2, 300);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }, "0--2 Transfer");
+            thread1.start();
+
+            Thread thread2 = new Thread(() -> {
+                try {
+                    payManagement.transfer(1, 0, 150);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }, "1--0 Transfer");
+            thread2.start();
+        });
+
         findViewById(R.id.but_to_blocking).setOnClickListener(v ->
                 startActivity(new Intent(this, BlockQueueActivity.class)));
+
         findViewById(R.id.but_to_thread_pool).setOnClickListener(v -> {
 
         });

@@ -11,24 +11,24 @@
         android:id="@+id/but_object_wait"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="wait()" />
+        android:text="Object.wait()" />
 
     <Button
         android:id="@+id/but_object_notify"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="notify()/notifyAll()" />
+        android:text="Object.notify() / notifyAll()" />
 
     <Button
         android:id="@+id/but_thread_join"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="理解Thread中 yield(), join(), sleep()" />
+        android:text="Thread.join()" />
 
     <Button
-        android:id="@+id/but_lock"
+        android:id="@+id/but_thread_yield"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="锁机制" />
+        android:text="Thread.yield()" />
 
 </LinearLayout>
