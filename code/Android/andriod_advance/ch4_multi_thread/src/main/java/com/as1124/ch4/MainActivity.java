@@ -8,7 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.as1124.ch4.blockqueue.BlockQueueActivity;
+import com.as1124.ch4.blockqueue.BlockingQueueTest;
 import com.as1124.ch4.locker.PayManagement;
 import com.as1124.ch4.sync.SyncMainActivity;
 
@@ -71,36 +71,39 @@ public class MainActivity extends Activity {
         findViewById(R.id.but_to_sync).setOnClickListener(v ->
                 startActivity(new Intent(this, SyncMainActivity.class)));
 
-        findViewById(R.id.but_lock).setOnClickListener(v->{
-            final PayManagement payManagement = new PayManagement(5, 200.0d);
-            Thread thread1 = new Thread(() -> {
-                try {
-                    payManagement.transfer(0, 2, 300);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }, "0--2 Transfer");
-            thread1.start();
+        findViewById(R.id.but_lock).setOnClickListener(v -> aboutLock());
 
-            Thread thread2 = new Thread(() -> {
-                try {
-                    payManagement.transfer(1, 0, 150);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }, "1--0 Transfer");
-            thread2.start();
-        });
-
-        findViewById(R.id.but_to_blocking).setOnClickListener(v ->
-                startActivity(new Intent(this, BlockQueueActivity.class)));
+        findViewById(R.id.but_to_blocking).setOnClickListener(v -> BlockingQueueTest.main(null));
 
         findViewById(R.id.but_to_thread_pool).setOnClickListener(v -> {
-
         });
+
         findViewById(R.id.but_to_async_task).setOnClickListener(v -> {
 
         });
+    }
+
+    /**
+     * 重入锁及条件学习：因为每个账户初始只有<code>$200</code>的余额，所以当转账请求发生余额不足的时候，
+     * 通过条件进行等待
+     */
+    private void aboutLock() {
+        final PayManagement payManagement = new PayManagement(5, 200.0d);
+        new Thread(() -> {
+            try {
+                payManagement.transfer(0, 2, 300);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, "0--2 Transfer").start();
+
+        new Thread(() -> {
+            try {
+                payManagement.transfer(1, 0, 150);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }, "1--0 Transfer").start();
     }
 
 }

@@ -39,19 +39,19 @@
         android:id="@+id/but_lock"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="重入锁、条件锁" />
+        android:text="重入锁、条件锁(ReentrantLock)" />
 
     <Button
         android:id="@+id/but_to_blocking"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="阻塞队列" />
+        android:text="阻塞队列(BlockingQueue)" />
 
     <Button
         android:id="@+id/but_to_thread_pool"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="线程池" />
+        android:text="线程池(ThreadPoolExecutor)" />
 
     <Button
         android:id="@+id/but_to_async_task"

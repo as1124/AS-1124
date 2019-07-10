@@ -16,7 +16,6 @@
         android:resizeableActivity="true"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".blockqueue.BlockQueueActivity"></activity>
         <activity android:name=".sync.SyncMainActivity" />
         <activity android:name=".MainActivity">
             <intent-filter>
