@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".okhttp.OkHttpActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/but_okhttp_get"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="GET请求" />
+
+        <Button
+            android:id="@+id/but_okhttp_post"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="POST请求" />
+
+        <Button
+            android:id="@+id/but_okhttp_download"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="下载网络图" />
+
+        <ImageView
+            android:id="@+id/img_ok_http"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:contentDescription="有坂深雪"
+            android:scaleType="fitCenter"
+            android:visibility="gone" />
+    </LinearLayout>
+
+</ScrollView>

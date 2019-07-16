@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainActivity">
+
+    <Button
+        android:id="@+id/but_allow_http"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="设置允许http网络请求" />
+
+    <Button
+        android:id="@+id/but_test_http"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试http请求是否允许" />
+
+    <Button
+        android:id="@+id/but_apache_get"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apache GET" />
+
+    <Button
+        android:id="@+id/but_urlconnection_post"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="HttpURLConnection POST" />
+
+    <Button
+        android:id="@+id/but_volley"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Volley" />
+
+    <Button
+        android:id="@+id/but_to_okhttp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OKHttp" />
+
+    <Button
+        android:id="@+id/but_to_retrofit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Retrofit" />
+
+</LinearLayout>
