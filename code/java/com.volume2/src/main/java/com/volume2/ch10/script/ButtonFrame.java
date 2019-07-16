@@ -6,8 +6,7 @@ import javax.swing.JPanel;
 
 /**
  * 
- * 
- * @author huangjw (mailto:as1124huang@gmail.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class ButtonFrame extends JFrame {
 

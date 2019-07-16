@@ -11,11 +11,9 @@ import java.util.regex.Pattern;
 import com.java.core.log.JavaCoreLogger;
 
 /**
- * 
  * 正则表达式使用<br>
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class RegexHelper {
 
@@ -25,7 +23,7 @@ public class RegexHelper {
 		testHtmlTag();
 	}
 
-	/*
+	/**
 	 * This program tests regular expression matching.
 	 * Enter a pattern and strings to match, or hit Cancel to exit.
 	 * If the pattern contains groups, the group boundaries are displayed 

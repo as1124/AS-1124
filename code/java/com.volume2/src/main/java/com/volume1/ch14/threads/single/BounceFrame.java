@@ -21,7 +21,6 @@ import javax.swing.JPanel;
  * Show an animated bouncing ball controled by a single thread.
  * 
  * @author as-1124(mailto:as1124huang@gmail.com)
- *
  */
 public class BounceFrame extends JFrame {
 

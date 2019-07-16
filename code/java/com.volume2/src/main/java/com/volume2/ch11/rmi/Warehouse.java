@@ -7,8 +7,8 @@ import java.util.List;
 /**
  * The remote interface for a simple warehouse.
  * RMI必须抛出RemoteException
- * 
- * @author huangjw (mailto:huangjw@primeton.com)
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public interface Warehouse extends Remote {
 

@@ -26,7 +26,7 @@ import com.java.core.log.JavaCoreLogger;
 /**
  * 脚本语言代码与java交互示例
  *
- * @author huangjw (mailto:as1124huang@gmail.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class ScriptEngineCase {
 

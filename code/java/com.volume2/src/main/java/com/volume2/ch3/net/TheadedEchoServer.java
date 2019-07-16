@@ -16,13 +16,11 @@ import com.java.core.log.JavaCoreLogger;
  * This program implements a multi-threaded server that listens to port
  * 8189 and echoes back all client input.
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class TheadedEchoServer {
 
 	public static void main(String[] args) throws IOException {
-
 		int i = 1;
 		Socket incoming = null;
 

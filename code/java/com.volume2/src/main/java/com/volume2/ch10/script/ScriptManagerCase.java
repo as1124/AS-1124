@@ -12,7 +12,7 @@ import javax.script.ScriptEngineManager;
  * 将JavaScript编译成Java字节码。
  * 与先前的Rhino实现相比，这带来了2到10倍的性能提升，虽然它仍然比Chrome和Node.js中的V8引擎要差一些。
  *
- * @author huangjw (mailto:as1124huang@gmail.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class ScriptManagerCase {
 

@@ -32,9 +32,8 @@ import com.java.core.log.JavaCoreLogger;
  * a POST request.<br/>
  * 
  * 类似模拟http 请求发送POST请求.
- * 
- * @author huangjw(mailto:as1124huang@gmail.com)
  *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class PostCase {
 

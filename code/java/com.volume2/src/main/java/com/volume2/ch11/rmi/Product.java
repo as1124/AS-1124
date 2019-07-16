@@ -3,9 +3,8 @@ package com.volume2.ch11.rmi;
 import java.io.Serializable;
 
 /**
- * 
- * 
- * @author huangjw (mailto:huangjw@primeton.com)
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class Product implements Serializable {
 

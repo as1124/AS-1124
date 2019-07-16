@@ -19,9 +19,8 @@ import com.java.core.log.JavaCoreLogger;
  * <br/>
  * Supply the RUL and an optional user-name and password(for HTTP basic authentication) 
  * on the command line.
- * 
- * @author huangjw(mailto:as1124huang@gmail.com)
  *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class URLConnectionCase {
 

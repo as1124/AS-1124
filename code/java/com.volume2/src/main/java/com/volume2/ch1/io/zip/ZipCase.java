@@ -14,8 +14,7 @@ import com.java.core.log.JavaCoreLogger;
 /**
  * zip文件操作
  * 
- * @author as1124huang@gmail.com
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class ZipCase {
 

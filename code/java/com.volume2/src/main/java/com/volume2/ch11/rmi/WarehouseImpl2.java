@@ -11,13 +11,10 @@ import java.util.Map;
 /**
  * This class is implementation for the remote warehouse interface.
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class WarehouseImpl2 extends Activatable implements Warehouse {
 
-	/**
-	 * Comment for <code>serialVersionUID</code>
-	 */
 	private static final long serialVersionUID = 237288332433063558L;
 
 	private Map<String, Double> prices = null;

@@ -27,8 +27,7 @@ import com.java.core.log.JavaCoreLogger;
  * archive, a combo-box to select different files in the archive, and a 
  * menu to load a new archive.
  * 
- * @author as1124huang@gmail.com
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class ZipCaseFrame extends JFrame implements ActionListener {
 

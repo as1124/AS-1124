@@ -27,14 +27,10 @@ import com.java.core.log.JavaCoreLogger;
  * pick a locale, a text field to display a formatted number, and a button to 
  * parse the text field contents.
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
-
 public class NumberFormatFrame extends JFrame {
 
-	/**
-	 * Comment for <code>serialVersionUID</code>
-	 */
 	private static final long serialVersionUID = 3876715204527356709L;
 
 	private Locale[] locales = null;

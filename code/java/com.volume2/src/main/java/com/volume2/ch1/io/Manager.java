@@ -2,17 +2,15 @@ package com.volume2.ch1.io;
 
 /**
  * 
- * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
-public class Manager extends Employee{
+public class Manager extends Employee {
 
 	private Employee secretary;
-	
+
 	/**
 	 * 自类型也需要有自己的序列号
-	 * @HUANG 如果父子类型的序列号一直会不会出错??(正常)
+	 * @HUANG 如果父子类型的序列号一致会不会出错??(正常)
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -43,7 +41,7 @@ public class Manager extends Employee{
 	public void setSecretary(Employee secretary) {
 		this.secretary = secretary;
 	}
-	
+
 	@Override
 	public String toString() {
 		return super.toString() + "[secretary=" + secretary + "]";

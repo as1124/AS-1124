@@ -1,10 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年10月19日
- *******************************************************************************/
-
 package com.volume2.ch1.nio;
 
 import io.netty.bootstrap.ServerBootstrap;
@@ -17,11 +10,9 @@ import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 
 /**
- * HUANG 此处填写 class 信息
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
-
 public class NettyServer {
 
 	private int port = 0;

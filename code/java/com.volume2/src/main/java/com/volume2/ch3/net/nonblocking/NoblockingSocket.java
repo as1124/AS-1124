@@ -1,10 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年9月27日
- *******************************************************************************/
-
 package com.volume2.ch3.net.nonblocking;
 
 import java.io.BufferedReader;
@@ -24,9 +17,8 @@ import com.java.core.log.JavaCoreLogger;
 /**
  * 非阻塞模式的Socket
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
-
 public class NoblockingSocket {
 
 	static SocketChannel client = null;

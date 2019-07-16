@@ -7,8 +7,7 @@ import java.io.IOException;
 /**
  * 工具类
  * 
- * @author as1124huang@gmail.com
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class DataIO {
 

@@ -1,10 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年9月28日
- *******************************************************************************/
-
 package com.java.core.log;
 
 import java.text.SimpleDateFormat;
@@ -19,9 +12,8 @@ import java.util.logging.Logger;
 /**
  * 日志记录类
  *
- * @author huangjw (mailto:as1124huang@gmail.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
-
 public class JavaCoreLogger {
 
 	static Logger logger = Logger.getLogger("com.java.volume2");

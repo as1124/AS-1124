@@ -11,9 +11,8 @@ import java.util.Scanner;
 
 /**
  * 文本输入输出
- * 
- * @author as1124huang@gmail.com
  *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class Employee implements Serializable {
 

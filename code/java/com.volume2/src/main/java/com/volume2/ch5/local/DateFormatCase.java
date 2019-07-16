@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 /**
  * This program demonstrates formatting dates under various locals.
  *
- * @author huangjw (mailto:as1124huang@gmail.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class DateFormatCase {
 

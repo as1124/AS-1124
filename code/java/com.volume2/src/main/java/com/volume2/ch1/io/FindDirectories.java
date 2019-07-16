@@ -8,8 +8,7 @@ import com.java.core.log.JavaCoreLogger;
 /**
  * 文件管理
  * 
- * @author as1124huang@gmail.com
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class FindDirectories {
 

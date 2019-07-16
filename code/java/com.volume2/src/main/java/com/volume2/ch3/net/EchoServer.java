@@ -15,8 +15,7 @@ import com.java.core.log.JavaCoreLogger;
  * This program implements a simple server that listens to 
  * port 8189 and echoes back all client input.
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class EchoServer {
 
@@ -42,7 +41,6 @@ public class EchoServer {
 				if (line.trim().equals("BYE"))
 					done = true;
 			}
-
 			in.close();
 		} catch (IOException ex) {
 			JavaCoreLogger.log(Level.SEVERE, ex.getMessage(), ex);

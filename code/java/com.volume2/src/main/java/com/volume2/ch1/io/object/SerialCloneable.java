@@ -17,8 +17,7 @@ import com.volume2.ch1.io.Employee;
  * 输出流中, 比显式的构建对象并复制或克隆数据域的克隆方法慢得多。<br>
  * A class whose clone method use serialization.
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class SerialCloneable extends Employee implements Serializable, Cloneable {
 

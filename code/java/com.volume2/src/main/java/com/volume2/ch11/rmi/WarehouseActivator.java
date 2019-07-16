@@ -21,7 +21,7 @@ import javax.naming.NamingException;
  * This server program instantiates a remote warehouse object, registers it 
  * with the naming service, and waits for clients to invoke methods.
  *
- * @author huangjw (mailto:as1124huang@gmail.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class WarehouseActivator {
 

@@ -8,7 +8,7 @@ import javax.swing.JFrame;
  * 利用Local格式化数字、货币
  * This program demonstrates formatting numbers under various locals.
  *
- * @author huangjw (mailto:as1124huang@gmail.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class NumerFormatCase {
 

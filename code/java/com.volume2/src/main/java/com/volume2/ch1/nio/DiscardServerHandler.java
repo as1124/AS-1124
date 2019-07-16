@@ -1,10 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年10月19日
- *******************************************************************************/
-
 package com.volume2.ch1.nio;
 
 import io.netty.buffer.ByteBuf;
@@ -18,7 +11,7 @@ import io.netty.util.ReferenceCountUtil;
  * ChannelHandlerAdapter， 这个类实现了ChannelHandler接口， ChannelHandler提供了许多事件处理的接口方法，
  * 然后你可以覆盖这些方法。 现在仅仅只需要继承ChannelHandlerAdapter类而不是你自己去实现接口方法。
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
 
@@ -54,7 +47,7 @@ public class DiscardServerHandler extends ChannelInboundHandlerAdapter {
 	public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
 		super.channelReadComplete(ctx);
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see io.netty.channel.ChannelHandler#handlerAdded(io.netty.channel.ChannelHandlerContext)
 	 */

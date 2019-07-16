@@ -11,11 +11,9 @@ import javax.swing.JTextArea;
 import com.java.core.log.JavaCoreLogger;
 
 /**
- * 
  * This class handles the client input for one server socket connection.
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class TestServerHandle implements Runnable {
 

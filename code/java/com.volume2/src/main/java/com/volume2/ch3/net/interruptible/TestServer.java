@@ -11,8 +11,7 @@ import javax.swing.JTextArea;
  * A multi-threaded server that listens to port 8189 and sends numbers to the client,
  * simulating a hanging server after 10 numbers.
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class TestServer implements Runnable {
 

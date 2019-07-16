@@ -8,10 +8,10 @@ import javax.swing.JFrame;
  * This program shows a retirement calculator. The UI is displayed in English, 
  * German, and Chinese.
  *
- * @author huangjw (mailto:as1124huang@gmail.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class RetireCase {
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(() -> {
 			JFrame frame = new RetireFrame();
@@ -20,4 +20,3 @@ public class RetireCase {
 		});
 	}
 }
-

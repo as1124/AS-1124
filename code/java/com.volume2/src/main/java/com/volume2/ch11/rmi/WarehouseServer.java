@@ -11,7 +11,7 @@ import javax.naming.NamingException;
  * This server program instantiates a remote warehouse object, registers 
  * it with the naming service, and waits for clients to invoke methods.
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class WarehouseServer {
 
@@ -21,7 +21,7 @@ public class WarehouseServer {
 
 		// 代替命令行启动RMI Registry("rmiregistry")
 		LocateRegistry.createRegistry(9090);
-		
+
 		System.out.println("Constructing server implementation...");
 		WareHouseImpl backupWarehouse = new WareHouseImpl();
 		WareHouseImpl centralImpl = new WareHouseImpl(backupWarehouse);

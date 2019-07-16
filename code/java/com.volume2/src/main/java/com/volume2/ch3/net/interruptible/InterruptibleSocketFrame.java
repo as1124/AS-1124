@@ -15,6 +15,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
+/**
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 class InterruptibleSocketFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -139,7 +143,6 @@ class InterruptibleSocketFrame extends JFrame {
 				message.append("\nSocket closed\n");
 				interruptibleButton.setEnabled(true);
 				blockingButton.setEnabled(true);
-
 			});
 		}
 	}

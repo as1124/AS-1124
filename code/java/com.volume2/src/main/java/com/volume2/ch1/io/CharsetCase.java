@@ -11,9 +11,8 @@ import com.java.core.log.JavaCoreLogger;
 
 /**
  * 字符集测试. 测试中文字符，支持中文字符的编码才能在encode和decode之后获取正确的数据
- * 
- * @author as1124huang@gmail.com
  *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class CharsetCase {
 

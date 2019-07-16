@@ -13,8 +13,7 @@ import com.java.core.log.JavaCoreLogger;
  * This program makes a socket connection to the atomic clock in Boulder,
  * Colorado, and prints the time that the server sends.
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class SocketCase {
 

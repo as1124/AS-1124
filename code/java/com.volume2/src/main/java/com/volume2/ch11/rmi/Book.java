@@ -2,13 +2,10 @@ package com.volume2.ch11.rmi;
 
 /**
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class Book extends Product {
 
-	/**
-	 * Comment for <code>serialVersionUID</code>
-	 */
 	private static final long serialVersionUID = 2364048668400821643L;
 
 	private String author;

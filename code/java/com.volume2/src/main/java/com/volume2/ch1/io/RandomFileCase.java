@@ -8,6 +8,9 @@ import java.util.logging.Level;
 
 import com.java.core.log.JavaCoreLogger;
 
+/**
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class RandomFileCase {
 
 	public static void main(String[] args) {

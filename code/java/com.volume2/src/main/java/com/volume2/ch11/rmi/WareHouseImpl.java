@@ -10,13 +10,11 @@ import java.util.Map;
  * This class is the implementation for the remote Warehouse interface.<br/>
  * 通过继承{@link UnicastRemoteObject}可以方便的暴露远程服务，具体方法请参考其JavaDoc
  * 
- * @author huangjw (mailto:huangjw@primeton.com)
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class WareHouseImpl extends UnicastRemoteObject implements Warehouse {
 
-	/**
-	 * Comment for <code>serialVersionUID</code>
-	 */
 	private static final long serialVersionUID = 3419605232274679110L;
 
 	private transient Map<String, Product> products = new HashMap<>();

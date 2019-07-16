@@ -7,8 +7,7 @@ import com.java.core.log.JavaCoreLogger;
 /**
  * <code>Object#clone</code>方法以及
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class SerialCloneCase {
 

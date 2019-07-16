@@ -13,11 +13,9 @@ import com.volume2.ch1.io.Employee;
 import com.volume2.ch1.io.Manager;
 
 /**
- * 
  * 对象序列化
- * 
- * @author huangjw(mailto:as1124huang@gmail.com)
  *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class ObjectSteamCase {
 

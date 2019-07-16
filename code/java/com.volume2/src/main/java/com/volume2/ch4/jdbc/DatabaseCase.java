@@ -1,10 +1,3 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年9月28日
- *******************************************************************************/
-
 package com.volume2.ch4.jdbc;
 
 import java.io.PrintWriter;
@@ -24,7 +17,8 @@ import com.java.core.log.JavaCoreLogger;
  * 可以不用<code> Class.forName(DriverClass)</code>
  *
  * This program tests the database and the JDBC driver are correctly configured.
- * @author huangjw (mailto:huangjw@primeton.com)
+ *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class DatabaseCase {
 

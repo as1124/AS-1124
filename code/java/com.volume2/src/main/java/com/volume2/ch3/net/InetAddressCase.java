@@ -7,13 +7,11 @@ import java.util.logging.Level;
 import com.java.core.log.JavaCoreLogger;
 
 /**
- * 
  * This program demonstrates the InetAddress class.
  * Supply a host name as command line argument, or run without command line 
  * arguments to see the address of the local host.
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class InetAddressCase {
 

@@ -10,11 +10,9 @@ import java.util.logging.Level;
 import com.java.core.log.JavaCoreLogger;
 
 /**
- * 
  * 文本读写测试
  * 
- * @author as1124huang@gmail.com
- *
+ * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class TextFileCase {
 
