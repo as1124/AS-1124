@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.as1124.ch3.views.anim.AnimationActivity;
 import com.as1124.ch3.views.axis.ViewCoordinateActivity;
 import com.as1124.ch3.views.move.ViewMovementActivity;
+import com.as1124.ch3.views.round.RoundImageActivity;
 import com.as1124.ch3.views.scroller.ScrollerActivity;
 import com.as1124.ch3.views.selfdefine.SelfViewActivity;
 
@@ -41,6 +42,9 @@ public class MainActivity extends Activity {
                 startActivity(new Intent(MainActivity.this, ScrollerActivity.class)));
         findViewById(R.id.but_to_selfview).setOnClickListener(v ->
                 startActivity(new Intent(this, SelfViewActivity.class)));
+        findViewById(R.id.but_to_round_image).setOnClickListener(v ->
+                startActivity(new Intent(MainActivity.this, RoundImageActivity.class)));
+
 
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {

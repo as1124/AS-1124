@@ -2,21 +2,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.as1124.ch3.views">
 
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-
-    <!-- 生物识别认证 -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" /> <!-- 生物识别认证 -->
     <uses-permission android:name="android.permission.USE_FINGERPRINT" />
     <uses-permission android:name="android.permission.USE_BIOMETRIC" />
-
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".As1124Application"
-        android:allowBackup="true"
+        android:allowBackup="false"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity
+            android:name=".round.RoundImageActivity"
+            android:exported="true"></activity>
+
         <service
             android:name=".AcrossProcessService"
             android:enabled="true"

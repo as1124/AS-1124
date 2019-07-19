@@ -35,4 +35,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="自定义View" />
+
+    <Button
+        android:id="@+id/but_to_round_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="圆型头像的实现" />
 </LinearLayout>

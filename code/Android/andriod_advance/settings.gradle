@@ -1,1 +1,1 @@
-include ':ch2_material_design', ':ch3_view_family', ':ch4_multi_thread', ':ch5_network'
+include ':ch2_material_design', ':ch3_view_family', ':ch4_multi_thread', ':ch5_network', ':ch6_design_pattern'
