@@ -2,6 +2,7 @@ package com.as1124.selflib;
 
 import android.app.Activity;
 import android.app.ActivityManager;
+import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.Context;
 import android.os.Build;
@@ -9,6 +10,11 @@ import android.os.Build;
 import java.io.File;
 import java.util.List;
 
+/**
+ * Android基础组件相关操作封装
+ *
+ * @author As-1124(mailto:as1124huang@gmail.com)
+ */
 public class ComponentUtils {
 
     /**
@@ -87,15 +93,15 @@ public class ComponentUtils {
     public static boolean isAppForeground(Context appContext) {
         ActivityManager am = (ActivityManager) appContext.getSystemService(Activity.ACTIVITY_SERVICE);
 
-        List<RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
+        List<ActivityManager.RunningAppProcessInfo> runningApps = am.getRunningAppProcesses();
         if (runningApps == null) {
             return false;
         }
         for (int k = 0; k < runningApps.size(); k++) {
-            RunningAppProcessInfo processInfo = runningApps.get(k);
+            ActivityManager.RunningAppProcessInfo processInfo = runningApps.get(k);
             if ((android.os.Process.myPid() == processInfo.pid)
                     && appContext.getApplicationInfo().processName.equals(processInfo.processName)) {
-                return (processInfo.importance == RunningAppProcessInfo.IMPORTANCE_FOREGROUND);
+                return (processInfo.importance == ActivityManager.RunningAppProcessInfo.IMPORTANCE_FOREGROUND);
             }
         }
         return false;
@@ -115,7 +121,7 @@ public class ComponentUtils {
             return guardManager.isKeyguardLocked();
         }
     }
-    
+
     public static void installAPK(Context context, File apkFile) {
         // ATTENTION 安装APK文件
     }

@@ -3,6 +3,7 @@ package com.as1124.images.selector;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.PagerAdapter;
@@ -56,7 +57,7 @@ public class ImagePreviewActivity extends Activity implements ViewPager.OnPageCh
     private CheckBox selectCheck;
 
 
-    class Abc extends ViewPager{
+    class Abc extends ViewPager {
 
         public Abc(@NonNull Context context) {
             super(context);
@@ -97,7 +98,7 @@ public class ImagePreviewActivity extends Activity implements ViewPager.OnPageCh
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_preview);
-        WindowUtils.fullScreen(this);
+        WindowUtils.fullScreen(this, Color.TRANSPARENT, true);
 
         int showIndex = 0;
         Intent receivedIntent = getIntent();

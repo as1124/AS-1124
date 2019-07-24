@@ -3,6 +3,7 @@ package com.as1124.touch_input.gesture;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,7 +54,7 @@ public class GestureActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gesture);
-        WindowUtils.fullScreen(this);
+        WindowUtils.fullScreen(this, Color.TRANSPARENT, true);
         if (getActionBar() != null) {
             getActionBar().hide();
         }

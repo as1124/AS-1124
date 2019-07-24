@@ -1,6 +1,7 @@
 package com.as1124.touch_input.gesture;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import com.as1124.selflib.WindowUtils;
@@ -17,6 +18,6 @@ public class SelfScrollableActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_self_scrollable);
-        WindowUtils.fullScreen(this);
+        WindowUtils.fullScreen(this, Color.TRANSPARENT, true);
     }
 }

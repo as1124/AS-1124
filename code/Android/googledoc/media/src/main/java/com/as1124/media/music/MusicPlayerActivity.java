@@ -1,6 +1,7 @@
 package com.as1124.media.music;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.browse.MediaBrowser;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class MusicPlayerActivity extends Activity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music_player);
-        WindowUtils.fullScreen(this);
+        WindowUtils.fullScreen(this, Color.TRANSPARENT, true);
         mSongs = MediaUtils.queryAudioItem(getApplicationContext());
 
         findViewById(R.id.image_back).setOnClickListener(this);

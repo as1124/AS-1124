@@ -4,6 +4,7 @@ import android.animation.AnimatorInflater;
 import android.animation.StateListAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -46,6 +47,6 @@ public class MainActivity extends Activity {
         findViewById(R.id.but_to_zoom).setOnClickListener(v ->
                 startActivity(new Intent(this, ZoomActivity.class)));
 
-        WindowUtils.fullScreen(this);
+        WindowUtils.fullScreen(this, Color.TRANSPARENT, true);
     }
 }

@@ -1,6 +1,7 @@
 package com.as1124.ui.layout.cardview;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -30,7 +31,7 @@ public class CardViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_card_view);
-        WindowUtils.fullScreen(this);
+        WindowUtils.fullScreen(this, Color.TRANSPARENT, true);
         WindowUtils.lightStatusBar(this);
 
         mCardView = findViewById(R.id.card_view);

@@ -25,7 +25,7 @@ public class MainActivity extends Activity {
         if (actionBar != null) {
             actionBar.hide();
         }
-        WindowUtils.fullScreen(this);
+        WindowUtils.fullScreen(this, Color.TRANSPARENT, true);
         if (Build.VERSION.SDK_INT >= 21) {
             getWindow().setStatusBarColor(Color.CYAN);
         }
