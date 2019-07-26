@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /**
+ * 配置方式一：<br/><br/>
  * <code>{@link Configuration}</code> 在不配置任何参数的情况下，
  * 默认是以当前包作为<code> base-package</code> 扫描当前包及其子包来发现所有的
  * <code>{@linkplain Component}</code>注解的bean类
@@ -15,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Configuration
-@ComponentScan(basePackages = { "com.as1124.spring.framework" })
+@ComponentScan(basePackages = { "com.as1124.spring.framework.bean" })
 public class As1124SpringConfig {
 
 }

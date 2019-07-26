@@ -8,21 +8,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.as1124.spring.framework.config.As1124SpringConfig;
+import com.as1124.spring.framework.config.As1124SpringConfig2;
 
 /**
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = As1124SpringConfig.class)
-public class CDPlayerTest {
+@ContextConfiguration(classes = As1124SpringConfig2.class)
+public class BeanAssembleTest2 {
 
-	@Autowired
-	private CompactDisc cd;
+	@Autowired(required = false)
+	private IMediaPlayer player;
 
 	@Test
-	public void cdshowudNotBeNull() {
-		assertNotNull(cd);
-		cd.play();
+	public void testSpring() {
+		assertNotNull(player);
+		player.startPlay();
 	}
 }
+

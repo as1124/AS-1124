@@ -7,7 +7,31 @@
 	http://www.springframework.org/schema/context 
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
-    <!-- 自动组件扫描配置 -->
-    <context:component-scan base-package="com.as1124.spring.framework" />
+	<!-- 自动组件扫描配置 -->
+	<context:component-scan
+		base-package="com.as1124.spring.framework.config.abc" />
 
+	<beans profile="dev"></beans>
+	<beans profile="product">
+		<bean id="pixarBean"
+			class="com.as1124.spring.framework.PixarVideo">
+			<constructor-arg type="java.lang.String"
+				value="Wall.E, A love story." />
+			<constructor-arg>
+				<list>
+					<value>Wall.E</value>
+					<value>Eve</value>
+				</list>
+			</constructor-arg>
+
+			<!-- 配置Bean中的property字段，对应的属性必须具有 set 方法 -->
+			<property name="publishYear" value="1992"></property>
+			<property name="director" value="Somebody"></property>
+		</bean>
+
+		<bean id="videoPlayerBean"
+			class="com.as1124.spring.framework.VideoPlayer">
+			<constructor-arg ref="pixarBean" />
+		</bean>
+	</beans>
 </beans>
