@@ -9,12 +9,12 @@
 
 	<!-- 自动组件扫描配置 -->
 	<context:component-scan
-		base-package="com.as1124.spring.framework.config.abc" />
+		base-package="com.as1124.spring.framework.bean" />
 
-	<beans profile="dev"></beans>
-	<beans profile="product">
+<!-- 	<beans profile="dev"></beans> -->
+<!-- 	<beans profile="product"> -->
 		<bean id="pixarBean"
-			class="com.as1124.spring.framework.PixarVideo">
+			class="com.as1124.spring.framework.bean.PixarVideo">
 			<constructor-arg type="java.lang.String"
 				value="Wall.E, A love story." />
 			<constructor-arg>
@@ -30,8 +30,8 @@
 		</bean>
 
 		<bean id="videoPlayerBean"
-			class="com.as1124.spring.framework.VideoPlayer">
+			class="com.as1124.spring.framework.bean.VideoPlayer" primary="true">
 			<constructor-arg ref="pixarBean" />
 		</bean>
-	</beans>
+<!-- 	</beans> -->
 </beans>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="RoundImageView">
+        <!-- 是否时圆形图像 -->
+        <attr name="isRound" format="boolean" />
+
+        <attr name="roundMethod" format="enum">
+            <enum name="ClipCanvas" value="ClipCanvas" />
+            <enum name="ClipImage" value="ClipImage" />
+            <enum name="Xfermode" value="Xfermode" />
+        </attr>
+    </declare-styleable>
+
+</resources>

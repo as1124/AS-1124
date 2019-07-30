@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.as1124.spring.framework.IMedia;
 import com.as1124.spring.framework.IMediaPlayer;
-import com.as1124.spring.framework.PixarVideo;
-import com.as1124.spring.framework.VideoPlayer;
+import com.as1124.spring.framework.bean.PixarVideo;
+import com.as1124.spring.framework.bean.VideoPlayer;
 
 /**
  * 配置方式二：<br/><br/>

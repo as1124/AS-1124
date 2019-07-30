@@ -1,5 +1,6 @@
 package com.as1124.spring.framework.bean;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import com.as1124.spring.framework.IMedia;
@@ -10,6 +11,7 @@ import com.as1124.spring.framework.IMedia;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Component("puShu")
+@Primary
 public class PuShuDisc implements IMedia {
 
 	@Override

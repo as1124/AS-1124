@@ -1,8 +1,10 @@
-package com.as1124.spring.framework;
+package com.as1124.spring.framework.bean;
 
 import java.util.List;
 
 import org.springframework.util.StringUtils;
+
+import com.as1124.spring.framework.IMedia;
 
 /**
  * Pixar动画电影描述

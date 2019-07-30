@@ -1,4 +1,7 @@
-package com.as1124.spring.framework;
+package com.as1124.spring.framework.bean;
+
+import com.as1124.spring.framework.IMedia;
+import com.as1124.spring.framework.IMediaPlayer;
 
 /**
  *
