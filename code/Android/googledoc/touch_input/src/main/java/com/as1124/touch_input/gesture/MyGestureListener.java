@@ -34,11 +34,10 @@ public class MyGestureListener implements GestureDetector.OnGestureListener, Ges
     }
 
     @Override
-    public boolean onFling(MotionEvent event1, MotionEvent event2,
-                           float velocityX, float velocityY) {
+    public boolean onFling(MotionEvent event1, MotionEvent event2, float velocityX, float velocityY) {
         Log.i(DEBUG_TAG, "onFling: " + event1.toString() + event2.toString());
-        // event1：触发ACTION_DOWN时即起始的MotionEvent信息
-        // event2：达到触发onFling事件要求的最后一个ACTION_MOVE标识的MotionEvent信息
+        // event1：触发 ACTION_DOWN 时即起始的MotionEvent信息
+        // event2：达到触发 onFling 事件要求的最后一个ACTION_MOVE标识的MotionEvent信息
         // velocityX：X轴上的移动速度，像素/秒
         // velocityY：Y轴上的移动速度，像素/秒
 

@@ -64,29 +64,27 @@ public class GestureActivity extends Activity {
         // set the detector as the double tap listener
         mDetector.setOnDoubleTapListener(gestureListener);
 
-        myInputText = findViewById(R.id.text_test_pointer);
+
         findViewById(R.id.text_test_gesture).setOnTouchListener((v, event) -> {
             // 如果在 ACTION_DOWN 时返回false则不会接收后续的event
             Log.i("MotionEvent", "Handle MotionEvent on View");
             return analyseMotionEvent(event);
         });
+        myInputText = findViewById(R.id.text_test_pointer);
 
         findViewById(R.id.but_self_gesture_detector).setOnClickListener(v -> useSelfDetector = !useSelfDetector);
 
         findViewById(R.id.but_pointer_capture).setOnClickListener(v -> {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                myInputText.setOnCapturedPointerListener((view, event) -> {
-                    return true;
-                });
+                myInputText.setOnCapturedPointerListener((view, event) -> true);
                 myInputText.requestPointerCapture();
             } else {
                 Toast.makeText(this, "当前系统版本不支持Pointer Capture", Toast.LENGTH_SHORT).show();
             }
         });
 
-        findViewById(R.id.but_scroll_gesture).setOnClickListener(
-                v -> startActivity(new Intent(this, SelfScrollableActivity.class))
-        );
+        findViewById(R.id.but_scroll_gesture).setOnClickListener(v ->
+                startActivity(new Intent(this, SelfScrollableActivity.class)));
         findViewById(R.id.but_multi_touch).setOnClickListener(v ->
                 Toast.makeText(this, "MotionEvent 类型 ACTION_POINTER_*", Toast.LENGTH_SHORT).show());
         findViewById(R.id.but_to_drag).setOnClickListener(v ->
@@ -103,6 +101,7 @@ public class GestureActivity extends Activity {
         }
     }
 
+
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
         // ATTENTION 为什么true之后立马又回调了一个 false
@@ -112,33 +111,36 @@ public class GestureActivity extends Activity {
 
     private boolean analyseMotionEvent(MotionEvent event) {
         int action = event.getActionMasked();
+        android.util.Log.i("MotionEvent", "手指数量==" + event.getPointerCount());
         switch (action) {
-            case MotionEvent.ACTION_DOWN:// 用来标识手势操作开始
+            case MotionEvent.ACTION_DOWN:
                 Log.i("MotionEvent", "Action was DOWN");
                 // Retrieve a new VelocityTracker object to watch the velocity of a motion.
                 mVelocityTracker = VelocityTracker.obtain();
                 mVelocityTracker.addMovement(event);
-                return true; // return true to gather the following e
+                return true; // return true to gather the following event
             case MotionEvent.ACTION_MOVE:
                 Log.i("MotionEvent", "Action was MOVE");
                 mVelocityTracker.addMovement(event);
 
-                // Whe you want to determine the velocity, call computeCurrentVelocity(). Then call
+                // When you want to determine the velocity, call computeCurrentVelocity(). Then call
                 // getXVelocity() and getYVelocity() to retrieve the velocity for each pointer ID.
                 mVelocityTracker.computeCurrentVelocity(1000);
 
                 // Log velocity of pixels per second. Best practice to use VelocityTrackerCompat when possible
-                Log.i("GestureActivity", "X velocity == " + mVelocityTracker.getXVelocity());
-                Log.i("GestureActivity", "Y velocity == " + mVelocityTracker.getYVelocity());
+                Log.i("GestureActivity", "XVelocity == " + mVelocityTracker.getXVelocity() + ", YVelocity == " + mVelocityTracker.getYVelocity());
                 return true;
             case MotionEvent.ACTION_UP:// 用来标识手势操作结束
-                Log.i("MotionEvent", "Action was UP");
+                Log.i("MotionEvent", "Action was UP, gesture touch was over");
                 mVelocityTracker.clear();
+                break;
             case MotionEvent.ACTION_CANCEL:
                 Log.i("MotionEvent", "Action was CANCEL");
                 // Return a VelocityTracker object back to be re-used by others.
                 mVelocityTracker.clear();
+                break;
             case MotionEvent.ACTION_OUTSIDE:
+                // 这种情况通常用于处理弹窗View的情形
                 Log.i("MotionEvent", "Movement occurred outside bounds of current screen");
                 break;
             case MotionEvent.ACTION_POINTER_DOWN:

@@ -5,9 +5,9 @@
         <attr name="isRound" format="boolean" />
 
         <attr name="roundMethod" format="enum">
-            <enum name="ClipCanvas" value="ClipCanvas" />
-            <enum name="ClipImage" value="ClipImage" />
-            <enum name="Xfermode" value="Xfermode" />
+            <enum name="ClipCanvas" value="1" />
+            <enum name="ClipImage" value="2" />
+            <enum name="Xfermode" value="3" />
         </attr>
     </declare-styleable>
 
