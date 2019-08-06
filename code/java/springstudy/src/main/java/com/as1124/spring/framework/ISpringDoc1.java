@@ -10,8 +10,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.ImportResource;
 import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.Scope;
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.web.context.WebApplicationContext;
 
 /**
@@ -68,6 +71,18 @@ import org.springframework.web.context.WebApplicationContext;
  * <li>{@link ConfigurableBeanFactory#SCOPE_PROTOTYPE} ：原型作用域, 每次都创建新的实例
  * <li>{@link WebApplicationContext#SCOPE_SESSION} :在Web应用中为每个会话创建一个Bean实例
  * <li>{@link WebApplicationContext#SCOPE_REQUEST} :在Web应用中为每个请求创建一个Bean实例
+ * </ol>
+ * 
+ * 
+ * <strong>
+ * 五：Bean的多环境兼容配置：{@link Profile} 注解<br/>
+ * 譬如测试环境创建基于测试环境的Bean，生产环境创建基于生产环境的Bean，而此时Bean其实类型等描述
+ * 信息都一直除了内容，此时解决办法就可以用<code>Profile</code>
+ * </strong><br/>
+ * <ol>
+ * 激活特定 <code>Profile</code>信息
+ * <li>{@link ActiveProfiles} 注解</li>
+ * <li>运行时上下文环境 {@link Environment#acceptsProfiles(org.springframework.core.env.Profiles)}
  * </ol>
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)

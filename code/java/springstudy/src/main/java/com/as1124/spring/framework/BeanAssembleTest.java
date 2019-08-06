@@ -5,12 +5,14 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.as1124.spring.framework.config.As1124SpringConfig;
 
 /**
+ * 测试Spring自动装配方式一：{@link ComponentScan} 注解
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */

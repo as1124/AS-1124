@@ -1,4 +1,4 @@
-package com.as1124.spring.framework.bean;
+package com.as1124.spring.framework.profile;
 
 /**
  *

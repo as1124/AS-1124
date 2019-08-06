@@ -10,6 +10,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 /**
+ * 测试Spring配置，XML文件形式
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)

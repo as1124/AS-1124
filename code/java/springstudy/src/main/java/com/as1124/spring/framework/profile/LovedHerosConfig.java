@@ -4,8 +4,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 
-import com.as1124.spring.framework.bean.LovedHeros;
-
 /**
  * 用来测试Profile环境
  *

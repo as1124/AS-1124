@@ -9,8 +9,6 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.as1124.spring.framework.bean.LovedHeros;
-
 /**
  * {@link Profile}注解：其作用是为了部署单元能够适应多个运行环境；
  * 只有当Bean 的<code> Profile </code>与运行环境描述相匹配时, Bean才会被加载. 
