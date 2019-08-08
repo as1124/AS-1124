@@ -1,5 +1,79 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- 9宫格键盘纵向 -->
+    <!-- 9宫格键盘纵向, 4行3列 -->
+    <Row>
+        <Key
+            android:codes="101"
+            android:isModifier="false"
+            android:keyEdgeFlags="left"
+            android:keyLabel="1"
+            android:keyOutputText="1"
+            android:popupCharacters="1-1" />
+        <Key
+            android:codes="102"
+            android:isModifier="false"
+            android:keyLabel="2"
+            android:keyOutputText="2"
+            android:popupCharacters="2" />
+        <Key
+            android:codes="103"
+            android:isModifier="false"
+            android:keyEdgeFlags="right"
+            android:keyLabel="3"
+            android:keyOutputText="3" />
+    </Row>
 
+    <Row>
+        <Key
+            android:codes="104"
+            android:isModifier="false"
+            android:keyLabel="4"
+            android:keyOutputText="4" />
+        <Key
+            android:codes="105"
+            android:isModifier="false"
+            android:keyLabel="5"
+            android:keyOutputText="5" />
+        <Key
+            android:codes="106"
+            android:isModifier="false"
+            android:keyLabel="6"
+            android:keyOutputText="6" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="107"
+            android:isModifier="false"
+            android:keyLabel="7"
+            android:keyOutputText="7" />
+        <Key
+            android:codes="108"
+            android:isModifier="false"
+            android:keyLabel="8"
+            android:keyOutputText="8" />
+        <Key
+            android:codes="109"
+            android:isModifier="false"
+            android:keyLabel="9"
+            android:keyOutputText="9" />
+    </Row>
+
+    <Row>
+        <Key
+            android:codes="110"
+            android:isModifier="false"
+            android:keyLabel="."
+            android:keyOutputText="." />
+        <Key
+            android:codes="100"
+            android:isModifier="false"
+            android:keyLabel="0"
+            android:keyOutputText="0" />
+        <Key
+            android:codes="111"
+            android:isModifier="true"
+            android:keyIcon="@drawable/icon_key_del"
+            android:keyLabel="DEL" />
+    </Row>
 </Keyboard>

@@ -23,14 +23,18 @@
         <activity android:name=".gesture.SelfScrollableActivity" />
 
         <!-- stateVisible：每次打开Activity都会打开键盘 -->
+        <!-- adjustResize： 调整窗口，能够看见整屏幕的内容, adjustPan: 平移显示区域，只要达到焦点控件可见即可-->
         <activity
             android:name=".keyinput.KeyInputActivity"
-            android:windowSoftInputMode="stateVisible" />
+            android:exported="true"
+            android:resizeableActivity="true"
+            android:windowSoftInputMode="stateUnspecified|adjustResize" />
 
         <activity android:name=".gesture.drag.DragScaleActivity" />
 
         <activity
             android:name=".inputmethod.InputMethodActivity"
+            android:exported="true"
             android:label="自定义输入法主入口"
             android:permission="android.permission.BIND_INPUT_METHOD">
             <intent-filter>

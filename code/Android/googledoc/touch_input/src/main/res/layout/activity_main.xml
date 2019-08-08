@@ -22,6 +22,6 @@
         android:id="@+id/but_to_inputmethod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="自定义输入发" />
+        android:text="自定义输入法" />
 
 </LinearLayout>

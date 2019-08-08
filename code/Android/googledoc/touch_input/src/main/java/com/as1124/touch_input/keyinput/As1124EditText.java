@@ -1,9 +1,11 @@
 package com.as1124.touch_input.keyinput;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.widget.EditText;
 
 /**
@@ -27,14 +29,10 @@ public class As1124EditText extends EditText {
         super(context, attrs, defStyleAttr);
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        return super.onKeyDown(keyCode, event);
-    }
 
     @Override
     public boolean onKeyUp(int keyCode, KeyEvent event) {
-        Log.i("As1124Input", "Shift state = " + event.isShiftPressed());
+        Log.i("As1124Input", "KeyCode == " + event.getKeyCode() + ", Shift state = " + event.isShiftPressed());
         switch (keyCode) {
             case KeyEvent.KEYCODE_D:
                 Log.i("As1124Input", "D is taped!");
@@ -45,4 +43,44 @@ public class As1124EditText extends EditText {
         }
         return super.onKeyUp(keyCode, event);
     }
+
+    @Override
+    protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
+
+
+    @Override
+    public void dispatchWindowFocusChanged(boolean hasFocus) {
+        Log.i("FOCUS_TEST", "View#dispatchWindowFocusChanged");
+        super.dispatchWindowFocusChanged(hasFocus);
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasWindowFocus) {
+        Log.i("FOCUS_TEST", "View#onWindowFocusChanged");
+        super.onWindowFocusChanged(hasWindowFocus);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        Log.i("FOCUS_TEST", "View#dispatchTouchEvent");
+        return super.dispatchTouchEvent(event);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        Log.i("FOCUS_TEST", "View#onTouchEvent");
+
+        return super.onTouchEvent(event);
+
+
+//        if (!this.isFocused()) {
+//            requestFocus();
+//        }
+//        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+//        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_NOT_ALWAYS);
+//        return true;
+    }
+
 }

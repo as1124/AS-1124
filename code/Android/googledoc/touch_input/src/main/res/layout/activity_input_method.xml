@@ -24,7 +24,7 @@
         android:id="@+id/input_self_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="请输入内容"
+        android:inputType="textEmailAddress|textCapCharacters" />
 
 </LinearLayout>
