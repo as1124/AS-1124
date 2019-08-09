@@ -33,8 +33,10 @@ public class As1124InputMethodService extends InputMethodService {
         keyboardView.setOnKeyboardActionListener(new As1124KeyboardActionListener());
 
         // ATTENTION 需要提供一个键盘
-        Keyboard myKeyboard = new Keyboard(getApplicationContext(), R.xml.keyboard_26_port);
-        keyboardView.setKeyboard(myKeyboard);
+//        Keyboard myKeyboard = new As1124Keyboard(getApplicationContext(), R.xml.keyboard_26_port);
+        // 能更好的控制键盘上每个键的样式, 可以解析自定义属性
+        Keyboard keyboard = new As1124Keyboard(getApplicationContext(), R.xml.keyboard_9_port);
+        keyboardView.setKeyboard(keyboard);
         return view;
     }
 

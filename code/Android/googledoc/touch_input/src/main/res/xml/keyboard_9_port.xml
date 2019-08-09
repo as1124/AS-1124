@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:horizontalGap="2%p"
+    android:keyWidth="32%p"
+    android:keyHeight="45dp"
+    android:verticalGap="7dp">
+
     <!-- 9宫格键盘纵向, 4行3列 -->
-    <Row>
+    <Row android:rowEdgeFlags="top">
         <Key
             android:codes="101"
             android:isModifier="false"
@@ -27,6 +32,7 @@
         <Key
             android:codes="104"
             android:isModifier="false"
+            android:keyEdgeFlags="left"
             android:keyLabel="4"
             android:keyOutputText="4" />
         <Key
@@ -37,6 +43,7 @@
         <Key
             android:codes="106"
             android:isModifier="false"
+            android:keyEdgeFlags="right"
             android:keyLabel="6"
             android:keyOutputText="6" />
     </Row>
@@ -45,6 +52,7 @@
         <Key
             android:codes="107"
             android:isModifier="false"
+            android:keyEdgeFlags="left"
             android:keyLabel="7"
             android:keyOutputText="7" />
         <Key
@@ -55,14 +63,16 @@
         <Key
             android:codes="109"
             android:isModifier="false"
+            android:keyEdgeFlags="right"
             android:keyLabel="9"
             android:keyOutputText="9" />
     </Row>
 
-    <Row>
+    <Row android:rowEdgeFlags="bottom">
         <Key
             android:codes="110"
             android:isModifier="false"
+            android:keyEdgeFlags="left"
             android:keyLabel="."
             android:keyOutputText="." />
         <Key
@@ -73,7 +83,7 @@
         <Key
             android:codes="111"
             android:isModifier="true"
-            android:keyIcon="@drawable/icon_key_del"
-            android:keyLabel="DEL" />
+            android:keyEdgeFlags="right"
+            android:keyIcon="@drawable/key_delete" />
     </Row>
 </Keyboard>

@@ -4,27 +4,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    android:background="#00f2e7"
+    android:background="@color/keyView"
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <!-- 占位 -->
     <View
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="40dp" />
 
     <com.as1124.touch_input.inputmethod.As1124KeyboardView
         android:id="@+id/keyboard_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:background="#ffECECEC"
-        android:keyBackground="@color/keyBackground"
-        android:keyPreviewOffset="20dp"
-        android:keyTextColor="#000000"
-        android:keyTextSize="20sp"
-        android:shadowColor="#0000ff"
-        android:shadowRadius="10" />
+        android:layout_margin="7dp"
+        android:background="@android:color/transparent"
+        android:keyBackground="@drawable/key_state_background"
+        android:keyTextColor="@color/keyText"
+        android:keyTextSize="24sp" />
 
     <View
         android:layout_width="match_parent"
