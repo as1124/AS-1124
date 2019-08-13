@@ -9,6 +9,7 @@
     <Row android:rowEdgeFlags="top">
         <Key
             android:codes="101"
+            android:iconPreview="@drawable/a9y"
             android:isModifier="false"
             android:keyEdgeFlags="left"
             android:keyLabel="1"

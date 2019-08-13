@@ -2,19 +2,26 @@ package com.as1124.touch_input.inputmethod;
 
 import android.inputmethodservice.KeyboardView;
 import android.util.Log;
+import android.view.inputmethod.InputConnection;
 
 public class As1124KeyboardActionListener implements KeyboardView.OnKeyboardActionListener {
 
-    private static final String LOG_TAG = "Key_Action_listener";
+    private static final String LOG_TAG = "Key_Action_Listener";
+
+    private InputConnection mConnection;
+
+    public As1124KeyboardActionListener(InputConnection connection) {
+        this.mConnection = connection;
+    }
 
     @Override
     public void onPress(int primaryCode) {
-        Log.i(LOG_TAG, "onPress");
+        Log.i(LOG_TAG, "onPress: " + primaryCode);
     }
 
     @Override
     public void onRelease(int primaryCode) {
-        Log.i(LOG_TAG, "onRelease");
+        Log.i(LOG_TAG, "onRelease: " + primaryCode);
     }
 
     @Override
@@ -24,7 +31,11 @@ public class As1124KeyboardActionListener implements KeyboardView.OnKeyboardActi
 
     @Override
     public void onText(CharSequence text) {
-        Log.i(LOG_TAG, "onText");
+        Log.i(LOG_TAG, "onText: " + text);
+        if (this.mConnection != null) {
+            this.mConnection.commitText(text, text.length() - 1);
+        }
+
     }
 
     @Override

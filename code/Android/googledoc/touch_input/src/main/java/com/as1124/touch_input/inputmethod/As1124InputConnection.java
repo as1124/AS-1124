@@ -12,4 +12,5 @@ public class As1124InputConnection extends BaseInputConnection {
         super(targetView, fullEditor);
     }
 
+
 }

@@ -20,7 +20,7 @@ import com.as1124.touch_input.R;
  *     Do remember when you make a touch on the EditText, then you saw the {@link android.view.inputmethod.InputMethod}
  *     was shown, this event is not triggered by the focus-change-event but triggered by the
  *     <Strong>{@link #dispatchTouchEvent(MotionEvent)}</Strong>; that means if you consume the {@link MotionEvent} in
- *     the EditText#onTouchEvent, then the InputMethod will not shown!!
+ *     the EditText#onTouchEvent, then the InputMethod will never shown!!
  *
  * </pre>
  * <Strong>

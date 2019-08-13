@@ -13,5 +13,7 @@
         <item>沙雕国家</item>
         <item>我的小仙女</item>
     </string-array>
+    <string name="key_label_at">\u0040</string>
+    <string name="key_label_symbol">\u003f\u0031\u0032\u0033</string>
 
 </resources>
