@@ -1,4 +1,4 @@
-package com.as1124.touch_input.inputmethod;
+package com.as1124.touch_input.softinput;
 
 import android.app.Activity;
 import android.os.Bundle;

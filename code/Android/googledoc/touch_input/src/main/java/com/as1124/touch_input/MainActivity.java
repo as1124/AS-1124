@@ -9,7 +9,7 @@ import android.os.Bundle;
 
 import com.as1124.selflib.WindowUtils;
 import com.as1124.touch_input.gesture.GestureActivity;
-import com.as1124.touch_input.inputmethod.InputMethodActivity;
+import com.as1124.touch_input.softinput.InputMethodActivity;
 import com.as1124.touch_input.keyinput.KeyInputActivity;
 
 /**

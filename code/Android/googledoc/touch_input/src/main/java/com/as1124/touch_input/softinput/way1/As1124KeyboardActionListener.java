@@ -1,4 +1,4 @@
-package com.as1124.touch_input.inputmethod;
+package com.as1124.touch_input.softinput.way1;
 
 import android.inputmethodservice.KeyboardView;
 import android.util.Log;

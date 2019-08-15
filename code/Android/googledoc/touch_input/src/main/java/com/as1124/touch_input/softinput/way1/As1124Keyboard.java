@@ -1,4 +1,4 @@
-package com.as1124.touch_input.inputmethod;
+package com.as1124.touch_input.softinput.way1;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,13 +15,12 @@ import java.util.List;
  */
 public class As1124Keyboard extends Keyboard {
 
-    private static List<Key> myKeys = new ArrayList<>();
+    protected List<ExRow> keyRows;
 
-    private static List<Row> myRows = new ArrayList<>();
+    private ExRow currentRow;
 
-    private Row currentRow;
-
-    private int mRowIndex = 0;
+    // 26_en, 9_en, 9_num
+    private String keyboardType = "26_en";
 
     public As1124Keyboard(Context context, int xmlLayoutResId) {
         super(context, xmlLayoutResId);
@@ -33,34 +32,35 @@ public class As1124Keyboard extends Keyboard {
         onAllKeysLoad();
     }
 
-    private void adjustRowKeys() {
-        List<Key> keys = super.getKeys();
-        int totalWidth;
-    }
 
     @Override
     protected Row createRowFromXml(Resources res, XmlResourceParser parser) {
-        Row row = super.createRowFromXml(res, parser);
-        this.myRows.add(row);
-        if (this.myKeys != null) {
-            // 每当有新的一行键模型产生时，重新测算位置
-            adjustRowKeys();
-            this.myKeys.clear();
-        }
+        // 强制约定所有尺寸单位都按照dp来计算
+        ExRow row = new ExRow(res, this, parser);
         currentRow = row;
+        if (keyRows == null) {
+            keyRows = new ArrayList<>(8);
+        }
+        keyRows.add(row);
+
         return row;
     }
 
     @Override
     protected Key createKeyFromXml(Resources res, Row parent, int x, int y, XmlResourceParser parser) {
-        // 创建新的按键模型的时候调用此方法
-        Key key = super.createKeyFromXml(res, parent, x, y, parser);
-        this.myKeys.add(key);
-
+        ExKey key = new ExKey(res, parent, x, y, parser);
+        currentRow.myKeys.add(key);
         return key;
     }
 
     private void onAllKeysLoad() {
+    }
 
+    public String getKeyboardType() {
+        return keyboardType;
+    }
+
+    public void setKeyboardType(String keyboardType) {
+        this.keyboardType = keyboardType;
     }
 }

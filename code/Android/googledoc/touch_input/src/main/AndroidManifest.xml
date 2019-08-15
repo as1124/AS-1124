@@ -30,10 +30,10 @@
         <activity android:name=".gesture.drag.DragScaleActivity" />
 
         <activity
-            android:name=".inputmethod.InputMethodActivity"
+            android:name=".softinput.InputMethodActivity"
             android:exported="true" />
         <activity
-            android:name=".inputmethod.InputMethodSettingActivity"
+            android:name=".softinput.InputMethodSettingActivity"
             android:exported="true"
             android:label="As1124输入法设置界面"
             android:permission="android.permission.BIND_INPUT_METHOD">
@@ -43,7 +43,7 @@
         </activity>
 
         <service
-            android:name=".inputmethod.As1124InputMethodService"
+            android:name=".softinput.As1124InputMethodService"
             android:enabled="true"
             android:exported="true"
             android:label="As1124 输入法"

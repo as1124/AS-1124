@@ -3,4 +3,10 @@
     <item android:drawable="@drawable/drawable_key_pressed" android:state_pressed="true" />
     <item android:drawable="@drawable/drawable_key_normal" android:state_pressed="false" />
     <item android:drawable="@drawable/drawable_key_normal" />
+
+    <!-- 用在modify类型的按键上 -->
+    <item android:drawable="@drawable/drawable_key_modify" android:state_checkable="false" android:state_checked="false" />
+    <item android:drawable="@drawable/drawable_key_modify" android:state_checkable="true" android:state_checked="false" />
+    <item android:drawable="@drawable/drawable_key_pressed" android:state_checkable="false" android:state_checked="true" />
+    <item android:drawable="@drawable/drawable_key_pressed" android:state_checkable="true" android:state_checked="true" />
 </selector>

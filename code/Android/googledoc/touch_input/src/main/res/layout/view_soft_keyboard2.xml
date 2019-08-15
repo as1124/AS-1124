@@ -13,16 +13,11 @@
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 
-    <com.as1124.touch_input.inputmethod.As1124KeyboardView
-        android:id="@+id/keyboard_view"
+    <com.as1124.touch_input.softinput.way2.SoftInputKeyboardLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="4dp"
-        android:background="@android:color/transparent"
-        android:keyBackground="@drawable/key_state_background"
-        android:keyTextColor="@color/keyText"
-        android:keyTextSize="24sp" />
+        android:layout_height="wrap_content">
+
+    </com.as1124.touch_input.softinput.way2.SoftInputKeyboardLayout>
 
     <View
         android:layout_width="match_parent"
