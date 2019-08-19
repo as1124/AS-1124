@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:horizontalGap="2%p"
-    android:keyWidth="32%p"
-    android:keyHeight="45dp"
-    android:verticalGap="7dp">
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- 9宫格键盘纵向, 4行3列 -->
-    <Row android:rowEdgeFlags="top">
+    <Row
+        android:horizontalGap="4dp"
+        android:keyHeight="44dp"
+        android:rowEdgeFlags="top"
+        android:verticalGap="8dp">
         <Key
             android:codes="101"
-            android:iconPreview="@drawable/a9y"
             android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyEdgeFlags="left"
             android:keyLabel="1"
             android:keyOutputText="1"
@@ -18,73 +19,130 @@
         <Key
             android:codes="102"
             android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyLabel="2"
-            android:keyOutputText="2"
-            android:popupCharacters="2" />
+            android:keyOutputText="2" />
         <Key
             android:codes="103"
             android:isModifier="false"
-            android:keyEdgeFlags="right"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyLabel="3"
             android:keyOutputText="3" />
+        <Key
+            android:codes="-5"
+            android:isModifier="true"
+            android:isRepeatable="true"
+            android:isSticky="false"
+            android:keyEdgeFlags="right"
+            android:keyIcon="@drawable/key_delete" />
     </Row>
 
-    <Row>
+    <Row
+        android:horizontalGap="4dp"
+        android:keyHeight="44dp"
+        android:verticalGap="8dp">
         <Key
             android:codes="104"
             android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyEdgeFlags="left"
             android:keyLabel="4"
             android:keyOutputText="4" />
         <Key
             android:codes="105"
             android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyLabel="5"
             android:keyOutputText="5" />
         <Key
             android:codes="106"
             android:isModifier="false"
-            android:keyEdgeFlags="right"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyLabel="6"
             android:keyOutputText="6" />
+        <Key
+            android:codes="111"
+            android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
+            android:keyEdgeFlags="right"
+            android:keyLabel="."
+            android:keyOutputText="." />
     </Row>
 
-    <Row>
+    <Row
+        android:horizontalGap="4dp"
+        android:keyHeight="44dp"
+        android:verticalGap="8dp">
         <Key
             android:codes="107"
             android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyEdgeFlags="left"
             android:keyLabel="7"
             android:keyOutputText="7" />
         <Key
             android:codes="108"
             android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyLabel="8"
             android:keyOutputText="8" />
         <Key
             android:codes="109"
             android:isModifier="false"
-            android:keyEdgeFlags="right"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyLabel="9"
             android:keyOutputText="9" />
+        <Key
+            android:codes="112"
+            android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
+            android:keyEdgeFlags="right"
+            android:keyLabel=","
+            android:keyOutputText="," />
     </Row>
 
-    <Row android:rowEdgeFlags="bottom">
+    <Row
+        android:horizontalGap="4dp"
+        android:keyHeight="44dp"
+        android:rowEdgeFlags="bottom"
+        android:verticalGap="8dp">
         <Key
-            android:codes="110"
-            android:isModifier="false"
+            android:codes="-2"
+            android:isModifier="true"
+            android:isRepeatable="false"
+            android:isSticky="false"
             android:keyEdgeFlags="left"
-            android:keyLabel="."
-            android:keyOutputText="." />
+            android:keyLabel="ABC" />
         <Key
             android:codes="100"
             android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
             android:keyLabel="0"
             android:keyOutputText="0" />
         <Key
-            android:codes="111"
+            android:codes="113"
+            android:isModifier="false"
+            android:isRepeatable="true"
+            android:isSticky="false"
+            android:keyLabel="$"
+            android:keyOutputText="$" />
+        <Key
+            android:codes="-4"
             android:isModifier="true"
+            android:isRepeatable="false"
+            android:isSticky="false"
             android:keyEdgeFlags="right"
-            android:keyIcon="@drawable/key_delete" />
+            android:keyLabel="Done" />
     </Row>
 </Keyboard>

@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
-    android:horizontalGap="5px"
-    android:keyWidth="@dimen/key_width"
-    android:keyHeight="50px"
-    android:verticalGap="5px">
-    <!-- 26字母键盘横屏 -->
-
-</Keyboard>

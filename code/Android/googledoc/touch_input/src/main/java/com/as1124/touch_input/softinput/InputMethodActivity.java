@@ -40,5 +40,9 @@ public class InputMethodActivity extends Activity {
             InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.showInputMethodPicker();
         });
+        findViewById(R.id.but_switch_subtype).setOnClickListener(v->{
+            InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            inputManager.showInputMethodAndSubtypeEnabler("");
+        });
     }
 }

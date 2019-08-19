@@ -19,17 +19,19 @@ public class As1124Keyboard extends Keyboard {
 
     private ExRow currentRow;
 
+    private int minWidth;
+
+    private boolean needResize = true;
+
     // 26_en, 9_en, 9_num
     private String keyboardType = "26_en";
 
     public As1124Keyboard(Context context, int xmlLayoutResId) {
         super(context, xmlLayoutResId);
-        onAllKeysLoad();
     }
 
     public As1124Keyboard(Context context, int xmlLayoutResId, int modeId) {
         super(context, xmlLayoutResId, modeId);
-        onAllKeysLoad();
     }
 
 
@@ -42,7 +44,6 @@ public class As1124Keyboard extends Keyboard {
             keyRows = new ArrayList<>(8);
         }
         keyRows.add(row);
-
         return row;
     }
 
@@ -53,7 +54,13 @@ public class As1124Keyboard extends Keyboard {
         return key;
     }
 
-    private void onAllKeysLoad() {
+    @Override
+    public int getMinWidth() {
+        return this.minWidth;
+    }
+
+    public void setMinWidth(int minWidth) {
+        this.minWidth = minWidth;
     }
 
     public String getKeyboardType() {
@@ -62,5 +69,13 @@ public class As1124Keyboard extends Keyboard {
 
     public void setKeyboardType(String keyboardType) {
         this.keyboardType = keyboardType;
+    }
+
+    public boolean isNeedResize() {
+        return needResize;
+    }
+
+    public void setNeedResize(boolean needResize) {
+        this.needResize = needResize;
     }
 }

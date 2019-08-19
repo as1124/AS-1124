@@ -6,6 +6,9 @@ import android.inputmethodservice.Keyboard;
 
 import java.util.ArrayList;
 
+/**
+ * @author as-1124(mailto:as1124huang@gmail.com)
+ */
 public class ExRow extends Keyboard.Row {
 
     public ArrayList<ExKey> myKeys = new ArrayList<>();

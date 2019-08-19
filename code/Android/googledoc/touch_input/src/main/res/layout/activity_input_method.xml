@@ -20,6 +20,19 @@
         android:layout_height="wrap_content"
         android:text="切换输入法" />
 
+    <Button
+        android:id="@+id/but_switch_subtype"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="切换输入法SubType" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="纯数字输入"
+        android:imeActionLabel="IME-Label"
+        android:inputType="number" />
+
     <EditText
         android:id="@+id/input_self_method"
         android:layout_width="match_parent"
