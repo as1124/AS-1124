@@ -19,13 +19,8 @@ public class ExKey extends Keyboard.Key {
     }
 
     @Override
-    public void onPressed() {
-        super.onPressed();
-    }
-
-    @Override
-    public void onReleased(boolean inside) {
-        super.onReleased(inside);
+    public boolean isInside(int x, int y) {
+        return (x >= this.x && x <= (this.x + this.width) && y >= this.y && (y <= this.y + this.height));
     }
 
     @Override

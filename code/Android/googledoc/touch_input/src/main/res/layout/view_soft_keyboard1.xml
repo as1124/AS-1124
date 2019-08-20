@@ -8,10 +8,20 @@
     android:gravity="center_horizontal"
     android:orientation="vertical">
 
-    <!-- 占位 -->
-    <View
+    <!-- 占位 / 候选词显示区域 -->
+    <HorizontalScrollView
         android:layout_width="match_parent"
-        android:layout_height="40dp" />
+        android:layout_height="50dp">
+
+        <!--<com.as1124.touch_input.softinput.CandidateKeyLayout-->
+            <!--android:id="@+id/layout_candidate"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:orientation="horizontal">-->
+
+        <!--</com.as1124.touch_input.softinput.CandidateKeyLayout>-->
+    </HorizontalScrollView>
+
 
     <com.as1124.touch_input.softinput.way1.As1124KeyboardView
         android:id="@+id/keyboard_view"
@@ -21,8 +31,13 @@
         android:layout_margin="4dp"
         android:background="@android:color/transparent"
         android:keyBackground="@drawable/key_state_background"
+        android:keyPreviewHeight="70dp"
+        android:keyPreviewLayout="@layout/view_key_preview"
+        android:keyPreviewOffset="4dp"
         android:keyTextColor="@color/keyText"
-        android:keyTextSize="24sp" />
+        android:keyTextSize="24sp"
+        android:labelTextSize="14sp"
+        android:popupLayout="@layout/view_key_popup" />
 
     <View
         android:layout_width="match_parent"

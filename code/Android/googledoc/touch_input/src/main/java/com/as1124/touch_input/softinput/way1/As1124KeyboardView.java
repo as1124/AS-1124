@@ -1,6 +1,7 @@
 package com.as1124.touch_input.softinput.way1;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -25,6 +26,10 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
 
     private static final String LOG_TAG = "As1124KeyboardView";
 
+    private InputMethodManager mInputManager;
+
+    private boolean isPopupShow = false;
+
     public As1124KeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -33,6 +38,12 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
         super(context, attrs, defStyleAttr);
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        mInputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+    }
 
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -127,7 +138,6 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
     }
 
     private void adjust9Keys(As1124Keyboard keyboard, int w, int h) {
-        // ATTENTION 后面再来调整
         List<ExRow> allRows = keyboard.keyRows;
         int rowNum = allRows.size();
         for (int i = 0; i < rowNum; i++) {
@@ -148,9 +158,22 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
 
 
     @Override
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+    }
+
+    @Override
     public void onClick(View v) {
         android.util.Log.i(LOG_TAG, "**onClick**");
         super.onClick(v);
+    }
+
+    @Override
+    protected boolean onLongPress(Keyboard.Key popupKey) {
+        // 当调用该方法并且为true的时候代表弹出了浮窗, 所以下次按键点击的时候需要把它消除掉
+        // 同时此时因为拦截不到框架的 Keyboard, 键的点击因为没有 outputText所以只触发
+        isPopupShow = super.onLongPress(popupKey);
+        return isPopupShow;
     }
 
     @Override
@@ -164,7 +187,6 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
         // Modify 键按下会触发，普通键不触发
         Log.i(LOG_TAG, "onKey：" + keyCodes[0]);
 
-        InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         As1124InputMethodService inputService = ((As1124InputMethodService) getContext());
         switch (primaryCode) {
             case Keyboard.KEYCODE_SHIFT:
@@ -184,8 +206,7 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
                 break;
             case Keyboard.KEYCODE_DONE:
                 // 直接通过 InputMethodManager 来隐藏键盘不行, 因为windowToken
-//            InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-//            imm.hideSoftInputFromWindow(getWindowToken(), 0);
+//            mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
 
                 ((InputMethodService) getContext()).requestHideSelf(0);
                 break;
@@ -201,11 +222,10 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
             case 731:
                 // 切换输入法
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//                    ((InputMethodService) getContext()).switchToPreviousInputMethod();
                     inputService.switchToNextInputMethod(false);
                 } else {
                     String nextInputId = "";
-                    List<InputMethodInfo> softInputs = imm.getInputMethodList();
+                    List<InputMethodInfo> softInputs = mInputManager.getInputMethodList();
                     for (InputMethodInfo info : softInputs) {
                         if (!info.getPackageName().equals(getContext().getPackageName())) {
                             nextInputId = info.getId();
@@ -216,6 +236,10 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
                 }
                 break;
             default:
+                if (isPopupShow) {
+                    onText(String.valueOf((char) primaryCode));
+                    isPopupShow = false;
+                }
                 break;
         }
     }
@@ -223,11 +247,6 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
     @Override
     public void onRelease(int primaryCode) {
         Log.i(LOG_TAG, "onRelease: " + primaryCode);
-    }
-
-    @Override
-    protected boolean onLongPress(Keyboard.Key popupKey) {
-        return super.onLongPress(popupKey);
     }
 
     @Override
