@@ -2,6 +2,8 @@ package com.as1124.touch_input.softinput;
 
 import android.content.Context;
 import android.inputmethodservice.InputMethodService;
+import android.inputmethodservice.KeyboardView;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -19,6 +21,8 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * 自定义输入法服务
+ *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class As1124InputMethodService extends InputMethodService {
@@ -27,8 +31,7 @@ public class As1124InputMethodService extends InputMethodService {
 
     private Map<String, As1124Keyboard> supportedKeyboards = new HashMap<>();
 
-    private As1124Keyboard currentKeyboard;
-
+    private WeakReference<KeyboardView> inputViewRef;
     private WeakReference<View> candidateViewRef;
 
     /**
@@ -56,8 +59,6 @@ public class As1124InputMethodService extends InputMethodService {
         As1124Keyboard numKeyboard = new As1124Keyboard(getApplicationContext(), R.xml.keyboard_9_port);
         numKeyboard.setKeyboardType("9_num");
         supportedKeyboards.put(numKeyboard.getKeyboardType(), numKeyboard);
-
-        currentKeyboard = enTypeKeyboard;
     }
 
     @Override
@@ -66,7 +67,6 @@ public class As1124InputMethodService extends InputMethodService {
 
         // 提供自定义键盘的输入界面
         View inputRoot = inputViewFromFramework();
-        candidateViewRef = new WeakReference<>(inputRoot.findViewById(R.id.layout_candidate));
         return inputRoot;
     }
 
@@ -78,9 +78,9 @@ public class As1124InputMethodService extends InputMethodService {
     private View inputViewFromFramework() {
         View view = getLayoutInflater().inflate(R.layout.view_soft_keyboard1, null);
         As1124KeyboardView keyboardView = view.findViewById(R.id.keyboard_view);
+        inputViewRef = new WeakReference<>(keyboardView);
         keyboardView.setOnKeyboardActionListener(keyboardView);
         keyboardView.setPreviewEnabled(true);
-        keyboardView.setKeyboard(currentKeyboard);
         return view;
     }
 
@@ -96,8 +96,25 @@ public class As1124InputMethodService extends InputMethodService {
     @Override
     public void onStartInputView(EditorInfo info, boolean restarting) {
         Log.i(LOG_TAG, "--onStartInputView--");
-        super.onStartInputView(info, restarting);
+        int typeFlag = info.inputType & InputType.TYPE_MASK_CLASS;
+        As1124Keyboard keyboard;
+        switch (typeFlag) {
+            case InputType.TYPE_CLASS_NUMBER:
+            case InputType.TYPE_CLASS_PHONE:
+                keyboard = getKeyboard("9_num");
+                break;
+            default:
+                keyboard = getKeyboard("26_en");
+        }
+        inputViewRef.get().setKeyboard(keyboard);
+        keyboard.getKeys().get(keyboard.getKeys().size() - 1).label = getTextForImeAction(info.imeOptions);
     }
+
+    @Override
+    public CharSequence getTextForImeAction(int imeOptions) {
+        return super.getTextForImeAction(imeOptions);
+    }
+
 
     @Override
     public View onCreateCandidatesView() {
@@ -121,6 +138,7 @@ public class As1124InputMethodService extends InputMethodService {
         Log.i(LOG_TAG, "--setCandidatesViewShown--");
         super.setCandidatesViewShown(shown);
     }
+
 
     @Override
     protected void onCurrentInputMethodSubtypeChanged(InputMethodSubtype newSubtype) {

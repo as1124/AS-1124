@@ -1,6 +1,7 @@
 package com.as1124.touch_input.softinput.way1;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.graphics.Canvas;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
@@ -9,6 +10,7 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -29,6 +31,8 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
     private InputMethodManager mInputManager;
 
     private boolean isPopupShow = false;
+
+    private int oldOrizentation = -1;
 
     public As1124KeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -71,6 +75,7 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
             }
             keyboard.setMinWidth(getMeasuredWidth());
             keyboard.setNeedResize(false);
+            invalidateAllKeys();
         }
     }
 
@@ -103,11 +108,11 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
             }
 
             // Step2：现有View宽度不够, 保留修饰键的宽度, 确定普通键的宽度
-            if ((modifyKeyTotal + normalKeyTotal + gapTotal) > w) {
+//            if ((modifyKeyTotal + normalKeyTotal + gapTotal) > w) {
                 if (i == 0) {
                     normalKeyW = (w - gapTotal - modifyKeyTotal) / normalKeyNum;
                 }
-            }
+//            }
 
             // Step3：确定修饰键需要调整的宽度
             int differ = (normalKeyNum * normalKeyW + modifyKeyTotal + gapTotal - w);
@@ -194,7 +199,7 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
                 invalidateAllKeys();
                 break;
             case Keyboard.KEYCODE_DELETE:
-                InputConnection connection = getCurrentInputConnection();
+                InputConnection connection = ((InputMethodService) getContext()).getCurrentInputConnection();
                 if (connection != null) {
                     CharSequence selection = connection.getSelectedText(0);
                     if (selection != null) {
@@ -208,7 +213,17 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
                 // 直接通过 InputMethodManager 来隐藏键盘不行, 因为windowToken
 //            mInputManager.hideSoftInputFromWindow(getWindowToken(), 0);
 
-                ((InputMethodService) getContext()).requestHideSelf(0);
+                // Step1: 如果是 ACTION_DONE 则隐藏输入法
+                // Step2: 分发对应的ACTION事件
+                EditorInfo ei = ((InputMethodService) getContext()).getCurrentInputEditorInfo();
+                InputConnection ic = ((InputMethodService) getContext()).getCurrentInputConnection();
+                if (ei != null && ic != null) {
+                    int actionMask = ei.imeOptions & EditorInfo.IME_MASK_ACTION;
+                    if (actionMask == EditorInfo.IME_ACTION_NONE) {
+                        ((InputMethodService) getContext()).requestHideSelf(0);
+                    }
+                    ic.performEditorAction(ei.actionId == 0 ? actionMask : ei.actionId);
+                }
                 break;
             case Keyboard.KEYCODE_MODE_CHANGE:
                 // 切换键盘类型
@@ -251,7 +266,7 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
 
     @Override
     public void onText(CharSequence text) {
-        InputConnection connection = getCurrentInputConnection();
+        InputConnection connection = ((InputMethodService) getContext()).getCurrentInputConnection();
         if (connection != null) {
             if (getKeyboard().isShifted()) {
                 connection.commitText(text.toString().toUpperCase(), text.length() - 1);
@@ -281,12 +296,12 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
         Log.i(LOG_TAG, "swipeUp");
     }
 
-    public InputConnection getCurrentInputConnection() {
-        if (getContext() != null) {
-            InputMethodService context = (InputMethodService) getContext();
-            return context.getCurrentInputConnection();
-        } else {
-            return null;
+    @Override
+    protected void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        if (newConfig.orientation != oldOrizentation && getKeyboard() != null) {
+            ((As1124Keyboard) getKeyboard()).setNeedResize(true);
         }
+        oldOrizentation = newConfig.orientation;
     }
 }

@@ -30,14 +30,16 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="纯数字输入"
-        android:imeActionLabel="IME-Label"
-        android:inputType="number" />
+        android:imeOptions="actionNext"
+        android:inputType="number|numberDecimal" />
 
     <EditText
         android:id="@+id/input_self_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="请输入内容"
+        android:imeActionId="1234"
+        android:imeActionLabel="IME-Label"
         android:inputType="textEmailAddress|textCapCharacters" />
 
 </LinearLayout>
