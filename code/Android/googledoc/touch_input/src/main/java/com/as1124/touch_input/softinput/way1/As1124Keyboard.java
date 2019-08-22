@@ -26,6 +26,8 @@ public class As1124Keyboard extends Keyboard {
     // 26_en, 9_en, 9_num
     private String keyboardType = "26_en";
 
+    private boolean randomKeys = false;
+
     public As1124Keyboard(Context context, int xmlLayoutResId) {
         super(context, xmlLayoutResId);
     }
@@ -55,6 +57,43 @@ public class As1124Keyboard extends Keyboard {
     }
 
     @Override
+    public List<Key> getKeys() {
+        List<Key> keys = super.getKeys();
+
+        // ATTENTION 随机键盘的算法需要调整
+//        Key[] newKeys = new Key[keys.size()];
+//        if (isRandomKeys()) {
+//            Map<Integer, Key> normalKeys = new HashMap<>();
+//            Random random = new Random();
+//            for (int i = 0; i < newKeys.length; i++) {
+//                Key key = keys.get(i);
+//                if (key.modifier) {
+//                    newKeys[i] = keys.get(i);
+//                } else {
+//                    normalKeys.put(i, key);
+//                }
+//            }
+//            Map.Entry<Integer, Key>[] entrys = new Map.Entry[normalKeys.size()];
+//            normalKeys.entrySet().toArray(entrys);
+//            for (int i = 0; i < newKeys.length; i++) {
+//                Map.Entry<Integer, Key> exchangeEntry;
+//                if (newKeys[i] != null) {
+//                    // 普通键需要进行随机交换
+//                    while (true) {
+//                        int index = random.nextInt(normalKeys.size());
+//                        if (entrys[index].getKey().intValue() != i) {
+//                            exchangeEntry = entrys[index];
+//                            break;
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+        return keys;
+    }
+
+    @Override
     public int getMinWidth() {
         return this.minWidth;
     }
@@ -77,5 +116,13 @@ public class As1124Keyboard extends Keyboard {
 
     public void setNeedResize(boolean needResize) {
         this.needResize = needResize;
+    }
+
+    public boolean isRandomKeys() {
+        return randomKeys;
+    }
+
+    public void setRandomKeys(boolean randomKeys) {
+        this.randomKeys = randomKeys;
     }
 }

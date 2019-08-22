@@ -13,14 +13,13 @@
         android:layout_width="match_parent"
         android:layout_height="40dp" />
 
+
     <com.as1124.touch_input.softinput.way2.SoftInputKeyboardLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </com.as1124.touch_input.softinput.way2.SoftInputKeyboardLayout>
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="7dp" />
-
 </LinearLayout>

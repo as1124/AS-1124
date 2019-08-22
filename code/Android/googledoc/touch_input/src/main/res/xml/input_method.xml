@@ -7,26 +7,24 @@
     android:settingsActivity="com.as1124.touch_input.softinput.InputMethodSettingActivity"
     android:supportsSwitchingToNextInputMethod="true">
 
-    <!--<subtype-->
-    <!--android:name="英文"-->
-    <!--android:icon="@drawable/right_bottom"-->
-    <!--android:imeSubtypeExtraValue="somePrivateOption=true"-->
-    <!--android:imeSubtypeLocale=""-->
-    <!--android:imeSubtypeMode="keyboard"-->
-    <!--android:isAsciiCapable=""-->
-    <!--android:isAuxiliary=""-->
-    <!--android:label=""-->
-    <!--android:languageTag=""-->
-    <!--android:overridesImplicitlyEnabledSubtype=""-->
-    <!--android:subtypeId="" />-->
+    <subtype
+        android:name="English"
+        android:icon="@drawable/right_bottom"
+        android:imeSubtypeExtraValue="somePrivateOption=true"
+        android:imeSubtypeLocale="zh_CN"
+        android:imeSubtypeMode="keyboard"
+        android:label="English"
+        android:languageTag="zh_CN" />
 
 
     <subtype
         android:name="中文"
         android:icon="@drawable/right_bottom"
         android:imeSubtypeExtraValue="foobar=30,someInternalOption=false"
-        android:imeSubtypeMode="keyboard" />
-
+        android:imeSubtypeLocale="zh_CN"
+        android:imeSubtypeMode="keyboard"
+        android:label="中文"
+        android:languageTag="zh_CN" />
 
 
 </input-method>

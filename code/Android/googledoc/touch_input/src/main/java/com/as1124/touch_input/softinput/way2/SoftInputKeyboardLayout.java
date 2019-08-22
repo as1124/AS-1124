@@ -24,6 +24,11 @@ public class SoftInputKeyboardLayout extends ViewGroup {
     }
 
     @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+
+    }
+
+    @Override
     protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
     }

@@ -32,7 +32,7 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
 
     private boolean isPopupShow = false;
 
-    private int oldOrizentation = -1;
+    private int oldOrientation = -1;
 
     public As1124KeyboardView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -109,9 +109,9 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
 
             // Step2：现有View宽度不够, 保留修饰键的宽度, 确定普通键的宽度
 //            if ((modifyKeyTotal + normalKeyTotal + gapTotal) > w) {
-                if (i == 0) {
-                    normalKeyW = (w - gapTotal - modifyKeyTotal) / normalKeyNum;
-                }
+            if (i == 0) {
+                normalKeyW = (w - gapTotal - modifyKeyTotal) / normalKeyNum;
+            }
 //            }
 
             // Step3：确定修饰键需要调整的宽度
@@ -299,9 +299,9 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
     @Override
     protected void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation != oldOrizentation && getKeyboard() != null) {
+        if (newConfig.orientation != oldOrientation && getKeyboard() != null) {
             ((As1124Keyboard) getKeyboard()).setNeedResize(true);
         }
-        oldOrizentation = newConfig.orientation;
+        oldOrientation = newConfig.orientation;
     }
 }

@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
+import android.widget.TextView;
 
 import com.as1124.touch_input.R;
 import com.as1124.touch_input.softinput.way1.As1124Keyboard;
@@ -29,20 +30,34 @@ public class As1124InputMethodService extends InputMethodService {
 
     private static final String LOG_TAG = "AS_INPUT_SERVICE";
 
+    public static int IMPLEMENT_WAY = 1;
+
     private Map<String, As1124Keyboard> supportedKeyboards = new HashMap<>();
 
     private WeakReference<KeyboardView> inputViewRef;
-    private WeakReference<View> candidateViewRef;
 
     /**
-     * 输入法的ID
+     * 输入法的配置详细信息
      */
     private InputMethodInfo mInputInfo;
+
+    private TextView zhSubtypeView, enSubtypeView;
+
+    private View.OnClickListener clickListener = (v) -> {
+        switch (v.getId()) {
+            case R.id.text_subtype_zh:
+                zhSubtypeView.setSelected(true);
+                enSubtypeView.setSelected(false);
+                break;
+            case R.id.text_subtype_en:
+                zhSubtypeView.setSelected(false);
+                enSubtypeView.setSelected(true);
+        }
+    };
 
     @Override
     public void onCreate() {
         super.onCreate();
-
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         List<InputMethodInfo> softInputs = imm.getInputMethodList();
         for (InputMethodInfo info : softInputs) {
@@ -66,8 +81,12 @@ public class As1124InputMethodService extends InputMethodService {
         Log.i(LOG_TAG, "--onCreateInputView--");
 
         // 提供自定义键盘的输入界面
-        View inputRoot = inputViewFromFramework();
-        return inputRoot;
+        switch (IMPLEMENT_WAY) {
+            case 2:
+                return inputViewSelfDefined();
+            default:
+                return inputViewFromFramework();
+        }
     }
 
     /**
@@ -77,6 +96,11 @@ public class As1124InputMethodService extends InputMethodService {
      */
     private View inputViewFromFramework() {
         View view = getLayoutInflater().inflate(R.layout.view_soft_keyboard1, null);
+        zhSubtypeView = view.findViewById(R.id.text_subtype_zh);
+        zhSubtypeView.setOnClickListener(clickListener);
+        zhSubtypeView.setSelected(true);
+        enSubtypeView = view.findViewById(R.id.text_subtype_en);
+        enSubtypeView.setOnClickListener(clickListener);
         As1124KeyboardView keyboardView = view.findViewById(R.id.keyboard_view);
         inputViewRef = new WeakReference<>(keyboardView);
         keyboardView.setOnKeyboardActionListener(keyboardView);
@@ -106,39 +130,17 @@ public class As1124InputMethodService extends InputMethodService {
             default:
                 keyboard = getKeyboard("26_en");
         }
-        inputViewRef.get().setKeyboard(keyboard);
+
         keyboard.getKeys().get(keyboard.getKeys().size() - 1).label = getTextForImeAction(info.imeOptions);
+        if ((typeFlag & InputType.TYPE_NUMBER_VARIATION_PASSWORD) > 0
+                || (typeFlag & InputType.TYPE_TEXT_VARIATION_PASSWORD) > 0) {
+            keyboard.setRandomKeys(true);
+        } else {
+            keyboard.setRandomKeys(false);
+        }
+        inputViewRef.get().setKeyboard(keyboard);
+
     }
-
-    @Override
-    public CharSequence getTextForImeAction(int imeOptions) {
-        return super.getTextForImeAction(imeOptions);
-    }
-
-
-    @Override
-    public View onCreateCandidatesView() {
-        Log.i(LOG_TAG, "--onCreateCandidatesView--");
-//        if (candidateViewRef != null) {
-//            return candidateViewRef.get();
-//        } else {
-//            return super.onCreateCandidatesView();
-//        }
-        return getLayoutInflater().inflate(R.layout.view_input_candidate, null);
-    }
-
-    @Override
-    public void onStartCandidatesView(EditorInfo info, boolean restarting) {
-        Log.i(LOG_TAG, "--onStartCandidatesView--");
-        super.onStartCandidatesView(info, restarting);
-    }
-
-    @Override
-    public void setCandidatesViewShown(boolean shown) {
-        Log.i(LOG_TAG, "--setCandidatesViewShown--");
-        super.setCandidatesViewShown(shown);
-    }
-
 
     @Override
     protected void onCurrentInputMethodSubtypeChanged(InputMethodSubtype newSubtype) {
