@@ -1,4 +1,4 @@
-package com.as1124.touch_input.softinput.way1;
+package com.as1124.touch_input.softinput;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
@@ -9,12 +9,17 @@ import android.inputmethodservice.Keyboard;
  */
 public class ExKey extends Keyboard.Key {
 
+    private static final String APP_NAMESPACE = "http://schemas.android.com/apk/res-auto";
+
     public int backgroundResID;
+
+    public int labelSize;
 
     public ExKey(Resources res, Keyboard.Row parent, int x, int y, XmlResourceParser parser) {
         super(res, parent, x, y, parser);
 
-        backgroundResID = parser.getAttributeResourceValue(null, KeyboardConstants.ATTR_KEY_BACKGROUND, -1);
+        backgroundResID = parser.getAttributeResourceValue(APP_NAMESPACE, KeyboardConstants.ATTR_KEY_BACKGROUND, -1);
+        labelSize = parser.getAttributeResourceValue(APP_NAMESPACE, KeyboardConstants.ATTR_KEY_TEXTSIZE, -1);
 
     }
 

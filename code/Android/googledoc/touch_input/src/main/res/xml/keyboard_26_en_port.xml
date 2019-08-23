@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Keyboard xmlns:android="http://schemas.android.com/apk/res/android">
+<Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- 如果row所有键的width和大于了屏幕width, 则KeyWidth取平均值 -->
     <Row
         android:horizontalGap="4dp"
@@ -7,7 +8,7 @@
         android:rowEdgeFlags="top"
         android:verticalGap="8dp">
         <Key
-            android:codes="701,791"
+            android:codes="113,81,49"
             android:isModifier="false"
             android:isRepeatable="false"
             android:isSticky="false"
@@ -17,7 +18,7 @@
             android:popupCharacters="qQ1"
             android:popupKeyboard="@xml/keyboard_3_popup" />
         <Key
-            android:codes="702,792"
+            android:codes="119,87,50"
             android:isModifier="false"
             android:isRepeatable="false"
             android:isSticky="false"
@@ -26,7 +27,7 @@
             android:popupCharacters="wW2"
             android:popupKeyboard="@xml/keyboard_3_popup" />
         <Key
-            android:codes="703,793"
+            android:codes="101,69,51"
             android:isModifier="false"
             android:isRepeatable="false"
             android:isSticky="false"
@@ -35,7 +36,7 @@
             android:popupCharacters="eE3"
             android:popupKeyboard="@xml/keyboard_3_popup" />
         <Key
-            android:codes="704,794"
+            android:codes="114,82,52"
             android:isModifier="false"
             android:isRepeatable="true"
             android:isSticky="false"
@@ -44,7 +45,7 @@
             android:popupCharacters="rR4"
             android:popupKeyboard="@xml/keyboard_3_popup" />
         <Key
-            android:codes="705,795"
+            android:codes="116,84,53"
             android:isModifier="false"
             android:isRepeatable="false"
             android:isSticky="false"
@@ -53,7 +54,7 @@
             android:popupCharacters="tT5"
             android:popupKeyboard="@xml/keyboard_3_popup" />
         <Key
-            android:codes="706,796"
+            android:codes="121,89,54"
             android:isModifier="false"
             android:isRepeatable="false"
             android:isSticky="false"
@@ -62,7 +63,7 @@
             android:popupCharacters="yY6"
             android:popupKeyboard="@xml/keyboard_3_popup" />
         <Key
-            android:codes="707,797"
+            android:codes="117,85,55"
             android:isModifier="false"
             android:isRepeatable="false"
             android:isSticky="false"
@@ -71,7 +72,7 @@
             android:popupCharacters="uU7"
             android:popupKeyboard="@xml/keyboard_3_popup" />
         <Key
-            android:codes="708,798"
+            android:codes="105,73,56"
             android:isModifier="false"
             android:isRepeatable="false"
             android:isSticky="false"
@@ -80,7 +81,7 @@
             android:popupCharacters="iI8"
             android:popupKeyboard="@xml/keyboard_3_popup" />
         <Key
-            android:codes="709,799"
+            android:codes="111,79,57"
             android:isModifier="false"
             android:isRepeatable="false"
             android:isSticky="false"
@@ -89,7 +90,7 @@
             android:popupCharacters="oO9"
             android:popupKeyboard="@xml/keyboard_3_popup" />
         <Key
-            android:codes="710,790"
+            android:codes="112,80,48"
             android:isModifier="false"
             android:isRepeatable="false"
             android:isSticky="false"
@@ -179,7 +180,8 @@
             android:isRepeatable="false"
             android:isSticky="true"
             android:keyEdgeFlags="left"
-            android:keyIcon="@drawable/key_shift_bg" />
+            android:keyIcon="@drawable/key_shift"
+            app:keyBackground="@drawable/key_state_modify" />
         <Key
             android:codes="721"
             android:isModifier="false"
@@ -235,7 +237,8 @@
             android:isRepeatable="true"
             android:isSticky="false"
             android:keyEdgeFlags="right"
-            android:keyIcon="@drawable/key_delete" />
+            android:keyIcon="@drawable/key_delete"
+            app:keyBackground="@drawable/key_state_modify" />
     </Row>
 
     <Row
@@ -251,7 +254,9 @@
             android:isRepeatable="false"
             android:isSticky="false"
             android:keyEdgeFlags="left"
-            android:keyLabel="@string/key_label_symbol" />
+            android:keyLabel="@string/key_label_symbol"
+            app:keyBackground="@drawable/key_state_modify"
+            app:keyTextSize="@dimen/modifyKey" />
 
         <!-- 切换输入法 -->
         <Key
@@ -259,7 +264,8 @@
             android:isModifier="true"
             android:isRepeatable="false"
             android:isSticky="false"
-            android:keyIcon="@drawable/key_switch" />
+            android:keyIcon="@drawable/key_switch"
+            app:keyBackground="@drawable/key_state_modify" />
         <Key
             android:codes="730"
             android:isModifier="false"
@@ -273,7 +279,8 @@
             android:isRepeatable="true"
             android:keyWidth="130dp"
             android:keyLabel="English"
-            android:keyOutputText=" " />
+            android:keyOutputText=" "
+            app:keyTextSize="@dimen/modifyKey" />
         <Key
             android:codes="733"
             android:isModifier="false"
@@ -286,6 +293,8 @@
             android:isRepeatable="false"
             android:keyWidth="50dp"
             android:keyEdgeFlags="right"
-            android:keyLabel="Done" />
+            android:keyLabel="Done"
+            app:keyBackground="@drawable/key_state_modify"
+            app:keyTextSize="@dimen/modifyKey" />
     </Row>
 </Keyboard>

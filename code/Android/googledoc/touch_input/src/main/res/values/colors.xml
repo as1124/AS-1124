@@ -7,9 +7,9 @@
 
     <color name="keyBackground">#5C5C5C</color>
     <color name="keyBackgroundPressed">#003D5C</color>
-    <color name="keyModify">#282828</color>
+    <color name="keyModify">#f0282828</color>
 
-    <color name="keyView">#EF161616</color>
+    <color name="keyView">#161616</color>
     <color name="keyText">#ffffff</color>
 
 </resources>

@@ -1,4 +1,4 @@
-package com.as1124.touch_input.softinput.way1;
+package com.as1124.touch_input.softinput;
 
 public class KeyboardConstants {
 
@@ -37,7 +37,9 @@ public class KeyboardConstants {
     public static final String ATTR_KEY_EDGE_FLAG = "keyEdgeFlags";
 
     /*************************下面这些是自定义键盘属性*************************/
-    public static final String ATTR_KEY_BACKGROUND = "background";
+    public static final String ATTR_KEY_BACKGROUND = "keyBackground";
+
+    public static final String ATTR_KEY_TEXTSIZE = "keyTextSize";
 
     /**
      * 未指定单个键的背景

@@ -1,4 +1,4 @@
-package com.as1124.touch_input.softinput.way1;
+package com.as1124.touch_input.softinput;
 
 import android.content.Context;
 import android.content.res.Resources;
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public class As1124Keyboard extends Keyboard {
 
-    protected List<ExRow> keyRows;
+    public List<ExRow> keyRows;
 
     private ExRow currentRow;
 
@@ -92,6 +92,90 @@ public class As1124Keyboard extends Keyboard {
 //        }
         return keys;
     }
+
+
+    public static void adjust26Keys(As1124Keyboard keyboard, int w, int h) {
+        List<ExRow> allRows = keyboard.keyRows;
+        int rowNum = allRows.size();
+        int normalKeyW = -1;
+        for (int i = 0; i < rowNum; i++) {
+            ExRow row = allRows.get(i);
+            int keyNum = row.myKeys.size();
+            int normalKeyNum = 0;
+
+            int normalKeyTotal = 0;
+            int modifyKeyTotal = 0;
+            int gapTotal = 0;
+
+
+            // Step1：先统计各类型按键数量及对应的宽度和
+            for (int j = 0; j < keyNum; j++) {
+                ExKey key = row.myKeys.get(j);
+                if (j > 0) {
+                    gapTotal += key.gap;
+                }
+                if (key.modifier) {
+                    modifyKeyTotal += key.width;
+                } else {
+                    normalKeyTotal += key.width;
+                    normalKeyNum++;
+                }
+            }
+
+            // Step2：现有View宽度不够, 保留修饰键的宽度, 确定普通键的宽度
+//            if ((modifyKeyTotal + normalKeyTotal + gapTotal) > w) {
+            if (i == 0) {
+                normalKeyW = (w - gapTotal - modifyKeyTotal) / normalKeyNum;
+            }
+//            }
+
+            // Step3：确定修饰键需要调整的宽度
+            int differ = (normalKeyNum * normalKeyW + modifyKeyTotal + gapTotal - w);
+            int cutoutPixel = 0;
+            if (keyNum != normalKeyNum) {
+                cutoutPixel = differ / (keyNum - normalKeyNum);
+            }
+
+            // Step4：调整居中显示时的起始offset
+            int leftOffset = 0;
+            if ((keyNum == normalKeyNum) && (normalKeyNum * normalKeyW + gapTotal) < w) {
+                leftOffset = (w - normalKeyNum * normalKeyW - gapTotal) / 2;
+            }
+
+            // Step5：确定每个键值的坐标
+            int x = leftOffset;
+            for (int k = 0; k < keyNum; k++) {
+                ExKey key = row.myKeys.get(k);
+                if (key.modifier) {
+                    key.width = key.width - cutoutPixel;
+                } else {
+                    key.width = normalKeyW;
+                }
+                key.x = x;
+                x = x + key.width + key.gap;
+            }
+        }
+    }
+
+    public static void adjust9Keys(As1124Keyboard keyboard, int w, int h) {
+        List<ExRow> allRows = keyboard.keyRows;
+        int rowNum = allRows.size();
+        for (int i = 0; i < rowNum; i++) {
+            ExRow row = allRows.get(i);
+            int keyNum = row.myKeys.size();
+            int gapTotal = row.myKeys.get(0).gap * (keyNum + 1);
+
+            int keyW = (w - gapTotal) / keyNum;
+            int leftOffset = row.myKeys.get(0).gap;
+            for (int j = 0; j < keyNum; j++) {
+                ExKey key = row.myKeys.get(j);
+                key.x = leftOffset;
+                key.width = keyW;
+                leftOffset = leftOffset + key.width + key.gap;
+            }
+        }
+    }
+
 
     @Override
     public int getMinWidth() {

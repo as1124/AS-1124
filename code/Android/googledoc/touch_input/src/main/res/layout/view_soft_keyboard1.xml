@@ -69,8 +69,8 @@
         android:keyPreviewLayout="@layout/view_key_preview"
         android:keyPreviewOffset="4dp"
         android:keyTextColor="@color/keyText"
-        android:keyTextSize="24sp"
-        android:labelTextSize="14sp"
+        android:keyTextSize="@dimen/normalKey"
+        android:labelTextSize="@dimen/modifyKey"
         android:popupLayout="@layout/view_key_popup" />
 
 </LinearLayout>

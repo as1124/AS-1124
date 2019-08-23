@@ -1,4 +1,4 @@
-package com.as1124.touch_input.softinput.way1;
+package com.as1124.touch_input.softinput;
 
 import android.content.res.Resources;
 import android.content.res.XmlResourceParser;

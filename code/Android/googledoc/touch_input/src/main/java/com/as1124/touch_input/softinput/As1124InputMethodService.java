@@ -13,8 +13,8 @@ import android.view.inputmethod.InputMethodSubtype;
 import android.widget.TextView;
 
 import com.as1124.touch_input.R;
-import com.as1124.touch_input.softinput.way1.As1124Keyboard;
 import com.as1124.touch_input.softinput.way1.As1124KeyboardView;
+import com.as1124.touch_input.softinput.way2.SoftInputKeyboardLayout;
 
 import java.lang.ref.WeakReference;
 import java.util.HashMap;
@@ -30,11 +30,11 @@ public class As1124InputMethodService extends InputMethodService {
 
     private static final String LOG_TAG = "AS_INPUT_SERVICE";
 
-    public static int IMPLEMENT_WAY = 1;
+    public static int IMPLEMENT_WAY = 0;
 
     private Map<String, As1124Keyboard> supportedKeyboards = new HashMap<>();
 
-    private WeakReference<KeyboardView> inputViewRef;
+    private WeakReference<View> inputViewRef;
 
     /**
      * 输入法的配置详细信息
@@ -82,7 +82,7 @@ public class As1124InputMethodService extends InputMethodService {
 
         // 提供自定义键盘的输入界面
         switch (IMPLEMENT_WAY) {
-            case 2:
+            case 1:
                 return inputViewSelfDefined();
             default:
                 return inputViewFromFramework();
@@ -101,6 +101,7 @@ public class As1124InputMethodService extends InputMethodService {
         zhSubtypeView.setSelected(true);
         enSubtypeView = view.findViewById(R.id.text_subtype_en);
         enSubtypeView.setOnClickListener(clickListener);
+
         As1124KeyboardView keyboardView = view.findViewById(R.id.keyboard_view);
         inputViewRef = new WeakReference<>(keyboardView);
         keyboardView.setOnKeyboardActionListener(keyboardView);
@@ -114,7 +115,18 @@ public class As1124InputMethodService extends InputMethodService {
      * @return
      */
     private View inputViewSelfDefined() {
-        return null;
+        View view = getLayoutInflater().inflate(R.layout.view_soft_keyboard2, null);
+        zhSubtypeView = view.findViewById(R.id.text_subtype_zh);
+        zhSubtypeView.setOnClickListener(clickListener);
+        zhSubtypeView.setSelected(true);
+        enSubtypeView = view.findViewById(R.id.text_subtype_en);
+        enSubtypeView.setOnClickListener(clickListener);
+
+        SoftInputKeyboardLayout keyboardView = view.findViewById(R.id.keyboard_view2);
+        inputViewRef = new WeakReference<>(keyboardView);
+        keyboardView.setOnKeyboardActionListener(keyboardView);
+//        keyboardView.setPreviewEnabled(true);
+        return view;
     }
 
     @Override
@@ -138,8 +150,12 @@ public class As1124InputMethodService extends InputMethodService {
         } else {
             keyboard.setRandomKeys(false);
         }
-        inputViewRef.get().setKeyboard(keyboard);
-
+        View view = inputViewRef.get();
+        if (view instanceof KeyboardView) {
+            ((KeyboardView) view).setKeyboard(keyboard);
+        } else {
+            ((SoftInputKeyboardLayout) view).setKeyboard(keyboard);
+        }
     }
 
     @Override

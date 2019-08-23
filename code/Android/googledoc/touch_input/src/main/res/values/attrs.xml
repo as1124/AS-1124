@@ -1,17 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <declare-styleable name="Keyboard_Row">
-        <!-- Row edge flags. -->
-        <attr name="rowEdgeFlags" format="flags">
-            <!-- Row is anchored to the top of the keyboard. -->
-            <flag name="top" value="4" />
-            <!-- Row is anchored to the bottom of the keyboard. -->
-            <flag name="bottom" value="8" />
-        </attr>
-        <!-- Mode of the keyboard. If the mode doesn't match the
-             requested keyboard mode, the row will be skipped. -->
-        <attr name="keyboardMode" format="reference" />
-        <attr name="background" format="reference" />
-    </declare-styleable>
+
+    <attr name="keyBackground" format="reference" />
+    <attr name="keyTextSize" format="dimension" />
 
 </resources>

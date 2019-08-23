@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.as1124.touch_input.softinput.way2.SoftInputKeyLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/key_state_background"
+    android:clickable="true"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:id="@+id/image_key_icon"
+        android:adjustViewBounds="true"
+        android:scaleType="center"
+        android:visibility="gone"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/text_key_low"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/keyText"
+        android:textSize="@dimen/minorKey"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/text_key_major"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/normalKey" />
+
+</com.as1124.touch_input.softinput.way2.SoftInputKeyLayout>

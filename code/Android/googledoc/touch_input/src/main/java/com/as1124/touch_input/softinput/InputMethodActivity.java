@@ -27,6 +27,7 @@ import com.as1124.touch_input.R;
  */
 public class InputMethodActivity extends Activity {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +41,13 @@ public class InputMethodActivity extends Activity {
             InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.showInputMethodPicker();
         });
-        findViewById(R.id.but_switch_subtype).setOnClickListener(v->{
+        findViewById(R.id.but_switch_subtype).setOnClickListener(v -> {
             InputMethodManager inputManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             inputManager.showInputMethodAndSubtypeEnabler("");
         });
+        findViewById(R.id.but_switch_drawtype).setOnClickListener(v ->
+                As1124InputMethodService.IMPLEMENT_WAY = (As1124InputMethodService.IMPLEMENT_WAY + 1) % 2
+        );
+
     }
 }
