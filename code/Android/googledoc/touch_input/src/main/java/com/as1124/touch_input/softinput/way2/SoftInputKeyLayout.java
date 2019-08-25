@@ -4,7 +4,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,10 +24,19 @@ public class SoftInputKeyLayout extends LinearLayout {
      */
     private int mKeyIndex = -1;
 
+    /**
+     * 次要按键
+     */
     private TextView minorText;
 
+    /**
+     * 主键
+     */
     private TextView majorText;
 
+    /**
+     * 键的ICON
+     */
     private ImageView keyImage;
 
     public SoftInputKeyLayout(Context context) {
@@ -63,9 +71,13 @@ public class SoftInputKeyLayout extends LinearLayout {
     }
 
     public void showText(ExKey keyInfo) {
-        minorText.setVisibility(View.GONE);
-        majorText.setVisibility(View.VISIBLE);
         keyImage.setVisibility(View.GONE);
+        majorText.setVisibility(View.VISIBLE);
+        majorText.setText(keyInfo.label);
+        if (keyInfo.popupCharacters != null && keyInfo.popupCharacters.length() >= 3) {
+            minorText.setVisibility(View.VISIBLE);
+            minorText.setText(String.valueOf(keyInfo.popupCharacters.charAt(2)));
+        }
     }
 
     public void showIcon(Drawable drawable) {

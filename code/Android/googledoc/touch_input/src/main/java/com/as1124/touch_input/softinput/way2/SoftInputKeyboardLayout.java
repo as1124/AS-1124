@@ -8,13 +8,15 @@ import android.inputmethodservice.KeyboardView;
 import android.os.Build;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.TextView;
 
 import com.as1124.touch_input.R;
 import com.as1124.touch_input.softinput.As1124InputMethodService;
@@ -38,7 +40,12 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
 
     private InputMethodManager mInputManager;
 
+    /**
+     * 多个keycode时，当前是否处于弹窗选择状态
+     */
     private boolean isPopupShow = false;
+
+    private boolean previewEnabled = true;
 
     private int oldOrientation = -1;
 
@@ -46,6 +53,10 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
      * 按键View是否填充完成
      */
     private boolean inflateDone = false;
+
+    private GestureDetector mTouchDetector;
+
+    private OnTouchListener keyTouchListener = (v, me) -> analyseTouchEvent(v, me);
 
     public SoftInputKeyboardLayout(Context context) {
         super(context);
@@ -64,6 +75,26 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
         super.onAttachedToWindow();
 
         this.mInputManager = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        GestureDetector.OnGestureListener gestureListener = new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public void onLongPress(MotionEvent e) {
+                Log.i("Touch---Event", "onLongPress, actionMask==" + e.getActionMasked());
+                super.onLongPress(e);
+            }
+
+            @Override
+            public boolean onDown(MotionEvent e) {
+                Log.i("Touch---Event", "onDown, actionMask==" + e.getActionMasked());
+                return super.onDown(e);
+            }
+
+            @Override
+            public boolean onSingleTapUp(MotionEvent e) {
+                Log.i("Touch---Event", "onSingleTapUp, actionMask==" + e.getActionMasked());
+                return super.onSingleTapUp(e);
+            }
+        };
+        this.mTouchDetector = new GestureDetector(getContext(), gestureListener);
     }
 
     @Override
@@ -105,7 +136,7 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
             ExKey oneKey = (ExKey) allKeys.get(i);
             SoftInputKeyLayout keyView = (SoftInputKeyLayout) inflater.inflate(R.layout.view_soft_key2, null);
             keyView.setKeyIndex(i);
-            ((TextView) keyView.findViewById(R.id.text_key_major)).setText(oneKey.label);
+            keyView.showText(oneKey);
             if (oneKey.backgroundResID != -1) {
                 keyView.setBackground(getResources().getDrawable(oneKey.backgroundResID));
             }
@@ -117,6 +148,7 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
                 float originalSize = getResources().getDimension(oneKey.labelSize);
                 keyView.setMajorTextSize(originalSize / scaleBase);
             }
+            keyView.setOnTouchListener(keyTouchListener);
             this.addView(keyView, oneKey.width, oneKey.height);
         }
     }
@@ -129,6 +161,39 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
             Keyboard.Key key = allKeys.get(i);
             getChildAt(i).layout(key.x, key.y, key.x + key.width, key.y + key.height);
         }
+    }
+
+    boolean analyseTouchEvent(View v, MotionEvent me) {
+//        if (mTouchDetector.onTouchEvent(me)) {
+//            return true;
+//        }
+        // 1。处理按键状态
+        // 2。分发对应键盘时间
+
+        Log.i("Touch---Event", "actionMask==" + me.getActionMasked());
+        Keyboard.Key key = getKeyboard().getKeys().get(((SoftInputKeyLayout) v).getKeyIndex());
+        switch (me.getActionMasked()) {
+            case MotionEvent.ACTION_DOWN:
+                mKeyboardListener.onPress(key.codes[0]);
+                break;
+            case MotionEvent.ACTION_MOVE:
+                if (key.repeatable && key.modifier) {
+                    mKeyboardListener.onKey(key.codes[0], key.codes);
+                } else if (key.repeatable && key.text != null) {
+                    mKeyboardListener.onText(key.text);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+                if (key.modifier) {
+                    mKeyboardListener.onKey(key.codes[0], key.codes);
+                } else if (key.text != null) {
+                    mKeyboardListener.onText(key.text);
+                }
+            case MotionEvent.ACTION_CANCEL:
+                mKeyboardListener.onRelease(key.codes[0]);
+                break;
+        }
+        return true;
     }
 
 
@@ -178,12 +243,13 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
                 break;
             case Keyboard.KEYCODE_MODE_CHANGE:
                 // 切换键盘类型
-                String type = ((As1124Keyboard) getKeyboard()).getKeyboardType();
+                String type = getKeyboard().getKeyboardType();
                 if ("26_en".equals(type)) {
                     setKeyboard(inputService.getKeyboard("9_num"));
                 } else {
                     setKeyboard(inputService.getKeyboard("26_en"));
                 }
+                invalidate();
                 break;
             case 731:
                 // 切换输入法
@@ -267,5 +333,13 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
 
     public void setOnKeyboardActionListener(KeyboardView.OnKeyboardActionListener listener) {
         mKeyboardListener = listener;
+    }
+
+    public boolean isPreviewEnabled() {
+        return previewEnabled;
+    }
+
+    public void setPreviewEnabled(boolean previewEnable) {
+        this.previewEnabled = previewEnable;
     }
 }

@@ -3,6 +3,6 @@
     <dimen name="key_width">10dp</dimen>
 
     <dimen name="modifyKey">14sp</dimen>
-    <dimen name="normalKey">20sp</dimen>
+    <dimen name="normalKey">22sp</dimen>
     <dimen name="minorKey">14sp</dimen>
 </resources>

@@ -125,7 +125,7 @@ public class As1124InputMethodService extends InputMethodService {
         SoftInputKeyboardLayout keyboardView = view.findViewById(R.id.keyboard_view2);
         inputViewRef = new WeakReference<>(keyboardView);
         keyboardView.setOnKeyboardActionListener(keyboardView);
-//        keyboardView.setPreviewEnabled(true);
+        keyboardView.setPreviewEnabled(true);
         return view;
     }
 
