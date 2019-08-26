@@ -5,8 +5,11 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.inputmethodservice.Keyboard;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 /**
  * 自定义键盘; 目的是为了重新计算Key的坐标值以及增加、适配自定义属性来更细粒度的控制每个键的大小
@@ -26,6 +29,9 @@ public class As1124Keyboard extends Keyboard {
     // 26_en, 9_en, 9_num
     private String keyboardType = "26_en";
 
+    /**
+     * 是否随机排列按键
+     */
     private boolean randomKeys = false;
 
     public As1124Keyboard(Context context, int xmlLayoutResId) {
@@ -59,42 +65,35 @@ public class As1124Keyboard extends Keyboard {
     @Override
     public List<Key> getKeys() {
         List<Key> keys = super.getKeys();
-
-        // ATTENTION 随机键盘的算法需要调整
-//        Key[] newKeys = new Key[keys.size()];
-//        if (isRandomKeys()) {
-//            Map<Integer, Key> normalKeys = new HashMap<>();
-//            Random random = new Random();
-//            for (int i = 0; i < newKeys.length; i++) {
-//                Key key = keys.get(i);
-//                if (key.modifier) {
-//                    newKeys[i] = keys.get(i);
-//                } else {
-//                    normalKeys.put(i, key);
-//                }
-//            }
-//            Map.Entry<Integer, Key>[] entrys = new Map.Entry[normalKeys.size()];
-//            normalKeys.entrySet().toArray(entrys);
-//            for (int i = 0; i < newKeys.length; i++) {
-//                Map.Entry<Integer, Key> exchangeEntry;
-//                if (newKeys[i] != null) {
-//                    // 普通键需要进行随机交换
-//                    while (true) {
-//                        int index = random.nextInt(normalKeys.size());
-//                        if (entrys[index].getKey().intValue() != i) {
-//                            exchangeEntry = entrys[index];
-//                            break;
-//                        }
-//                    }
-//
-//                }
-//            }
-//        }
-        return keys;
+        if (isRandomKeys()) {
+            List<Map.Entry<Integer, Key>> normalKeys = new ArrayList<>();
+            for (int i = 0; i < keys.size(); i++) {
+                Key key = keys.get(i);
+                if (!key.modifier && key.text != null && Character.isLetterOrDigit(key.text.charAt(0))) {
+                    normalKeys.add(new AbstractMap.SimpleEntry<>(i, key));
+                }
+            }
+            Random random = new Random();
+            while (normalKeys.size() > 1) {
+                Map.Entry<Integer, Key> one = normalKeys.remove(random.nextInt(normalKeys.size()));
+                Map.Entry<Integer, Key> two = normalKeys.remove(random.nextInt(normalKeys.size()));
+                int tempX = one.getValue().x;
+                int tempY = one.getValue().y;
+                one.getValue().x = two.getValue().x;
+                one.getValue().y = two.getValue().y;
+                two.getValue().x = tempX;
+                two.getValue().y = tempY;
+//                keys.set(one.getKey(), two.getValue());
+//                keys.set(two.getKey(), one.getValue());
+            }
+            return keys;
+        } else {
+            return keys;
+        }
     }
 
 
-    public static void adjust26Keys(As1124Keyboard keyboard, int w, int h) {
+    public static void adjust26Keys(As1124Keyboard keyboard, int w) {
         List<ExRow> allRows = keyboard.keyRows;
         int rowNum = allRows.size();
         int normalKeyW = -1;
@@ -103,10 +102,8 @@ public class As1124Keyboard extends Keyboard {
             int keyNum = row.myKeys.size();
             int normalKeyNum = 0;
 
-            int normalKeyTotal = 0;
             int modifyKeyTotal = 0;
             int gapTotal = 0;
-
 
             // Step1：先统计各类型按键数量及对应的宽度和
             for (int j = 0; j < keyNum; j++) {
@@ -117,17 +114,14 @@ public class As1124Keyboard extends Keyboard {
                 if (key.modifier) {
                     modifyKeyTotal += key.width;
                 } else {
-                    normalKeyTotal += key.width;
                     normalKeyNum++;
                 }
             }
 
             // Step2：现有View宽度不够, 保留修饰键的宽度, 确定普通键的宽度
-//            if ((modifyKeyTotal + normalKeyTotal + gapTotal) > w) {
             if (i == 0) {
                 normalKeyW = (w - gapTotal - modifyKeyTotal) / normalKeyNum;
             }
-//            }
 
             // Step3：确定修饰键需要调整的宽度
             int differ = (normalKeyNum * normalKeyW + modifyKeyTotal + gapTotal - w);
@@ -157,7 +151,7 @@ public class As1124Keyboard extends Keyboard {
         }
     }
 
-    public static void adjust9Keys(As1124Keyboard keyboard, int w, int h) {
+    public static void adjust9Keys(As1124Keyboard keyboard, int w) {
         List<ExRow> allRows = keyboard.keyRows;
         int rowNum = allRows.size();
         for (int i = 0; i < rowNum; i++) {

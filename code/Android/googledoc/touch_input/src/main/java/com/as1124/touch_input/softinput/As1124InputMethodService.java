@@ -58,6 +58,7 @@ public class As1124InputMethodService extends InputMethodService {
     @Override
     public void onCreate() {
         super.onCreate();
+
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         List<InputMethodInfo> softInputs = imm.getInputMethodList();
         for (InputMethodInfo info : softInputs) {
@@ -81,18 +82,17 @@ public class As1124InputMethodService extends InputMethodService {
         Log.i(LOG_TAG, "--onCreateInputView--");
 
         // 提供自定义键盘的输入界面
-        switch (IMPLEMENT_WAY) {
-            case 1:
-                return inputViewSelfDefined();
-            default:
-                return inputViewFromFramework();
+        if (IMPLEMENT_WAY == 1) {
+            return inputViewSelfDefined();
+        } else {
+            return inputViewFromFramework();
         }
     }
 
     /**
      * 利用系统输入法框架实现的键盘
      *
-     * @return
+     * @return View for keyboard
      */
     private View inputViewFromFramework() {
         View view = getLayoutInflater().inflate(R.layout.view_soft_keyboard1, null);
@@ -112,7 +112,7 @@ public class As1124InputMethodService extends InputMethodService {
     /**
      * 自定义View实现键盘布局和绘制
      *
-     * @return
+     * @return View for keyboard
      */
     private View inputViewSelfDefined() {
         View view = getLayoutInflater().inflate(R.layout.view_soft_keyboard2, null);
@@ -144,8 +144,8 @@ public class As1124InputMethodService extends InputMethodService {
         }
 
         keyboard.getKeys().get(keyboard.getKeys().size() - 1).label = getTextForImeAction(info.imeOptions);
-        if ((typeFlag & InputType.TYPE_NUMBER_VARIATION_PASSWORD) > 0
-                || (typeFlag & InputType.TYPE_TEXT_VARIATION_PASSWORD) > 0) {
+        if ((info.inputType & InputType.TYPE_NUMBER_VARIATION_PASSWORD) > 0
+                || (info.inputType & InputType.TYPE_TEXT_VARIATION_PASSWORD) > 0) {
             keyboard.setRandomKeys(true);
         } else {
             keyboard.setRandomKeys(false);

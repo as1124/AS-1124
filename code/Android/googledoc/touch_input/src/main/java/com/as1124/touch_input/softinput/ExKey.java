@@ -25,24 +25,8 @@ public class ExKey extends Keyboard.Key {
 
     @Override
     public boolean isInside(int x, int y) {
+        // 修改边界判断，简单化
         return (x >= this.x && x <= (this.x + this.width) && y >= this.y && (y <= this.y + this.height));
     }
 
-    @Override
-    public int[] getCurrentDrawableState() {
-//        if (this.modifier) {
-//            if (pressed) {
-//                return new int[]{
-//                        android.R.attr.state_checkable,
-//                        android.R.attr.state_checked
-//                };
-//            } else {
-//                return new int[]{
-//                        android.R.attr.state_checkable
-//                };
-//            }
-//        } else {
-        return super.getCurrentDrawableState();
-//        }
-    }
 }

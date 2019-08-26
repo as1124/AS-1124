@@ -153,9 +153,9 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
 
         if (keyboard.isNeedResize()) {
             if (keyboard.getKeyboardType().startsWith("26")) {
-                As1124Keyboard.adjust26Keys(keyboard, getMeasuredWidth(), getMeasuredHeight());
+                As1124Keyboard.adjust26Keys(keyboard, getMeasuredWidth());
             } else {
-                As1124Keyboard.adjust9Keys(keyboard, getMeasuredWidth(), getMeasuredHeight());
+                As1124Keyboard.adjust9Keys(keyboard, getMeasuredWidth());
             }
             keyboard.setMinWidth(getMeasuredWidth());
             keyboard.setNeedResize(false);

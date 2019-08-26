@@ -2,7 +2,6 @@ package com.as1124.touch_input.softinput.way1;
 
 import android.content.Context;
 import android.content.res.Configuration;
-import android.graphics.Canvas;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
@@ -60,9 +59,9 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
     }
 
     @Override
-    public void onSizeChanged(int w, int h, int oldw, int oldh) {
+    public void onSizeChanged(int w, int h, int oldW, int oldH) {
         // super在这里处理了当一行的总宽度超过屏幕宽度的情况
-        // 不采用框架的调整大小策略
+        // 不采用框架的调整大小策略，采用自己策略
     }
 
     @Override
@@ -70,9 +69,9 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
         As1124Keyboard keyboard = (As1124Keyboard) getKeyboard();
         if (keyboard.isNeedResize()) {
             if (keyboard.getKeyboardType().startsWith("26")) {
-                As1124Keyboard.adjust26Keys(keyboard, getMeasuredWidth(), getMeasuredHeight());
+                As1124Keyboard.adjust26Keys(keyboard, getMeasuredWidth());
             } else {
-                As1124Keyboard.adjust9Keys(keyboard, getMeasuredWidth(), getMeasuredHeight());
+                As1124Keyboard.adjust9Keys(keyboard, getMeasuredWidth());
             }
             keyboard.setMinWidth(getMeasuredWidth());
             keyboard.setNeedResize(false);
@@ -80,10 +79,6 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
         }
     }
 
-    @Override
-    public void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-    }
 
     @Override
     public void onClick(View v) {
@@ -102,14 +97,12 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
     @Override
     public void onPress(int primaryCode) {
         // 所有按键按下都会触发 onPress
-        Log.i(LOG_TAG, "onPress: " + primaryCode);
     }
 
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
         // Modify 键按下会触发，普通键不触发
         Log.i(LOG_TAG, "onKey：" + keyCodes[0]);
-
         As1124InputMethodService inputService = ((As1124InputMethodService) getContext());
         switch (primaryCode) {
             case Keyboard.KEYCODE_SHIFT:
@@ -179,7 +172,6 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
 
     @Override
     public void onRelease(int primaryCode) {
-        Log.i(LOG_TAG, "onRelease: " + primaryCode);
     }
 
     @Override

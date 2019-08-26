@@ -13,17 +13,12 @@ public class ExRow extends Keyboard.Row {
 
     public ArrayList<ExKey> myKeys = new ArrayList<>();
 
-    public int backgroundDrawable;
-
     public ExRow(Keyboard parent) {
         super(parent);
     }
 
     public ExRow(Resources res, Keyboard parent, XmlResourceParser parser) {
         super(res, parent, parser);
-
-        backgroundDrawable = parser.getAttributeResourceValue(null, KeyboardConstants.ATTR_KEY_BACKGROUND, -1);
-
     }
 
 
