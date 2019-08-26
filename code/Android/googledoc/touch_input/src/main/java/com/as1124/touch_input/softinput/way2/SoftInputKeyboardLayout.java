@@ -2,13 +2,17 @@ package com.as1124.touch_input.softinput.way2;
 
 import android.content.Context;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Message;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +21,8 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 import com.as1124.touch_input.R;
 import com.as1124.touch_input.softinput.As1124InputMethodService;
@@ -34,7 +40,12 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
 
     private static final String LOG_TAG = "SELF_KEYBOARD_VIEW";
 
+    protected static final int MSG_REPEAT = 124;
+    protected static final int MSG_PREVIEW = 125;
+
     private As1124Keyboard mKeyboard;
+
+    private Keyboard.Key lastTouchKey;
 
     private KeyboardView.OnKeyboardActionListener mKeyboardListener;
 
@@ -54,9 +65,21 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
      */
     private boolean inflateDone = false;
 
+    /**
+     * 操作的手指数
+     */
+    private int mPointerCount = 1;
+
     private GestureDetector mTouchDetector;
 
     private OnTouchListener keyTouchListener = (v, me) -> analyseTouchEvent(v, me);
+
+    private Handler mHandler;
+
+    private PopupWindow previewWindow;
+
+    private PopupWindow selectKeyWindow;
+
 
     public SoftInputKeyboardLayout(Context context) {
         super(context);
@@ -79,22 +102,39 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
             @Override
             public void onLongPress(MotionEvent e) {
                 Log.i("Touch---Event", "onLongPress, actionMask==" + e.getActionMasked());
-                super.onLongPress(e);
+                showPopupKeys();
             }
 
             @Override
-            public boolean onDown(MotionEvent e) {
-                Log.i("Touch---Event", "onDown, actionMask==" + e.getActionMasked());
-                return super.onDown(e);
-            }
-
-            @Override
-            public boolean onSingleTapUp(MotionEvent e) {
-                Log.i("Touch---Event", "onSingleTapUp, actionMask==" + e.getActionMasked());
-                return super.onSingleTapUp(e);
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                Log.i("Touch---Event", "onFling, actionMask==" + e2.getActionMasked());
+                return true;
             }
         };
         this.mTouchDetector = new GestureDetector(getContext(), gestureListener);
+        this.mHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case MSG_REPEAT:
+                        Keyboard.Key aKey = (Keyboard.Key) msg.obj;
+                        if (aKey.text != null) {
+                            mKeyboardListener.onText(aKey.text);
+                        } else if (aKey.modifier) {
+                            mKeyboardListener.onKey(aKey.codes[0], aKey.codes);
+                        }
+                        repeatKey(aKey);
+                        break;
+                    case MSG_PREVIEW:
+                        if (previewWindow.isShowing()) {
+                            previewWindow.dismiss();
+                        }
+                }
+            }
+        };
+        this.previewWindow = new PopupWindow(getContext());
+        this.previewWindow.setBackgroundDrawable(null);
+        this.previewWindow.setTouchable(true);
     }
 
     @Override
@@ -134,9 +174,9 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
         float scaleBase = getResources().getDisplayMetrics().scaledDensity;
         for (int i = 0; i < allKeys.size(); i++) {
             ExKey oneKey = (ExKey) allKeys.get(i);
-            SoftInputKeyLayout keyView = (SoftInputKeyLayout) inflater.inflate(R.layout.view_soft_key2, null);
+            SoftInputKeyLayout keyView = (SoftInputKeyLayout) inflater.inflate(R.layout.view_soft_key2, this, false);
             keyView.setKeyIndex(i);
-            keyView.showText(oneKey);
+            keyView.showText(oneKey, false);
             if (oneKey.backgroundResID != -1) {
                 keyView.setBackground(getResources().getDrawable(oneKey.backgroundResID));
             }
@@ -163,37 +203,118 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
         }
     }
 
-    boolean analyseTouchEvent(View v, MotionEvent me) {
-//        if (mTouchDetector.onTouchEvent(me)) {
-//            return true;
-//        }
-        // 1。处理按键状态
-        // 2。分发对应键盘时间
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+    }
 
-        Log.i("Touch---Event", "actionMask==" + me.getActionMasked());
+    boolean analyseTouchEvent(View v, MotionEvent me) {
+        boolean result = false;
         Keyboard.Key key = getKeyboard().getKeys().get(((SoftInputKeyLayout) v).getKeyIndex());
-        switch (me.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-                mKeyboardListener.onPress(key.codes[0]);
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if (key.repeatable && key.modifier) {
-                    mKeyboardListener.onKey(key.codes[0], key.codes);
-                } else if (key.repeatable && key.text != null) {
-                    mKeyboardListener.onText(key.text);
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                if (key.modifier) {
-                    mKeyboardListener.onKey(key.codes[0], key.codes);
-                } else if (key.text != null) {
-                    mKeyboardListener.onText(key.text);
-                }
-            case MotionEvent.ACTION_CANCEL:
-                mKeyboardListener.onRelease(key.codes[0]);
-                break;
+        int pointerCount = me.getPointerCount();
+        if (pointerCount == mPointerCount && pointerCount == 1) {
+            if (mTouchDetector.onTouchEvent(me)) {
+                // 在 GestureDetector 中处理了 LongPress 事件， 如果被消费掉了则不再继续处理
+                return true;
+            }
+            if (key != lastTouchKey) {
+                removeAllMessage();
+            }
+            switch (me.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                    if (key.sticky) {
+                        v.setPressed(!v.isPressed());
+                    } else {
+                        v.setPressed(true);
+                    }
+                    mKeyboardListener.onPress(key.codes[0]);
+                    if (key.repeatable) {
+                        repeatKey(key);
+                    }
+                    if (isPreviewEnabled()) {
+                        showPreview(key);
+                    }
+                    lastTouchKey = key;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    if (!key.sticky) {
+                        v.setPressed(false);
+                    }
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_PREVIEW), 180);
+                    if (key.text != null) {
+                        mKeyboardListener.onText(key.text);
+                    } else if (key.modifier) {
+                        mKeyboardListener.onKey(key.codes[0], key.codes);
+                    }
+                    // need to remove all message
+                    removeAllMessage();
+                    mKeyboardListener.onRelease(key.codes[0]);
+                    break;
+                case MotionEvent.ACTION_OUTSIDE:
+                    break;
+            }
+            result = true;
+        } else {
+
         }
-        return true;
+        mPointerCount = pointerCount;
+        return result;
+    }
+
+    /**
+     * 显示按键的预览弹窗
+     */
+    private void showPreview(Keyboard.Key aKey) {
+        if (aKey == lastTouchKey && previewWindow.isShowing() || aKey.modifier) {
+            return;
+        }
+        if (previewWindow.getContentView() == null) {
+            TextView previewText = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.view_key_preview, this, false);
+            previewWindow.setWidth(aKey.width + 40);
+            previewWindow.setHeight(aKey.height + 40);
+            previewWindow.setContentView(previewText);
+        }
+        ((TextView) previewWindow.getContentView()).setText(aKey.label);
+        int marginLeft = ((MarginLayoutParams) getLayoutParams()).getMarginStart();
+        int popupX = aKey.x + marginLeft + getPaddingLeft();
+        int popupY = aKey.y - 10;
+        if (previewWindow.isShowing()) {
+            previewWindow.update(popupX, popupY, previewWindow.getWidth(), previewWindow.getHeight());
+        } else {
+            previewWindow.showAtLocation(this, Gravity.NO_GRAVITY, popupX, popupY);
+        }
+
+    }
+
+    /**
+     * 长按时触发，显示多个KeyCode的选择框
+     */
+    private void showPopupKeys() {
+
+    }
+
+    private void repeatKey(Keyboard.Key key) {
+        Message msg = mHandler.obtainMessage(MSG_REPEAT, key);
+        mHandler.sendMessageDelayed(msg, 150);
+    }
+
+    public void removeAllMessage() {
+        mHandler.removeMessages(MSG_REPEAT);
+    }
+
+    private void onShiftState(boolean isShifted) {
+        List<Keyboard.Key> allKey = getKeyboard().getKeys();
+        int childCount = getChildCount();
+        for (int i = 0; i < childCount; i++) {
+            View child = getChildAt(i);
+            if (child instanceof SoftInputKeyLayout) {
+                SoftInputKeyLayout keyContainer = (SoftInputKeyLayout) child;
+                keyContainer.showText(allKey.get(keyContainer.getKeyIndex()), isShifted);
+            }
+        }
     }
 
 
@@ -206,13 +327,11 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
         // Modify 键按下会触发，普通键不触发
-        Log.i(LOG_TAG, "onKey：" + keyCodes[0]);
-
         As1124InputMethodService inputService = ((As1124InputMethodService) getContext());
         switch (primaryCode) {
             case Keyboard.KEYCODE_SHIFT:
                 getKeyboard().setShifted(!getKeyboard().isShifted());
-                invalidate();
+                onShiftState(getKeyboard().isShifted());
                 break;
             case Keyboard.KEYCODE_DELETE:
                 InputConnection connection = ((InputMethodService) getContext()).getCurrentInputConnection();
@@ -249,7 +368,7 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
                 } else {
                     setKeyboard(inputService.getKeyboard("26_en"));
                 }
-                invalidate();
+                requestLayout();
                 break;
             case 731:
                 // 切换输入法
@@ -272,7 +391,6 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
                     onText(String.valueOf((char) primaryCode));
                     isPopupShow = false;
                 }
-                break;
         }
     }
 
@@ -283,6 +401,7 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
 
     @Override
     public void onText(CharSequence text) {
+        // ATTENTION 处理提示语句
         InputConnection connection = ((InputMethodService) getContext()).getCurrentInputConnection();
         if (connection != null) {
             if (getKeyboard().isShifted()) {

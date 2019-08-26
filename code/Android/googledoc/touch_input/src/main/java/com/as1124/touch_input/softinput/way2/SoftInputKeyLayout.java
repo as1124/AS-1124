@@ -2,22 +2,22 @@ package com.as1124.touch_input.softinput.way2;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.inputmethodservice.Keyboard;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.as1124.touch_input.R;
-import com.as1124.touch_input.softinput.ExKey;
 
 /**
  * 输入法键盘View中单据一个键（Key）的UI模型
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
-public class SoftInputKeyLayout extends LinearLayout {
+public class SoftInputKeyLayout extends RelativeLayout {
 
     /**
      * 按键下在键盘中对应的坐标
@@ -62,6 +62,7 @@ public class SoftInputKeyLayout extends LinearLayout {
         }
     }
 
+
     public void setKeyIndex(int keyIndex) {
         this.mKeyIndex = keyIndex;
     }
@@ -70,13 +71,18 @@ public class SoftInputKeyLayout extends LinearLayout {
         return mKeyIndex;
     }
 
-    public void showText(ExKey keyInfo) {
-        keyImage.setVisibility(View.GONE);
-        majorText.setVisibility(View.VISIBLE);
-        majorText.setText(keyInfo.label);
-        if (keyInfo.popupCharacters != null && keyInfo.popupCharacters.length() >= 3) {
-            minorText.setVisibility(View.VISIBLE);
-            minorText.setText(String.valueOf(keyInfo.popupCharacters.charAt(2)));
+    public void showText(Keyboard.Key keyInfo, boolean shifted) {
+        if (keyInfo.label != null) {
+            majorText.setVisibility(View.VISIBLE);
+            if (shifted) {
+                majorText.setText(keyInfo.label.toString().toUpperCase());
+            } else {
+                majorText.setText(keyInfo.label.toString().toLowerCase());
+            }
+            if (keyInfo.popupCharacters != null && keyInfo.popupCharacters.length() >= 3) {
+                minorText.setVisibility(View.VISIBLE);
+                minorText.setText(String.valueOf(keyInfo.popupCharacters.charAt(2)));
+            }
         }
     }
 

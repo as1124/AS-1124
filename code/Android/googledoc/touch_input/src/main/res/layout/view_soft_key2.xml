@@ -11,22 +11,28 @@
         android:id="@+id/image_key_icon"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:adjustViewBounds="true"
         android:scaleType="center"
         android:visibility="gone" />
 
     <TextView
         android:id="@+id/text_key_major"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/text_key_low"
+        android:layout_alignParentTop="true"
         android:textAlignment="center"
         android:textColor="@color/colorPrimary"
         android:textSize="@dimen/normalKey" />
 
     <TextView
         android:id="@+id/text_key_low"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="2dp"
+        android:textAlignment="center"
         android:textColor="@color/keyText"
         android:textSize="@dimen/minorKey"
         android:visibility="gone" />
