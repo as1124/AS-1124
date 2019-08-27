@@ -159,6 +159,18 @@ public class As1124InputMethodService extends InputMethodService {
     }
 
     @Override
+    public void onFinishInputView(boolean finishingInput) {
+        super.onFinishInputView(finishingInput);
+
+        // to double check the all resource is released and all popup-window is closed
+        View inputView = inputViewRef.get();
+        if (inputView instanceof KeyboardView) {
+            ((KeyboardView) inputView).closing();
+        }
+    }
+
+
+    @Override
     protected void onCurrentInputMethodSubtypeChanged(InputMethodSubtype newSubtype) {
         Log.i(LOG_TAG, "--onCurrentInputMethodSubtypeChanged--");
         super.onCurrentInputMethodSubtypeChanged(newSubtype);

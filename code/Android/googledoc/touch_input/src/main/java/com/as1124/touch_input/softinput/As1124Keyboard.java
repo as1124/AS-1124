@@ -7,6 +7,7 @@ import android.inputmethodservice.Keyboard;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -18,7 +19,7 @@ import java.util.Random;
  */
 public class As1124Keyboard extends Keyboard {
 
-    public List<ExRow> keyRows;
+    private List<ExRow> keyRows;
 
     private ExRow currentRow;
 
@@ -33,6 +34,8 @@ public class As1124Keyboard extends Keyboard {
      * 是否随机排列按键
      */
     private boolean randomKeys = false;
+
+    private List<Key> keyInRandom = new ArrayList<>();
 
     public As1124Keyboard(Context context, int xmlLayoutResId) {
         super(context, xmlLayoutResId);
@@ -62,36 +65,69 @@ public class As1124Keyboard extends Keyboard {
         return key;
     }
 
-    @Override
-    public List<Key> getKeys() {
-        List<Key> keys = super.getKeys();
+    /**
+     * 处理随机键盘
+     */
+    public synchronized void makeKeysRandom() {
         if (isRandomKeys()) {
+            keyInRandom.clear();
+            List<Key> originalKeys = super.getKeys();
+            Key[] newKeys = new Key[originalKeys.size()];
             List<Map.Entry<Integer, Key>> normalKeys = new ArrayList<>();
-            for (int i = 0; i < keys.size(); i++) {
-                Key key = keys.get(i);
+            for (int i = 0; i < originalKeys.size(); i++) {
+                Key key = originalKeys.get(i);
                 if (!key.modifier && key.text != null && Character.isLetterOrDigit(key.text.charAt(0))) {
                     normalKeys.add(new AbstractMap.SimpleEntry<>(i, key));
+                } else {
+                    newKeys[i] = key;
                 }
             }
             Random random = new Random();
             while (normalKeys.size() > 1) {
                 Map.Entry<Integer, Key> one = normalKeys.remove(random.nextInt(normalKeys.size()));
                 Map.Entry<Integer, Key> two = normalKeys.remove(random.nextInt(normalKeys.size()));
-                int tempX = one.getValue().x;
-                int tempY = one.getValue().y;
-                one.getValue().x = two.getValue().x;
-                one.getValue().y = two.getValue().y;
-                two.getValue().x = tempX;
-                two.getValue().y = tempY;
+                if (one == two) {
+                    continue;
+                }
+
+//                // 存在对象修改同步问题
+//                int tempX = one.getValue().x;
+//                int tempY = one.getValue().y;
+//                one.getValue().x = two.getValue().x;
+//                one.getValue().y = two.getValue().y;
+//                two.getValue().x = tempX;
+//                two.getValue().y = tempY;
 //                keys.set(one.getKey(), two.getValue());
 //                keys.set(two.getKey(), one.getValue());
+
+                try {
+                    // 采用浅拷贝模式然后全部替换, 以此来冲抵掉同步带来的问题
+                    ExKey oneCopy = ((ExKey) one.getValue()).clone();
+                    oneCopy.x = two.getValue().x;
+                    oneCopy.y = two.getValue().y;
+
+                    ExKey twoCopy = ((ExKey) two.getValue()).clone();
+                    twoCopy.x = one.getValue().x;
+                    twoCopy.y = one.getValue().y;
+
+                    newKeys[two.getKey()] = oneCopy;
+                    newKeys[one.getKey()] = twoCopy;
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
             }
-            return keys;
-        } else {
-            return keys;
+            keyInRandom.addAll(Arrays.asList(newKeys));
         }
     }
 
+    @Override
+    public List<Key> getKeys() {
+        if (isRandomKeys()) {
+            return this.keyInRandom;
+        } else {
+            return super.getKeys();
+        }
+    }
 
     public static void adjust26Keys(As1124Keyboard keyboard, int w) {
         List<ExRow> allRows = keyboard.keyRows;

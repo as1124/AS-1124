@@ -41,9 +41,16 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="密码随机键盘输入"
+        android:hint="随机字符密码"
+        android:imeOptions="actionPrevious"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="随机数字密码"
         android:imeOptions="actionNext"
-        android:inputType="numberPassword|textPassword" />
+        android:inputType="numberPassword" />
 
     <EditText
         android:id="@+id/input_self_method"

@@ -8,23 +8,19 @@
     android:supportsSwitchingToNextInputMethod="true">
 
     <subtype
-        android:name="English"
+        android:name="@string/ime_subtype"
         android:icon="@drawable/right_bottom"
-        android:imeSubtypeExtraValue="somePrivateOption=true"
         android:imeSubtypeLocale="zh_CN"
         android:imeSubtypeMode="keyboard"
-        android:label="English"
-        android:languageTag="zh_CN" />
+        android:label="@string/ime_subtype"
+        android:languageTag="zh" />
 
 
     <subtype
-        android:name="中文"
-        android:icon="@drawable/right_bottom"
-        android:imeSubtypeExtraValue="foobar=30,someInternalOption=false"
-        android:imeSubtypeLocale="zh_CN"
+        android:imeSubtypeLocale="en"
         android:imeSubtypeMode="keyboard"
-        android:label="中文"
-        android:languageTag="zh_CN" />
+        android:label="English"
+        android:languageTag="en" />
 
 
 </input-method>

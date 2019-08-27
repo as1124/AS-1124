@@ -7,7 +7,7 @@ import android.inputmethodservice.Keyboard;
 /**
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
-public class ExKey extends Keyboard.Key {
+public class ExKey extends Keyboard.Key implements Cloneable {
 
     private static final String APP_NAMESPACE = "http://schemas.android.com/apk/res-auto";
 
@@ -29,4 +29,10 @@ public class ExKey extends Keyboard.Key {
         return (x >= this.x && x <= (this.x + this.width) && y >= this.y && (y <= this.y + this.height));
     }
 
+    @Override
+    public ExKey clone() throws CloneNotSupportedException {
+        ExKey newKey = (ExKey) super.clone();
+
+        return newKey;
+    }
 }

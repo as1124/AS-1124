@@ -132,9 +132,13 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
                 }
             }
         };
+
         this.previewWindow = new PopupWindow(getContext());
         this.previewWindow.setBackgroundDrawable(null);
         this.previewWindow.setTouchable(true);
+
+        this.selectKeyWindow = new PopupWindow(getContext());
+        this.selectKeyWindow.setBackgroundDrawable(null);
     }
 
     @Override
@@ -243,7 +247,7 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
                     if (!key.sticky) {
                         v.setPressed(false);
                     }
-                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_PREVIEW), 180);
+                    mHandler.sendMessageDelayed(mHandler.obtainMessage(MSG_PREVIEW), 200);
                     if (key.text != null) {
                         mKeyboardListener.onText(key.text);
                     } else if (key.modifier) {
@@ -254,6 +258,8 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
                     mKeyboardListener.onRelease(key.codes[0]);
                     break;
                 case MotionEvent.ACTION_OUTSIDE:
+                    ((InputMethodService) getContext()).requestHideSelf(0);
+                    closing();
                     break;
             }
             result = true;
@@ -298,7 +304,7 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
 
     private void repeatKey(Keyboard.Key key) {
         Message msg = mHandler.obtainMessage(MSG_REPEAT, key);
-        mHandler.sendMessageDelayed(msg, 150);
+        mHandler.sendMessageDelayed(msg, 100);
     }
 
     public void removeAllMessage() {
@@ -317,6 +323,16 @@ public class SoftInputKeyboardLayout extends ViewGroup implements KeyboardView.O
         }
     }
 
+    public void closing() {
+
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        closing();
+    }
 
     @Override
     public void onPress(int primaryCode) {

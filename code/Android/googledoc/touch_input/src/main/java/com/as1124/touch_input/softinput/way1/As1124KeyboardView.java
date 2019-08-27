@@ -30,6 +30,10 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
 
     private InputMethodManager mInputManager;
 
+    private Keyboard currentKeyboard;
+
+    private boolean hasSet = false;
+
     private boolean isPopupShow = false;
 
     private int oldOrientation = -1;
@@ -51,10 +55,10 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
 
     @Override
     public void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (getKeyboard() == null) {
+        if (currentKeyboard == null) {
             setMeasuredDimension(getPaddingLeft() + getPaddingRight(), getPaddingTop() + getPaddingBottom());
         } else {
-            setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), getKeyboard().getHeight() + getPaddingTop() + getPaddingBottom());
+            setMeasuredDimension(MeasureSpec.getSize(widthMeasureSpec), currentKeyboard.getHeight() + getPaddingTop() + getPaddingBottom());
         }
     }
 
@@ -66,7 +70,7 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        As1124Keyboard keyboard = (As1124Keyboard) getKeyboard();
+        As1124Keyboard keyboard = (As1124Keyboard) currentKeyboard;
         if (keyboard.isNeedResize()) {
             if (keyboard.getKeyboardType().startsWith("26")) {
                 As1124Keyboard.adjust26Keys(keyboard, getMeasuredWidth());
@@ -75,7 +79,10 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
             }
             keyboard.setMinWidth(getMeasuredWidth());
             keyboard.setNeedResize(false);
-            invalidateAllKeys();
+        }
+        keyboard.makeKeysRandom();
+        if (!hasSet) {
+            super.setKeyboard(currentKeyboard);
         }
     }
 
@@ -92,6 +99,14 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
         // 同时此时因为拦截不到框架的 Keyboard, 键的点击因为没有 outputText所以只触发
         isPopupShow = super.onLongPress(popupKey);
         return isPopupShow;
+    }
+
+    @Override
+    public void setKeyboard(Keyboard keyboard) {
+        this.currentKeyboard = keyboard;
+        hasSet = false;
+        requestLayout();
+        // 先不调用 super.setKeyboard，因为在父类在绘制时有mKeys的同步存取缓存，所以先进行测绘
     }
 
     @Override
@@ -130,11 +145,12 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
                 InputConnection ic = ((InputMethodService) getContext()).getCurrentInputConnection();
                 if (ei != null && ic != null) {
                     int actionMask = ei.imeOptions & EditorInfo.IME_MASK_ACTION;
-                    if (actionMask == EditorInfo.IME_ACTION_NONE) {
+                    if (actionMask == EditorInfo.IME_ACTION_DONE) {
                         ((InputMethodService) getContext()).requestHideSelf(0);
                     }
                     ic.performEditorAction(ei.actionId == 0 ? actionMask : ei.actionId);
                 }
+                closing();
                 break;
             case Keyboard.KEYCODE_MODE_CHANGE:
                 // 切换键盘类型
