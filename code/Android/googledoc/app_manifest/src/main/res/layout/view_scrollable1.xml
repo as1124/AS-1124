@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/logo" />
+
+    <com.as1124.app_manifest.views.SelfLinearLayout
+        android:id="@+id/layout_self_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:scrollbarAlwaysDrawVerticalTrack="true"
+        android:scrollbarSize="8dp"
+        android:scrollbarStyle="insideOverlay"
+        android:scrollbars="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layout_refresh_area"
+            android:layout_width="match_parent"
+            android:layout_height="140dp">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@drawable/drawable_hidden_bg" />
+
+<!--            <TextView-->
+<!--                android:id="@+id/text_pulldown_info"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_alignParentBottom="true"-->
+<!--                android:layout_centerHorizontal="true"-->
+<!--                android:text="下拉刷新"-->
+<!--                android:textColor="#ffffff"-->
+<!--                android:textSize="20sp"></TextView>-->
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@color/colorPrimary"></View>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="@android:color/white"></View>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="#ff0000"></View>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="#0000ff"></View>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:background="@android:color/black"></View>
+    </com.as1124.app_manifest.views.SelfLinearLayout>
+
+</FrameLayout>

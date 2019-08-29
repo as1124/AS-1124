@@ -14,6 +14,22 @@ import java.util.Random;
 
 /**
  * 自定义键盘; 目的是为了重新计算Key的坐标值以及增加、适配自定义属性来更细粒度的控制每个键的大小
+ * <pre>
+ *
+ *
+ * 在处理随机键盘的时候的问题及解决思路：
+ * </pre>
+ * 因为在{@link android.inputmethodservice.KeyboardView#setKeyboard(Keyboard)}的时候
+ * 先对所有的Key做了浅拷贝给mKeys字段，之后才进行了View的measure 和 layout ，所以存在的问题如下：
+ * <ul>
+ * <li>浅拷贝导致在随机键盘时出现Key对象上x、y的同步读写问题（因为不是volatile修饰）, 总是成对出现几个Key的坐标交换失败</li>
+ * <li>键盘随机只能在onMeasure之后明确了具体的宽、高之后才能进行随机处理，所以坐标信息错乱</li>
+ * </ul>
+ * 相关解决思路如下：<br/>
+ * <ol>
+ * <li>修改浅拷贝为深拷贝，添加{@link Cloneable}接口支持</li>
+ * <li>修改setKeyboard的生命周期：先requestLayout，然后再调用super处理mKeys的复制</li>
+ * </ol>
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
@@ -101,7 +117,7 @@ public class As1124Keyboard extends Keyboard {
 //                keys.set(two.getKey(), one.getValue());
 
                 try {
-                    // 采用浅拷贝模式然后全部替换, 以此来冲抵掉同步带来的问题
+                    // 采用深拷贝模式然后全部替换, 以此来冲抵掉同步带来的问题
                     ExKey oneCopy = ((ExKey) one.getValue()).clone();
                     oneCopy.x = two.getValue().x;
                     oneCopy.y = two.getValue().y;

@@ -83,6 +83,7 @@ public class As1124KeyboardView extends KeyboardView implements KeyboardView.OnK
         keyboard.makeKeysRandom();
         if (!hasSet) {
             super.setKeyboard(currentKeyboard);
+            hasSet = true;
         }
     }
 

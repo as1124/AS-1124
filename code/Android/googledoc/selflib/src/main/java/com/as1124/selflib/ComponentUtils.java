@@ -5,6 +5,7 @@ import android.app.ActivityManager;
 import android.app.KeyguardManager;
 import android.app.Service;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 
 import java.io.File;
@@ -22,18 +23,24 @@ public class ComponentUtils {
      *
      * @param context 具体Service实例
      * @param clazz   查询服务对应的类
+     * @param create  如果不存在是否创建
      * @return true-service存活正在运行
      */
-    public static boolean isServiceRunning(Context context, Class<? extends Service> clazz) {
+    public static boolean isServiceRunning(Context context, Class<? extends Service> clazz, boolean create) {
         ActivityManager am = (ActivityManager) context.getApplicationContext().getSystemService(Context.ACTIVITY_SERVICE);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // ATTENTION android 8之后取消下面的方法
+            // ATTENTION android 8之后取消 getRunningServices(但doc说明中解释仍然会返回当前应用own的service, 所以其实也还是可以使用的 )
+            // 尝试使用第二种方法: 通过ServiceConnection 来实现
+
         } else {
             List<ActivityManager.RunningServiceInfo> rs = am.getRunningServices(10);
             for (ActivityManager.RunningServiceInfo info : rs) {
                 if (info.service.getClassName().equals(clazz.getName())) {
                     return true;
                 }
+            }
+            if (create) {
+                context.startService(new Intent(context, clazz));
             }
         }
         return false;
@@ -79,9 +86,7 @@ public class ComponentUtils {
                 }
             }
         }
-
-        // ATTENTION 好像这个适合所有情况, 不需要上述繁琐判断
-        return activity.hasWindowFocus();
+        return false;
     }
 
     /**

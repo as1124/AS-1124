@@ -2,6 +2,7 @@ package com.as1124.app_manifest;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.view.ContextMenu;
 import android.widget.EditText;
 
 public class AsEditText extends EditText {
@@ -18,6 +19,12 @@ public class AsEditText extends EditText {
         super(context, attrs, defStyleAttr);
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        this.setSelected(false);
+    }
 
     @Override
     public boolean hasSelection() {
