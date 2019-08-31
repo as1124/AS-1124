@@ -2,12 +2,9 @@ package com.as1124.app_manifest;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.constraint.ConstraintLayout;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.ScaleAnimation;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 
 import com.as1124.app_manifest.views.SelfLinearLayout;
 
@@ -19,7 +16,7 @@ public class AnotherActivity extends Activity implements View.OnScrollChangeList
 
     private SelfLinearLayout allContainer;
 
-    private RelativeLayout refreshArea;
+    private ConstraintLayout refreshArea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +24,8 @@ public class AnotherActivity extends Activity implements View.OnScrollChangeList
         setContentView(R.layout.view_scrollable1);
 
         allContainer = findViewById(R.id.layout_self_linear);
-        allContainer.setOnScrollChangeListener(this);
-        refreshArea = findViewById(R.id.layout_refresh_area);
+//        allContainer.setOnScrollChangeListener(this);
+//        refreshArea = findViewById(R.id.layout_refresh_area);
 
 
     }
