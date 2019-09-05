@@ -9,7 +9,7 @@
 
 	<!-- 类型别名是为 Java 类型设置一个短的名字。它只和 XML 配置有关，存在的意义仅在于用来减少类完全限定名的冗余 -->
 	<typeAliases>
-		<package name="com.as1124.syx.resources"/>
+		<package name="com.as1124.server.wxsapp.resources"/>
 	</typeAliases>
 
 	<environments default="development">

@@ -2,6 +2,9 @@ package com.as1124.server.wxsapp.database;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -32,6 +35,36 @@ public class DatasourceFactory {
 			}
 		}
 		return sessionFactory;
+	}
+
+	public static void main(String[] args) {
+		String dbUrl = "jdbc:mysql://101.37.158.174:3306/wxdadong";
+		String dbUserName = "root";
+		String dbPassword = "Root1234";
+		String jdbcName = "com.mysql.jdbc.Driver";
+		Connection con = null;
+		try {
+			Class.forName(jdbcName);
+			con = DriverManager.getConnection(dbUrl, dbUserName, dbPassword);
+			if (con != null) {
+				System.out.println("成功");
+			} else {
+				System.out.println("失败");
+			}
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
 	}
 
 }
