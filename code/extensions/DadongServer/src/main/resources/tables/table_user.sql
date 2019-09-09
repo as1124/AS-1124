@@ -1,14 +1,14 @@
 --用户基本信息表
 CREATE TABLE `user_info` (
-  `userid` int(11) NOT NULL AUTO_INCREMENT,
+  `userid` int NOT NULL AUTO_INCREMENT,
   `openid` varchar(256) DEFAULT NULL,
   `unionid` varchar(256) DEFAULT NULL,
   `user_level` int(11) DEFAULT '-1' COMMENT '用户级别',
   `wechat_name` blob COMMENT '微信昵称',
+  `name` blob COMMENT '自己设置的名称',
   `head_icon` varchar(512) DEFAULT NULL COMMENT '头像URL',
-  `telphone` varchar(15) DEFAULT NULL,
-  `name` blob,
-  `register_time` varchar(16) DEFAULT NULL COMMENT '注册时间',
+  `telphone` varchar(16) DEFAULT NULL,
+  `register_time` date DEFAULT NULL COMMENT '注册时间',
   `user_status` int(11) DEFAULT NULL COMMENT '用户状态',
   `ext1` varchar(256) DEFAULT NULL,
   `ext2` varchar(256) DEFAULT NULL,

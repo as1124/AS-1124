@@ -1,6 +1,6 @@
 --商品类别
 CREATE TABLE `shangpin_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL AUTO_INCREMENT,
   `categoryid` varchar(128) NOT NULL COMMENT '类别编号',
   `name` varchar(256) DEFAULT NULL COMMENT '类别名称',
   `ext1` varchar(256) DEFAULT NULL,
