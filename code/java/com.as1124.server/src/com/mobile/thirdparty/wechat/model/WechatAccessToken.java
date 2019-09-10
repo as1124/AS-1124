@@ -20,7 +20,7 @@ import com.mobile.thirdparty.wechat.WechatConstants;
  * access_token的有效期为2个小时，超时后调用{@link WechatAccessToken#getToken(String, String)}将自动刷新。
  * </p>
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
+ * @author As-1124 (mailto:as1124huang@gmail.com)
  *
  */
 public class WechatAccessToken extends AbstractAccessToken {

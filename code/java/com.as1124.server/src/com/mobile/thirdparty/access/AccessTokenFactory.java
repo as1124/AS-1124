@@ -19,7 +19,7 @@ import com.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
 /**
  * 获取token的工厂入口，方便扩展微信、支付宝的模型。
  * 
- * @author huangjw(as1124huang@gmail.com)
+ * @author As-1124 (as1124huang@gmail.com)
  *
  */
 public class AccessTokenFactory {

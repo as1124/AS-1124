@@ -4,7 +4,7 @@ package com.mobile.thirdparty.access;
  * 
  * 授权token模型接口
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
+ * @author As-1124 (mailto:as1124huang@gmail.com)
  *
  */
 public interface IAccessToken {

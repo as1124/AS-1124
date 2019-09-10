@@ -13,7 +13,7 @@ import com.mobile.thirdparty.access.exception.ThirdPartyRequestExceprion;
  * 基于OAuth2.0 客户端授权模型形成的JAVA模型.<BR/>
  * 第三方应用在实现过程中对于Token的描述可能稍有不同
  * 
- * @author huangjw(mailto:as1124huang@gmail.com)
+ * @author As-1124 (mailto:as1124huang@gmail.com)
  *
  */
 @SuppressWarnings("rawtypes")

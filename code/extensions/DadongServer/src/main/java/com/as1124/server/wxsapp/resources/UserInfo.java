@@ -1,178 +1,170 @@
 package com.as1124.server.wxsapp.resources;
 
+import java.sql.Blob;
+import java.sql.Date;
+
 import org.apache.ibatis.type.Alias;
 
 /**
- * 数据库用户模型
- *
- * @author huangjw (mailto:as1124huang@gmail.com)
+ * UserInfo Object
+ * 
+ * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@Alias("User")
+@Alias("UserInfo")
 public class UserInfo {
 
-	private int id;
-	
-	private String telephone;
-	
-	private String wechat;
-	
+	private int userid;
+
+	private String openid;
+
+	private String unionid;
+
+	private int userLevel;
+
 	private String wechatName;
-	
-	private String childName;
-	
+
+	private Blob name;
+
+	private String headIcon;
+
+	private String telephone;
+
+	private Date registerTime;
+
+	private int userStatus;
+
 	private String ext1;
-	
+
 	private String ext2;
-	
+
 	private String ext3;
-	
+
 	private String ext4;
-	
+
 	private String ext5;
-	
+
 	public UserInfo() {
 		// default constructor
 	}
 
-	/**
-	 * @return Returns the id.
-	 */
-	public int getId() {
-		return id;
+	public int getUserid() {
+		return userid;
 	}
 
-	/**
-	 * @param id The id to set.
-	 */
-	public void setId(int id) {
-		this.id = id;
+	public void setUserid(int userid) {
+		this.userid = userid;
 	}
 
-	/**
-	 * @return Returns the telephone.
-	 */
-	public String getTelephone() {
-		return telephone;
+	public String getOpenid() {
+		return openid;
 	}
 
-	/**
-	 * @param telphone The telephone to set.
-	 */
-	public void setTelephone(String telephone) {
-		this.telephone = telephone;
+	public void setOpenid(String openid) {
+		this.openid = openid;
 	}
 
-	/**
-	 * @return Returns the wechat.
-	 */
-	public String getWechat() {
-		return wechat;
+	public String getUnionid() {
+		return unionid;
 	}
 
-	/**
-	 * @param wechat The wechat to set.
-	 */
-	public void setWechat(String wechat) {
-		this.wechat = wechat;
+	public void setUnionid(String unionid) {
+		this.unionid = unionid;
 	}
 
-	/**
-	 * @return Returns the wechatName.
-	 */
+	public int getUserLevel() {
+		return userLevel;
+	}
+
+	public void setUserLevel(int userLevel) {
+		this.userLevel = userLevel;
+	}
+
 	public String getWechatName() {
 		return wechatName;
 	}
 
-	/**
-	 * @param wechatName The wechatName to set.
-	 */
 	public void setWechatName(String wechatName) {
 		this.wechatName = wechatName;
 	}
 
-	/**
-	 * @return Returns the childName.
-	 */
-	public String getChildName() {
-		return childName;
+	public Blob getName() {
+		return name;
 	}
 
-	/**
-	 * @param childName The childName to set.
-	 */
-	public void setChildName(String childName) {
-		this.childName = childName;
+	public void setName(Blob name) {
+		this.name = name;
 	}
 
-	/**
-	 * @return Returns the ext1.
-	 */
+	public String getHeadIcon() {
+		return headIcon;
+	}
+
+	public void setHeadIcon(String headIcon) {
+		this.headIcon = headIcon;
+	}
+
+	public String getTelephone() {
+		return telephone;
+	}
+
+	public void setTelephone(String telphone) {
+		this.telephone = telphone;
+	}
+
+	public Date getRegisterTime() {
+		return registerTime;
+	}
+
+	public void setRegisterTime(Date registerTime) {
+		this.registerTime = registerTime;
+	}
+
+	public int getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(int userStatus) {
+		this.userStatus = userStatus;
+	}
+
 	public String getExt1() {
 		return ext1;
 	}
 
-	/**
-	 * @param ext1 The ext1 to set.
-	 */
 	public void setExt1(String ext1) {
 		this.ext1 = ext1;
 	}
 
-	/**
-	 * @return Returns the ext2.
-	 */
 	public String getExt2() {
 		return ext2;
 	}
 
-	/**
-	 * @param ext2 The ext2 to set.
-	 */
 	public void setExt2(String ext2) {
 		this.ext2 = ext2;
 	}
 
-	/**
-	 * @return Returns the ext3.
-	 */
 	public String getExt3() {
 		return ext3;
 	}
 
-	/**
-	 * @param ext3 The ext3 to set.
-	 */
 	public void setExt3(String ext3) {
 		this.ext3 = ext3;
 	}
 
-	/**
-	 * @return Returns the ext4.
-	 */
 	public String getExt4() {
 		return ext4;
 	}
 
-	/**
-	 * @param ext4 The ext4 to set.
-	 */
 	public void setExt4(String ext4) {
 		this.ext4 = ext4;
 	}
 
-	/**
-	 * @return Returns the ext5.
-	 */
 	public String getExt5() {
 		return ext5;
 	}
 
-	/**
-	 * @param ext5 The ext5 to set.
-	 */
 	public void setExt5(String ext5) {
 		this.ext5 = ext5;
 	}
-	
-}
 
+}

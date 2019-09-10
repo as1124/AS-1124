@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.as1124.server.wxsapp.database.mapper.UserInfoMapper">
+	<insert id="insertUser" parameterType="UserInfo"
+		flushCache="true" useGeneratedKeys="true" keyProperty="userid"
+		databaseId="mysql">
+		insert into user_info
+		(openid, unionid, user_level,
+		wechat_name, name, head_icon, telephone, register_time, user_status,
+		ex1, ext2, ext3, ex4, ex5)
+		values(#{openid},#{unionid},#{userLevel},#{wechatName},#{name},#{headIcon},#{telephone},#{registerTime},#{userStatus},#{ext1},#{ext2},#{ext3},#{ext4},#{ext5})
+	</insert>
+	<select id="queryByID" parameterType="int" resultType="UserInfo">
+		select *
+		from user_info where userid = #{userid}
+	</select>
+	<select id="queryByOpenid" parameterType="string"
+		resultType="UserInfo">
+		select * from user_info where openid = #{openid}
+	</select>
+	<select id="queryByPhoneNo" parameterType="string"
+		resultType="UserInfo">
+		select * from user_info where telphone = #{telephone}
+	</select>
+	<select id="queryAll" resultType="UserInfo">
+		select * from user_info;
+	</select>
+	<update id="updateUser" parameterType="UserInfo"
+		keyProperty="userid">
+		update user_info values #{userInfo} where userid =
+		#{userInfo.userid}
+	</update>
+</mapper>
