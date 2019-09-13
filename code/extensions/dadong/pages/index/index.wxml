@@ -1,0 +1,62 @@
+<view class="page-container" >
+    <!-- 顶部banner广告 -->
+    <swiper indicator-dots="true" indicator-color="" indicator-active-color="#ffffff" 
+	autoplay="true" interval="7000" duration="1000" circular="true" style="height:350rpx;">
+        <block wx:for="{{indexAds}}" wx:key="{{index}}" >
+            <swiper-item width="100%">
+                <image src="{{item}}" style="width:100%" mode="aspectFill" />
+            </swiper-item>
+        </block>
+    </swiper>
+    <view style="height:10rpx;"></view>
+    <!-- Grid功能菜单 -->
+    <view wx:for="{{gridRow}}" wx:for-index="rowIndex" wx:for-item="rowItem" wx:key="rowKey"
+	 class="grid-row" style="background-color:#fff">
+        <view wx:for="{{rowItem.rowData}}" wx:for-index="gindex" wx:for-item="gitem"
+		 wx:key="itemKey" class="grid-row-item">
+            <image src="{{gitem.icon}}" style="width:75rpx; height:75rpx" />
+            <view style="10rpx" />
+            <view class="small-text">{{gitem.text}}</view>
+        </view>
+    </view>
+
+    <view style="height:10px; width:100%; background-color:#F8F8F8;" />
+    <view class="row-layout h-center" style="color:#888888;">
+        <view class="medium-text" style="height:100rpx; line-height:100rpx;">—— 大冬车载电单车 ——</view>
+    </view>
+
+	<!-- 商品列表 -->
+	<view wx:for="{{productList}}" wx:key="productid" wx:if="{{index % 2 == 0}}"
+	 class="row-layout h-center product-row" >
+		<view class="column-layout product-item-column" >
+			<image style="width:100%; height:360rpx" src="{{item.previewIcon}}" />
+			<view class="medium-text product-item-name">{{item.shortName}}</view>
+			<view class="large-text product-item-price">{{item.price}}</view>
+		</view>
+		<view style="width:10rpx;" wx:if="{{index +1 <= productList.length}}" />
+		<view class="column-layout product-item-column" wx:if="{{index +1 <= productList.length}}" >
+			<image style="width:100%; height:360rpx" src="{{productList[index+1].previewIcon}}" />
+			<view class="medium-text product-item-name">{{productList[index+1].shortName}}</view>
+			<view class="large-text product-item-price">{{productList[index+1].price}}</view>
+		</view>
+	</view>
+
+	<view style="height:5px; width:100%; background-color:#f8f8f8;" />
+	<view class="row-layout h-center" style="color:#888888;">
+        <view class="medium-text" style="height:100rpx; line-height:100rpx;">—— 质量认证 ——</view>
+    </view>
+	<image src="http://img2.imgtn.bdimg.com/it/u=2752597582,2268184670&fm=26&gp=0.jpg"
+	 style="width:100%;" />
+
+	<view style="height:5px; width:100%; background-color:#f8f8f8;" />
+	<view class="row-layout h-center" style="color:#888888;">
+        <view class="medium-text" style="height:100rpx; line-height:100rpx;">—— 细节把握 ——</view>
+    </view>
+	<block wx:for="{{detailImgs}}" wx:key="{{index}}" >
+		<image src="{{item}}" style="width:100%;" mode="widthFix" />
+	</block>
+	
+	<view class="x-small-text row-layout h-center" 
+	style="height:160rpx;line-height:160rpx;align-content:center;vertical-align:bottom;justify-content:center;color:#aeaeae;">
+	Copyright © 2012-2019 XXXXXX</view>
+</view>

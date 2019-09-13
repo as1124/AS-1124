@@ -1,0 +1,55 @@
+<view class="page-container" scroll-x="false" scroll-y="true" >
+    <view class="row-layout me-banner" >	
+		<block wx:if="{{isLogin}}">
+			<!-- 用户信息不为空时 -->
+			<view class="circle-icon" style="margin-left:30rpx; margin-right:30rpx;">
+				<image src="/images/timg.jpeg" style="width:150rpx;height:150rpx;border-radius:75rpx;" />
+			</view>
+			<view class="column-layout" style="width:500rpx;">
+				<view class="large-text" style="color:#ffffff;font-weight:bold;height:60rpx;">
+				的自画像</view>
+				<view class="small-text" style="color:#ffffff;height:40rpx;">普通用户</view>
+			</view>
+		</block>
+        <block wx:if="{{isLogin == false}}">
+            <!-- 用户信息不为空时 -->
+            <view class="h-center small-text" style="width:100%;">
+                <button class="login-btn medium-text" open-type="getUserInfo"
+				 bindgetuserinfo="handleTapProxy" >微信授权登录</button>
+            </view>
+        </block>
+    </view>
+
+	<!-- 订单状态 -->
+    <view class="row-layout medium-text" >
+        <view style="height:100rpx; line-height:100rpx; margin-left:30rpx;">我的订单</view>
+    </view>
+    <view style="height:1px; width:100%; background-color:#f8f8f8;" />
+    <view class="row-layout h-center" style="width:100%; height:150rpx;">
+        <view wx:for="{{orderButtons}}" wx:for-index="gindex" wx:for-item="gitem" wx:key="orderStatus"
+		 class="column-layout v-center h-center" style="width:100%;height:100%">
+            <view style="height:20rpx;" />
+            <image src="{{gitem.buttonIcon}}" style="width:55rpx; height:55rpx" />
+            <view style="height:10rpx;" />
+            <view class="small-text" style="height:50rpx;line-height:50rpx;color:#888888;">
+			{{gitem.buttonText}}</view>
+			<view style="height:15rpx;" />
+        </view>
+    </view>
+    <view style="height:10px; width:100%; background-color:#f8f8f8;" />
+
+	<!-- 功能性相关按钮 -->
+	<block wx:for="{{functionalBtns}}" wx:key="{{btnKey}}">
+	<view class="row-layout v-center"
+	 style="width:100%;height:100rpx;margin-left:30rpx;margin-right:25rpx;" >
+		<image src="{{item.btnIcon}}" style="width:50rpx; height:50rpx" />
+        <view style="width:25rpx;" />
+        <view class="medium-text" style="height:60rpx;line-height:60rpx;width:568rpx;">
+		{{item.btnText}}</view>
+		<image src="/images/arrow_in.png" style="width:50rpx; height:50rpx" />
+	</view>
+	<view style="height:1px;width:690rpx;background-color:#f8f8f8;margin-left:30rpx;" />
+	</block>
+
+    <view style="width:100%; height:250rpx;"></view>
+</view>

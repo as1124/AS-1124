@@ -1,0 +1,14 @@
+<view class="goodscar-container">
+  
+
+    <view class="row-layout bottom-bar" >
+		<view style="width:30rpx;" />
+        <radio class="medium-text" >全选</radio>
+        <text class="medium-text" style="width:100rpx;color:#e64340" selectable="false" space="ensp">总计: </text>
+        <text class="medium-text" style="width:160rpx;color:#e64340;text-align:left" selectable="false">¥129999.00</text>
+		<view style="width:20rpx;" />
+        <view style="width:140rpx;height:100%;background-color:#ff0000;"></view>
+        <view style="width:140rpx;height:100%;background-color:#00ff00;"></view>
+    </view>
+
+</view>

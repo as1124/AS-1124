@@ -1,0 +1,34 @@
+/* pages/selfcenter/selfcenter.wxss */
+
+.me-banner {
+    width: 100%;
+    height: 300rpx;
+    background-size: 100% 100%;
+    background-image: url('https://mmbiz.qpic.cn/mmbiz_jpg/9rbUFQuf7ckAr7QJ2GCDJ9VqLTyW0W6fblbD5yXY3moIq2tyA4YHTvVZqxDEWoW2ibK7kWncIZjmEIDkmjR1azQ/640');
+    align-items: center;
+    vertical-align: middle;
+}
+
+.circle-icon {
+    width: 160rpx;
+    height: 160rpx;
+    align-items: center;
+    justify-content: center;
+    align-content: center;
+    vertical-align: middle;
+    line-height: 160rpx;
+    background-color: #fff;
+    display: flex;
+    border-radius: 80rpx;
+}
+
+.login-btn {
+    background: transparent;
+    width: 260rpx;
+    height: 75rpx;
+    border-width: 4rpx;
+    border-color: #fff;
+	color: #fff;
+	border-style: solid;
+	text-align: center;
+}
