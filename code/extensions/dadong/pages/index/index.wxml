@@ -13,7 +13,8 @@
     <view wx:for="{{gridRow}}" wx:for-index="rowIndex" wx:for-item="rowItem" wx:key="rowKey"
 	 class="grid-row" style="background-color:#fff">
         <view wx:for="{{rowItem.rowData}}" wx:for-index="gindex" wx:for-item="gitem"
-		 wx:key="itemKey" class="grid-row-item">
+		 wx:key="itemKey" class="grid-row-item" bindtap="handleTapProxy"
+		  data-gridkey="{{gitem.itemKey}}" id="gridItem{{gitem.itemKey}}">
             <image src="{{gitem.icon}}" style="width:75rpx; height:75rpx" />
             <view style="10rpx" />
             <view class="small-text">{{gitem.text}}</view>

@@ -110,8 +110,26 @@ Page({
      */
     onShareAppMessage: function() {},
     handleTapProxy: function(event) {
-        if (!event.target.id) {
+        if (!event.currentTarget.id) {
             return;
+        }
+        if (event.currentTarget.id == 'gridItem1') {
+            wx.request({
+				url: 'https://www.i-dadong.com/dadong/rest/user/state/2233',
+                data: {},
+                method: 'GET',
+                header: {
+                    'content-type': 'application/json'
+                },
+                success: (res) => {
+                    console.log(res.data)
+                },
+                fail: (err) => {
+                    wx.showToast({
+                        "title": "网络请求失败"
+                    });
+                }
+            });
         }
     },
     handleLongTapProxy: function(event) {},
