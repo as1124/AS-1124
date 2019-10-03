@@ -1,8 +1,8 @@
 package com.as1124.server.wxsapp.resources;
 
-import java.sql.Blob;
 import java.sql.Date;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.type.Alias;
 
 /**
@@ -23,7 +23,7 @@ public class UserInfo {
 
 	private String wechatName;
 
-	private Blob name;
+	private String name;
 
 	private String headIcon;
 
@@ -87,11 +87,11 @@ public class UserInfo {
 		this.wechatName = wechatName;
 	}
 
-	public Blob getName() {
+	public String getName() {
 		return name;
 	}
 
-	public void setName(Blob name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -167,4 +167,26 @@ public class UserInfo {
 		this.ext5 = ext5;
 	}
 
+	@Override
+	public int hashCode() {
+		return super.hashCode();
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (obj != null && obj instanceof UserInfo) {
+			UserInfo another = (UserInfo) obj;
+			if (StringUtils.isNotBlank(this.unionid) && StringUtils.isNotBlank(another.getUnionid())) {
+				return this.unionid.equals(another.getUnionid());
+			} else if (StringUtils.isNotBlank(this.openid) && StringUtils.isNotBlank(another.getOpenid())) {
+				return this.openid.equals(another.getOpenid());
+			} else if (this.userid > 0 && another.userid > 0) {
+				return this.userid == another.getUserid();
+			}
+		}
+		return false;
+	}
 }

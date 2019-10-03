@@ -11,6 +11,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -30,6 +31,32 @@ import com.as1124.server.wxsapp.resources.UserInfo;
 @Path("/user")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED })
 public class UserService {
+
+	@POST
+	@Path("/add")
+	@Produces("application/json; charset=UTF-8")
+	public void insertUser(UserInfo user, @Context Response serverResponse) throws IOException {
+		if (user == null || StringUtils.isBlank(user.getOpenid()) || StringUtils.isBlank(user.getUnionid())) {
+			return;
+		}
+		try (SqlSession session = DatasourceFactory.getDatasource("").openSession(true);) {
+			if (session != null) {
+				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
+				List<UserInfo> data = mapper.queryByKey(user);
+				if (data != null && !data.isEmpty()) {
+					for (UserInfo oneUser : data) {
+						if (oneUser.equals(user)) {
+							System.out.println("数据库中已经包含该用户信息");
+							return;
+						}
+					}
+				}
+				mapper.insertUser(user);
+				session.commit();
+				System.out.println("新用户id==" + user.getUserid());
+			}
+		}
+	}
 
 	@GET
 	@Path("/state/{userID}")
@@ -81,27 +108,14 @@ public class UserService {
 		try (SqlSession session = DatasourceFactory.getDatasource("").openSession(true);) {
 			UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
 			if (mapper != null) {
-				if (StringUtils.isNotBlank(openid)) {
-					mapper.queryByOpenid(openid);
-				} else if (StringUtils.isNotBlank(phoneno)) {
-					mapper.queryByPhoneNo(phoneno);
-				}
+//				if (StringUtils.isNotBlank(openid)) {
+//					mapper.queryByOpenid(openid);
+//				} else if (StringUtils.isNotBlank(phoneno)) {
+//					mapper.queryByPhoneNo(phoneno);
+//				}
 			}
 		}
 		return null;
-	}
-
-	@POST
-	@Produces("application/json; charset=UTF-8")
-	public void insertUser(UserInfo user) throws IOException {
-		try (SqlSession session = DatasourceFactory.getDatasource("").openSession(true);) {
-			if (session != null) {
-				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
-				mapper.insertUser(user);
-				session.commit();
-				System.out.println("新用户id==" + user.getUserid());
-			}
-		}
 	}
 
 }

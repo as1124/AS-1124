@@ -15,9 +15,7 @@ public interface UserInfoMapper {
 
 	public UserInfo queryByID(int userid);
 
-	public UserInfo queryByOpenid(String openid);
-
-	public UserInfo queryByPhoneNo(String telephone);
+	public List<UserInfo> queryByKey(UserInfo userInfo);
 
 	public List<UserInfo> queryAll();
 
