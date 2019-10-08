@@ -19,8 +19,19 @@ public class UserInfo {
 
 	private String unionid;
 
+	/**
+	 * Comment for <code>appid</code>: 当前用户所属的微信APP账号
+	 */
+	private String appid;
+
+	/**
+	 * 用户等级：VIP/普通
+	 */
 	private int userLevel;
 
+	/**
+	 * Comment for <code>wechatName</code>：微信昵称
+	 */
 	private String wechatName;
 
 	private String name;
@@ -31,6 +42,9 @@ public class UserInfo {
 
 	private Date registerTime;
 
+	/**
+	 * Comment for <code>userStatus</code>：用户状态
+	 */
 	private int userStatus;
 
 	private String ext1;
@@ -69,6 +83,20 @@ public class UserInfo {
 
 	public void setUnionid(String unionid) {
 		this.unionid = unionid;
+	}
+
+	/**
+	 * @return Returns the {@link appid}.
+	 */
+	public String getAppid() {
+		return appid;
+	}
+
+	/**
+	 * @param appid The {@link appid} to set.
+	 */
+	public void setAppid(String appid) {
+		this.appid = appid;
 	}
 
 	public int getUserLevel() {
@@ -179,12 +207,13 @@ public class UserInfo {
 	public boolean equals(Object obj) {
 		if (obj != null && obj instanceof UserInfo) {
 			UserInfo another = (UserInfo) obj;
-			if (StringUtils.isNotBlank(this.unionid) && StringUtils.isNotBlank(another.getUnionid())) {
-				return this.unionid.equals(another.getUnionid());
+			if (this.userid > 0 && another.userid > 0) {
+				return this.userid == another.getUserid();
 			} else if (StringUtils.isNotBlank(this.openid) && StringUtils.isNotBlank(another.getOpenid())) {
 				return this.openid.equals(another.getOpenid());
-			} else if (this.userid > 0 && another.userid > 0) {
-				return this.userid == another.getUserid();
+			} else if (StringUtils.isNotBlank(this.unionid) && StringUtils.isNotBlank(another.getUnionid())) {
+				// ATTENTION unionid一致就视为同一个用户是否妥当
+				return this.unionid.equals(another.getUnionid());
 			}
 		}
 		return false;

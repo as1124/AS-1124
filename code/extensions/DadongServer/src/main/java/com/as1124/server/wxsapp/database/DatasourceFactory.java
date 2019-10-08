@@ -30,8 +30,9 @@ public class DatasourceFactory {
 				inputStream = Resources.getResourceAsStream("config/datasource-config.xml");
 				sessionFactory = new SqlSessionFactoryBuilder().build(inputStream, environment);
 			} finally {
-				if (inputStream != null)
+				if (inputStream != null) {
 					inputStream.close();
+				}
 			}
 		}
 		return sessionFactory;

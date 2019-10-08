@@ -4,13 +4,17 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
 	namespace="com.as1124.server.wxsapp.database.mapper.UserInfoMapper" >
+	
+	<sql id="fullFields">
+		user_info
+		(openid, unionid, appid, user_level, wechat_name, name, head_icon, telephone, register_time, user_status, ext1, ext2, ext3, ext4, ext5)
+		values
+		(#{openid},#{unionid},#{appid},#{userLevel},#{wechatName},#{name},#{headIcon},#{telephone},#{registerTime},#{userStatus},#{ext1},#{ext2},#{ext3},#{ext4},#{ext5});  
+	</sql>
+	
 	<insert id="insertUser" parameterType="UserInfo"
 		flushCache="true" useGeneratedKeys="true" keyProperty="userid" >
-<!-- 		databaseId="mysql" > -->
-		insert into user_info
-		(openid, unionid, user_level, wechat_name, name, head_icon, telephone, register_time, user_status, ext1, ext2, ext3, ext4, ext5)
-		values
-		(#{openid},#{unionid},#{userLevel},#{wechatName},#{name},#{headIcon},#{telephone},#{registerTime},#{userStatus},#{ext1},#{ext2},#{ext3},#{ext4},#{ext5});
+		insert into <include refid="fullFields" />
 	</insert>
 	
 	<select id="queryByID" parameterType="int" resultType="UserInfo">
@@ -21,29 +25,50 @@
 		select * from user_info 
 		<where>
 			<choose>
-				<when test="openid != null">
+				<when test="openid != null and openid != ''">
 				openid = #{openid};
 			    </when>
-			    <when test="unionid != null">
+			    <when test="unionid != null and unionid != ''">
 				unionid = #{unionid};
 			    </when>
-			    <when test="telephone != null">
+			    <when test="telephone != null and telephone != ''">
 				telephone = #{telephone};
 			    </when>
-			    <when test="wechatName != null">
+			    <when test="wechatName != null and wechatName != ''">
 			    wechat_name like #{wechatName};
 			    </when>
+			    <otherwise>
+			    userid = -1;
+			    </otherwise>
 			</choose>
 		</where>
 	</select>
+	
 	<select id="queryAll" resultType="UserInfo">
 		select * from user_info;
 	</select>
+	
 	<update id="updateUser" parameterType="UserInfo" keyProperty="userid">
-		update user_info(openid, unionid, user_level, wechat_name, name, head_icon, telephone, 
-		register_time, user_status, ext1, ext2, ext3, ext4, ext5)
-		values(#{openid},#{unionid},#{userLevel},#{wechatName},#{name},#{headIcon},#{telephone},#{registerTime},#{userStatus},
-		#{ext1},#{ext2},#{ext3},#{ext4},#{ext5});
-		where userid = #{userid};
+		update user_info set
+		unionid=#{unionid}, appid=#{appid}, user_level=#{userLevel}, wechat_name=#{wechatName}, name=#{name}, head_icon=#{headIcon}, 
+		telephone=#{telephone}, user_status=#{userStatus}, ext1=#{ext1}, ext2=#{ext2}, ext3=#{ext3}, ext4=#{ext4}, ext5=#{ext5} 
+		<where>
+			<choose>
+				<when test="openid != null and openid != ''">
+				openid = #{openid};
+			    </when>
+			    <!-- unionid 可能带来多条结果被更新 -->
+<!-- 			    <when test="unionid != null and unionid != ''">
+				unionid = #{unionid};
+			    </when> -->
+			    <when test="telephone != null and telephone != ''">
+				telephone = #{telephone};
+			    </when>
+			    <otherwise>
+			    userid = #{userid};
+			    </otherwise>
+			</choose>
+		</where>
 	</update>
+	
 </mapper>

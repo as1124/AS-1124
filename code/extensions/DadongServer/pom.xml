@@ -126,6 +126,6 @@
 
 	</dependencies>
 	<build>
-		<finalName>DadongServer</finalName>
+		<finalName>dadong</finalName>
 	</build>
 </project>

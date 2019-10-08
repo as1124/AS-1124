@@ -3,6 +3,7 @@ CREATE TABLE `user_info` (
   `userid` int NOT NULL AUTO_INCREMENT,
   `openid` varchar(256) DEFAULT '',
   `unionid` varchar(256) DEFAULT '',
+  `appid` varchar(256) DEFAULT '' COMMENT '对应的微信APPID',
   `user_level` int DEFAULT '-1' COMMENT '用户级别',
   `wechat_name` text COMMENT '微信昵称',
   `name` varchar(256) COMMENT '自己设置的名称',
@@ -20,3 +21,4 @@ CREATE TABLE `user_info` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户基本信息表';
 
 drop table user_info;
+

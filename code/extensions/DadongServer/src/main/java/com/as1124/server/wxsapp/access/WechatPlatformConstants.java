@@ -10,4 +10,6 @@ public class WechatPlatformConstants {
 	public static final String SYX_APPID = "";
 
 	public static final String SYX_APP_SECRET = "";
+	
+	public static final String DB_ENVIRONMENT = "development";
 }

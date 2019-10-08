@@ -1,7 +1,6 @@
 package com.as1124.server.wxsapp.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.Consumes;
@@ -10,8 +9,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -19,6 +16,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 
+import com.as1124.server.wxsapp.access.WechatPlatformConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
 import com.as1124.server.wxsapp.database.mapper.UserInfoMapper;
 import com.as1124.server.wxsapp.resources.UserInfo;
@@ -30,30 +28,59 @@ import com.as1124.server.wxsapp.resources.UserInfo;
  */
 @Path("/user")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED })
-public class UserService {
+public class UserService extends AbstractHttpRestService {
 
 	@POST
 	@Path("/add")
 	@Produces("application/json; charset=UTF-8")
-	public void insertUser(UserInfo user, @Context Response serverResponse) throws IOException {
+	public Response insertUser(UserInfo user) throws IOException {
 		if (user == null || StringUtils.isBlank(user.getOpenid()) || StringUtils.isBlank(user.getUnionid())) {
-			return;
+			return errorResponse(new Exception("新用户信息缺少必要字段"), 1001);
 		}
-		try (SqlSession session = DatasourceFactory.getDatasource("").openSession(true);) {
+		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
 			if (session != null) {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
 				List<UserInfo> data = mapper.queryByKey(user);
 				if (data != null && !data.isEmpty()) {
-					for (UserInfo oneUser : data) {
-						if (oneUser.equals(user)) {
-							System.out.println("数据库中已经包含该用户信息");
-							return;
-						}
-					}
+					return errorResponse(new Exception("数据库中已经包含该用户信息"), 1002);
+				} else {
+					mapper.insertUser(user);
+					session.commit();
+					return successResponse(user);
 				}
-				mapper.insertUser(user);
-				session.commit();
-				System.out.println("新用户id==" + user.getUserid());
+			} else {
+				return Response.status(Status.ACCEPTED).build();
+			}
+		}
+	}
+
+	@GET
+	@Path("/detail/{userID}")
+	@Produces("application/json; charset=UTF-8")
+	public Response getUserByID(@PathParam("userID") int userid) throws IOException {
+		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
+			if (session != null) {
+				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
+				return successResponse(mapper.queryByID(userid));
+			} else {
+				return Response.status(Status.ACCEPTED).build();
+			}
+		}
+	}
+
+	@POST
+	@Path("/detail")
+	@Produces("application/json; charset=UTF-8")
+	public Response getUserByKey(UserInfo userInfo) throws IOException {
+		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
+			if (session != null) {
+				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
+				return successResponse(mapper.queryByKey(userInfo));
+			} else {
+				return Response.status(Status.ACCEPTED).build();
 			}
 		}
 	}
@@ -65,56 +92,43 @@ public class UserService {
 		return Response.status(Status.OK).entity(Boolean.TRUE).build();
 	}
 
+	@GET
+	@Path("/all")
+	@Produces("application/json; charset=UTF-8")
+	public Response getAllUsers() throws IOException {
+		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
+			if (session != null) {
+				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
+				return successResponse(mapper.queryAll());
+			} else {
+				return Response.status(Status.ACCEPTED).build();
+			}
+		}
+	}
+
+	@POST
+	@Path("/update")
+	@Produces("application/json; charset=UTF-8")
+	public Response updateUser(UserInfo userInfo) throws IOException {
+		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
+			if (session != null) {
+				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
+				mapper.updateUser(userInfo);
+				session.commit();
+				return successResponse(userInfo);
+			} else {
+				return Response.status(Status.ACCEPTED).build();
+			}
+		}
+	}
+
 	public Response login() {
 		return null;
 	}
 
 	public Response logOut() {
-		return null;
-	}
-
-	@GET
-	@Path("/all")
-	@Produces("application/json; charset=UTF-8")
-	public List<UserInfo> getAllUsers() throws IOException {
-		try (SqlSession session = DatasourceFactory.getDatasource("").openSession(true);) {
-			UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
-			if (mapper != null) {
-				return mapper.queryAll();
-			} else {
-				return new ArrayList<UserInfo>();
-			}
-		}
-	}
-
-	@GET
-	@Path("/{userID}")
-	@Produces("application/json; charset=UTF-8")
-	public UserInfo getUserByID(@PathParam("userID") int userid) throws IOException {
-		try (SqlSession session = DatasourceFactory.getDatasource("").openSession(true);) {
-			UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
-			if (mapper != null) {
-				return mapper.queryByID(userid);
-			} else {
-				return null;
-			}
-		}
-	}
-
-	@GET
-	@Produces("application/json; charset=UTF-8")
-	public UserInfo getUserDetail(@QueryParam("openid") String openid, @QueryParam("telephone") String phoneno)
-			throws IOException {
-		try (SqlSession session = DatasourceFactory.getDatasource("").openSession(true);) {
-			UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
-			if (mapper != null) {
-//				if (StringUtils.isNotBlank(openid)) {
-//					mapper.queryByOpenid(openid);
-//				} else if (StringUtils.isNotBlank(phoneno)) {
-//					mapper.queryByPhoneNo(phoneno);
-//				}
-			}
-		}
 		return null;
 	}
 
