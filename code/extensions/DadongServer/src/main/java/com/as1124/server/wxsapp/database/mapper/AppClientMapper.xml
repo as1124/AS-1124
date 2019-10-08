@@ -11,7 +11,7 @@
 
 	<select id="queryAppSetting" resultType="hashmap">
 		select 
-		<include refid="queryResult"></include>
+		<include refid="queryResult" />
 		from app_setting 
 		<where>
 			<if test="arg0 != null and arg0 != ''">

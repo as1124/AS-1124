@@ -3,7 +3,6 @@ package com.as1124.server.wxsapp.service;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -11,6 +10,8 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
@@ -19,20 +20,19 @@ import com.as1124.server.wxsapp.database.DatasourceFactory;
 import com.as1124.server.wxsapp.database.mapper.AppClientMapper;
 
 /**
- * 客户端信息
+ * 客户端配置信息HTTP服务
  * 
  * @author As-1124(mailto:as1124huang@gmail.com)
  *
  */
 @Path("/app")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED })
-public class ClientService {
+public class ClientService extends AbstractHttpRestService {
 
 	@GET
-	@Path("/configuration")
+	@Path("/setting")
 	@Produces("application/json; charset=UTF-8")
-	public List<HashMap<String, Object>> getClientSetting(@QueryParam("version") String clientVersion,
-			@QueryParam("type") String platform) {
+	public Response getClientSetting(@QueryParam("version") String clientVersion, @QueryParam("type") String platform) {
 		int clientType = 1;
 		if (StringUtils.isBlank(platform)) {
 			clientType = 0;
@@ -45,16 +45,16 @@ public class ClientService {
 			try (SqlSession session = DatasourceFactory.getDatasource("").openSession(true);) {
 				if (session != null) {
 					AppClientMapper mapper = session.getMapper(AppClientMapper.class);
-					return mapper.queryAppSetting(clientVersion, clientType);
+					return successResponse(mapper.queryAppSetting(clientVersion, clientType));
+				} else {
+					return Response.status(Status.ACCEPTED).build();
 				}
 			} catch (IOException e) {
-				e.printStackTrace();
+				return errorResponse(e, 2001);
 			}
+		} else {
+			return successResponse(new ArrayList<HashMap<String, Object>>());
 		}
-		return new ArrayList<HashMap<String, Object>>();
 	}
 
-	public static void main(String[] args) {
-		new ClientService().getClientSetting("", "Android");
-	}
 }
