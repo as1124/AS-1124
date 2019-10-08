@@ -18,9 +18,9 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
 				<property name="url"
-					value="jdbc:mysql://127.0.0.1:3306/wxdadong" />
+					value="jdbc:mysql://127.0.0.1:3306/dadongsapp" />
 				<property name="username" value="root" />
-				<property name="password" value="Root1234" />
+				<property name="password" value="Fsmwy951208" />
 				<property name="driver.encoding" value="UTF-8" />
 			</dataSource>
 		</environment>
@@ -29,9 +29,9 @@
 			<dataSource type="POOLED">
 				<property name="driver" value="com.mysql.jdbc.Driver" />
 				<property name="url"
-					value="jdbc:mysql://127.0.0.1:3306/wxdadong" />
+					value="jdbc:mysql://127.0.0.1:3306/dadongsapp" />
 				<property name="username" value="root" />
-				<property name="password" value="Root1234" />
+				<property name="password" value="Fsmwy951208" />
 				<property name="driver.encoding" value="UTF-8" />
 			</dataSource>
 		</environment>

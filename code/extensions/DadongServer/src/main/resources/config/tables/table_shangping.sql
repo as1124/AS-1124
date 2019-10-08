@@ -1,5 +1,5 @@
 --商品信息表
-CREATE TABLE `shangpin` (
+CREATE TABLE `goods_info` (
   `id` int NOT NULL AUTO_INCREMENT,
   `goodsno` varchar(128) NOT NULL COMMENT '商品编号',
   `name` varchar(200) DEFAULT NULL COMMENT '商品名称',
