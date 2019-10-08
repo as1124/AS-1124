@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.as1124.server.wxsapp.database.mapper.GoodsCategoryMapper">
+
+	<sql id="queryResult">
+		categoryid,name as categoryName,ext1,ext2,ext3,ext4,ext5
+	</sql>
+
+	<select id="queryAllCategory" resultType="hashmap">
+		select
+		<include refid="queryResult" />
+		from goods_category;
+	</select>
+
+</mapper>

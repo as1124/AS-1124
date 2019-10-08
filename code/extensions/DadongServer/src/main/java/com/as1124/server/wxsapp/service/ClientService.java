@@ -16,6 +16,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 
+import com.as1124.server.wxsapp.access.WechatPlatformConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
 import com.as1124.server.wxsapp.database.mapper.AppClientMapper;
 
@@ -42,7 +43,8 @@ public class ClientService extends AbstractHttpRestService {
 			clientType = 2;
 		}
 		if (clientType > 0) {
-			try (SqlSession session = DatasourceFactory.getDatasource("").openSession(true);) {
+			try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+					.openSession(true);) {
 				if (session != null) {
 					AppClientMapper mapper = session.getMapper(AppClientMapper.class);
 					return successResponse(mapper.queryAppSetting(clientVersion, clientType));

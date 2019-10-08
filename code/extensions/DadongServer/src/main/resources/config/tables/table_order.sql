@@ -1,7 +1,7 @@
 --订单信息表
-CREATE TABLE `shangpin_order` (
+CREATE TABLE `goods_order` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `orderid` varchar(128) NOT NULL COMMENT '订单编号',
+  `orderid` varchar(64) NOT NULL COMMENT '订单编号',
   `openid` varchar(256) DEFAULT NULL,
   `unionid` varchar(256) DEFAULT NULL,
   `goods_info` text DEFAULT NULL COMMENT '订单信息json',

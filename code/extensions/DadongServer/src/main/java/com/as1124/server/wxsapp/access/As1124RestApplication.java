@@ -9,7 +9,9 @@ import javax.ws.rs.core.Application;
 import org.jboss.resteasy.plugins.server.servlet.ResteasyBootstrap;
 
 import com.as1124.server.wxsapp.service.ClientService;
+import com.as1124.server.wxsapp.service.GoodsCategoryService;
 import com.as1124.server.wxsapp.service.GoodsInfoService;
+import com.as1124.server.wxsapp.service.GoodsOrderService;
 import com.as1124.server.wxsapp.service.SurveyService;
 import com.as1124.server.wxsapp.service.SurveyUserService;
 import com.as1124.server.wxsapp.service.UserService;
@@ -37,8 +39,11 @@ public class As1124RestApplication extends Application {
 		if (singletons.isEmpty()) {
 			singletons.add(new UserService());
 			singletons.add(new ClientService());
+			singletons.add(new GoodsCategoryService());
 			singletons.add(new GoodsInfoService());
+			singletons.add(new GoodsOrderService());
 			singletons.add(new WechatService());
+
 			singletons.add(new SurveyService());
 			singletons.add(new SurveyUserService());
 		}
