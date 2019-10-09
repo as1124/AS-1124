@@ -47,6 +47,11 @@ public class UserInfo {
 	 */
 	private int userStatus;
 
+	/**
+	 * 购物车信息
+	 */
+	private String goodsCar;
+
 	private String ext1;
 
 	private String ext2;
@@ -153,6 +158,20 @@ public class UserInfo {
 
 	public void setUserStatus(int userStatus) {
 		this.userStatus = userStatus;
+	}
+
+	/**
+	 * @return Returns the {@link goodsCar}.
+	 */
+	public String getGoodsCar() {
+		return goodsCar;
+	}
+
+	/**
+	 * @param goodsCar The {@link goodsCar} to set.
+	 */
+	public void setGoodsCar(String goodsCar) {
+		this.goodsCar = goodsCar;
 	}
 
 	public String getExt1() {

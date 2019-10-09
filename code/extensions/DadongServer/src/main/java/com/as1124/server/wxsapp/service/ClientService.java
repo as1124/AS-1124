@@ -34,20 +34,22 @@ public class ClientService extends AbstractHttpRestService {
 	@Path("/setting")
 	@Produces("application/json; charset=UTF-8")
 	public Response getClientSetting(@QueryParam("version") String clientVersion, @QueryParam("type") String platform) {
-		int clientType = 1;
+		int clientType = 0;
 		if (StringUtils.isBlank(platform)) {
 			clientType = 0;
 		} else if (platform.indexOf("ndroid") >= 0) {
 			clientType = 1;
 		} else if (platform.indexOf("iOS") >= 0) {
 			clientType = 2;
+		} else if (platform.matches("[0-9]")) {
+			clientType = Integer.parseInt(platform);
 		}
 		if (clientType > 0) {
 			try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
 					.openSession(true);) {
 				if (session != null) {
 					AppClientMapper mapper = session.getMapper(AppClientMapper.class);
-					return successResponse(mapper.queryAppSetting(clientVersion, clientType));
+					return successResponse(mapper.queryAppSetting(clientType, clientVersion));
 				} else {
 					return Response.status(Status.ACCEPTED).build();
 				}

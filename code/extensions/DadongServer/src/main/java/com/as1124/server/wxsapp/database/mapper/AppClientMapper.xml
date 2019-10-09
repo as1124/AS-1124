@@ -6,21 +6,17 @@
 	namespace="com.as1124.server.wxsapp.database.mapper.AppClientMapper">
 
 	<sql id="queryResult">
-		client_version as clientVersion, client_type as clientType, setting 
+		client_version as clientVersion, client_type as clientType,
+		setting
 	</sql>
 
 	<select id="queryAppSetting" resultType="hashmap">
-		select 
+		select
 		<include refid="queryResult" />
-		from app_setting 
-		<where>
-			<if test="arg0 != null and arg0 != ''">
-				client_version = #{arg0}
-			</if>
-			<if test="arg1 != null and arg1 != ''">
-				AND client_type = #{arg1}
-			</if>
-		</where>
+		from app_setting where client_type = #{arg0}
+		<if test="arg1 != null and arg1 != ''">
+			and client_version = #{arg1}
+		</if>
 	</select>
 
 </mapper>

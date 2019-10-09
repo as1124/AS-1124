@@ -5,8 +5,25 @@
 <mapper
 	namespace="com.as1124.server.wxsapp.database.mapper.GoodsMapper">
 
-	<select id="queryGoods" resultType="hashmap">
-		select * from app_setting where client_type = #{arg1};
+	<select id="queryGoodsByKey" parameterType="GoodsInfo" resultType="GoodsInfo">
+		select * from goods_info 
+		<where>
+			<choose>
+				<when test="categoryid != null and categoryid != ''">
+					categoryid = #{categoryid}
+				</when>
+				<when test="name != null and name != ''">
+					name like #{name}
+				</when>
+				<otherwise>
+					goodsno = #{goodsno}
+				</otherwise>
+			</choose>
+		</where>
 	</select>
 
+	<select id="allGoods" parameterType="string" resultType="GoodsInfo">
+		select * from goods_info;
+	</select>
+	
 </mapper>

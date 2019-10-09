@@ -10,5 +10,10 @@ import java.util.List;
  */
 public interface GoodsCategoryMapper {
 
-	public List<HashMap<String, Object>> queryAllCategory();
+	/**
+	 * 查询商品类别
+	 * @param categoryid 类别id，为空时查询所有类别
+	 * @return
+	 */
+	public List<HashMap<String, Object>> queryGoodsCategory(String categoryid);
 }

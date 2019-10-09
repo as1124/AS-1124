@@ -1,11 +1,17 @@
 package com.as1124.server.wxsapp.database.mapper;
 
-import java.util.HashMap;
 import java.util.List;
 
+import com.as1124.server.wxsapp.resources.GoodsInfo;
+
+/**
+ * 商品信息查询服务
+ *
+ * @author As-1124 (mailto:as1124huang@gmail.com)
+ */
 public interface GoodsMapper {
 
-	public List<HashMap<String, Object>> queryGoods(String categoryno);
+	public List<GoodsInfo> queryGoodsByKey(GoodsInfo goodsInfo);
 
-	public HashMap<String, Object> queryGoodsByNo(String goodsno);
+	public List<GoodsInfo> allGoods();
 }

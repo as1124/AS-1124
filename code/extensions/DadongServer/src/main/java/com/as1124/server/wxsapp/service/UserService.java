@@ -33,7 +33,7 @@ public class UserService extends AbstractHttpRestService {
 	@POST
 	@Path("/add")
 	@Produces("application/json; charset=UTF-8")
-	public Response insertUser(UserInfo user) throws IOException {
+	public Response insertUser(UserInfo user) {
 		if (user == null || StringUtils.isBlank(user.getOpenid()) || StringUtils.isBlank(user.getUnionid())) {
 			return errorResponse(new Exception("新用户信息缺少必要字段"), 1001);
 		}
@@ -52,13 +52,15 @@ public class UserService extends AbstractHttpRestService {
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
+		} catch (IOException e) {
+			return errorResponse(e, 3001);
 		}
 	}
 
 	@GET
 	@Path("/detail/{userID}")
 	@Produces("application/json; charset=UTF-8")
-	public Response getUserByID(@PathParam("userID") int userid) throws IOException {
+	public Response getUserByID(@PathParam("userID") int userid) {
 		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
@@ -67,13 +69,15 @@ public class UserService extends AbstractHttpRestService {
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
+		} catch (IOException e) {
+			return errorResponse(e, 3001);
 		}
 	}
 
 	@POST
 	@Path("/detail")
 	@Produces("application/json; charset=UTF-8")
-	public Response getUserByKey(UserInfo userInfo) throws IOException {
+	public Response getUserByKey(UserInfo userInfo) {
 		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
@@ -82,6 +86,8 @@ public class UserService extends AbstractHttpRestService {
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
+		} catch (IOException e) {
+			return errorResponse(e, 3001);
 		}
 	}
 
@@ -95,7 +101,7 @@ public class UserService extends AbstractHttpRestService {
 	@GET
 	@Path("/all")
 	@Produces("application/json; charset=UTF-8")
-	public Response getAllUsers() throws IOException {
+	public Response getAllUsers() {
 		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
@@ -104,13 +110,15 @@ public class UserService extends AbstractHttpRestService {
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
+		} catch (IOException e) {
+			return errorResponse(e, 3001);
 		}
 	}
 
 	@POST
 	@Path("/update")
 	@Produces("application/json; charset=UTF-8")
-	public Response updateUser(UserInfo userInfo) throws IOException {
+	public Response updateUser(UserInfo userInfo) {
 		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
@@ -121,6 +129,8 @@ public class UserService extends AbstractHttpRestService {
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
+		} catch (IOException e) {
+			return errorResponse(e, 3001);
 		}
 	}
 

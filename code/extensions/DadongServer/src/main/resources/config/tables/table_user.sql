@@ -11,6 +11,7 @@ CREATE TABLE `user_info` (
   `telephone` varchar(16) DEFAULT NULL,
   `register_time` date DEFAULT NULL COMMENT '注册时间',
   `user_status` int DEFAULT NULL COMMENT '用户状态',
+  `goods_car` text COMMENT '购物车内容json',
   `ext1` varchar(256) DEFAULT NULL,
   `ext2` varchar(256) DEFAULT NULL,
   `ext3` varchar(256) DEFAULT NULL,

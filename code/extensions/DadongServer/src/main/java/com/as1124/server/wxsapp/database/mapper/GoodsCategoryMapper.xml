@@ -9,10 +9,15 @@
 		categoryid,name as categoryName,ext1,ext2,ext3,ext4,ext5
 	</sql>
 
-	<select id="queryAllCategory" resultType="hashmap">
+	<select id="queryAllCategory" parameterType="string" resultType="hashmap">
 		select
 		<include refid="queryResult" />
-		from goods_category;
+		from goods_category
+		<where>
+			<if test="arg0 != null and arg0 != ''">
+				categoryid = #{arg0}
+			</if>
+		</where>
 	</select>
 
 </mapper>

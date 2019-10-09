@@ -6,6 +6,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
@@ -14,6 +15,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.as1124.server.wxsapp.access.WechatPlatformConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
+import com.as1124.server.wxsapp.database.mapper.GoodsCategoryMapper;
 
 /**
  * 商品信息HTTP服务
@@ -31,8 +33,24 @@ public class GoodsCategoryService extends AbstractHttpRestService {
 		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
-				GoodsCategoryService mapper = session.getMapper(GoodsCategoryService.class);
-				return successResponse(mapper.allGoodsCategory());
+				GoodsCategoryMapper mapper = session.getMapper(GoodsCategoryMapper.class);
+				return successResponse(mapper.queryGoodsCategory(""));
+			} else {
+				return Response.status(Status.ACCEPTED).build();
+			}
+		} catch (IOException e) {
+			return errorResponse(e, 3001);
+		}
+	}
+
+	@GET
+	@Path("/detail")
+	public Response queryGoodsCategory(@QueryParam("categoryid") String categoryid) {
+		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
+			if (session != null) {
+				GoodsCategoryMapper mapper = session.getMapper(GoodsCategoryMapper.class);
+				return successResponse(mapper.queryGoodsCategory(categoryid));
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
