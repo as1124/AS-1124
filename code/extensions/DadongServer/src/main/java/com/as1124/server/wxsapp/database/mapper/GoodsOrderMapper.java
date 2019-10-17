@@ -1,7 +1,8 @@
 package com.as1124.server.wxsapp.database.mapper;
 
-import java.util.HashMap;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 
 import com.as1124.server.wxsapp.resources.GoodsOrder;
 
@@ -12,6 +13,10 @@ import com.as1124.server.wxsapp.resources.GoodsOrder;
  */
 public interface GoodsOrderMapper {
 
+	/**
+	 * 生成新订单信息
+	 * @param orderInfo
+	 */
 	public void newGoodsOrder(GoodsOrder orderInfo);
 
 	/**
@@ -19,7 +24,7 @@ public interface GoodsOrderMapper {
 	 * @param orderid
 	 * @return
 	 */
-	public GoodsOrder queryOrder(String orderid);
+	public GoodsOrder queryOrderByID(@Param("orderid") String orderid);
 
 	/**
 	 * 根据字段查询订单信息
@@ -32,16 +37,24 @@ public interface GoodsOrderMapper {
 	 * @param exprs
 	 * @return
 	 */
-	public List<GoodsOrder> queryOrders(HashMap<String, Object> exprs);
+	public List<GoodsOrder> queryOrders(GoodsOrder orderInfo);
 
 	/**
 	 * 更新订单状态
 	 * @param orderid
 	 * @param newStatus
 	 */
-	public void updateOrderStatus(String orderid, int newStatus);
+	public void updateOrderStatus(@Param("orderid") String orderid, @Param("status") int newStatus);
 
+	/**
+	 * 更新订单信息
+	 * @param orderInfo
+	 */
 	public void updateOrder(GoodsOrder orderInfo);
 
-	public void deleteOrder(String orderid);
+	/**
+	 * 删除订单
+	 * @param orderid
+	 */
+	public void deleteOrder(@Param("orderid") String orderid);
 }

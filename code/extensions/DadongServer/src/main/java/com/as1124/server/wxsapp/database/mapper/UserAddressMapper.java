@@ -2,6 +2,7 @@ package com.as1124.server.wxsapp.database.mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -12,5 +13,11 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface UserAddressMapper {
 
+	public void insertExpressAddress(Map<String, ?> address);
+
 	public List<HashMap<String, Object>> queryExpressAddress(@Param("openid") String openid);
+
+	public boolean updateExpressAddress();
+
+	public boolean deleteExpressAddress(int addressid, String openid);
 }

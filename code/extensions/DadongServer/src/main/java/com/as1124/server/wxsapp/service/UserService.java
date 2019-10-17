@@ -161,6 +161,22 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	public Response insertExpressAddress() {
+		return null;
+	}
+
+	public Response updateExpressAddress() {
+		return null;
+	}
+
+	public Response queryExpressAddress() {
+		return null;
+	}
+
+	public Response deleteExpressAddress() {
+		return null;
+	}
+
 	public Response login() {
 		return null;
 	}

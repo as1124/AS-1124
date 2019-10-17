@@ -11,7 +11,16 @@ import com.as1124.server.wxsapp.resources.GoodsInfo;
  */
 public interface GoodsInfoMapper {
 
+	/**
+	 * 关键字查询商品信息
+	 * @param goodsInfo
+	 * @return
+	 */
 	public List<GoodsInfo> queryGoodsByKey(GoodsInfo goodsInfo);
 
+	/**
+	 * 列出所有商品
+	 * @return
+	 */
 	public List<GoodsInfo> allGoods();
 }

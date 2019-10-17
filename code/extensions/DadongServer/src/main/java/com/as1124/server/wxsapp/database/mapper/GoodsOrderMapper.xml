@@ -5,27 +5,33 @@
 <mapper
 	namespace="com.as1124.server.wxsapp.database.mapper.GoodsOrderMapper">
 
-	<sql id="queryResult">
-		id,orderid,openid,unionid,goods_info as goodsInfo,total_price as totalPrice,discount,order_time as orderTime,
-		order_status as orderStatus,ext1,ext2,ext3,ext4,ext5
-	</sql>
+	<insert id="newGoodsOrder" parameterType="GoodsOrder"
+		useGeneratedKeys="true" keyColumn="id" keyProperty="id"
+		flushCache="true">
+		insert into goods_order(orderid,openid,unionid,goods_info,
+		total_price,discount,order_time,order_status,
+		express_info,ext1,ext2,ext3,ext4,ext5)
+		values
+		(#{orderid},#{unionid},#{goodsInfo},#{totalPrice},#{discount},#{orderTime},
+		#{orderStatus},#{expressInfo},#{ext1},#{ext2},#{ext3},#{ext4},#{ext5});
+	</insert>
 
-	<select id="queryOrders" parameterType="UserInfo" resultType="hashmap">
-		select
-		<include refid="queryResult" />
-		from goods_order where order_status=#{arg1}
-		<if test="openid != null and openid != ''">
-			and openid = #{openid}
-		</if>
+	<select id="queryOrderByID" parameterType="string"
+		resultType="GoodsOrder">
+		select * from goods_order where orderid = #{orderid};
 	</select>
 
-	<select id="queryOrder" parameterType="string" resultType="hashmap">
-		select
-		<include refid="queryResult" />
-		from goods_order where order_status=#{arg1}
-		<if test="openid != null and openid != ''">
-			and openid = #{openid}
-		</if>
-	</select>
+	<select id="queryOrders" parameterType="GoodsOrder"
+		resultType="GoodsOrder"></select>
 
+	<update id="updateOrderStatus">
+		update goods_order set order_status = #{status} where
+		orderid = #{orderid};
+	</update>
+
+	<update id="updateOrder"></update>
+
+	<delete id="deleteOrder" parameterType="string">
+		delete from goods_order where orderid = #{orderid};
+	</delete>
 </mapper>

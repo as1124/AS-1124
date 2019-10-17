@@ -13,7 +13,7 @@
 					categoryid = #{categoryid}
 				</when>
 				<when test="name != null and name != ''">
-					name like #{name}
+					name like "%"#{name}"%"
 				</when>
 				<otherwise>
 					goodsno = #{goodsno}
