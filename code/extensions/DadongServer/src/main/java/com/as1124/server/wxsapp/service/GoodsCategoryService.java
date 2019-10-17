@@ -18,7 +18,7 @@ import com.as1124.server.wxsapp.database.DatasourceFactory;
 import com.as1124.server.wxsapp.database.mapper.GoodsCategoryMapper;
 
 /**
- * 商品信息HTTP服务
+ * 商品分类HTTP服务
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
@@ -30,17 +30,7 @@ public class GoodsCategoryService extends AbstractHttpRestService {
 	@GET
 	@Path("/all")
 	public Response allGoodsCategory() {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
-				.openSession(true);) {
-			if (session != null) {
-				GoodsCategoryMapper mapper = session.getMapper(GoodsCategoryMapper.class);
-				return successResponse(mapper.queryGoodsCategory(""));
-			} else {
-				return Response.status(Status.ACCEPTED).build();
-			}
-		} catch (IOException e) {
-			return errorResponse(e, 3001);
-		}
+		return this.queryGoodsCategory("");
 	}
 
 	@GET

@@ -5,17 +5,22 @@
 <mapper
 	namespace="com.as1124.server.wxsapp.database.mapper.GoodsCategoryMapper">
 
-	<sql id="queryResult">
-		categoryid,name as categoryName,ext1,ext2,ext3,ext4,ext5
-	</sql>
+	<resultMap type="HashMap" id="categoryResult">
+		<id property="id" column="id" />
+		<result property="categoryid" column="categoryid" />
+		<result property="name" column="name" />
+		<result property="ext1" column="ext1" />
+		<result property="ext2" column="ext2" />
+		<result property="ext3" column="ext3" />
+		<result property="ext4" column="ext4" />
+		<result property="ext5" column="ext5" />
+	</resultMap>
 
-	<select id="queryAllCategory" parameterType="string" resultType="hashmap">
-		select
-		<include refid="queryResult" />
-		from goods_category
+	<select id="queryGoodsCategory" parameterType="string" resultMap="categoryResult">
+		select * from goods_category
 		<where>
-			<if test="arg0 != null and arg0 != ''">
-				categoryid = #{arg0}
+			<if test="categoryno != null and categoryno != ''">
+				categoryid = #{categoryno}
 			</if>
 		</where>
 	</select>

@@ -18,7 +18,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.as1124.server.wxsapp.access.WechatPlatformConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
-import com.as1124.server.wxsapp.database.mapper.GoodsMapper;
+import com.as1124.server.wxsapp.database.mapper.GoodsInfoMapper;
 import com.as1124.server.wxsapp.resources.GoodsInfo;
 
 /**
@@ -36,7 +36,7 @@ public class GoodsInfoService extends AbstractHttpRestService {
 		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
-				GoodsMapper mapper = session.getMapper(GoodsMapper.class);
+				GoodsInfoMapper mapper = session.getMapper(GoodsInfoMapper.class);
 				return successResponse(mapper.queryGoodsByKey(goods));
 			} else {
 				return Response.status(Status.ACCEPTED).build();
@@ -55,7 +55,7 @@ public class GoodsInfoService extends AbstractHttpRestService {
 		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
-				GoodsMapper mapper = session.getMapper(GoodsMapper.class);
+				GoodsInfoMapper mapper = session.getMapper(GoodsInfoMapper.class);
 				GoodsInfo goods = new GoodsInfo();
 				goods.setGoodsno(goodsno);
 				List<GoodsInfo> result = mapper.queryGoodsByKey(goods);
@@ -78,7 +78,7 @@ public class GoodsInfoService extends AbstractHttpRestService {
 		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
-				GoodsMapper mapper = session.getMapper(GoodsMapper.class);
+				GoodsInfoMapper mapper = session.getMapper(GoodsInfoMapper.class);
 				return successResponse(mapper.allGoods());
 			} else {
 				return Response.status(Status.ACCEPTED).build();

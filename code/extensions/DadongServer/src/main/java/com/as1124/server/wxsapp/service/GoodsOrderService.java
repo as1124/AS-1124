@@ -5,7 +5,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 
 /**
- * TODO 此处填写 class 信息
+ * 商品订单HTTP服务
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */

@@ -5,17 +5,16 @@
 <mapper
 	namespace="com.as1124.server.wxsapp.database.mapper.AppClientMapper">
 
-	<sql id="queryResult">
-		client_version as clientVersion, client_type as clientType,
-		setting
-	</sql>
+	<resultMap type="HashMap" id="queryResult">
+		<result property="clientVersion" column="client_version" />
+		<result property="clientType" column="client_type" />
+		<result property="setting" column="setting" />
+	</resultMap>
 
 	<select id="queryAppSetting" resultType="hashmap">
-		select
-		<include refid="queryResult" />
-		from app_setting where client_type = #{arg0}
-		<if test="arg1 != null and arg1 != ''">
-			and client_version = #{arg1}
+		select * from app_setting where client_type = #{clientType}
+		<if test="clientVersion != null and clientVersion != ''">
+			and client_version = #{clientVersion}
 		</if>
 	</select>
 

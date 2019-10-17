@@ -3,6 +3,8 @@ package com.as1124.server.wxsapp.database.mapper;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 /**
  * APP配置信息查询器
  *
@@ -10,5 +12,6 @@ import java.util.List;
  */
 public interface AppClientMapper {
 
-	public List<HashMap<String, Object>> queryAppSetting(int clientType, String clientVersion);
+	public List<HashMap<String, Object>> queryAppSetting(@Param("clientType") int clientType,
+			@Param("clientVersion") String clientVersion);
 }

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.as1124.server.wxsapp.database.mapper.GoodsOrderMapper">
+
+	<sql id="queryResult">
+		id,orderid,openid,unionid,goods_info as goodsInfo,total_price as totalPrice,discount,order_time as orderTime,
+		order_status as orderStatus,ext1,ext2,ext3,ext4,ext5
+	</sql>
+
+	<select id="queryOrders" parameterType="UserInfo" resultType="hashmap">
+		select
+		<include refid="queryResult" />
+		from goods_order where order_status=#{arg1}
+		<if test="openid != null and openid != ''">
+			and openid = #{openid}
+		</if>
+	</select>
+
+	<select id="queryOrder" parameterType="string" resultType="hashmap">
+		select
+		<include refid="queryResult" />
+		from goods_order where order_status=#{arg1}
+		<if test="openid != null and openid != ''">
+			and openid = #{openid}
+		</if>
+	</select>
+
+</mapper>

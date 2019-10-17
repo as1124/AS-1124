@@ -9,7 +9,7 @@ import com.as1124.server.wxsapp.resources.GoodsInfo;
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-public interface GoodsMapper {
+public interface GoodsInfoMapper {
 
 	public List<GoodsInfo> queryGoodsByKey(GoodsInfo goodsInfo);
 

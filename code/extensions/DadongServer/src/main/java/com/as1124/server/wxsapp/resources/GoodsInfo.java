@@ -3,7 +3,7 @@ package com.as1124.server.wxsapp.resources;
 import org.apache.ibatis.type.Alias;
 
 /**
- * HUANG 此处填写 class 信息
+ * 商品信息
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
@@ -12,14 +12,29 @@ public class GoodsInfo {
 
 	private int id;
 
+	/**
+	 * 商品编号
+	 */
 	private String goodsno;
 
+	/**
+	 * 商品名称
+	 */
 	private String name;
 
+	/**
+	 * 缩略图URL
+	 */
 	private String previewIcon;
 
+	/**
+	 * 所属分类id, 属于多个分类用以用'#'连接
+	 */
 	private String categoryid;
 
+	/**
+	 * 商品详情介绍H5地址
+	 */
 	private String h5url;
 
 	/**
@@ -32,8 +47,14 @@ public class GoodsInfo {
 	 */
 	private String originalPrice;
 
-	private int amount;
+	/**
+	 * 存货量
+	 */
+	private int amount = 0;
 
+	/**
+	 * 商品详细描述：颜色、尺码等
+	 */
 	private String detail;
 
 	private String ext1, ext2, ext3, ext4, ext5;

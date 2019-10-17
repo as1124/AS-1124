@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.as1124.server.wxsapp.database.mapper.GoodsMapper">
+	namespace="com.as1124.server.wxsapp.database.mapper.GoodsInfoMapper">
 
 	<select id="queryGoodsByKey" parameterType="GoodsInfo" resultType="GoodsInfo">
 		select * from goods_info 

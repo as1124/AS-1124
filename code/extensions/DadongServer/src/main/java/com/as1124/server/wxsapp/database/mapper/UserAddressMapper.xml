@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper
+	namespace="com.as1124.server.wxsapp.database.mapper.UserAddressMapper">
+
+	<resultMap id="addressResult" type="HashMap">
+		<id property="addressID" column="id" />
+		<result property="openid" column="openid" />
+		<result property="address" column="address" />
+		<result property="remark" column="remark" />
+		<result property="userName" column="user_name" />
+		<result property="userPhone" column="user_phone" />
+		<result property="ext1" column="ext1" />
+		<result property="ext2" column="ext2" />
+		<result property="ext3" column="ext3" />
+	</resultMap>
+
+	<select id="queryExpressAddress" resultMap="addressResult">
+		select * from user_address where openid=#{openid};
+	</select>
+
+</mapper>
