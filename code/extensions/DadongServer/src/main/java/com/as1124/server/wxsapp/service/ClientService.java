@@ -37,9 +37,9 @@ public class ClientService extends AbstractHttpRestService {
 		int clientType = 0;
 		if (StringUtils.isBlank(platform)) {
 			clientType = 0;
-		} else if (platform.indexOf("ndroid") >= 0) {
+		} else if (platform.toLowerCase().indexOf("android") >= 0) {
 			clientType = 1;
-		} else if (platform.indexOf("iOS") >= 0) {
+		} else if (platform.toLowerCase().indexOf("ios") >= 0) {
 			clientType = 2;
 		} else if (platform.matches("[0-9]")) {
 			clientType = Integer.parseInt(platform);
