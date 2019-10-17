@@ -1,7 +1,7 @@
 package com.as1124.server.wxsapp.service;
 
-import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -18,6 +18,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.as1124.server.wxsapp.access.WechatPlatformConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
+import com.as1124.server.wxsapp.database.mapper.UserAddressMapper;
 import com.as1124.server.wxsapp.database.mapper.UserInfoMapper;
 import com.as1124.server.wxsapp.resources.UserInfo;
 
@@ -34,7 +35,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/add")
 	@Produces("application/json; charset=UTF-8")
 	public Response insertUser(UserInfo user) {
-		if (user == null || StringUtils.isBlank(user.getOpenid()) || StringUtils.isBlank(user.getUnionid())) {
+		if (user == null || StringUtils.isBlank(user.getOpenid()) || StringUtils.isBlank(user.getAppid())) {
 			return errorResponse(new Exception("新用户信息缺少必要字段"), 1001);
 		}
 		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
@@ -52,7 +53,7 @@ public class UserService extends AbstractHttpRestService {
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return errorResponse(e, 3001);
 		}
 	}
@@ -65,11 +66,16 @@ public class UserService extends AbstractHttpRestService {
 				.openSession(true);) {
 			if (session != null) {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
-				return successResponse(mapper.queryByID(userid));
+				UserAddressMapper addressMapper = session.getMapper(UserAddressMapper.class);
+				UserInfo userInfo = mapper.queryByID(userid);
+				if (StringUtils.isNoneBlank(userInfo.getOpenid())) {
+					userInfo.setExpressAddress(addressMapper.queryExpressAddress(userInfo.getOpenid()));
+				}
+				return successResponse(userInfo);
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return errorResponse(e, 3001);
 		}
 	}
@@ -82,20 +88,20 @@ public class UserService extends AbstractHttpRestService {
 				.openSession(true);) {
 			if (session != null) {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
-				return successResponse(mapper.queryByKey(userInfo));
+				UserAddressMapper addressMapper = session.getMapper(UserAddressMapper.class);
+				List<UserInfo> users = mapper.queryByKey(userInfo);
+				for (UserInfo one : users) {
+					if (StringUtils.isNoneBlank(one.getOpenid())) {
+						one.setExpressAddress(addressMapper.queryExpressAddress(one.getOpenid()));
+					}
+				}
+				return successResponse(users);
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return errorResponse(e, 3001);
 		}
-	}
-
-	@GET
-	@Path("/state/{userID}")
-	@Produces("application/json; charset=UTF-8")
-	public Response getState(@PathParam("userID") String userID) {
-		return Response.status(Status.OK).entity(Boolean.TRUE).build();
 	}
 
 	@GET
@@ -110,7 +116,7 @@ public class UserService extends AbstractHttpRestService {
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			return errorResponse(e, 3001);
 		}
 	}
@@ -129,7 +135,28 @@ public class UserService extends AbstractHttpRestService {
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
+			return errorResponse(e, 3001);
+		}
+	}
+
+	@POST
+	@Path("/goodscar")
+	@Produces("application/json; charset=UTF-8")
+	public Response saveGoodsCar(Map<String, ?> formData) {
+		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
+			if (session != null) {
+				String openid = String.valueOf(formData.get("openid"));
+				String goodscar = formData.get("goodscar").toString();
+				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
+				boolean result = mapper.updateGoodsCar(openid, goodscar);
+				session.commit();
+				return successResponse(result);
+			} else {
+				return Response.status(Status.ACCEPTED).build();
+			}
+		} catch (Exception e) {
 			return errorResponse(e, 3001);
 		}
 	}

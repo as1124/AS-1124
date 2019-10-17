@@ -3,73 +3,113 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper
-	namespace="com.as1124.server.wxsapp.database.mapper.UserInfoMapper" >
-	
-	<sql id="fullFields">
-		user_info
-		(openid, unionid, appid, user_level, wechat_name, name, head_icon, telephone, register_time, user_status, goods_car, ext1, ext2, ext3, ext4, ext5)
-		values
-		(#{openid},#{unionid},#{appid},#{userLevel},#{wechatName},#{name},#{headIcon},#{telephone},#{registerTime},#{userStatus},
-		#{goodsCar},#{ext1},#{ext2},#{ext3},#{ext4},#{ext5});  
-	</sql>
-	
+	namespace="com.as1124.server.wxsapp.database.mapper.UserInfoMapper">
+
+	<resultMap id="userResult" type="UserInfo">
+		<collection property="expressAddress" javaType="HashMap"
+			column="openid" select="queryWithAddress" />
+	</resultMap>
+
 	<insert id="insertUser" parameterType="UserInfo"
-		flushCache="true" useGeneratedKeys="true" keyProperty="userid" >
-		insert into <include refid="fullFields" />
+		flushCache="true" useGeneratedKeys="true" keyProperty="userid">
+		insert into
+		user_info(openid,unionid,appid,user_level,wechat_name,name,
+		head_icon,telephone,register_time,user_status,
+		goods_car,ext1,ext2,ext3,ext4,ext5)
+		values
+		(#{openid},#{unionid},#{appid},#{userLevel},#{wechatName},#{name},#{headIcon},#{telephone},
+		#{registerTime},#{userStatus},#{goodsCar},#{ext1},#{ext2},#{ext3},#{ext4},#{ext5});
 	</insert>
-	
+
 	<select id="queryByID" parameterType="int" resultType="UserInfo">
-		select * from user_info where userid = #{userid};
+		select *
+		from user_info where userid = #{userid};
 	</select>
-	
+
 	<select id="queryByKey" parameterType="UserInfo" resultType="UserInfo">
-		select * from user_info 
+		select * from user_info
 		<where>
 			<choose>
 				<when test="openid != null and openid != ''">
-				openid = #{openid};
-			    </when>
-			    <when test="unionid != null and unionid != ''">
-				unionid = #{unionid};
-			    </when>
-			    <when test="telephone != null and telephone != ''">
-				telephone = #{telephone};
-			    </when>
-			    <when test="wechatName != null and wechatName != ''">
-			    wechat_name like #{wechatName};
-			    </when>
-			    <otherwise>
-			    userid = -1;
-			    </otherwise>
+					openid = #{openid};
+				</when>
+				<when test="unionid != null and unionid != ''">
+					unionid = #{unionid};
+				</when>
+				<when test="telephone != null and telephone != ''">
+					telephone = #{telephone};
+				</when>
+				<when test="wechatName != null and wechatName != ''">
+					wechat_name like "%"#{wechatName}"%";
+				</when>
+				<otherwise>
+					userid = -1;
+				</otherwise>
 			</choose>
 		</where>
 	</select>
-	
+
 	<select id="queryAll" resultType="UserInfo">
 		select * from user_info;
 	</select>
-	
+
 	<update id="updateUser" parameterType="UserInfo" keyProperty="userid">
 		update user_info set
-		unionid=#{unionid}, appid=#{appid}, user_level=#{userLevel}, wechat_name=#{wechatName}, name=#{name}, head_icon=#{headIcon}, 
-		telephone=#{telephone}, user_status=#{userStatus}, goods_car=#{goodsCar}, ext1=#{ext1}, ext2=#{ext2}, ext3=#{ext3}, ext4=#{ext4}, ext5=#{ext5} 
+		<if test="unionid != null and unionid != ''">
+			unionid=#{unionid},
+		</if>
+		<if test="appid != null and appid != ''">
+			appid=#{appid},
+		</if>
+		<if test="wechatName != null and wechatName != ''">
+			wechat_name=#{wechatName},
+		</if>
+		<if test="name != null and name != ''">
+			name=#{name},
+		</if>
+		<if test="headIcon != null and headIcon != ''">
+			head_icon=#{headIcon},
+		</if>
+		<if test="telephone != null and telephone != ''">
+			telephone=#{telephone},
+		</if>
+		<if test="goodsCar != null and goodsCar != ''">
+			goods_car=#{goodsCar},
+		</if>
+		<if test="registerTime != null and registerTime != ''">
+			register_time=#{registerTime},
+		</if>
+		<if test="ext1 != null and ext1 != ''">
+			ext1=#{ext1},
+		</if>
+		<if test="ext2 != null and ext2 != ''">
+			ext2=#{ext2},
+		</if>
+		<if test="ext3 != null and ext3 != ''">
+			ext3=#{ext3},
+		</if>
+		<if test="ext4 != null and ext4 != ''">
+			ext4=#{ext4},
+		</if>
+		<if test="ext5 != null and ext5 != ''">
+			ext5=#{ext5},
+		</if>
+		user_level=#{userLevel},user_status=#{userStatus}
+		
 		<where>
 			<choose>
 				<when test="openid != null and openid != ''">
-				openid = #{openid};
-			    </when>
-			    <!-- unionid 可能带来多条结果被更新 -->
-<!-- 			    <when test="unionid != null and unionid != ''">
-				unionid = #{unionid};
-			    </when> -->
-			    <when test="telephone != null and telephone != ''">
-				telephone = #{telephone};
-			    </when>
-			    <otherwise>
-			    userid = #{userid};
-			    </otherwise>
+					openid = #{openid};
+				</when>
+				<otherwise>
+					userid = #{userid};
+				</otherwise>
 			</choose>
 		</where>
 	</update>
-	
+
+	<update id="updateGoodsCar">
+		update user_info set goods_car=#{goodscar} 
+		where openid = #{openid};
+	</update>
 </mapper>

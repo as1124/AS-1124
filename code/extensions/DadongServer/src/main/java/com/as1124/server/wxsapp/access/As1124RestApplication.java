@@ -34,6 +34,19 @@ public class As1124RestApplication extends Application {
 		// default constructor
 	}
 
+	/**
+	 * 这里提供的REST处理类是不做单例处理
+	 * @see javax.ws.rs.core.Application#getClasses()
+	 */
+	@Override
+	public Set<Class<?>> getClasses() {
+		return super.getClasses();
+	}
+
+	/** 
+	 * 这里提供的REST处理类都会被作为单例处理
+	 * @see javax.ws.rs.core.Application#getSingletons()
+	 */
 	@Override
 	public Set<Object> getSingletons() {
 		if (singletons.isEmpty()) {
