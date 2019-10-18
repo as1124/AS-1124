@@ -1,7 +1,6 @@
 package com.as1124.server.wxsapp.resources;
 
 import java.sql.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -82,7 +81,7 @@ public class UserInfo {
 	/**
 	 * 快递收获地址信息
 	 */
-	private List<HashMap<String, Object>> expressAddress;
+	private List<UserExpressAddress> expressAddress;
 
 	public UserInfo() {
 		// default constructor
@@ -329,14 +328,14 @@ public class UserInfo {
 	/**
 	 * @return Returns the {@link expressAddress}.
 	 */
-	public List<HashMap<String, Object>> getExpressAddress() {
+	public List<UserExpressAddress> getExpressAddress() {
 		return expressAddress;
 	}
 
 	/**
 	 * @param expressAddress The {@link expressAddress} to set.
 	 */
-	public void setExpressAddress(List<HashMap<String, Object>> expressAddress) {
+	public void setExpressAddress(List<UserExpressAddress> expressAddress) {
 		this.expressAddress = expressAddress;
 	}
 

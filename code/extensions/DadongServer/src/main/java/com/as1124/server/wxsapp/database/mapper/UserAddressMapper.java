@@ -1,10 +1,10 @@
 package com.as1124.server.wxsapp.database.mapper;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
+
+import com.as1124.server.wxsapp.resources.UserExpressAddress;
 
 /**
  * 用户收货地址查询器
@@ -13,11 +13,33 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface UserAddressMapper {
 
-	public void insertExpressAddress(Map<String, ?> address);
+	/**
+	 * 新增收货地址
+	 * @param addressData
+	 */
+	public void insertExpressAddress(UserExpressAddress addressData);
 
-	public List<HashMap<String, Object>> queryExpressAddress(@Param("openid") String openid);
+	/**
+	 * 查询收货地址
+	 * @param openid
+	 * @param addressID
+	 * @return
+	 */
+	public List<UserExpressAddress> queryExpressAddress(@Param("openid") String openid,
+			@Param("addressid") int addressID);
 
-	public boolean updateExpressAddress();
+	/**
+	 * 更新地址信息
+	 * @param addressData
+	 * @return
+	 */
+	public boolean updateExpressAddress(UserExpressAddress addressData);
 
-	public boolean deleteExpressAddress(int addressid, String openid);
+	/**
+	 * 删除地址信息
+	 * @param openid
+	 * @param addressID
+	 * @return
+	 */
+	public boolean deleteExpressAddress(@Param("openid") String openid, @Param("addressid") int addressID);
 }

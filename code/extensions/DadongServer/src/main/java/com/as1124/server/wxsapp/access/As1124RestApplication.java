@@ -13,7 +13,6 @@ import com.as1124.server.wxsapp.service.GoodsCategoryService;
 import com.as1124.server.wxsapp.service.GoodsInfoService;
 import com.as1124.server.wxsapp.service.GoodsOrderService;
 import com.as1124.server.wxsapp.service.UserService;
-import com.as1124.server.wxsapp.service.WechatService;
 
 /**
  * In common use, we register REST service via "{@link ResteasyBootstrap}"
@@ -53,7 +52,6 @@ public class As1124RestApplication extends Application {
 			singletons.add(new GoodsCategoryService());
 			singletons.add(new GoodsInfoService());
 			singletons.add(new GoodsOrderService());
-			singletons.add(new WechatService());
 		}
 		Set<Object> superSingletons = super.getSingletons();
 		if (superSingletons != null && !superSingletons.isEmpty()) {

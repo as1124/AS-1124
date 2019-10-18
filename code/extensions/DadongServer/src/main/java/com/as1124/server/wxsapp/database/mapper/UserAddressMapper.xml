@@ -5,20 +5,51 @@
 <mapper
 	namespace="com.as1124.server.wxsapp.database.mapper.UserAddressMapper">
 
-	<resultMap id="addressResult" type="HashMap">
-		<id property="addressID" column="id" />
-		<result property="openid" column="openid" />
-		<result property="address" column="address" />
-		<result property="remark" column="remark" />
-		<result property="userName" column="user_name" />
-		<result property="userPhone" column="user_phone" />
-		<result property="ext1" column="ext1" />
-		<result property="ext2" column="ext2" />
-		<result property="ext3" column="ext3" />
-	</resultMap>
+	<insert id="insertExpressAddress" parameterType="ExpressAddress"
+		keyColumn="addressid" keyProperty="addressid" flushCache="true"
+		useGeneratedKeys="true">
+		insert into
+		user_address(openid,address,remark,user_name,telphone,ext1,ext2,ext3)
+		values(#{openid},#{address},#{remark},#{userName},#{telphone},#{ext1},#{ext2},#{ext3});
+	</insert>
 
-	<select id="queryExpressAddress" resultMap="addressResult">
-		select * from user_address where openid=#{openid};
+	<select id="queryExpressAddress" resultType="ExpressAddress">
+		select * from
+		user_address where openid=#{openid}
+		<if test="addressid > 0">
+			and addressid=#{addressid}
+		</if>
 	</select>
+
+	<update id="updateExpressAddress" parameterType="ExpressAddress"
+		keyColumn="addressid" keyProperty="addressid">
+		update user_address set
+		<if test="telphone != null and telphone != ''">
+			telphone=#{telphone},
+		</if>
+		<if test="remark != null and remark != ''">
+			remark=#{remark},
+		</if>
+		<if test="ext1 != null and ext1 != ''">
+			ext1=#{ext1},
+		</if>
+		<if test="ext2 != null and ext2 != ''">
+			ext2=#{ext2},
+		</if>
+		<if test="ext3 != null and ext3 != ''">
+			ext3=#{ext3},
+		</if>
+		address=#{address},user_name=#{userName} where addressid=#{addressid}
+		<if test="openid !=null and openid !=''">
+			and openid=#{openid}
+		</if>
+	</update>
+
+	<delete id="deleteExpressAddress">
+		delete from user_address where openid=#{openid)
+		<if test="addressid >0">
+			and addressid=#{addressid}
+		</if>
+	</delete>
 
 </mapper>
