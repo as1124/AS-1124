@@ -9,6 +9,8 @@ CREATE TABLE `goods_order` (
   `discount` varchar(16) DEFAULT '0' COMMENT '折扣金额',
   `order_time` date DEFAULT NULL COMMENT '下单时间',
   `order_status` int DEFAULT -1 COMMENT '订单状态',
+  `wx_prepayid` varchar(128) DEFAULT '' COMMENT '微信预支付订单号',
+  `wx_payid` varchar(128) DEFAULT '' COMMENT '微信支付订单号',
   `express_info` text DEFAULT NULL COMMENT '物流信息',
   `ext1` varchar(256) DEFAULT '',
   `ext2` varchar(256) DEFAULT '',
@@ -17,3 +19,5 @@ CREATE TABLE `goods_order` (
   `ext5` varchar(256) DEFAULT '',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='订单';
+
+drop table goods_order;

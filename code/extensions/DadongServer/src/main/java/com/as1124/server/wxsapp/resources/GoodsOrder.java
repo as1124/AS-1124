@@ -55,6 +55,16 @@ public class GoodsOrder {
 	private int orderStatus;
 
 	/**
+	 * 微信预支付订单号
+	 */
+	private String wxPrepayid;
+
+	/**
+	 * 微信支付订单号
+	 */
+	private String wxPayid;
+
+	/**
 	 * 订单物流信息，JSON文本
 	 */
 	private String expressInfo;
@@ -197,6 +207,34 @@ public class GoodsOrder {
 	 */
 	public void setOrderStatus(int orderStatus) {
 		this.orderStatus = orderStatus;
+	}
+
+	/**
+	 * @return Returns the {@link wxPrepayid}.
+	 */
+	public String getWxPrepayid() {
+		return wxPrepayid;
+	}
+
+	/**
+	 * @param wxPrepayid The {@link wxPrepayid} to set.
+	 */
+	public void setWxPrepayid(String wxPrepayid) {
+		this.wxPrepayid = wxPrepayid;
+	}
+
+	/**
+	 * @return Returns the {@link wxPayid}.
+	 */
+	public String getWxPayid() {
+		return wxPayid;
+	}
+
+	/**
+	 * @param wxPayid The {@link wxPayid} to set.
+	 */
+	public void setWxPayid(String wxPayid) {
+		this.wxPayid = wxPayid;
 	}
 
 	/**

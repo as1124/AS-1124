@@ -5,7 +5,9 @@ package com.as1124.server.wxsapp.access;
  *
  * @author As-1124(mailto:as1124huang@gmail.com)
  */
-public class WechatPlatformConstants {
+public class As1124AppConstants {
 
 	public static final String DB_ENVIRONMENT = "development";
+	
+	public static final String WXSAPP_ID = "";
 }

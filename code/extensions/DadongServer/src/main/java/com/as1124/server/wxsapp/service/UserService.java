@@ -18,7 +18,7 @@ import javax.ws.rs.core.Response.Status;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 
-import com.as1124.server.wxsapp.access.WechatPlatformConstants;
+import com.as1124.server.wxsapp.access.As1124AppConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
 import com.as1124.server.wxsapp.database.mapper.UserAddressMapper;
 import com.as1124.server.wxsapp.database.mapper.UserInfoMapper;
@@ -41,7 +41,7 @@ public class UserService extends AbstractHttpRestService {
 			Exception ex = new Exception(DadongMessages.getString(DadongMessages.USER_1001));
 			return errorResponse(ex, Integer.valueOf(DadongMessages.USER_1001));
 		}
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
@@ -66,7 +66,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/detail/{userID}")
 	@Produces("application/json; charset=UTF-8")
 	public Response getUserByID(@PathParam("userID") int userid) {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
@@ -88,7 +88,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/detail")
 	@Produces("application/json; charset=UTF-8")
 	public Response getUserByKey(UserInfo userInfo) {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
@@ -112,7 +112,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/all")
 	@Produces("application/json; charset=UTF-8")
 	public Response getAllUsers() {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
@@ -129,7 +129,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/update")
 	@Produces("application/json; charset=UTF-8")
 	public Response updateUser(UserInfo userInfo) {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
@@ -148,7 +148,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/goodscar")
 	@Produces("application/json; charset=UTF-8")
 	public Response saveGoodsCar(Map<String, ?> formData) {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				String openid = String.valueOf(formData.get("openid"));
@@ -169,7 +169,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/address")
 	@Produces("application/json; charset=UTF-8")
 	public Response insertExpressAddress(UserExpressAddress addressInfo) {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserAddressMapper mapper = session.getMapper(UserAddressMapper.class);
@@ -188,7 +188,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/address/{openid}")
 	@Produces("application/json; charset=UTF-8")
 	public Response queryExpressAddress(@PathParam("openid") String openid, @QueryParam("id") int addressID) {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserAddressMapper mapper = session.getMapper(UserAddressMapper.class);
@@ -205,7 +205,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/address/update")
 	@Produces("application/json; charset=UTF-8")
 	public Response updateExpressAddress(UserExpressAddress addressInfo) {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserAddressMapper mapper = session.getMapper(UserAddressMapper.class);
@@ -224,7 +224,7 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/address")
 	@Produces("application/json; charset=UTF-8")
 	public Response deleteExpressAddress(UserExpressAddress addressInfo) {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserAddressMapper mapper = session.getMapper(UserAddressMapper.class);

@@ -9,11 +9,11 @@
 		useGeneratedKeys="true" keyColumn="id" keyProperty="id"
 		flushCache="true">
 		insert into goods_order(orderid,openid,unionid,goods_info,
-		total_price,discount,order_time,order_status,
-		express_info,ext1,ext2,ext3,ext4,ext5)
+		total_price,discount,order_time,order_status,wx_prepayid,
+		wx_payid,express_info,ext1,ext2,ext3,ext4,ext5)
 		values
-		(#{orderid},#{unionid},#{goodsInfo},#{totalPrice},#{discount},#{orderTime},
-		#{orderStatus},#{expressInfo},#{ext1},#{ext2},#{ext3},#{ext4},#{ext5});
+		(#{orderid},#{openid},#{unionid},#{goodsInfo},#{totalPrice},#{discount},#{orderTime},
+		#{orderStatus},#{wxPrepayid},#{wxPayid},#{expressInfo},#{ext1},#{ext2},#{ext3},#{ext4},#{ext5});
 	</insert>
 
 	<select id="queryOrderByID" parameterType="string"
@@ -21,17 +21,103 @@
 		select * from goods_order where orderid = #{orderid};
 	</select>
 
+	<select id="queryUserOrders" resultType="GoodsOrder">
+		select * from
+		goods_order where openid = #{openid}
+		<if test="orderStatus > 0">
+			and order_status = #{orderStatus}
+		</if>
+	</select>
+
+	<select id="queryOrdersInDate" resultType="GoodsOrder">
+		select * from
+		goods_order where openid = #{openid}
+		<if test="startDate != null and startDate != ''">
+			and order_time >= #{startDate}
+		</if>
+		<if test="endDate != null and endDate != ''">
+			and order_time &lt;= #{endDate}
+		</if>
+	</select>
+
 	<select id="queryOrders" parameterType="GoodsOrder"
-		resultType="GoodsOrder"></select>
+		resultType="GoodsOrder">
+		select * from goods_order
+		<where>
+			<choose>
+				<when test="openid != null and openid != ''">
+					openid = #{openid};
+				</when>
+				<when test="unionid != null and unionid != ''">
+					unionid = #{unionid};
+				</when>
+				<when test="wxPrepayid != null and wxPrepayid != ''">
+					wx_prepayid = #{wxPrepayid};
+				</when>
+				<when test="wxPayid != null and wxPayid != ''">
+					wx_payid = #{wxPayid};
+				</when>
+				<when test="orderStatus > 0">
+					order_status = #{orderStatus};
+				</when>
+				<otherwise>
+					orderid = #{orderid};
+				</otherwise>
+			</choose>
+		</where>
+	</select>
 
 	<update id="updateOrderStatus">
-		update goods_order set order_status = #{status} where
+		update goods_order set order_status = #{orderStatus}
+		where
 		orderid = #{orderid};
 	</update>
 
-	<update id="updateOrder"></update>
+	<update id="updateOrder">
+		update goods_order set
+		<if test="unionid != null and unionid != ''">
+			unionid=#{unionid},
+		</if>
+		<if test="goodsInfo != null and goodsInfo != ''">
+			goods_info=#{goodsInfo},
+		</if>
+		<!-- 安全起见，不让修改订单价格和优惠金额，智能通过修改数据库 -->
+		<!-- <if test="totalPrice != null and totalPrice != ''"> -->
+		<!-- total_price=#{totalPrice}, -->
+		<!-- </if> -->
+		<!-- <if test="discount != null and discount != ''"> -->
+		<!-- discount=#{discount}, -->
+		<!-- </if> -->
+		<if test="wxPrepayid != null and wxPrepayid != ''">
+			wx_prepayid=#{wxPrepayid},
+		</if>
+		<if test="wxPayid != null and wxPayid != ''">
+			wx_payid=#{wxPayid},
+		</if>
+		<if test="expressInfo != null and expressInfo != ''">
+			express_info=#{expressInfo},
+		</if>
+		<if test="ext1 != null and ext1 != ''">
+			ext1=#{ext1},
+		</if>
+		<if test="ext2 != null and ext2 != ''">
+			ext2=#{ext2},
+		</if>
+		<if test="ext3 != null and ext3 != ''">
+			ext3=#{ext3},
+		</if>
+		<if test="ext4 != null and ext4 != ''">
+			ext4=#{ext4},
+		</if>
+		<if test="ext5 != null and ext5 != ''">
+			ext5=#{ext5},
+		</if>
+		order_status=#{orderStatus} where orderid=#{orderid} and
+		openid=#{openid}
+	</update>
 
 	<delete id="deleteOrder" parameterType="string">
-		delete from goods_order where orderid = #{orderid};
+		delete from goods_order
+		where orderid=#{orderid} and openid=#{openid};
 	</delete>
 </mapper>

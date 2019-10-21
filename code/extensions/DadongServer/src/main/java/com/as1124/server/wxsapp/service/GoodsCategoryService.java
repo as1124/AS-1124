@@ -13,7 +13,7 @@ import javax.ws.rs.core.Response.Status;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.as1124.server.wxsapp.access.WechatPlatformConstants;
+import com.as1124.server.wxsapp.access.As1124AppConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
 import com.as1124.server.wxsapp.database.mapper.GoodsCategoryMapper;
 
@@ -36,7 +36,7 @@ public class GoodsCategoryService extends AbstractHttpRestService {
 	@GET
 	@Path("/detail")
 	public Response queryGoodsCategory(@QueryParam("categoryid") String categoryid) {
-		try (SqlSession session = DatasourceFactory.getDatasource(WechatPlatformConstants.DB_ENVIRONMENT)
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				GoodsCategoryMapper mapper = session.getMapper(GoodsCategoryMapper.class);
