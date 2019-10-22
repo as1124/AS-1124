@@ -1,14 +1,16 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
 
     useLibrary('org.apache.http.legacy', true)
 
     defaultConfig {
         applicationId "com.as1124.ch5"
         minSdkVersion 23
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -29,9 +31,13 @@ android {
 
 dependencies {
 
-    implementation 'com.android.support.constraint:constraint-layout:2.0.0-beta2'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     implementation fileTree(dir: 'libs', include: ['*.aar', '*.jar'], exclude: [])
     implementation 'com.squareup.okhttp:okhttp:2.7.5'
-    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.6.2'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

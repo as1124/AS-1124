@@ -1,8 +1,8 @@
 package com.as1124.ch2_material.textinput;
 
 import android.os.Bundle;
-import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.textfield.TextInputLayout;
+import androidx.appcompat.app.AppCompatActivity;
 import android.text.TextUtils;
 
 import com.as1124.ch2_material.R;

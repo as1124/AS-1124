@@ -2,20 +2,21 @@ package com.as1124.ch2_material;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import com.google.android.material.snackbar.Snackbar;
+import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.as1124.ch2_material.tab.TabLayoutActivity;
 import com.as1124.ch2_material.textinput.LoginActivity;
+import com.google.android.material.textfield.TextInputLayout;
 
 /**
  * Material Design Support控件苦的使用
  * <ol>
  * <li>{@link Snackbar}</li>
- * <li>{@link android.support.design.widget.TextInputLayout}</li>
+ * <li>{@link TextInputLayout}</li>
  * </ol>
  *
  * @author as-1124(mailto:as1124huang@gmail.com)
