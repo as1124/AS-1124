@@ -7,19 +7,19 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/but_snackbar"
+        android:id="@+id/btn_snackbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Snackbar 和 Toast"
+        android:text="新版SnackBar 和 Toast"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/but_to_login"
+        android:id="@+id/btn_to_login"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -27,12 +27,11 @@
         android:layout_marginEnd="8dp"
         android:text="TextInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.698"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_snackbar" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_snackbar" />
 
     <Button
-        android:id="@+id/but_to_floating"
+        android:id="@+id/btn_to_floating"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -41,10 +40,10 @@
         android:text="FloatingActionButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_to_login" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_to_login" />
 
     <Button
-        android:id="@+id/but_to_tablayout"
+        android:id="@+id/btn_to_tablayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -53,5 +52,23 @@
         android:text="TabLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/but_to_floating" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_to_floating" />
+
+    <Button
+        android:id="@+id/btn_to_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="RecyclerList"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_to_tablayout" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:id="@+id/coorLayout"
+        android:layout_height="50dp"
+        app:layout_constraintTop_toBottomOf="@id/btn_to_list" />
 </androidx.constraintlayout.widget.ConstraintLayout>
