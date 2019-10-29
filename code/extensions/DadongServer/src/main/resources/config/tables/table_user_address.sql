@@ -9,5 +9,5 @@ CREATE TABLE `user_address` (
   `ext1` varchar(256) DEFAULT NULL,
   `ext2` varchar(256) DEFAULT NULL,
   `ext3` varchar(256) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`addressid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='收货地址';

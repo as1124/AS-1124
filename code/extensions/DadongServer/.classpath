@@ -24,6 +24,5 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
-	<classpathentry kind="lib" path="C:/work/gitcodes/A15_build_test/cipc-jiebao-android/androidstudio/jiebao_a15/gradle/wrapper/gradle-wrapper.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
