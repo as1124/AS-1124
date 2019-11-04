@@ -53,6 +53,11 @@ public class GoodsInfo {
 	private int amount = 0;
 
 	/**
+	 * 显示顺序
+	 */
+	private int showOrder;
+
+	/**
 	 * 商品详细描述：颜色、尺码等
 	 */
 	private String detail;
@@ -187,6 +192,20 @@ public class GoodsInfo {
 	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
+	}
+
+	/**
+	 * @return Returns the {@link showOrder}.
+	 */
+	public int getShowOrder() {
+		return showOrder;
+	}
+
+	/**
+	 * @param amount The {@link #showOrder} to set.
+	 */
+	public void setShowOrder(int showOrder) {
+		this.showOrder = showOrder;
 	}
 
 	/**

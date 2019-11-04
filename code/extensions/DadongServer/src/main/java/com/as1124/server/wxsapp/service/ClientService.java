@@ -30,6 +30,12 @@ import com.as1124.server.wxsapp.database.mapper.AppClientMapper;
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED })
 public class ClientService extends AbstractHttpRestService {
 
+	/**
+	 * 根据客户端版本和类型查询对应的APP配置项
+	 * @param clientVersion 程序版本
+	 * @param platform 客户端类型
+	 * @return
+	 */
 	@GET
 	@Path("/setting")
 	@Produces("application/json; charset=UTF-8")

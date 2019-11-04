@@ -50,7 +50,7 @@ public class GoodsOrderService extends AbstractHttpRestService {
 				.openSession(true);) {
 			if (session != null) {
 				GoodsOrderMapper mapper = session.getMapper(GoodsOrderMapper.class);
-				String orderid = generateOrderNo("DD", As1124AppConstants.WXSAPP_ID, orderInfo.getOpenid());
+				String orderid = generateOrderNo("DD", As1124AppConstants.WX_APPID, orderInfo.getOpenid());
 				orderInfo.setOrderid(orderid);
 				mapper.newGoodsOrder(orderInfo);
 				session.commit();

@@ -12,6 +12,12 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface AppClientMapper {
 
+	/**
+	 * 查询APP配置信息
+	 * @param clientType
+	 * @param clientVersion
+	 * @return
+	 */
 	public List<HashMap<String, Object>> queryAppSetting(@Param("clientType") int clientType,
 			@Param("clientVersion") String clientVersion);
 }

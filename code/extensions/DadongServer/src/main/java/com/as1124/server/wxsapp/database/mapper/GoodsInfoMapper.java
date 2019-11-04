@@ -23,4 +23,10 @@ public interface GoodsInfoMapper {
 	 * @return
 	 */
 	public List<GoodsInfo> allGoods();
+	
+	/**
+	 * 显示热销产品
+	 * @return
+	 */
+	public List<GoodsInfo> queryTopHots();
 }

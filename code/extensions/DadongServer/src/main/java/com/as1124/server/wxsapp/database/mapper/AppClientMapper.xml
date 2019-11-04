@@ -6,6 +6,7 @@
 	namespace="com.as1124.server.wxsapp.database.mapper.AppClientMapper">
 
 	<resultMap type="HashMap" id="queryResult">
+		<id property="id" column="id" />
 		<result property="clientVersion" column="client_version" />
 		<result property="clientType" column="client_type" />
 		<result property="setting" column="setting" />

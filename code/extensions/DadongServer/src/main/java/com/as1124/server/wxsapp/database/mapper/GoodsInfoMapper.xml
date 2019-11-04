@@ -10,7 +10,7 @@
 		<where>
 			<choose>
 				<when test="categoryid != null and categoryid != ''">
-					categoryid = #{categoryid}
+					categoryid = "%"#{categoryid}"%"
 				</when>
 				<when test="name != null and name != ''">
 					name like "%"#{name}"%"
@@ -23,7 +23,10 @@
 	</select>
 
 	<select id="allGoods" parameterType="string" resultType="GoodsInfo">
-		select * from goods_info;
+		select * from goods_info order by show_order ASC;
 	</select>
 	
+	<select id="queryTopHots" parameterType="string" resultType="GoodsInfo">
+		select * from goods_info ORDER BY show_order LIMIT 0,9 
+	</select>
 </mapper>

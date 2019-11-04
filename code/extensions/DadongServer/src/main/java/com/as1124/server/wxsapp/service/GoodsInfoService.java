@@ -31,6 +31,22 @@ import com.as1124.server.wxsapp.resources.GoodsInfo;
 @Produces("application/json; charset=UTF-8")
 public class GoodsInfoService extends AbstractHttpRestService {
 
+	@GET
+	@Path("/topHot")
+	public Response queryTopHots() {
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
+			if (session != null) {
+				GoodsInfoMapper mapper = session.getMapper(GoodsInfoMapper.class);
+				return successResponse(mapper.queryTopHots());
+			} else {
+				return Response.status(Status.ACCEPTED).build();
+			}
+		} catch (IOException e) {
+			return errorResponse(e, 2001);
+		}
+	}
+
 	@POST
 	public Response queryGoodsByKey(GoodsInfo goods) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
