@@ -53,4 +53,11 @@ public interface UserInfoMapper {
 	 * @return
 	 */
 	public boolean updateGoodsCar(@Param("openid") String openid, @Param("goodscar") String goodscar);
+	
+	/**
+	 * 查询用户的购物车信息
+	 * @param openid
+	 * @return
+	 */
+	public String queryGoodsCar(@Param("openid")String openid);
 }

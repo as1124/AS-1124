@@ -9,7 +9,7 @@ CREATE TABLE `app_setting`  (
   `client_type` int(11) NOT NULL DEFAULT -1 COMMENT '客户端类型',
   `setting` json NULL COMMENT '客户端配置json',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '程序配置信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 COMMENT = '程序配置信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of app_setting
@@ -50,12 +50,12 @@ CREATE TABLE `goods_info`  (
   `name` varchar(256) NULL DEFAULT '' COMMENT '商品名称',
   `preview_icon` varchar(256) NULL DEFAULT '' COMMENT '缩略图标',
   `categoryid` varchar(16) NULL DEFAULT '' COMMENT '大类',
-  `h5url` varchar(512) NULL DEFAULT '' COMMENT '详情页H5',
+  `h5url` text NULL COMMENT '详情页H5',
   `price` varchar(16) NULL DEFAULT '0' COMMENT '售价',
   `original_price` varchar(16) NULL DEFAULT '0' COMMENT '原价',
   `amount` int(11) NULL DEFAULT 0 COMMENT '存货量',
   `show_order` tinyint(5) NULL DEFAULT -1 COMMENT '显示顺序',
-  `detail` json NULL COMMENT '其他信息的json配置，如颜色等',
+  `detail` json COMMENT '其他信息的json配置，如颜色等',
   `ext1` varchar(256) NULL DEFAULT '',
   `ext2` varchar(256) NULL DEFAULT '',
   `ext3` varchar(256) NULL DEFAULT '',
@@ -86,14 +86,14 @@ CREATE TABLE `goods_order`  (
   `orderid` varchar(32) NOT NULL UNIQUE COMMENT '订单编号',
   `openid` varchar(256) NULL DEFAULT '',
   `unionid` varchar(256) NULL DEFAULT '',
-  `goods_info` text NULL COMMENT '订单信息json',
+  `goods_info` json NULL COMMENT '订单信息json',
   `total_price` varchar(16) NULL DEFAULT '0' COMMENT '订单总价',
   `discount` varchar(16) NULL DEFAULT '0' COMMENT '折扣金额',
   `order_time` date NULL DEFAULT NULL COMMENT '下单时间',
   `order_status` int(11) NULL DEFAULT -1 COMMENT '订单状态',
   `wx_prepayid` varchar(128) NULL DEFAULT '' COMMENT '微信预支付订单号',
   `wx_payid` varchar(128) NULL DEFAULT '' COMMENT '微信支付订单号',
-  `express_info` text NULL COMMENT '物流信息',
+  `express_info` json NULL COMMENT '物流信息',
   `ext1` varchar(256) NULL DEFAULT '',
   `ext2` varchar(256) NULL DEFAULT '',
   `ext3` varchar(256) NULL DEFAULT '',
@@ -135,7 +135,7 @@ CREATE TABLE `user_info`  (
   `telephone` varchar(16) NULL UNIQUE DEFAULT '',
   `register_time` date NULL DEFAULT NULL COMMENT '注册时间',
   `user_status` int(11) NULL DEFAULT -1 COMMENT '用户状态',
-  `goods_car` text NULL COMMENT '购物车内容json',
+  `goods_car` json NULL COMMENT '购物车内容json',
   `ext1` varchar(256) NULL DEFAULT '',
   `ext2` varchar(256) NULL DEFAULT '',
   `ext3` varchar(256) NULL DEFAULT '',
@@ -148,4 +148,4 @@ CREATE TABLE `user_info`  (
 -- ----------------------------
 -- Records of user_info
 -- ----------------------------
-INSERT INTO `user_info` VALUES (1, 'oAhJX4-Dud2jrgJu3YtQ47Qz_Bj0', '', '', 0, NULL, NULL, '', '', NULL, -1, NULL, '', '', '', '', '');
+INSERT INTO `user_info` VALUES (1, 'oAhJX4-Dud2jrgJu3YtQ47Qz_Bj0', '', '', 0, NULL, NULL, '', '', NULL, -1, '[{\"goodsno\":\"B1002\",\"goodsNum\":1,\"goodsPrice\":1899.50,\"goodsSubtype\":\"H色\"},{\"goodsno\":\"A1001\",\"goodsNum\":2,\"goodsPrice\":1899.50,\"goodsSubtype\":\"白色色\"}]', '', '', '', '', '');

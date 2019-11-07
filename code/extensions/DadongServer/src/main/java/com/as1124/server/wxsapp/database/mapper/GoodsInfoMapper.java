@@ -2,6 +2,8 @@ package com.as1124.server.wxsapp.database.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.as1124.server.wxsapp.resources.GoodsInfo;
 
 /**
@@ -17,6 +19,13 @@ public interface GoodsInfoMapper {
 	 * @return
 	 */
 	public List<GoodsInfo> queryGoodsByKey(GoodsInfo goodsInfo);
+	
+	/**
+	 * 根据商品编号查询商品信息
+	 * @param goodsno
+	 * @return
+	 */
+	public GoodsInfo queryGoodsByID(@Param("goodsno")String goodsno);
 
 	/**
 	 * 列出所有商品

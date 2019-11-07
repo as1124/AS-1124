@@ -6,7 +6,7 @@
 	namespace="com.as1124.server.wxsapp.database.mapper.GoodsInfoMapper">
 
 	<select id="queryGoodsByKey" parameterType="GoodsInfo" resultType="GoodsInfo">
-		select * from goods_info 
+		select * from goods_info
 		<where>
 			<choose>
 				<when test="categoryid != null and categoryid != ''">
@@ -22,11 +22,15 @@
 		</where>
 	</select>
 
+	<select id="queryGoodsByID" parameterType="string" resultType="GoodsInfo">
+		select * from goods_info where goodsno = #{goodsno};
+	</select>
+
 	<select id="allGoods" parameterType="string" resultType="GoodsInfo">
 		select * from goods_info order by show_order ASC;
 	</select>
-	
+
 	<select id="queryTopHots" parameterType="string" resultType="GoodsInfo">
-		select * from goods_info ORDER BY show_order LIMIT 0,9 
+		select * from goods_info ORDER BY show_order LIMIT 0,9
 	</select>
 </mapper>

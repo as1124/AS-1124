@@ -112,4 +112,8 @@
 		update user_info set goods_car=#{goodscar} 
 		where openid = #{openid};
 	</update>
+	
+	<select id="queryGoodsCar" parameterType="string" resultType="string">
+		select goods_car from user_info where openid = #{openid};
+	</select>
 </mapper>

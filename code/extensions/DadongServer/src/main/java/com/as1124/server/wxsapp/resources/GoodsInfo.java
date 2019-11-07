@@ -68,6 +68,10 @@ public class GoodsInfo {
 		// default constructor
 	}
 
+	public GoodsInfo(String no) {
+		this.goodsno = no;
+	}
+
 	/**
 	 * @return Returns the {@link id}.
 	 */

@@ -15,11 +15,16 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.as1124.api.wechat.sapp.SAPPService;
 import com.as1124.server.wxsapp.access.As1124AppConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
+import com.as1124.server.wxsapp.database.mapper.GoodsInfoMapper;
 import com.as1124.server.wxsapp.database.mapper.UserAddressMapper;
 import com.as1124.server.wxsapp.database.mapper.UserInfoMapper;
 import com.as1124.server.wxsapp.resources.UserExpressAddress;
@@ -144,6 +149,30 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	@GET
+	@Path("/goodscar/{openid}")
+	@Produces("application/json; charset=UTF-8")
+	public Response getGoodsCar(@PathParam("openid") String openid) {
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
+			if (session != null) {
+				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
+				GoodsInfoMapper goodsMapper = session.getMapper(GoodsInfoMapper.class);
+				String result = mapper.queryGoodsCar(openid);
+				JSONArray goodsArray = JSONObject.parseArray(result);
+				for (int i = 0; i < goodsArray.size(); i++) {
+					String goodsno = goodsArray.getJSONObject(i).getString("goodsno");
+					goodsArray.getJSONObject(i).put("goodsDetail", goodsMapper.queryGoodsByID(goodsno));
+				}
+				return successResponse(goodsArray);
+			} else {
+				return Response.status(Status.ACCEPTED).build();
+			}
+		} catch (Exception e) {
+			return errorResponse(e, Integer.valueOf(DadongMessages.SQL_ERROR));
+		}
+	}
+
 	@POST
 	@Path("/goodscar")
 	@Produces("application/json; charset=UTF-8")
@@ -238,12 +267,45 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
-	public Response login() {
-		return null;
+	@GET
+	@Path("/loginsapp/{authCode}")
+	@Produces("application/json; charset=UTF-8")
+	public Response login(@PathParam("authCode") String authCode) {
+		JSONObject sessionInfo = SAPPService.authCode2Session(As1124AppConstants.WX_APPID, As1124AppConstants.WX_SECRET,
+				authCode);
+		return successResponse(sessionInfo);
+	}
+
+	/**
+	 * 解密微信信息数据
+	 * 
+	 * @return
+	 */
+	@POST
+	@Path("/decrypt")
+	@Produces("application/json; charset=UTF-8")
+	public Response decryptData(Map<String, Object> dataMap) {
+		// 校验签名
+		Object signature = dataMap.get("signature");
+		Object rawData = dataMap.get("rawData");
+		String sig1 = DigestUtils.sha1Hex(rawData.toString() + "7z84c+IsyiKdPkZUBQui8Q==");
+
+		// 解密数据
+
+		Object iv = dataMap.get("iv");
+		Object encryptedData = dataMap.get("signature");
+		return successResponse(signature);
 	}
 
 	public Response logOut() {
 		return null;
+	}
+
+	public static void main(String[] args) {
+		String authCode = "011SHJd31S4jkQ1ShGh31vIQd31SHJda";
+		JSONObject sessionInfo = SAPPService.authCode2Session(As1124AppConstants.WX_APPID, As1124AppConstants.WX_SECRET,
+				authCode);
+		System.out.println("sss");
 	}
 
 }
