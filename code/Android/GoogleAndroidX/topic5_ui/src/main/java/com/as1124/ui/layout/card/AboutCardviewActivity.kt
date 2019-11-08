@@ -1,10 +1,11 @@
-package com.as1124.ui.layout.recycler
+package com.as1124.ui.layout.card
 
+import android.app.Activity
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.as1124.ui.R
 
-class AboutCardviewActivity : AppCompatActivity() {
+class AboutCardviewActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -1,2 +1,2 @@
-include ':topic5_ui'
+include ':topic5_ui', ':selflib'
 rootProject.name='GoogleAndroidX'

@@ -1,62 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.as1124.ui.layout.recycler.RoundRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/viewSpace"
+    android:layout_marginTop="@dimen/itemMargin"
+    android:layout_marginEnd="@dimen/viewSpace"
+    android:background="@drawable/bg_list_item"
     android:orientation="vertical"
-    android:paddingLeft="2dp"
-    android:paddingTop="4dp"
-    android:paddingRight="2dp">
+    app:leftBottomRadius="10dp"
+    app:leftTopRadius="10dp"
+    app:rightBottomRadius="10dp"
+    app:rightTopRadius="10dp">
 
     <ImageView
         android:id="@+id/img_preview"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/drawable_item_loading" />
 
     <TextView
         android:id="@+id/text_name"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="2dp"
-        android:layout_marginEnd="4dp"
-        android:gravity="center"
-        android:lines="2"
-        android:maxLines="2"
-        android:text="TextView"
-        android:textAlignment="textStart"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_preview" />
+        android:layout_below="@+id/img_preview"
+        android:layout_alignParentStart="true"
+        android:layout_margin="12dp"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:maxLines="3"
+        android:textColor="@color/textBlack"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/text_price"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_feedback"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_name" />
+        android:layout_width="wrap_content"
+        android:layout_height="26dp"
+        android:layout_below="@id/text_name"
+        android:layout_alignParentStart="true"
+        android:layout_marginHorizontal="@dimen/itemMargin"
+        android:gravity="bottom"
+        android:textColor="@color/itemPrice"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/text_sale_num"
+        android:layout_width="100dp"
+        android:layout_height="26dp"
+        android:layout_below="@id/text_name"
+        android:layout_toLeftOf="@id/btn_feedback"
+        android:layout_toRightOf="@id/text_price"
+        android:ellipsize="end"
+        android:gravity="bottom"
+        android:maxLines="1"
+        android:text="567人已付款"
+        android:textColor="@color/textGray"
+        android:textSize="14sp" />
 
     <ImageButton
         android:id="@+id/btn_feedback"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/text_name"
+        android:layout_height="26dp"
+        android:layout_below="@id/text_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="8dp"
+        android:background="@null"
         app:srcCompat="@android:drawable/presence_audio_online" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <View
+        android:id="@+id/view_item_space"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_below="@id/text_price"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+
+</com.as1124.ui.layout.recycler.RoundRelativeLayout>

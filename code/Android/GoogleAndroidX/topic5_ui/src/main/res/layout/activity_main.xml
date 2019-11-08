@@ -12,10 +12,16 @@
         android:layout_height="wrap_content"
         android:text="布局" />
 
+    <Button
+        android:id="@+id/btn_test"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="测试" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="75px"
         android:layout_gravity="bottom"
         android:background="@color/colorAccent">
 
