@@ -3,6 +3,9 @@
     package="com.as1124.ui">
 
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
