@@ -7,29 +7,37 @@ import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.as1124.ui.R;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 /**
  * 进阶学习{@link RecyclerView}的详细使用和原理，制作类似于淘宝商品列表的界面
  * <ul>
- * <li>自定义列表布局</li>
+ * <li>列表布局
+ * <p>
+ * <ol><li> {@link androidx.recyclerview.widget.LinearLayoutManager}: 单一方向直线布局
+ * <li> {@link GridLayoutManager}: 网格布局，每个Item一定是等高等宽的，不能形成像瀑布流那样
+ * <li> {@link StaggeredGridLayoutManager}: 瀑布流式布局
+ * </ol>
+ * </p>
+ * </li>
  * <li>自定义分割装饰</li>
  * <li>自定义Item特效</li>
  * </ul>
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-public class AboutRecyclerView extends Activity {
+public class AboutRecyclerView extends Activity implements View.OnClickListener {
 
     private RecyclerView recyclerList;
     private RecyclerListAdapter listAdapter;
@@ -46,10 +54,17 @@ public class AboutRecyclerView extends Activity {
         layoutInflater = getLayoutInflater();
         recyclerList = findViewById(R.id.recycler_list);
 
+        // 1. 单方向直线布局
 //        recyclerList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
-        recyclerList.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
+
+        // 2. 网格布局，每个Item一定是等宽等高的，不能像瀑布流那样
+//        recyclerList.setLayoutManager(new GridLayoutManager(this, 2, GridLayoutManager.VERTICAL, false));
+
+        recyclerList.setLayoutManager(new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL));
 //        recyclerList.setLayoutManager(new RecyclerListLayoutManager());
-//        recyclerList.setItemAnimator(new RecyclerListItemAnimator());
+
+        recyclerList.setItemAnimator(new RecyclerListItemAnimator());
+
 //        recyclerList.addItemDecoration(new RecyclerListItemDecoration());
 //        recyclerList.setEdgeEffectFactory(new RecyclerListEdgeEffectFactory());
 
@@ -57,23 +72,61 @@ public class AboutRecyclerView extends Activity {
         listAdapter = new RecyclerListAdapter();
         recyclerList.setAdapter(listAdapter);
 
-//        TelephonyManager manager = (TelephonyManager) getSystemService(TelephonyManager.class);
-//        manager.
+        findViewById(R.id.btn_add_item).setOnClickListener(this);
+        findViewById(R.id.btn_remove_item).setOnClickListener(this);
+        findViewById(R.id.btn_update_item).setOnClickListener(this);
+
     }
 
     private void initItemList() {
         itemsArray = new SparseArray<>();
-        Random random = new Random(5000);
-        for (int i = 0; i < 13; i++) {
+        SecureRandom random = new SecureRandom();
+        {
             ArrayMap<String, Object> data = new ArrayMap<>();
-            data.put("itemName", "Adidas 三叶草/ 真品沙雕士大夫艰苦零零零零哈哈哈裤子，牛批" + i);
+            data.put("itemName", "夫苦零");
             data.put("itemPrice", "￥1122.9");
-            data.put("saleNum", random.nextInt() + "已付款");
+            data.put("saleNum", random.nextInt(5000) + "已付款");
+            itemsArray.put(0, data);
+        }
 
+        for (int i = 1; i < 13; i++) {
+            ArrayMap<String, Object> data = new ArrayMap<>();
+            int size = random.nextInt(20);
+            StringBuilder sbName = new StringBuilder("Adidas 三叶草/ 真品沙");
+            for (int j = 0; j < size; j++) {
+                sbName.append("夫苦零").append(j);
+            }
+            data.put("itemName", sbName.toString() + i);
+            data.put("itemPrice", "￥1122.9");
+            data.put("saleNum", random.nextInt(5000) + "已付款");
             itemsArray.put(i, data);
         }
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_add_item:
+                ArrayMap<String, Object> data = new ArrayMap<>();
+                int newPosition = itemsArray.size();
+                data.put("itemName", "这是新的Item--" + newPosition);
+                data.put("itemPrice", "￥1122.9");
+                data.put("saleNum", "1122已付款");
+                itemsArray.put(newPosition, data);
+                listAdapter.notifyItemInserted(newPosition);
+                break;
+            case R.id.btn_remove_item:
+                itemsArray.remove(0);
+                listAdapter.notifyItemRemoved(0);
+                break;
+            case R.id.btn_update_item:
+                itemsArray.get(3).put("itemName", "更新内容11");
+                listAdapter.notifyItemChanged(3);
+                break;
+            default:
+                break;
+        }
+    }
 
     class RecyclerListAdapter extends RecyclerView.Adapter<ItemHolder> {
 
@@ -110,7 +163,7 @@ public class AboutRecyclerView extends Activity {
     class ItemHolder extends RecyclerView.ViewHolder {
 
         TextView nameText, priceText, numText;
-        ImageButton feedbackBtn;
+        ImageView feedbackBtn;
 
         public ItemHolder(@NonNull View itemView) {
             super(itemView);
@@ -118,7 +171,7 @@ public class AboutRecyclerView extends Activity {
             nameText = itemView.findViewById(R.id.text_name);
             priceText = itemView.findViewById(R.id.text_price);
             numText = itemView.findViewById(R.id.text_sale_num);
-            feedbackBtn = itemView.findViewById(R.id.btn_feedback);
+            feedbackBtn = itemView.findViewById(R.id.img_more);
         }
     }
 }

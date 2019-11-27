@@ -4,9 +4,9 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <color name="listBackground">#EAE2E2E2</color>
-    <color name="itemPrice">#D90D07</color>
+    <color name="listBackground">#F5F5F5</color>
+    <color name="itemPrice">#ff5000</color>
 
     <color name="textBlack">#2B2B2B</color>
-    <color name="textGray">#A2A2A2</color>
+    <color name="textGray">#C6C6C6</color>
 </resources>

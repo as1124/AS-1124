@@ -7,17 +7,56 @@
     android:background="@color/listBackground"
     tools:context=".layout.recycler.AboutRecyclerView">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_list"
+    <TextView
+        android:id="@+id/title_recycler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="40dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="10dp"
+        android:text="自定义RecyclerListView"
+        android:textColor="@color/colorPrimary"
+        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@id/layout_actions"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_recycler" />
+
+    <LinearLayout
+        android:id="@+id/layout_actions"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal"
+        android:scrollbars="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/btn_add_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="添加新的Item" />
+
+        <Button
+            android:id="@+id/btn_remove_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="删除Item" />
+
+        <Button
+            android:id="@+id/btn_update_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="修改Item的值" />
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

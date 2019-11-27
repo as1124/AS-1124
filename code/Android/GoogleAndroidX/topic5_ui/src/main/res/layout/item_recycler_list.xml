@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/viewSpace"
-    android:layout_marginTop="@dimen/itemMargin"
-    android:layout_marginEnd="@dimen/viewSpace"
+    android:layout_marginStart="@dimen/itemMargin"
+    android:layout_marginTop="10dp"
+    android:layout_marginEnd="@dimen/itemMargin"
     android:background="@drawable/bg_list_item"
     android:orientation="vertical"
-    app:leftBottomRadius="10dp"
-    app:leftTopRadius="10dp"
-    app:rightBottomRadius="10dp"
-    app:rightTopRadius="10dp">
+    app:leftBottomRadius="@dimen/itemRadius"
+    app:leftTopRadius="@dimen/itemRadius"
+    app:rightBottomRadius="@dimen/itemRadius"
+    app:rightTopRadius="@dimen/itemRadius">
 
     <ImageView
         android:id="@+id/img_preview"
@@ -24,61 +24,70 @@
         android:scaleType="fitCenter"
         android:src="@drawable/drawable_item_loading" />
 
-    <TextView
-        android:id="@+id/text_name"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/img_preview"
-        android:layout_alignParentStart="true"
-        android:layout_margin="12dp"
-        android:ellipsize="end"
-        android:gravity="center_vertical"
-        android:maxLines="3"
-        android:textColor="@color/textBlack"
-        android:textSize="16sp" />
+        android:layout_below="@id/img_preview"
+        android:orientation="vertical"
+        android:paddingHorizontal="@dimen/itemMargin">
 
-    <TextView
-        android:id="@+id/text_price"
-        android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_below="@id/text_name"
-        android:layout_alignParentStart="true"
-        android:layout_marginHorizontal="@dimen/itemMargin"
-        android:gravity="bottom"
-        android:textColor="@color/itemPrice"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/text_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingTop="12dp"
+            android:paddingBottom="18dp"
+            android:textColor="@color/textBlack"
+            android:textSize="14sp" />
 
-    <TextView
-        android:id="@+id/text_sale_num"
-        android:layout_width="100dp"
-        android:layout_height="26dp"
-        android:layout_below="@id/text_name"
-        android:layout_toLeftOf="@id/btn_feedback"
-        android:layout_toRightOf="@id/text_price"
-        android:ellipsize="end"
-        android:gravity="bottom"
-        android:maxLines="1"
-        android:text="567人已付款"
-        android:textColor="@color/textGray"
-        android:textSize="14sp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:gravity="bottom|left"
+            android:orientation="horizontal">
 
-    <ImageButton
-        android:id="@+id/btn_feedback"
-        android:layout_width="wrap_content"
-        android:layout_height="26dp"
-        android:layout_below="@id/text_name"
-        android:layout_alignParentEnd="true"
-        android:layout_marginRight="8dp"
-        android:background="@null"
-        app:srcCompat="@android:drawable/presence_audio_online" />
+            <TextView
+                android:id="@+id/text_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentBottom="true"
+                android:gravity="bottom|left"
+                android:textColor="@color/itemPrice"
+                android:textSize="16sp" />
 
-    <View
-        android:id="@+id/view_item_space"
-        android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:layout_below="@id/text_price"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true" />
+            <TextView
+                android:id="@+id/text_sale_num"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="6dp"
+                android:layout_toLeftOf="@id/img_more"
+                android:layout_toRightOf="@id/text_price"
+                android:ellipsize="end"
+                android:gravity="bottom|left"
+                android:maxLines="1"
+                android:text="567人已付款"
+                android:textColor="@color/textGray"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:id="@+id/img_more"
+                android:layout_width="20dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="end|bottom"
+                android:paddingTop="14dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/ic_more_horiz" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="12dp" />
+    </LinearLayout>
 
 </com.as1124.ui.layout.recycler.RoundRelativeLayout>

@@ -12,7 +12,7 @@ import com.as1124.ui.R;
 /**
  * 支持圆角的布局容器
  *
- * @author
+ * @author As-1124(mailto:as1124huang@gmail.com)
  */
 public class RoundRelativeLayout extends RelativeLayout {
 
@@ -42,13 +42,15 @@ public class RoundRelativeLayout extends RelativeLayout {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
         Path path = new Path();
 
-        // 4个角的X,Y坐标
-        float[] radiusArray = new float[]{radius[0], radius[0], radius[1], radius[1], radius[2], radius[2], radius[3], radius[3]};
-        path.addRoundRect(getPaddingLeft(), getPaddingTop(), getWidth() - getPaddingRight(), getHeight() - getPaddingBottom(), radiusArray, Path.Direction.CW);
+        // 4个角的dX,dY
+        float[] radiusArray = new float[]{
+                radius[0], radius[0], radius[1], radius[1],
+                radius[2], radius[2], radius[3], radius[3]};
+        path.addRoundRect(0, 0, getWidth(), getHeight(), radiusArray, Path.Direction.CW);
         canvas.clipPath(path);
-
-        super.onDraw(canvas);
     }
 }

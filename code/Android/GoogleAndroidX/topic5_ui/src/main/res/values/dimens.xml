@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="itemRadius">10dp</dimen>
-    <dimen name="itemMargin">8dp</dimen>
+    <dimen name="itemRadius">8dp</dimen>
+    <dimen name="itemMargin">4dp</dimen>
     <dimen name="viewSpace">4dp</dimen>
 
 </resources>

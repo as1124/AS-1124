@@ -4,11 +4,18 @@ buildscript {
         jcenter()
         google()
 
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
+
     }
+
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
+        // 添加emas-services插件
+        classpath 'com.aliyun.ams:emas-services:1.0.1'
     }
 }
 
@@ -17,6 +24,9 @@ allprojects {
         jcenter()
         google()
 
+        maven {
+            url 'http://maven.aliyun.com/nexus/content/repositories/releases/'
+        }
     }
 }
 

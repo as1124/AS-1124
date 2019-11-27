@@ -18,6 +18,18 @@
         android:layout_height="wrap_content"
         android:text="测试" />
 
+    <Button
+        android:id="@+id/btn_flash_on"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="打开闪光灯" />
+
+    <Button
+        android:id="@+id/btn_flash_off"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="关闭闪光灯" />
+
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinator_layout"
         android:layout_width="match_parent"

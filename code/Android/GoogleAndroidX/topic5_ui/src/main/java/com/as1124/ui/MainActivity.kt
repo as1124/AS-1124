@@ -1,19 +1,15 @@
 package com.as1124.ui
 
-import android.app.*
-import android.content.Context
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
-import android.graphics.Color
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
-import com.as1124.selflib.AppTaskUtil
-import com.as1124.selflib.WindowUtils
-import com.as1124.selflib.biology.BiologyVerifyCenter
+import android.widget.Toast
+import com.as1124.selflib.hardware.FlashLightUtil
 import com.as1124.ui.layout.AboutLayoutActivity
-import com.as1124.ui.layout.card.AboutCardviewActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -33,8 +29,47 @@ class MainActivity : Activity(), View.OnClickListener {
         ).setText("沙雕").setAction("关闭", this).show()
 
 
+        if (Build.VERSION.SDK_INT >= 23) {
+            if (checkCallingOrSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.READ_PHONE_STATE), 1122)
+            }
+
+            if (checkCallingOrSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(
+                    arrayOf(
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                    ), 2233
+                )
+            }
+
+            if (checkCallingOrSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(arrayOf(Manifest.permission.CAMERA), 3344)
+            }
+        }
+
         btn_to_layout.setOnClickListener(this)
+
         btn_test.setOnClickListener(this)
+        btn_flash_on.setOnClickListener(this)
+        btn_flash_off.setOnClickListener(this)
+
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        Toast.makeText(this, permissions[0], Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (RESULT_OK == resultCode && requestCode == 1234) {
+
+        }
     }
 
     override fun onClick(v: View) {
@@ -49,10 +84,20 @@ class MainActivity : Activity(), View.OnClickListener {
             R.id.btn_test -> {
                 testButtonClick()
             }
+            R.id.btn_flash_on -> {
+                FlashLightUtil.enableFlashTorch(this, true)
+            }
+            R.id.btn_flash_off -> {
+                FlashLightUtil.enableFlashTorch(this, false)
+            }
         }
     }
 
-    fun testButtonClick() {
-        AppTaskUtil.exitApp(this, taskId)
+    private fun testButtonClick() {
+        var intent = Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.type = "image/*";
+        startActivityForResult(intent, 1234)
+
     }
 }

@@ -1,6 +1,10 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+
+// 在 apply plugin: 'com.android.application' 下添加
+apply plugin: 'com.aliyun.ams.emas-services'
+
 android {
     compileSdkVersion 29
 
@@ -24,6 +28,7 @@ android {
         targetCompatibility = 1.8
     }
 
+    sourceSets { main { res.srcDirs = ['src/main/res', 'src/main/res/animator'] } }
 }
 
 dependencies {
