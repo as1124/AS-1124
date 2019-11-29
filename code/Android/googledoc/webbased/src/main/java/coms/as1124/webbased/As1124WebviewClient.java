@@ -1,11 +1,12 @@
 package coms.as1124.webbased;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.Build;
 import android.view.ViewGroup;
 import android.webkit.RenderProcessGoneDetail;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
@@ -87,11 +88,11 @@ public class As1124WebviewClient extends WebViewClient {
             return true;
         } else {
             // Otherwise, the link is not for a page on my site, so launch another Activity that handles URL
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse(view.getUrl()));
-            if (intent.resolveActivity(appContext.getPackageManager()) != null) {
-                appContext.startActivity(intent);
-            }
+//            Intent intent = new Intent(Intent.ACTION_VIEW);
+//            intent.setData(Uri.parse(view.getUrl()));
+//            if (intent.resolveActivity(appContext.getPackageManager()) != null) {
+//                appContext.startActivity(intent);
+//            }
             return true;
         }
     }
@@ -108,6 +109,18 @@ public class As1124WebviewClient extends WebViewClient {
 
     @Override
     public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+//        view.loadUrl(request.getUrl().toString());
         super.onReceivedError(view, request, error);
     }
+
+    @Override
+    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+        handler.proceed();
+    }
+
+    @Override
+    public void onScaleChanged(WebView view, float oldScale, float newScale) {
+        super.onScaleChanged(view, oldScale, newScale);
+    }
+
 }

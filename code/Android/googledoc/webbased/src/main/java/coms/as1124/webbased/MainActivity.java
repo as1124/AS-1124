@@ -56,19 +56,33 @@ public class MainActivity extends Activity {
         String defaultAgent = WebSettings.getDefaultUserAgent(this);
         Log.i("Web-based Content", "Default UserAgent == " + defaultAgent);
         WebSettings webviewSettings = mWebview.getSettings();
-        webviewSettings.setJavaScriptEnabled(true);
-        webviewSettings.setDomStorageEnabled(true);
         webviewSettings.setAllowContentAccess(true);
+        webviewSettings.setAllowFileAccess(true);
+        webviewSettings.setAllowFileAccessFromFileURLs(true);
+        webviewSettings.setBuiltInZoomControls(true);
+        webviewSettings.setDisplayZoomControls(true);
+        webviewSettings.setDomStorageEnabled(true);
+        webviewSettings.setJavaScriptEnabled(true);
+        webviewSettings.setLoadWithOverviewMode(true);
+        webviewSettings.setUseWideViewPort(true);
+        if (Build.VERSION.SDK_INT >= 21) {
+            webviewSettings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+            mWebview.zoomBy(0.02f);
+        }
+        webviewSettings.setSupportZoom(true);
+
         webviewSettings.setGeolocationEnabled(true);
         webviewSettings.setJavaScriptCanOpenWindowsAutomatically(true);
         if (Build.VERSION.SDK_INT >= 26) {
             webviewSettings.setSafeBrowsingEnabled(false);
         }
+
         mWebview.addJavascriptInterface(new WebviewScriptBridge(this), "as1124");
         mWebview.setWebViewClient(new As1124WebviewClient(this, mWebview));
         mWebview.setWebChromeClient(new As1124WebChromeClient(this));
 //        mWebview.loadUrl("https://www.baidu.com");
-        mWebview.loadUrl("file:///android_asset/4webview.html");
+//        mWebview.loadUrl("file:///android_asset/4webview.html");
+        mWebview.loadUrl("https://101.204.252.213/krmobile/index.html?employeeId=SY2016080300001760&corpid=SY2016051200000001&billNo=W56025650&wfPersontask=209721&p13Login=sunxiaowen-003#/");
 
         // 从原生端调用网页 javascript 的两种方式
         findViewById(R.id.but_load_url).setOnClickListener(v ->
@@ -78,6 +92,7 @@ public class MainActivity extends Activity {
                 mWebview.evaluateJavascript("callFromClientWithReturn(89)",
                         retValue -> Toast.makeText(MainActivity.this, retValue, Toast.LENGTH_SHORT).show())
         );
+
     }
 
     @Override

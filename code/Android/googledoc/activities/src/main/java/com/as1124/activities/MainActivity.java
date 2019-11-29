@@ -2,9 +2,12 @@ package com.as1124.activities;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.View;
 
 import com.as1124.activities.loaders.LoaderMainActivity;
 import com.as1124.activities.multiwindow.MultiWindowActivity;
@@ -17,6 +20,34 @@ import com.as1124.activities.widgets.WidgetMainActivity;
 public class MainActivity extends Activity {
 
     private static final String LOG_TAG = MainActivity.class.getSimpleName();
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(newBase);
+
+        Log.i(LOG_TAG, "[attachBaseContext called]");
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
+
+        Log.i(LOG_TAG, "[onAttachedToWindow called]");
+    }
+
+    @Override
+    public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+        View view = super.onCreateView(parent, name, context, attrs);
+        Log.i(LOG_TAG, "[onCreateView called]");
+        return view;
+    }
+
+    @Override
+    public void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+
+        Log.i(LOG_TAG, "[onDetachedFromWindow called]");
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
