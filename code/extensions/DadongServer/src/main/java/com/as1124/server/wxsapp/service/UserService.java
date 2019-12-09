@@ -27,6 +27,7 @@ import com.as1124.server.wxsapp.database.DatasourceFactory;
 import com.as1124.server.wxsapp.database.mapper.GoodsInfoMapper;
 import com.as1124.server.wxsapp.database.mapper.UserAddressMapper;
 import com.as1124.server.wxsapp.database.mapper.UserInfoMapper;
+import com.as1124.server.wxsapp.resources.GoodsInfo;
 import com.as1124.server.wxsapp.resources.UserExpressAddress;
 import com.as1124.server.wxsapp.resources.UserInfo;
 
@@ -161,8 +162,9 @@ public class UserService extends AbstractHttpRestService {
 				String result = mapper.queryGoodsCar(openid);
 				JSONArray goodsArray = JSONObject.parseArray(result);
 				for (int i = 0; i < goodsArray.size(); i++) {
-					String goodsno = goodsArray.getJSONObject(i).getString("goodsno");
-					goodsArray.getJSONObject(i).put("goodsDetail", goodsMapper.queryGoodsByID(goodsno));
+					JSONObject one = goodsArray.getJSONObject(i);
+					GoodsInfo goodsDetail = goodsMapper.queryGoodsByID(one.getString("goodsno"));
+					one.putAll((JSONObject) JSONObject.toJSON(goodsDetail));
 				}
 				return successResponse(goodsArray);
 			} else {
@@ -181,9 +183,22 @@ public class UserService extends AbstractHttpRestService {
 				.openSession(true);) {
 			if (session != null) {
 				String openid = String.valueOf(formData.get("openid"));
-				String goodscar = formData.get("goodsCar").toString();
+				Object obj = formData.get("goodsCar");
+				JSONArray newGoodsCar = new JSONArray();
+				if (obj != null) {
+					List<?> goodsArray = (List<?>) obj;
+					for (int i = 0; i < goodsArray.size(); i++) {
+						JSONObject data = new JSONObject();
+						Map<?, ?> detail = (Map<?, ?>) goodsArray.get(i);
+						data.put("goodsno", detail.get("goodsno"));
+						data.put("goodsNum", detail.get("goodsNum"));
+						data.put("goodsPrice", detail.get("price"));
+						data.put("selectedSubtype", detail.get("selectedSubtype"));
+						newGoodsCar.add(data);
+					}
+				}
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
-				boolean result = mapper.updateGoodsCar(openid, goodscar);
+				boolean result = mapper.updateGoodsCar(openid, newGoodsCar.toJSONString());
 				session.commit();
 				return successResponse(result);
 			} else {

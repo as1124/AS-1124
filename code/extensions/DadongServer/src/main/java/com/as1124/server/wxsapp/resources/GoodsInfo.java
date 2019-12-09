@@ -58,6 +58,11 @@ public class GoodsInfo {
 	private int showOrder;
 
 	/**
+	 * 商品详情界面显示的图片、视频地址
+	 */
+	private String icons;
+	
+	/**
 	 * 商品详细描述：颜色、尺码等
 	 */
 	private String detail;
@@ -211,16 +216,24 @@ public class GoodsInfo {
 	public void setShowOrder(int showOrder) {
 		this.showOrder = showOrder;
 	}
+	
+	public String getIcons() {
+		return icons;
+	}
+
+	public void setIcons(String icons) {
+		this.icons = icons;
+	}
 
 	/**
-	 * @return Returns the {@link detail}.
+	 * @return Returns the {@link #detail}.
 	 */
 	public String getDetail() {
 		return detail;
 	}
 
 	/**
-	 * @param detail The {@link detail} to set.
+	 * @param detail The {@link #detail} to set.
 	 */
 	public void setDetail(String detail) {
 		this.detail = detail;
