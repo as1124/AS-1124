@@ -21,8 +21,8 @@ public interface UserAddressMapper {
 
 	/**
 	 * 查询收货地址
-	 * @param openid
-	 * @param addressID
+	 * @param openid 用户公众号下的 openid
+	 * @param addressID 收货地址id，可填 <code>-1</code>
 	 * @return
 	 */
 	public List<UserExpressAddress> queryExpressAddress(@Param("openid") String openid,

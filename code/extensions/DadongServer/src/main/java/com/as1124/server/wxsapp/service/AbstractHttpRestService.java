@@ -23,8 +23,8 @@ public abstract class AbstractHttpRestService {
 	@Context
 	protected HttpResponse httpResponse;
 
-	public HashMap<String, Object> buildDataMap(String msg, int errcode) {
-		HashMap<String, Object> dataMap = new HashMap<String, Object>();
+	public Map<String, Object> buildDataMap(String msg, int errcode) {
+		HashMap<String, Object> dataMap = new HashMap<>();
 		if (errcode != 0) {
 			dataMap.put("errcode", errcode);
 			dataMap.put("errmsg", msg);
@@ -41,7 +41,7 @@ public abstract class AbstractHttpRestService {
 	 * @return
 	 */
 	public Response successResponse(Object resultData) {
-		Map<String, Object> resultMap = buildDataMap(null, 0);
+		Map<String, Object> resultMap = buildDataMap("", 0);
 		resultMap.put("result", resultData);
 		return Response.status(Status.OK).encoding("UTF-8").entity(resultMap).build();
 	}

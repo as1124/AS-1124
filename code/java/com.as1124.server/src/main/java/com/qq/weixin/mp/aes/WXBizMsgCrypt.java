@@ -23,7 +23,7 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base64;
 
-import com.mobile.thirdparty.wechat.WechatConstants;
+import com.as1124.api.wechat.WechatConstants;
 
 /**
  * 提供接收和推送给公众平台消息的加解密接口(UTF8编码的字符串).

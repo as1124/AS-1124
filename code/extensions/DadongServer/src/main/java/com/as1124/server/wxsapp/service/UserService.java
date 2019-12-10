@@ -1,5 +1,6 @@
 package com.as1124.server.wxsapp.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
@@ -15,13 +16,14 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.as1124.api.wechat.sapp.SAPPService;
+import com.as1124.api.wechat.sapp.SappBaseService;
 import com.as1124.server.wxsapp.access.As1124AppConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
 import com.as1124.server.wxsapp.database.mapper.GoodsInfoMapper;
@@ -38,10 +40,15 @@ import com.as1124.server.wxsapp.resources.UserInfo;
  */
 @Path("/user")
 @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_FORM_URLENCODED })
+@Produces("application/json; charset=UTF-8")
 public class UserService extends AbstractHttpRestService {
 
+	/**
+	 * 用户初次登录时插入
+	 * @param user
+	 * @return 包含用户插入后id的对象实体, 一个
+	 */
 	@POST
-	@Produces("application/json; charset=UTF-8")
 	public Response insertUser(UserInfo user) {
 		if (user == null || StringUtils.isBlank(user.getOpenid()) || StringUtils.isBlank(user.getAppid())) {
 			Exception ex = new Exception(DadongMessages.getString(DadongMessages.USER_1001));
@@ -52,13 +59,14 @@ public class UserService extends AbstractHttpRestService {
 			if (session != null) {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
 				List<UserInfo> data = mapper.queryByKey(user);
-				if (data != null && !data.isEmpty()) {
-					Exception ex = new Exception(DadongMessages.getString(DadongMessages.USER_1002));
-					return errorResponse(ex, Integer.valueOf(DadongMessages.USER_1002));
-				} else {
+				if (data == null || data.isEmpty()) {
 					mapper.insertUser(user);
 					session.commit();
 					return successResponse(user);
+				} else {
+					// 用户已经存在
+					Exception ex = new Exception(DadongMessages.getString(DadongMessages.USER_1002));
+					return errorResponse(ex, Integer.valueOf(DadongMessages.USER_1002));
 				}
 			} else {
 				return Response.status(Status.ACCEPTED).build();
@@ -68,9 +76,14 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	/**
+	 * 根据数据库id号查询用户，精确查询
+	 * 
+	 * @param userid
+	 * @return 一个结果
+	 */
 	@GET
 	@Path("/detail/{userID}")
-	@Produces("application/json; charset=UTF-8")
 	public Response getUserByID(@PathParam("userID") int userid) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
@@ -78,7 +91,7 @@ public class UserService extends AbstractHttpRestService {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
 				UserAddressMapper addressMapper = session.getMapper(UserAddressMapper.class);
 				UserInfo userInfo = mapper.queryByID(userid);
-				if (StringUtils.isNoneBlank(userInfo.getOpenid())) {
+				if (userInfo != null) {
 					userInfo.setExpressAddress(addressMapper.queryExpressAddress(userInfo.getOpenid(), -1));
 				}
 				return successResponse(userInfo);
@@ -90,9 +103,13 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	/**
+	 * 关键词模糊查询
+	 * @param userInfo
+	 * @return 数组
+	 */
 	@POST
 	@Path("/detail")
-	@Produces("application/json; charset=UTF-8")
 	public Response getUserByKey(UserInfo userInfo) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
@@ -101,9 +118,7 @@ public class UserService extends AbstractHttpRestService {
 				UserAddressMapper addressMapper = session.getMapper(UserAddressMapper.class);
 				List<UserInfo> users = mapper.queryByKey(userInfo);
 				for (UserInfo one : users) {
-					if (StringUtils.isNoneBlank(one.getOpenid())) {
-						one.setExpressAddress(addressMapper.queryExpressAddress(one.getOpenid(), -1));
-					}
+					one.setExpressAddress(addressMapper.queryExpressAddress(one.getOpenid(), -1));
 				}
 				return successResponse(users);
 			} else {
@@ -114,9 +129,13 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	/**
+	 * 所有已注册用户
+	 * 
+	 * @return 数组
+	 */
 	@GET
 	@Path("/all")
-	@Produces("application/json; charset=UTF-8")
 	public Response getAllUsers() {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
@@ -131,9 +150,14 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	/**
+	 * 更新用户信息
+	 * 
+	 * @param userInfo
+	 * @return true-成功
+	 */
 	@POST
 	@Path("/update")
-	@Produces("application/json; charset=UTF-8")
 	public Response updateUser(UserInfo userInfo) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
@@ -150,9 +174,16 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	/************************************ 购物车HTTP Service **********************************************/
+
+	/**
+	 * 查询用户购物车信息
+	 * 
+	 * @param openid
+	 * @return
+	 */
 	@GET
 	@Path("/goodscar/{openid}")
-	@Produces("application/json; charset=UTF-8")
 	public Response getGoodsCar(@PathParam("openid") String openid) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
@@ -160,8 +191,9 @@ public class UserService extends AbstractHttpRestService {
 				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
 				GoodsInfoMapper goodsMapper = session.getMapper(GoodsInfoMapper.class);
 				String result = mapper.queryGoodsCar(openid);
-				JSONArray goodsArray = JSONObject.parseArray(result);
+				JSONArray goodsArray = JSON.parseArray(result);
 				for (int i = 0; i < goodsArray.size(); i++) {
+					// 根据商品编号填充商品详情
 					JSONObject one = goodsArray.getJSONObject(i);
 					GoodsInfo goodsDetail = goodsMapper.queryGoodsByID(one.getString("goodsno"));
 					one.putAll((JSONObject) JSONObject.toJSON(goodsDetail));
@@ -175,9 +207,17 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	/**
+	 * 保存购物车数据
+	 * <p><ul>
+	 * <li>openid 用户公众号下openid
+	 * <li>goodsCar 购物车JSON数据
+	 * </ul></p>
+	 * @param formData
+	 * @return
+	 */
 	@POST
 	@Path("/goodscar")
-	@Produces("application/json; charset=UTF-8")
 	public Response saveGoodsCar(Map<String, ?> formData) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
@@ -209,9 +249,14 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	/**
+	 * 保存收货地址信息
+	 * 
+	 * @param addressInfo
+	 * @return
+	 */
 	@POST
 	@Path("/address")
-	@Produces("application/json; charset=UTF-8")
 	public Response insertExpressAddress(UserExpressAddress addressInfo) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
@@ -228,9 +273,15 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	/**
+	 * 查询用户的收货地址
+	 * 
+	 * @param openid
+	 * @param addressID
+	 * @return
+	 */
 	@GET
 	@Path("/address/{openid}")
-	@Produces("application/json; charset=UTF-8")
 	public Response queryExpressAddress(@PathParam("openid") String openid, @QueryParam("id") int addressID) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
@@ -247,15 +298,14 @@ public class UserService extends AbstractHttpRestService {
 
 	@POST
 	@Path("/address/update")
-	@Produces("application/json; charset=UTF-8")
 	public Response updateExpressAddress(UserExpressAddress addressInfo) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserAddressMapper mapper = session.getMapper(UserAddressMapper.class);
-				mapper.updateExpressAddress(addressInfo);
+				boolean result = mapper.updateExpressAddress(addressInfo);
 				session.commit();
-				return successResponse(true);
+				return successResponse(result);
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
@@ -266,14 +316,13 @@ public class UserService extends AbstractHttpRestService {
 
 	@DELETE
 	@Path("/address")
-	@Produces("application/json; charset=UTF-8")
 	public Response deleteExpressAddress(UserExpressAddress addressInfo) {
 		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
 				.openSession(true);) {
 			if (session != null) {
 				UserAddressMapper mapper = session.getMapper(UserAddressMapper.class);
-				mapper.deleteExpressAddress(addressInfo.getOpenid(), addressInfo.getAddressid());
-				return successResponse(true);
+				boolean result = mapper.deleteExpressAddress(addressInfo.getOpenid(), addressInfo.getAddressid());
+				return successResponse(result);
 			} else {
 				return Response.status(Status.ACCEPTED).build();
 			}
@@ -282,45 +331,47 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
+	/**
+	 * 小程序授权登录
+	 * @param authCode
+	 * @return
+	 */
 	@GET
 	@Path("/loginsapp/{authCode}")
 	@Produces("application/json; charset=UTF-8")
 	public Response login(@PathParam("authCode") String authCode) {
-		JSONObject sessionInfo = SAPPService.authCode2Session(As1124AppConstants.WX_APPID, As1124AppConstants.WX_SECRET,
-				authCode);
+		JSONObject sessionInfo = SappBaseService.authCode2Session(As1124AppConstants.WX_APPID,
+			As1124AppConstants.WX_SECRET, authCode);
+		UserInfo user = new UserInfo();
+		user.setOpenid("openid");
+		if (sessionInfo.containsKey("unionid")) {
+			user.setUnionid(sessionInfo.getString("unionid"));
+		}
+		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
+				.openSession(true);) {
+			UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
+			List<UserInfo> result = mapper.queryByKey(user);
+			if (result == null || result.isEmpty()) {
+				mapper.insertUser(user);
+			}
+		} catch (IOException e) {
+			// 插入用户失败
+		}
 		return successResponse(sessionInfo);
 	}
 
-	/**
-	 * 解密微信信息数据
-	 * 
-	 * @return
-	 */
-	@POST
-	@Path("/decrypt")
-	@Produces("application/json; charset=UTF-8")
-	public Response decryptData(Map<String, Object> dataMap) {
-		// 校验签名
-		Object signature = dataMap.get("signature");
-		Object rawData = dataMap.get("rawData");
-		String sig1 = DigestUtils.sha1Hex(rawData.toString() + "7z84c+IsyiKdPkZUBQui8Q==");
+	public Response decryptUserData(Map<String, ?> formData, String openid) {
+		Object encryptData = formData.get("encryptData");
+		Object sessionKey = formData.get("sessionKey");
+		Object iv = formData.get("iv");
+		if (encryptData != null && sessionKey != null && iv != null) {
+			new Thread(() -> {
+				String jsonData = SappBaseService.decryptUserInfo(encryptData.toString(), sessionKey.toString(), iv.toString());
+				JSON.parseObject(jsonData);
+			}).start();
+			return Response.
+		} else {
 
-		// 解密数据
-
-		Object iv = dataMap.get("iv");
-		Object encryptedData = dataMap.get("signature");
-		return successResponse(signature);
+		}
 	}
-
-	public Response logOut() {
-		return null;
-	}
-
-	public static void main(String[] args) {
-		String authCode = "011SHJd31S4jkQ1ShGh31vIQd31SHJda";
-		JSONObject sessionInfo = SAPPService.authCode2Session(As1124AppConstants.WX_APPID, As1124AppConstants.WX_SECRET,
-				authCode);
-		System.out.println("sss");
-	}
-
 }

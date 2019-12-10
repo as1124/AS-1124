@@ -9,7 +9,7 @@ package com.qq.weixin.mp.aes;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 
-import com.mobile.thirdparty.wechat.WechatConstants;
+import com.as1124.api.wechat.WechatConstants;
 
 /**
  * 提供基于PKCS7算法的加解密接口.
