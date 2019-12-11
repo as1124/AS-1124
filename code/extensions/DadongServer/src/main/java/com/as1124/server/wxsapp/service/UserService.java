@@ -22,7 +22,6 @@ import org.apache.ibatis.session.SqlSession;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.as1124.api.wechat.sapp.SAPPService;
 import com.as1124.api.wechat.sapp.SappBaseService;
 import com.as1124.server.wxsapp.access.As1124AppConstants;
 import com.as1124.server.wxsapp.database.DatasourceFactory;
@@ -361,17 +360,19 @@ public class UserService extends AbstractHttpRestService {
 	}
 
 	public Response decryptUserData(Map<String, ?> formData, String openid) {
+		// ATTENTION 未完成
 		Object encryptData = formData.get("encryptData");
 		Object sessionKey = formData.get("sessionKey");
 		Object iv = formData.get("iv");
 		if (encryptData != null && sessionKey != null && iv != null) {
 			new Thread(() -> {
-				String jsonData = SappBaseService.decryptUserInfo(encryptData.toString(), sessionKey.toString(), iv.toString());
+				String jsonData = SappBaseService.decryptUserInfo(encryptData.toString(), sessionKey.toString(),
+					iv.toString());
 				JSON.parseObject(jsonData);
 			}).start();
-			return Response.
+			return successResponse(true);
 		} else {
-
+			return successResponse(false);
 		}
 	}
 }

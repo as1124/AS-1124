@@ -94,10 +94,11 @@ class MainActivity : Activity(), View.OnClickListener {
     }
 
     private fun testButtonClick() {
-        var intent = Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.type = "image/*";
+        var intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+            type = "image/*"
+            addCategory(Intent.CATEGORY_OPENABLE)
+        }
         startActivityForResult(intent, 1234)
-
     }
+
 }

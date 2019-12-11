@@ -3,11 +3,7 @@ package com.as1124.ui.layout.recycler;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,27 +32,21 @@ public class RecyclerListItemAnimator extends DefaultItemAnimator {
         setMoveDuration(2000);
     }
 
+    // ATTENTION 处理删除、添加动画效果时，item的移动存在bug：存在RecyclerView中间item不显示，出现空白区域的问题（item的相对位置并不错乱）
+
 
     /********************* 4个方法来自SimpleItemAnimator ******************/
     @Override
     public boolean animateRemove(RecyclerView.ViewHolder holder) {
-        if (holder.itemView == null) {
-            return false;
-        } else {
-            mPendingRemoveAnimators.add(holder);
-            return true;
-        }
+        mPendingRemoveAnimators.add(holder);
+        return true;
     }
 
     @Override
     public boolean animateAdd(RecyclerView.ViewHolder holder) {
-        if (holder.itemView == null) {
-            return false;
-        } else {
-            holder.itemView.setAlpha(0);
-            mPendingAddAnimators.add(holder);
-            return true;
-        }
+        holder.itemView.setAlpha(0);
+        mPendingAddAnimators.add(holder);
+        return true;
     }
 
     @Override
@@ -135,15 +125,6 @@ public class RecyclerListItemAnimator extends DefaultItemAnimator {
         }
     }
 
-    @Override
-    public void endAnimation(@NonNull RecyclerView.ViewHolder item) {
-        super.endAnimation(item);
-    }
-
-    @Override
-    public void endAnimations() {
-        super.endAnimations();
-    }
 
     @Override
     public boolean isRunning() {

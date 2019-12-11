@@ -3,7 +3,6 @@ package com.as1124.ui.layout.recycler;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.ArrayMap;
-import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import com.as1124.ui.R;
 
 import java.security.SecureRandom;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 进阶学习{@link RecyclerView}的详细使用和原理，制作类似于淘宝商品列表的界面
@@ -40,9 +41,10 @@ import java.security.SecureRandom;
 public class AboutRecyclerView extends Activity implements View.OnClickListener {
 
     private RecyclerView recyclerList;
+
     private RecyclerListAdapter listAdapter;
 
-    private SparseArray<ArrayMap<String, Object>> itemsArray;
+    private List<ArrayMap<String, Object>> itemsArray;
 
     private LayoutInflater layoutInflater;
 
@@ -54,6 +56,7 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
         layoutInflater = getLayoutInflater();
         recyclerList = findViewById(R.id.recycler_list);
 
+
         // 1. 单方向直线布局
 //        recyclerList.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, true));
 
@@ -64,9 +67,8 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
 //        recyclerList.setLayoutManager(new RecyclerListLayoutManager());
 
         recyclerList.setItemAnimator(new RecyclerListItemAnimator());
-
-//        recyclerList.addItemDecoration(new RecyclerListItemDecoration());
-//        recyclerList.setEdgeEffectFactory(new RecyclerListEdgeEffectFactory());
+        recyclerList.addItemDecoration(new RecyclerListItemDecoration());
+        recyclerList.setEdgeEffectFactory(new RecyclerListEdgeEffectFactory());
 
         initItemList();
         listAdapter = new RecyclerListAdapter();
@@ -75,31 +77,27 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
         findViewById(R.id.btn_add_item).setOnClickListener(this);
         findViewById(R.id.btn_remove_item).setOnClickListener(this);
         findViewById(R.id.btn_update_item).setOnClickListener(this);
-
+        findViewById(R.id.btn_delete_decor).setOnClickListener(this);
     }
 
     private void initItemList() {
-        itemsArray = new SparseArray<>();
+        itemsArray = new ArrayList<>();
         SecureRandom random = new SecureRandom();
         {
             ArrayMap<String, Object> data = new ArrayMap<>();
             data.put("itemName", "夫苦零");
             data.put("itemPrice", "￥1122.9");
             data.put("saleNum", random.nextInt(5000) + "已付款");
-            itemsArray.put(0, data);
+            itemsArray.add(data);
         }
 
-        for (int i = 1; i < 13; i++) {
+        for (int i = 0; i < 20; i++) {
             ArrayMap<String, Object> data = new ArrayMap<>();
-            int size = random.nextInt(20);
             StringBuilder sbName = new StringBuilder("Adidas 三叶草/ 真品沙");
-            for (int j = 0; j < size; j++) {
-                sbName.append("夫苦零").append(j);
-            }
             data.put("itemName", sbName.toString() + i);
             data.put("itemPrice", "￥1122.9");
             data.put("saleNum", random.nextInt(5000) + "已付款");
-            itemsArray.put(i, data);
+            itemsArray.add(data);
         }
     }
 
@@ -112,7 +110,7 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
                 data.put("itemName", "这是新的Item--" + newPosition);
                 data.put("itemPrice", "￥1122.9");
                 data.put("saleNum", "1122已付款");
-                itemsArray.put(newPosition, data);
+                itemsArray.add(newPosition, data);
                 listAdapter.notifyItemInserted(newPosition);
                 break;
             case R.id.btn_remove_item:
@@ -121,8 +119,12 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
                 break;
             case R.id.btn_update_item:
                 itemsArray.get(3).put("itemName", "更新内容11");
+                itemsArray.get(3).put("itemPrice", "$2233");
                 listAdapter.notifyItemChanged(3);
                 break;
+            case R.id.btn_delete_decor:
+                // 删除装饰器对象，不是删除装饰器效果
+                recyclerList.removeItemDecorationAt(0);
             default:
                 break;
         }
@@ -156,7 +158,6 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
             } else {
                 return 0;
             }
-
         }
     }
 
@@ -174,4 +175,7 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
             feedbackBtn = itemView.findViewById(R.id.img_more);
         }
     }
+
 }
+
+
