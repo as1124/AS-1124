@@ -44,6 +44,7 @@ public class UserService extends AbstractHttpRestService {
 
 	/**
 	 * 用户初次登录时插入
+	 * 
 	 * @param user
 	 * @return 包含用户插入后id的对象实体, 一个
 	 */
@@ -104,6 +105,7 @@ public class UserService extends AbstractHttpRestService {
 
 	/**
 	 * 关键词模糊查询
+	 * 
 	 * @param userInfo
 	 * @return 数组
 	 */
@@ -173,7 +175,9 @@ public class UserService extends AbstractHttpRestService {
 		}
 	}
 
-	/************************************ 购物车HTTP Service **********************************************/
+	/************************************
+	 * 购物车HTTP Service
+	 **********************************************/
 
 	/**
 	 * 查询用户购物车信息
@@ -208,10 +212,13 @@ public class UserService extends AbstractHttpRestService {
 
 	/**
 	 * 保存购物车数据
-	 * <p><ul>
+	 * <p>
+	 * <ul>
 	 * <li>openid 用户公众号下openid
 	 * <li>goodsCar 购物车JSON数据
-	 * </ul></p>
+	 * </ul>
+	 * </p>
+	 * 
 	 * @param formData
 	 * @return
 	 */
@@ -332,6 +339,7 @@ public class UserService extends AbstractHttpRestService {
 
 	/**
 	 * 小程序授权登录
+	 * 
 	 * @param authCode
 	 * @return
 	 */
@@ -339,22 +347,27 @@ public class UserService extends AbstractHttpRestService {
 	@Path("/loginsapp/{authCode}")
 	@Produces("application/json; charset=UTF-8")
 	public Response login(@PathParam("authCode") String authCode) {
-		JSONObject sessionInfo = SappBaseService.authCode2Session(As1124AppConstants.WX_APPID,
-			As1124AppConstants.WX_SECRET, authCode);
-		UserInfo user = new UserInfo();
-		user.setOpenid("openid");
-		if (sessionInfo.containsKey("unionid")) {
-			user.setUnionid(sessionInfo.getString("unionid"));
+		JSONObject sessionInfo = SappBaseService.authCode2Session(As1124AppConstants.WX_APPID, As1124AppConstants.WX_SECRET, authCode);
+		int errcode = 0;
+		if (sessionInfo.containsKey("errcode")) {
+			errcode = sessionInfo.getIntValue("errcode");
 		}
-		try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
-				.openSession(true);) {
-			UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
-			List<UserInfo> result = mapper.queryByKey(user);
-			if (result == null || result.isEmpty()) {
-				mapper.insertUser(user);
+		if (errcode == 0) {
+			UserInfo user = new UserInfo();
+			user.setOpenid(sessionInfo.getString("openid"));
+			if (sessionInfo.containsKey("unionid")) {
+				user.setUnionid(sessionInfo.getString("unionid"));
 			}
-		} catch (IOException e) {
-			// 插入用户失败
+			try (SqlSession session = DatasourceFactory.getDatasource(As1124AppConstants.DB_ENVIRONMENT)
+					.openSession(true)) {
+				UserInfoMapper mapper = session.getMapper(UserInfoMapper.class);
+				List<UserInfo> result = mapper.queryByKey(user);
+				if (result == null || result.isEmpty()) {
+					mapper.insertUser(user);
+				}
+			} catch (IOException e) {
+				// 插入用户失败
+			}
 		}
 		return successResponse(sessionInfo);
 	}
@@ -367,7 +380,7 @@ public class UserService extends AbstractHttpRestService {
 		if (encryptData != null && sessionKey != null && iv != null) {
 			new Thread(() -> {
 				String jsonData = SappBaseService.decryptUserInfo(encryptData.toString(), sessionKey.toString(),
-					iv.toString());
+						iv.toString());
 				JSON.parseObject(jsonData);
 			}).start();
 			return successResponse(true);

@@ -12,6 +12,9 @@
 	<url>http://maven.apache.org</url>
 
 	<properties>
+		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
@@ -58,7 +61,6 @@
 			<version>4.5.9</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
@@ -71,7 +73,139 @@
 		</dependency>
 
 
-
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>batik-awt-util</artifactId>
+			<version>1.6-1</version>
+			<systemPath>${basedir}/lib/document/batik-awt-util-1.6-1.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>freehep-graphicsio-emf</artifactId>
+			<version>2.4</version>
+			<systemPath>${basedir}/lib/document/freehep-graphicsio-emf-2.4.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>freehep-io</artifactId>
+			<version>2.2.2</version>
+			<systemPath>${basedir}/lib/document/freehep-io-2.2.2.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>icepdf-core</artifactId>
+			<version>6.2.5</version>
+			<systemPath>${basedir}/lib/document/icepdf-core-6.2.5.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>icepdf-pro</artifactId>
+			<version>6.2.5</version>
+			<systemPath>${basedir}/lib/document/icepdf-pro-6.2.5.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>jodconverter-core</artifactId>
+			<version>4.0.0-RELEASE</version>
+			<systemPath>${basedir}/lib/document/jodconverter-core-4.0.0-RELEASE.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>juh</artifactId>
+			<version>5.3.2</version>
+			<systemPath>${basedir}/lib/document/juh-5.3.2.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>jurt</artifactId>
+			<version>5.3.2</version>
+			<systemPath>${basedir}/lib/document/jurt-5.3.2.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>levigo-jbig2-imageio</artifactId>
+			<version>1.6.5</version>
+			<systemPath>${basedir}/lib/document/levigo-jbig2-imageio-1.6.5.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>ooxml-schemas</artifactId>
+			<version>1.1</version>
+			<systemPath>${basedir}/lib/document/ooxml-schemas-1.1.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>org.apache.poi.xwpf.converter.core</artifactId>
+			<version>1.0.6</version>
+			<systemPath>${basedir}/lib/document/org.apache.poi.xwpf.converter.core-1.0.6.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>org.apache.poi.xwpf.converter.xhtml</artifactId>
+			<version>1.0.6</version>
+			<systemPath>${basedir}/lib/document/org.apache.poi.xwpf.converter.xhtml-1.0.6.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>poi</artifactId>
+			<version>3.14</version>
+			<systemPath>${basedir}/lib/document/poi-3.14.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>3.14</version>
+			<systemPath>${basedir}/lib/document/poi-ooxml-3.14.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>poi-scratchpad</artifactId>
+			<version>3.14</version>
+			<systemPath>${basedir}/lib/document/poi-scratchpad-3.14.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>ridl</artifactId>
+			<version>5.3.2</version>
+			<systemPath>${basedir}/lib/document/ridl-5.3.2.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>unoil</artifactId>
+			<version>5.3.2</version>
+			<systemPath>${basedir}/lib/document/unoil-5.3.2.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>wmf2svg</artifactId>
+			<version>0.9.8</version>
+			<systemPath>${basedir}/lib/document/wmf2svg-0.9.8.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
+		<dependency>
+			<groupId>com.as1124.document</groupId>
+			<artifactId>xmlbeans</artifactId>
+			<version>2.6.0</version>
+			<systemPath>${basedir}/lib/document/xmlbeans-2.6.0.jar</systemPath>
+			<scope>system</scope>
+		</dependency>
 
 
 	</dependencies>
