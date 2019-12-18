@@ -1,11 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年8月10日
- *******************************************************************************/
-
-package com.mobile.document.converter.impl.icepdf;
+package com.as1124.document.converter.impl.icepdf;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,19 +7,18 @@ import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 
-import com.mobile.document.converter.DocumentConvertException;
-import com.mobile.document.converter.DocumentServiceConstants;
+import com.as1124.document.converter.DocumentConvertException;
+import com.as1124.document.converter.DocumentServiceConstants;
 
 /**
  * PDF文档转html处理器。先将PDF转图片，然后用默认html模板生成网页
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author As-1124(mailto:as1124huang@gmail.com)
  */
-
 public class PDF2HtmlConverter extends PDF2ImageConverter {
 
 	@Override
-	protected boolean doConvert(File inputSource, File targetFile, Map<?, ?> opts)
+	protected boolean doConvert(File inputSource, File targetFile, Map<String, ?> opts)
 			throws IOException, DocumentConvertException {
 		String destPath = targetFile.getAbsolutePath();
 		String baseFileName = FilenameUtils.removeExtension(destPath);
@@ -44,14 +36,9 @@ public class PDF2HtmlConverter extends PDF2ImageConverter {
 			}
 			resultHTML.append("</div></body></html>");
 
-			FileOutputStream outStream = null;
-			try {
-				outStream = new FileOutputStream(targetFile);
+			try (FileOutputStream outStream = new FileOutputStream(targetFile)) {
 				outStream.write(resultHTML.toString().getBytes(DocumentServiceConstants.CHARSET_UTF8));
 				outStream.flush();
-			} finally {
-				if (outStream != null)
-					outStream.close();
 			}
 			return true;
 		}
@@ -71,5 +58,5 @@ public class PDF2HtmlConverter extends PDF2ImageConverter {
 	public void onPageComplete(int current, int total, File image) {
 		// 是否做分页处理
 	}
-	
+
 }

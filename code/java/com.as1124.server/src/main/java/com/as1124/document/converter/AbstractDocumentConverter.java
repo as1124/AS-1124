@@ -1,11 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年8月10日
- *******************************************************************************/
-
-package com.mobile.document.converter;
+package com.as1124.document.converter;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,11 +10,11 @@ import org.apache.commons.io.FilenameUtils;
 /**
  * 文档转换抽象基类
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author As-1124(mailto:as1124huang@gmail.com)
  */
 public abstract class AbstractDocumentConverter implements IDocumentConverter {
 
-	private Map<?, ?> convertOpts = null;
+	private Map<String, ?> convertOpts = null;
 
 	private File inputSource = null;
 
@@ -34,14 +27,16 @@ public abstract class AbstractDocumentConverter implements IDocumentConverter {
 	 * @param opts 转换可选配置项
 	 * @throws DocumentConvertException
 	 */
-	protected void beforeConvert(File inputSource, File targetFile, Map<?, ?> opts) throws DocumentConvertException {
+	protected void beforeConvert(File inputSource, File targetFile, Map<String, ?> opts)
+			throws DocumentConvertException {
 		if (!inputSource.exists()) {
-			throw new DocumentConvertException(
-				MessageFormat.format("[ERROR] The source file ({0}) does not exists!", inputSource.getAbsolutePath()));
+			throw new DocumentConvertException(MessageFormat.format("[ERROR] The source file ({0}) does not exists!",
+				inputSource.getAbsolutePath()));
 		}
 
-		if (opts != null)
+		if (opts != null) {
 			this.convertOpts = opts;
+		}
 
 		String inputExtension = FilenameUtils.getExtension(inputSource.getName());
 		String targetExtension = FilenameUtils.getExtension(targetFile.getName());
@@ -65,7 +60,6 @@ public abstract class AbstractDocumentConverter implements IDocumentConverter {
 		} finally {
 			afterConver(inputSource, targetFile);
 		}
-
 		return result;
 	}
 
@@ -79,8 +73,8 @@ public abstract class AbstractDocumentConverter implements IDocumentConverter {
 	 * @throws IOException
 	 * @throws DocumentConvertException
 	 */
-	protected abstract boolean doConvert(File inputSource, File targetFile, Map<?, ?> opts) throws IOException,
-			DocumentConvertException;
+	protected abstract boolean doConvert(File inputSource, File targetFile, Map<String, ?> opts)
+			throws IOException, DocumentConvertException;
 
 	/**
 	 * 文件转换完成后处理动作
@@ -96,7 +90,7 @@ public abstract class AbstractDocumentConverter implements IDocumentConverter {
 	 * 
 	 * @return Returns the convertOpts.
 	 */
-	public Map getConvertOpts() {
+	public Map<String, ?> getConvertOpts() {
 		return convertOpts;
 	}
 
@@ -105,12 +99,13 @@ public abstract class AbstractDocumentConverter implements IDocumentConverter {
 	 * 
 	 * @param convertOpts 可选设置项, {@linkplain DocumentServiceConstants.OPT_***}
 	 */
-	public void setConvertOpts(Map<?, ?> convertOpts) {
+	public void setConvertOpts(Map<String, ?> convertOpts) {
 		this.convertOpts = convertOpts;
 	}
 
 	/**
 	 * 待转换源文件
+	 * 
 	 * @return Returns the inputSource.
 	 */
 	public File getInputSource() {
@@ -126,6 +121,7 @@ public abstract class AbstractDocumentConverter implements IDocumentConverter {
 
 	/**
 	 * 转换后输出文件
+	 * 
 	 * @return Returns the targetFile.
 	 */
 	public File getTargetFile() {

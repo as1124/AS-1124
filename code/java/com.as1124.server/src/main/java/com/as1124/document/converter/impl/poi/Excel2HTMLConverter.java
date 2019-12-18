@@ -1,11 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年8月12日
- *******************************************************************************/
-
-package com.mobile.document.converter.impl.poi;
+package com.as1124.document.converter.impl.poi;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,7 +8,6 @@ import java.util.Map;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.TransformerFactoryConfigurationError;
@@ -29,28 +21,25 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 
-import com.mobile.document.converter.AbstractTextConverter;
-import com.mobile.document.converter.DocumentConvertException;
-import com.mobile.document.converter.DocumentServiceConstants;
+import com.as1124.document.converter.AbstractTextConverter;
+import com.as1124.document.converter.DocumentConvertException;
+import com.as1124.document.converter.DocumentServiceConstants;
 
 /**
  * Excel文档转HTML，文件后缀：<code>xls</code>
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-
 public class Excel2HTMLConverter extends AbstractTextConverter {
 
 	Logger logger = LoggerFactory.getLogger(Excel2HTMLConverter.class);
 
 	@Override
-	public boolean doConvert(File inputSource, File targetFile, Map<?, ?> opts)
+	public boolean doConvert(File inputSource, File targetFile, Map<String, ?> opts)
 			throws IOException, DocumentConvertException {
-		FileInputStream inStream = null;
-		HSSFWorkbook excelBook = null;
-		try {
-			inStream = new FileInputStream(inputSource);
-			excelBook = new HSSFWorkbook(inStream);
+
+		try (FileInputStream inStream = new FileInputStream(inputSource);
+				HSSFWorkbook excelBook = new HSSFWorkbook(inStream);) {
 			ExcelToHtmlConverter excelToHtmlConverter = new ExcelToHtmlConverter(
 					XMLHelper.getDocumentBuilderFactory().newDocumentBuilder().newDocument());
 			excelToHtmlConverter.processWorkbook(excelBook);
@@ -70,23 +59,12 @@ public class Excel2HTMLConverter extends AbstractTextConverter {
 			serializer.setOutputProperty(OutputKeys.INDENT, "yes");
 			serializer.setOutputProperty(OutputKeys.METHOD, "html");
 			serializer.transform(domSource, streamResult);
-		} catch (TransformerConfigurationException e) {
-			logger.error(e.getMessage(), e);
-		} catch (IllegalArgumentException e) {
+		} catch (IllegalArgumentException | TransformerFactoryConfigurationError | TransformerException e) {
 			logger.error(e.getMessage(), e);
 		} catch (ParserConfigurationException e) {
 			DocumentConvertException dce = new DocumentConvertException(e.getMessage());
 			dce.initCause(e.getCause());
 			throw dce;
-		} catch (TransformerFactoryConfigurationError e) {
-			logger.error(e.getMessage(), e);
-		} catch (TransformerException e) {
-			logger.error(e.getMessage(), e);
-		} finally {
-			if (inStream != null)
-				inStream.close();
-			if (excelBook != null)
-				excelBook.close();
 		}
 
 		return true;

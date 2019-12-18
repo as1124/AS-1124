@@ -1,10 +1,9 @@
-package com.mobile.document.converter;
+package com.as1124.document.converter;
 
 /**
  * 文档转换异常类定义
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
- *
+ * @author As-1124(mailto:as1124huang@gmail.com)
  */
 public class DocumentConvertException extends Exception {
 

@@ -1,11 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年8月10日
- *******************************************************************************/
-
-package com.mobile.document.converter;
+package com.as1124.document.converter;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +6,7 @@ import java.io.IOException;
 /**
  * 文件转换服务接口
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
- * 
+ * @author As-1124(mailto:as1124huang@gmail.com)
  */
 public interface IDocumentConverter {
 

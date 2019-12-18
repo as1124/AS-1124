@@ -45,6 +45,7 @@
 			<version>1.2</version>
 		</dependency>
 
+		<!-- HTTP Components -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpcore</artifactId>
@@ -62,6 +63,12 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>10.0</version>
+		</dependency>
+
+		<dependency>
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 			<version>1.6.1</version>
@@ -72,28 +79,28 @@
 			<version>1.7.9</version>
 		</dependency>
 
-
 		<dependency>
-			<groupId>com.as1124.document</groupId>
+			<groupId>batik</groupId>
 			<artifactId>batik-awt-util</artifactId>
 			<version>1.6-1</version>
-			<systemPath>${basedir}/lib/document/batik-awt-util-1.6-1.jar</systemPath>
-			<scope>system</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.as1124.document</groupId>
+			<groupId>org.apache.xmlgraphics</groupId>
+			<artifactId>batik-awt-util</artifactId>
+			<version>1.10</version>
+		</dependency>
+		<dependency>
+			<groupId>org.freehep</groupId>
 			<artifactId>freehep-graphicsio-emf</artifactId>
 			<version>2.4</version>
-			<systemPath>${basedir}/lib/document/freehep-graphicsio-emf-2.4.jar</systemPath>
-			<scope>system</scope>
 		</dependency>
 		<dependency>
-			<groupId>com.as1124.document</groupId>
+			<groupId>org.freehep</groupId>
 			<artifactId>freehep-io</artifactId>
 			<version>2.2.2</version>
-			<systemPath>${basedir}/lib/document/freehep-io-2.2.2.jar</systemPath>
-			<scope>system</scope>
 		</dependency>
+
+
 		<dependency>
 			<groupId>com.as1124.document</groupId>
 			<artifactId>icepdf-core</artifactId>
@@ -108,27 +115,24 @@
 			<systemPath>${basedir}/lib/document/icepdf-pro-6.2.5.jar</systemPath>
 			<scope>system</scope>
 		</dependency>
+
+
 		<dependency>
-			<groupId>com.as1124.document</groupId>
+			<groupId>org.jodconverter</groupId>
 			<artifactId>jodconverter-core</artifactId>
-			<version>4.0.0-RELEASE</version>
-			<systemPath>${basedir}/lib/document/jodconverter-core-4.0.0-RELEASE.jar</systemPath>
-			<scope>system</scope>
+			<version>4.2.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.as1124.document</groupId>
+			<groupId>org.libreoffice</groupId>
 			<artifactId>juh</artifactId>
-			<version>5.3.2</version>
-			<systemPath>${basedir}/lib/document/juh-5.3.2.jar</systemPath>
-			<scope>system</scope>
+			<version>6.3.2</version>
 		</dependency>
 		<dependency>
-			<groupId>com.as1124.document</groupId>
+			<groupId>org.libreoffice</groupId>
 			<artifactId>jurt</artifactId>
-			<version>5.3.2</version>
-			<systemPath>${basedir}/lib/document/jurt-5.3.2.jar</systemPath>
-			<scope>system</scope>
+			<version>6.3.2</version>
 		</dependency>
+
 		<dependency>
 			<groupId>com.as1124.document</groupId>
 			<artifactId>levigo-jbig2-imageio</artifactId>

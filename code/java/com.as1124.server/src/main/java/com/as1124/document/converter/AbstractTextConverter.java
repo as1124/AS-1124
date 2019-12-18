@@ -1,16 +1,9 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年8月16日
- *******************************************************************************/
-
-package com.mobile.document.converter;
+package com.as1124.document.converter;
 
 /**
  * 目标文件类型为文本(eg: html)转换器标志接口
  *
- * @author huangjw (mailto:huangjw@primeton.com)
+ * @author As-1124(mailto:as1124huang@gmail.com)
  */
 public abstract class AbstractTextConverter extends AbstractDocumentConverter {
 

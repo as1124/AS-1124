@@ -1,18 +1,10 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年8月14日
- *******************************************************************************/
-
-package com.mobile.document.converter.impl.libre;
+package com.as1124.document.converter.impl.libre;
 
 import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Map;
 
-import org.apache.commons.codec.digest.DigestUtils;
 import org.jodconverter.OfficeDocumentConverter;
 import org.jodconverter.office.DefaultOfficeManagerBuilder;
 import org.jodconverter.office.OfficeConnectionProtocol;
@@ -20,17 +12,17 @@ import org.jodconverter.office.OfficeManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.mobile.document.converter.AbstractTextConverter;
-import com.mobile.document.converter.DocumentConvertException;
+import com.as1124.document.converter.AbstractTextConverter;
+import com.as1124.document.converter.DocumentConvertException;
 
 /**
  * 文档转换服务，支持常用Office格式，文本格式；目标文件PDF<br>
  * <li>该转换器的使用需要安装 <a href="https://www.libreoffice.org/download/download/">LibreOffice</a>, 
  * 需要注意的是请选择好正确的版本：如64bit系统不要安装32bit的LibreOffice.
  * <li>软件安装完成后需要将<code> ${install_home}/program </code>加入到系统PATH变量中
- * @author huangjw (mailto:huangjw@primeton.com)
+ * 
+ * @author As-1124(mailto:as1124huang@gmail.com)
  */
-
 public class LibreDocumentConverter extends AbstractTextConverter {
 
 	/**
@@ -56,7 +48,7 @@ public class LibreDocumentConverter extends AbstractTextConverter {
 		return ("png|jpg|jpeg|gif|bmp|wmf|emf|tiff|".indexOf(targetExtension.toLowerCase()) <= -1);
 	}
 
-	protected boolean doConvert(File inputSource, File targetFile, Map<?, ?> opts)
+	protected boolean doConvert(File inputSource, File targetFile, Map<String, ?> opts)
 			throws IOException, DocumentConvertException {
 		if (opts == null || !opts.containsKey(OPT_OFFICE_HOME)) {
 			throw new DocumentConvertException(
@@ -78,7 +70,7 @@ public class LibreDocumentConverter extends AbstractTextConverter {
 		managerBuilder.setConnectionProtocol(OfficeConnectionProtocol.PIPE);
 		managerBuilder.setMaxTasksPerProcess(maxTaskNum);
 		managerBuilder.setOfficeHome(officeHome);
-		managerBuilder.setPipeName(DigestUtils.md5Hex(inputSource.getAbsolutePath()));
+		managerBuilder.setPipeName(inputSource.getAbsolutePath());
 		managerBuilder.setWorkingDir(new File(officeHome, "program"));
 
 		// 防止用户没有将dll加入到系统path导致无法加载转化器
@@ -89,8 +81,9 @@ public class LibreDocumentConverter extends AbstractTextConverter {
 		OfficeDocumentConverter converter = new OfficeDocumentConverter(officeManager);
 
 		try {
-			if (!officeManager.isRunning())
+			if (!officeManager.isRunning()) {
 				officeManager.start();
+			}
 			converter.convert(inputSource, targetFile);
 		} catch (Exception e) {
 			DocumentConvertException dce = new DocumentConvertException(e.getMessage());

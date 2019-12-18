@@ -1,11 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年8月10日
- *******************************************************************************/
-
-package com.mobile.document.converter.impl.poi;
+package com.as1124.document.converter.impl.poi;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
@@ -24,30 +17,29 @@ import org.apache.poi.sl.usermodel.Slide;
 import org.apache.poi.sl.usermodel.SlideShow;
 import org.apache.poi.sl.usermodel.SlideShowFactory;
 
-import com.mobile.document.converter.AbstractImageConverter;
-import com.mobile.document.converter.DocumentConvertException;
-import com.mobile.document.converter.DocumentServiceConstants;
+import com.as1124.document.converter.AbstractImageConverter;
+import com.as1124.document.converter.DocumentConvertException;
+import com.as1124.document.converter.DocumentServiceConstants;
 
 /**
- * PowerPoint文档转HTML，文件后缀：<code>ppt</code>
- * <pre><strong>
- * 保存的图片名称规则：${目标文件名}<code>-${pageIndex}.${目标文件后缀}</code>
+ * PowerPoint文档转HTML，文件后缀：<code>ppt</code>。
+ * <pre>保存的图片名称规则：
+ * ${目标文件名}<code>-${pageIndex}.${目标文件后缀}</code>
+ * 
  * 如：{@code onConvert("D:/files/test.ppt", "D:/files/pics/test.png, null)} 
- * 得到的第一张图片路径是：
+ * 得到的第一张图片路径是：<code>D:/files/pics/test_0.png</code>
+ * </pre>
  * 
- * <code>D:/files/pics/test_0.png</code>
- * </strong></pre>
- * 
- * @author huangjw(mailto:huangjw@primeton.com)
- *
  * @see DocumentServiceConstants#SEGMENT_SEPARATOR
+ *
+ * @author As-1124(mailto:as1124huang@gmail.com)
  */
 public class PPT2ImageConverter extends AbstractImageConverter {
 
 	private int pageCount = 0;
 
 	@Override
-	public boolean doConvert(File inputSource, File targetFile, Map<?, ?> opts)
+	public boolean doConvert(File inputSource, File targetFile, Map<String, ?> opts)
 			throws IOException, DocumentConvertException {
 		// 缩放比例
 		float scale = 1;
@@ -92,8 +84,9 @@ public class PPT2ImageConverter extends AbstractImageConverter {
 				notifyListeners(i, getPageCount(), destFile);
 			}
 		} finally {
-			if (slideShow != null)
+			if (slideShow != null) {
 				slideShow.close();
+			}
 		}
 
 		return true;

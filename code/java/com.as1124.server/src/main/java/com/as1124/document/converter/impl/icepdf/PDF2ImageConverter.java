@@ -1,11 +1,4 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年8月10日
- *******************************************************************************/
-
-package com.mobile.document.converter.impl.icepdf;
+package com.as1124.document.converter.impl.icepdf;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -20,16 +13,15 @@ import org.icepdf.core.pobjects.Document;
 import org.icepdf.core.pobjects.Page;
 import org.icepdf.core.util.GraphicsRenderingHints;
 
-import com.mobile.document.converter.AbstractImageConverter;
-import com.mobile.document.converter.DocumentConvertException;
-import com.mobile.document.converter.DocumentServiceConstants;
-import com.mobile.document.converter.IImageConvertListener;
+import com.as1124.document.converter.AbstractImageConverter;
+import com.as1124.document.converter.DocumentConvertException;
+import com.as1124.document.converter.DocumentServiceConstants;
+import com.as1124.document.converter.IImageConvertListener;
 
 /**
  * PDF文档转图片处理器
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
- *
+ * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 public class PDF2ImageConverter extends AbstractImageConverter implements IImageConvertListener {
 
@@ -43,26 +35,26 @@ public class PDF2ImageConverter extends AbstractImageConverter implements IImage
 	public PDF2ImageConverter() {
 		addConvertListener(this);
 	}
-	
+
 	/**
 	 * @see DocumentServiceConstants#OPT_SCALE
 	 * @see DocumentServiceConstants#OPT_ROTATION
 	 */
 	@Override
-	protected boolean doConvert(File inputSource, File targetFile, Map<?, ?> opts)
+	protected boolean doConvert(File inputSource, File targetFile, Map<String, ?> opts)
 			throws IOException, DocumentConvertException {
 		float scale = 1f;
-		if (opts != null && opts.containsKey(OPT_SCALE)) {
-			scale = Float.parseFloat(opts.get(OPT_SCALE).toString());
-		}
-
 		float rotation = 0f;
-		if (opts != null && opts.containsKey(OPT_ROTATION)) {
-			rotation = Float.parseFloat(opts.get(OPT_ROTATION).toString());
-		}
-
-		if (opts != null && opts.containsKey(OPT_PRODUCT_INFO)) {
-			ProductInfo.COMPANY = opts.get(OPT_PRODUCT_INFO).toString();
+		if (opts != null) {
+			if (opts.containsKey(OPT_SCALE)) {
+				scale = Float.parseFloat(opts.get(OPT_SCALE).toString());
+			}
+			if (opts.containsKey(OPT_ROTATION)) {
+				rotation = Float.parseFloat(opts.get(OPT_ROTATION).toString());
+			}
+			if (opts.containsKey(OPT_PRODUCT_INFO)) {
+				ProductInfo.COMPANY = opts.get(OPT_PRODUCT_INFO).toString();
+			}
 		}
 
 		Document document = null;
@@ -87,8 +79,6 @@ public class PDF2ImageConverter extends AbstractImageConverter implements IImage
 		return true;
 	}
 
-	
-	
 	@Override
 	public boolean isSupported(String inputExtension, String targetExtension) {
 		return "pdf".equalsIgnoreCase(inputExtension);
@@ -109,13 +99,9 @@ public class PDF2ImageConverter extends AbstractImageConverter implements IImage
 		this.pageCount = pageCount;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.mobile.document.converter.IImageConvertListener#onPageComplete(int, int, java.io.File)
-	 */
 	@Override
 	public void onPageComplete(int current, int total, File image) {
 		// nothing to do
-		
 	}
 
 }

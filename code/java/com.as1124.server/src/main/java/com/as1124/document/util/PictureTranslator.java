@@ -5,7 +5,7 @@
  * Created on 2017年8月9日
  *******************************************************************************/
 
-package com.mobile.document.util;
+package com.as1124.document.util;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -28,7 +28,7 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import com.mobile.document.converter.DocumentServiceConstants;
+import com.as1124.document.converter.DocumentServiceConstants;
 
 import net.arnx.wmf2svg.gdi.svg.SvgGdi;
 import net.arnx.wmf2svg.gdi.wmf.WmfParser;

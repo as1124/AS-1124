@@ -1,15 +1,7 @@
-/*******************************************************************************
- * Copyright (c) 2001-2017 Primeton Technologies, Ltd.
- * All rights reserved.
- * 
- * Created on 2017年8月9日
- *******************************************************************************/
-
-package com.mobile.document.converter.impl.poi;
+package com.as1124.document.converter.impl.poi;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Map;
@@ -23,30 +15,28 @@ import org.apache.poi.xwpf.converter.xhtml.XHTMLConverter;
 import org.apache.poi.xwpf.converter.xhtml.XHTMLOptions;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 
-import com.mobile.document.converter.DocumentConvertException;
-import com.mobile.document.util.PictureTranslator;
+import com.as1124.document.converter.DocumentConvertException;
+import com.as1124.document.util.PictureTranslator;
 
 /**
  * Word文档转HTML，文件后缀：<code>docx</code>
  * 
- * @author huangjw(mailto:huangjw@primeton.com)
- *
+ * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 public class WordX2HTMLConverter extends Word2HTMLConverter {
 
 	@Override
-	protected boolean doConvert(File inputSource, File targetFile, Map<?, ?> opts)
+	protected boolean doConvert(File inputSource, File targetFile, Map<String, ?> opts)
 			throws IOException, DocumentConvertException {
-		FileOutputStream fileOut = null;
 		XWPFDocument document = null;
-		try {
+		try (FileOutputStream fileOut = new FileOutputStream(targetFile)) {
 			document = new XWPFDocument(XWPFDocument.openPackage(inputSource.getAbsolutePath()));
-			fileOut = new FileOutputStream(targetFile);
 
 			// Directory with the same name of targetFile to save the pictures in document
 			File picsDir = new File(FilenameUtils.removeExtension(targetFile.getAbsolutePath()));
-			if (!picsDir.exists())
+			if (!picsDir.exists()) {
 				picsDir.mkdirs();
+			}
 
 			// Prepare XHTML options (here we set the IURIResolver to load images from a "word/media" folder)
 			XHTMLOptions options = XHTMLOptions.create();
@@ -65,14 +55,9 @@ public class WordX2HTMLConverter extends Word2HTMLConverter {
 			dce.initCause(e.getCause());
 			throw dce;
 		} finally {
-			try {
-				if (fileOut != null)
-					fileOut.close();
-			} catch (IOException e) {
-				// do not care
-			}
-			if (document != null)
+			if (document != null) {
 				document.close();
+			}
 		}
 		return true;
 	}
@@ -89,11 +74,9 @@ public class WordX2HTMLConverter extends Word2HTMLConverter {
 	 * @throws IOException 
 	 */
 	protected String translatorPicture(String filePath) {
-		FileInputStream contentIn = null;
 		File destFile = null;
 		String extension = FilenameUtils.getExtension(filePath);
-		try {
-			contentIn = new FileInputStream(filePath);
+		try (FileInputStream contentIn = new FileInputStream(filePath)) {
 			if (PictureType.WMF.getExtension().equalsIgnoreCase(extension)) {
 				return PictureTranslator.translatorWMF(contentIn);
 			} else if (PictureType.EMF.getExtension().equalsIgnoreCase(extension)) {
@@ -106,17 +89,9 @@ public class WordX2HTMLConverter extends Word2HTMLConverter {
 				// 如果tiff文件是多张图片的组合, word也只能显示一张
 				return PictureTranslator.translatorTIFF(contentIn, destFile)[0];
 			}
-		} catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			// can not be
-		} finally {
-			try {
-				if (contentIn != null)
-					contentIn.close();
-			} catch (IOException e) {
-				// do not care
-			}
 		}
-
 		return filePath;
 	}
 
