@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".layout.recycler.tb.TBRecyclerListActivity"></activity>
+        <activity android:name=".handler.AboutHandlerActivity"></activity>
+        <activity android:name=".layout.recycler.tb.TBRecyclerListActivity" />
         <activity android:name=".layout.card.AboutCardviewActivity" />
         <activity android:name=".layout.recycler.AboutRecyclerView" />
         <activity android:name=".layout.AboutLayoutActivity" />

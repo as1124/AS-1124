@@ -1,48 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".handler.AboutHandlerActivity">
 
     <Button
-        android:id="@+id/btn_to_layout"
+        android:id="@+id/btn_handler_ta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="布局" />
+        android:text="启动线程A的handler并等待下载" />
 
     <Button
-        android:id="@+id/btn_test"
+        android:id="@+id/btn_handler_tb"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="测试" />
+        android:text="启动线程B做命令控制" />
 
     <Button
-        android:id="@+id/btn_to_handler"
+        android:id="@+id/btn_handler_start"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Handler机制" />
+        android:text="Command: START" />
 
     <Button
-        android:id="@+id/btn_flash_on"
+        android:id="@+id/btn_handler_stop"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="打开闪光灯" />
+        android:text="Command: STOP" />
 
-    <Button
-        android:id="@+id/btn_flash_off"
+    <TextView
+        android:id="@+id/text_handler_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="关闭闪光灯" />
-
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:id="@+id/coordinator_layout"
-        android:layout_width="match_parent"
-        android:layout_height="75px"
-        android:layout_gravity="bottom"
-        android:background="@color/colorAccent">
-
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
+        android:minLines="10"
+        android:scrollbars="vertical" />
 </LinearLayout>

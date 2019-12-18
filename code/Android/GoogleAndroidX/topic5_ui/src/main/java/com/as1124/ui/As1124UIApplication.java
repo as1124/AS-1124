@@ -3,6 +3,7 @@ package com.as1124.ui;
 import android.app.Application;
 import android.content.Context;
 
+
 /**
  * @author As-1124(mailto:as1124huang@gmail.com)
  */
@@ -22,6 +23,13 @@ public class As1124UIApplication extends Application {
     protected void attachBaseContext(Context base) {
         // 创建Application之后立即调用
         super.attachBaseContext(base);
+    }
+
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
     }
 
 }

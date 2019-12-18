@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.as1124.selflib.hardware.FlashLightUtil
+import com.as1124.ui.handler.AboutHandlerActivity
 import com.as1124.ui.layout.AboutLayoutActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_main.*
@@ -27,6 +28,14 @@ class MainActivity : Activity(), View.OnClickListener {
             "请进行操作",
             Snackbar.LENGTH_INDEFINITE
         ).setText("沙雕").setAction("关闭", this).show()
+
+        btn_to_layout.setOnClickListener(this)
+        btn_to_handler.setOnClickListener(this)
+
+        btn_test.setOnClickListener(this)
+        btn_flash_on.setOnClickListener(this)
+        btn_flash_off.setOnClickListener(this)
+
 
 
         if (Build.VERSION.SDK_INT >= 23) {
@@ -47,13 +56,6 @@ class MainActivity : Activity(), View.OnClickListener {
                 requestPermissions(arrayOf(Manifest.permission.CAMERA), 3344)
             }
         }
-
-        btn_to_layout.setOnClickListener(this)
-
-        btn_test.setOnClickListener(this)
-        btn_flash_on.setOnClickListener(this)
-        btn_flash_off.setOnClickListener(this)
-
     }
 
     override fun onRequestPermissionsResult(
@@ -67,8 +69,8 @@ class MainActivity : Activity(), View.OnClickListener {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (RESULT_OK == resultCode && requestCode == 1234) {
-
+        if (RESULT_OK == resultCode) {
+            Toast.makeText(this, "权限申请成功", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -80,6 +82,9 @@ class MainActivity : Activity(), View.OnClickListener {
         when (v.id) {
             R.id.btn_to_layout -> {
                 startActivity(Intent(this, AboutLayoutActivity::class.java))
+            }
+            R.id.btn_to_handler -> {
+                startActivity(Intent(this, AboutHandlerActivity::class.java))
             }
             R.id.btn_test -> {
                 testButtonClick()
@@ -94,7 +99,7 @@ class MainActivity : Activity(), View.OnClickListener {
     }
 
     private fun testButtonClick() {
-        var intent = Intent(Intent.ACTION_GET_CONTENT).apply {
+        val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "image/*"
             addCategory(Intent.CATEGORY_OPENABLE)
         }
