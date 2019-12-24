@@ -91,7 +91,7 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
             itemsArray.add(data);
         }
 
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 50; i++) {
             ArrayMap<String, Object> data = new ArrayMap<>();
             StringBuilder sbName = new StringBuilder("Adidas 三叶草/ 真品沙");
             data.put("itemName", sbName.toString() + i);

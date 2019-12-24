@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Map;
 
+import org.jodconverter.LocalConverter;
 import org.jodconverter.OfficeDocumentConverter;
-import org.jodconverter.office.DefaultOfficeManagerBuilder;
-import org.jodconverter.office.OfficeConnectionProtocol;
+import org.jodconverter.office.LocalOfficeManager;
 import org.jodconverter.office.OfficeManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,30 +61,35 @@ public class LibreDocumentConverter extends AbstractTextConverter {
 					MessageFormat.format("[ERROR] LibreOffice software service not avaiable in {0}.", officeHome));
 		}
 
-		int maxTaskNum = 20;
+		int maxTaskNum = 200;
 		if (opts.containsKey(OPT_TASKS_PER_PROCESS)) {
 			Integer.parseInt(opts.get(OPT_TASKS_PER_PROCESS).toString());
 		}
-
-		DefaultOfficeManagerBuilder managerBuilder = new DefaultOfficeManagerBuilder();
-		managerBuilder.setConnectionProtocol(OfficeConnectionProtocol.PIPE);
-		managerBuilder.setMaxTasksPerProcess(maxTaskNum);
-		managerBuilder.setOfficeHome(officeHome);
-		managerBuilder.setPipeName(inputSource.getAbsolutePath());
-		managerBuilder.setWorkingDir(new File(officeHome, "program"));
 
 		// 防止用户没有将dll加入到系统path导致无法加载转化器
 		System.setProperty("java.library.path",
 			System.getProperty("java.library.path") + ";" + programExe.getAbsolutePath());
 
-		officeManager = managerBuilder.build();
-		OfficeDocumentConverter converter = new OfficeDocumentConverter(officeManager);
+		officeManager = LocalOfficeManager.builder().officeHome(officeHome).pipeNames(inputSource.getAbsolutePath())
+				.disableOpengl(false).maxTasksPerProcess(maxTaskNum).workingDir(new File(officeHome, "program"))
+				.build();
+		LocalConverter converter = LocalConverter.builder().officeManager(officeManager).build();
+
+		//		DefaultOfficeManagerBuilder managerBuilder = new DefaultOfficeManagerBuilder();
+		//		managerBuilder.setConnectionProtocol(OfficeConnectionProtocol.PIPE);
+		//		managerBuilder.setMaxTasksPerProcess(maxTaskNum);
+		//		managerBuilder.setOfficeHome(officeHome);
+		//		managerBuilder.setPipeName(inputSource.getAbsolutePath());
+		//		managerBuilder.setWorkingDir(new File(officeHome, "program"));
+		//		officeManager = managerBuilder.build();
+		//		OfficeDocumentConverter converter = new OfficeDocumentConverter(officeManager);
 
 		try {
 			if (!officeManager.isRunning()) {
 				officeManager.start();
 			}
-			converter.convert(inputSource, targetFile);
+			//			converter.convert(inputSource, targetFile);
+			converter.convert(inputSource);
 		} catch (Exception e) {
 			DocumentConvertException dce = new DocumentConvertException(e.getMessage());
 			dce.initCause(e.getCause());

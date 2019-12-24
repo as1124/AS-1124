@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.as1124.wxsapp.sign.mapper.IActivityMapper">
+
+	<resultMap type="HashMap" id="queryResult">
+		<id property="id" column="id" />
+		<result property="clientVersion" column="client_version" />
+		<result property="clientType" column="client_type" />
+		<result property="setting" column="setting" />
+	</resultMap>
+
+<!-- 	<select id="queryAppSetting" resultType="hashmap"> -->
+<!-- 		select * from app_setting where client_type = #{clientType} -->
+<!-- 		<if test="clientVersion != null and clientVersion != ''"> -->
+<!-- 			and client_version = #{clientVersion} -->
+<!-- 		</if> -->
+<!-- 	</select> -->
+
+</mapper>

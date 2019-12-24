@@ -31,10 +31,23 @@
         android:layout_height="wrap_content"
         android:text="Command: STOP" />
 
+    <Button
+        android:id="@+id/btn_handler_messenger"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Messenger 跨进程通信" />
+
+    <Button
+        android:id="@+id/btn_handler_msg2server"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="通过 Messenger 向Server发消息" />
+
     <TextView
         android:id="@+id/text_handler_log"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minLines="10"
         android:scrollbars="vertical" />
+
 </LinearLayout>

@@ -17,7 +17,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".handler.AboutHandlerActivity"></activity>
+        <service
+            android:name=".handler.RemoteService"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.as1124.messengerTest" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </service>
+
+        <activity android:name=".handler.AboutHandlerActivity" />
         <activity android:name=".layout.recycler.tb.TBRecyclerListActivity" />
         <activity android:name=".layout.card.AboutCardviewActivity" />
         <activity android:name=".layout.recycler.AboutRecyclerView" />

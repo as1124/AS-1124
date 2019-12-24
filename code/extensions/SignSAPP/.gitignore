@@ -1,0 +1,7 @@
+bin/
+gen/
+.svn/
+build/
+target/
+*.class
+*.prefs
