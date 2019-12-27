@@ -17,12 +17,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".autofill.AutoFillActivity"></activity>
+
         <service
             android:name=".handler.RemoteService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.as1124.messengerTest" />
+
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>

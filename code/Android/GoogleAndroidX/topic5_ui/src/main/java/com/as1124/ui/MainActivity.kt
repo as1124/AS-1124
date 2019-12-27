@@ -9,6 +9,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Toast
 import com.as1124.selflib.hardware.FlashLightUtil
+import com.as1124.ui.autofill.AutoFillActivity
 import com.as1124.ui.handler.AboutHandlerActivity
 import com.as1124.ui.layout.AboutLayoutActivity
 import com.google.android.material.snackbar.Snackbar
@@ -31,6 +32,7 @@ class MainActivity : Activity(), View.OnClickListener {
 
         btn_to_layout.setOnClickListener(this)
         btn_to_handler.setOnClickListener(this)
+        btn_to_autofill.setOnClickListener(this)
 
         btn_test.setOnClickListener(this)
         btn_flash_on.setOnClickListener(this)
@@ -85,6 +87,9 @@ class MainActivity : Activity(), View.OnClickListener {
             }
             R.id.btn_to_handler -> {
                 startActivity(Intent(this, AboutHandlerActivity::class.java))
+            }
+            R.id.btn_to_autofill -> {
+                startActivity(Intent(this, AutoFillActivity::class.java))
             }
             R.id.btn_test -> {
                 testButtonClick()
