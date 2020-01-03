@@ -1,17 +1,22 @@
 package com.as1124.spring.web.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.View;
+
+import com.as1124.spring.web.controller.model.Spittle;
 
 /**
  * {@link GetMapping} 等价于 {@link RequestMapping} 的GET调用。<br/>
@@ -38,27 +43,57 @@ public class SpringController {
 	@RequestMapping(path = "/home", method = { RequestMethod.GET })
 	public String homePage(Model data2Return) {
 		// 处理需要返回到前端界面的数据
-		data2Return.addAttribute("names", Arrays.asList(new String[] { "Hello ", " Spring ", "World!!!!" }));
+		List<String> array = new ArrayList<>();
+		array.add("Hello ");
+		array.add("Spring World!!!");
+		data2Return.addAttribute("names", array);
 
 		// 返回视图名称，翻译后  =>  /views/home/home.jsp
-		return "/home/home";
+		return "/home/home.jsp";
 	}
 
-	@GetMapping("/users")
-	public List<String> getNames(@RequestParam(value = "ageFrom", defaultValue = "0") int ageFrom) {
+	@GetMapping("/user")
+	public List<String> queryParams(@RequestParam(value = "ageFrom", defaultValue = "0") int ageFrom) {
+		// 查询参数注解
 		List<String> names = new ArrayList<>();
 		names.add("Bob");
 		names.add("Jack");
 		return names;
 	}
 
-	@GetMapping("/users/{userid}")
-	public String getAddress(@PathVariable(value = "userid") String userid) {
+	@GetMapping("/user/{userid}")
+	public String pathParams(@PathVariable(value = "userid") String userid) {
+		// 路径参数注解
 		return "中国上海_zh_CN";
+	}
+
+	@PostMapping("/user/register")
+	public String formParams(Spittle spittle) {
+		// 表单参数转对象
+		return "success";
+	}
+
+	/**
+	 * 表单校验：前提是校验对象的待校验属性、字段有相应的校验注解；<code>javax.validation.constraints</code>
+	 * <br/>参考 {@link Spittle}
+	 * @param spittle
+	 * @param errors 校验后的结果
+	 * @return
+	 */
+	@PostMapping(value = "/user/regist_new", consumes = { "application/x-www-form-urlencoded;charset=UTF-8",
+			"application/json;charset=UTF-8" })
+	public String formValidation(@Valid Spittle spittle, Errors errors) {
+		//ATTENTION 为什么一直校验都是没错呢
+		// 表单校验
+		if (errors.hasErrors()) {
+			return "fillForm";
+		} else {
+			return "redirect:/user/" + spittle.getId();
+		}
 	}
 
 	@GetMapping(path = "/*")
 	public String defaultPage() {
-		return "newIndex";
+		return "newIndex.html";
 	}
 }

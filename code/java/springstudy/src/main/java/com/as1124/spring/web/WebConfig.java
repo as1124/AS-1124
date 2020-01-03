@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
 	public ViewResolver getViewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
 		resolver.setPrefix("/views/");
-		resolver.setSuffix(".jsp");
+//		resolver.setSuffix(".jsp");
 		resolver.setExposeContextBeansAsAttributes(true);
 
 		return resolver;

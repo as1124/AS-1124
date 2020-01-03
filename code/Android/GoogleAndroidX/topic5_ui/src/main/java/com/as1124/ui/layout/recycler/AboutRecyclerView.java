@@ -3,6 +3,7 @@ package com.as1124.ui.layout.recycler;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.ArrayMap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,6 +53,19 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_recycler_view);
+        if(getWindow().getDecorView() != null){
+            getWindow().getDecorView().addOnAttachStateChangeListener(new View.OnAttachStateChangeListener() {
+                @Override
+                public void onViewAttachedToWindow(View v) {
+                    Log.i("TOPIC5_UI", "DecorView attach to window");
+                }
+
+                @Override
+                public void onViewDetachedFromWindow(View v) {
+
+                }
+            });
+        }
 
         layoutInflater = getLayoutInflater();
         recyclerList = findViewById(R.id.recycler_list);
@@ -69,6 +83,32 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
         recyclerList.setItemAnimator(new RecyclerListItemAnimator());
         recyclerList.addItemDecoration(new RecyclerListItemDecoration());
         recyclerList.setEdgeEffectFactory(new RecyclerListEdgeEffectFactory());
+
+        // OffScreen 缓存内容数量
+        recyclerList.setItemViewCacheSize(10);
+        recyclerList.setRecycledViewPool(new RecyclerListViewPool());
+        recyclerList.setNestedScrollingEnabled(true);
+        recyclerList.setViewCacheExtension(new RecyclerListViewCacheExt());
+        recyclerList.setScrollingTouchSlop(RecyclerView.TOUCH_SLOP_DEFAULT);
+
+        recyclerList.addOnScrollListener(new RecyclerView.OnScrollListener() {
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+        recyclerList.setOnFlingListener(new RecyclerView.OnFlingListener() {
+            @Override
+            public boolean onFling(int velocityX, int velocityY) {
+                return false;
+            }
+        });
 
         initItemList();
         listAdapter = new RecyclerListAdapter();
@@ -99,6 +139,11 @@ public class AboutRecyclerView extends Activity implements View.OnClickListener 
             data.put("saleNum", random.nextInt(5000) + "已付款");
             itemsArray.add(data);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     @Override

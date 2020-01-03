@@ -2,6 +2,11 @@ package com.as1124.spring.web.controller.model;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Null;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
 /**
  * 基础的POJO测试模型
  * 
@@ -10,14 +15,28 @@ import java.util.Date;
 public class Spittle {
 
 	private Long id;
-	private String message;
-	private Date time;
-	private Double latitude;
-	private Double longtitude;
 
-	public Spittle(String message, Date time) {
-		this.message = message;
-		this.time = time;
+	/**
+	 * Comment for <code>userName</code>： 非空，以及长度校验
+	 */
+	@NotNull
+	@Size(min = 5, max = 20)
+	private String userName;
+
+	/**
+	 * Comment for <code>time</code>: 过去的某个时间
+	 */
+	@Null
+	@Past
+	private Date time;
+
+	@NotNull
+	@Size(min = 5, max = 25)
+	private String password;
+
+	public Spittle(String username, String pwd) {
+		this.userName = username;
+		this.password = pwd;
 	}
 
 	/**
@@ -35,17 +54,17 @@ public class Spittle {
 	}
 
 	/**
-	 * @return Returns the {@link #message}.
+	 * @return Returns the {@link #userName}.
 	 */
-	public String getMessage() {
-		return message;
+	public String getUserName() {
+		return userName;
 	}
 
 	/**
-	 * @param message The {@link #message} to set.
+	 * @param userName The {@link #userName} to set.
 	 */
-	public void setMessage(String message) {
-		this.message = message;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
 	/**
@@ -56,38 +75,24 @@ public class Spittle {
 	}
 
 	/**
-	 * @param time The {@link time} to set.
+	 * @param time The {@link #time} to set.
 	 */
 	public void setTime(Date time) {
 		this.time = time;
 	}
 
 	/**
-	 * @return Returns the {@link #latitude}.
+	 * @return Returns the {@link #password}.
 	 */
-	public Double getLatitude() {
-		return latitude;
+	public String getPassword() {
+		return password;
 	}
 
 	/**
-	 * @param latitude The {@link #latitude} to set.
+	 * @param password The {@link #password} to set.
 	 */
-	public void setLatitude(Double latitude) {
-		this.latitude = latitude;
-	}
-
-	/**
-	 * @return Returns the {@link #longtitude}.
-	 */
-	public Double getLongtitude() {
-		return longtitude;
-	}
-
-	/**
-	 * @param longtitude The {@link #longtitude} to set.
-	 */
-	public void setLongtitude(Double longtitude) {
-		this.longtitude = longtitude;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }
