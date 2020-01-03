@@ -37,11 +37,11 @@ public class As1124SpringApplication extends AbstractAnnotationConfigDispatcherS
 	}
 
 	/* 
-	 * 请求路径通配符，截获所有请求但不包括JSP
-	 * 
+	 * 请求路径通配符，截获所有请求但不包括JSP<br/>
+	 * ATTENTION 不能写成 <code>/*</code>，不然访问JSP时就返回源码
 	 */
 	protected String[] getServletMappings() {
-		return new String[] { "/*" };
+		return new String[] { "/" };
 	}
 
 	@Override

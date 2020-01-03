@@ -2,7 +2,10 @@ package com.as1124.spring.web.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -14,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
 import com.as1124.spring.web.controller.model.Spittle;
@@ -31,7 +35,7 @@ import com.as1124.spring.web.controller.model.Spittle;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Controller
-@RequestMapping(path = { "/" })
+//@RequestMapping(path = { "/" })
 public class SpringController {
 
 	/**
@@ -41,13 +45,7 @@ public class SpringController {
 	 * @return 请求路径对应的视图{@link View}名称
 	 */
 	@RequestMapping(path = "/home", method = { RequestMethod.GET })
-	public String homePage(Model data2Return) {
-		// 处理需要返回到前端界面的数据
-		List<String> array = new ArrayList<>();
-		array.add("Hello ");
-		array.add("Spring World!!!");
-		data2Return.addAttribute("names", array);
-
+	public String homePage() {
 		// 返回视图名称，翻译后  =>  /views/home/home.jsp
 		return "/home/home.jsp";
 	}
@@ -90,6 +88,43 @@ public class SpringController {
 		} else {
 			return "redirect:/user/" + spittle.getId();
 		}
+	}
+
+	/**
+	 * 测试如何与界面进行数据交互
+	 * @return
+	 */
+	@GetMapping("/demo1")
+	public String testReturnDemo11(Model model2Return) {
+		Spittle spi = new Spittle("ABCSS-1124", "123321");
+		model2Return.addAttribute("result", spi);
+		return "/home/home.jsp";
+	}
+
+	@GetMapping("/demo2")
+	public ModelAndView testReturnDemo2() {
+		ModelAndView data2Return = new ModelAndView();
+		data2Return.setViewName("/home/home.jsp");
+		data2Return.addObject("result", "This is result!!");
+		return data2Return;
+	}
+
+	@GetMapping("/demo3")
+	public String testReturnDemo3(Map<String, String> data2Return) {
+		data2Return.put("result", "This is result2222!!");
+		return "/home/home.jsp";
+	}
+
+	@GetMapping("/demo4")
+	public String testReturnDemo4(HttpSession session) {
+		session.setAttribute("result", "This is result3333!!");
+		return "/home/home.jsp";
+	}
+
+	@GetMapping("/demo5")
+	public String testReturnDemo5(HttpServletRequest request) {
+		request.setAttribute("result", "This is result555555!!");
+		return "/home/home.jsp";
 	}
 
 	@GetMapping(path = "/*")

@@ -95,4 +95,9 @@ public class Spittle {
 		this.password = password;
 	}
 
+	@Override
+	public String toString() {
+		return "Name is " + this.userName + ", pdd== " + this.password;
+	}
+
 }

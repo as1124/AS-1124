@@ -17,7 +17,7 @@ public class As1124ServletInitializer implements WebApplicationInitializer {
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
 		Dynamic servlet = servletContext.addServlet("resource-servlet", ResourcesServlet.class);
-		servlet.addMapping("/resource/action/**");
+		servlet.addMapping("/resource/action/*");
 	}
 
 }

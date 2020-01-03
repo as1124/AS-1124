@@ -11,12 +11,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * 这里通过{@link WebServlet}进行注册的Servlet和通过Spring进行注册的Servlet，
- * 在URL处理上会不会冲突呢 ATTENTION
- *
+ * 通过{@link WebServlet}进行注册的Servlet和通过Spring进行注册的Servlet，
+ * 在URI处理上的策略：<pre><strong>
+ * 取并集，两种方法配置的  <code>servlet-mapping</code> 都能正常访问
+ * </strong></pre>
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@WebServlet("/resource/test/**")
+@WebServlet("/resource/test/*")
 public class ResourcesServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
@@ -34,7 +35,7 @@ public class ResourcesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try (Writer writer = response.getWriter()) {
-			writer.append("Served at: ").append(request.getContextPath());
+			writer.append("Served at: ").append(request.getRequestURI());
 			writer.flush();
 		} catch (IOException e) {
 			// nothing to do 
