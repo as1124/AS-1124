@@ -1,4 +1,4 @@
-package com.as1124.spring.web.controller.model;
+package com.as1124.spring.web.model;
 
 import java.util.Date;
 
@@ -12,31 +12,25 @@ import javax.validation.constraints.Size;
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-public class Spittle {
+public class UserInfo {
 
 	private Long id;
 
-	/**
-	 * Comment for <code>userName</code>： 非空，以及长度校验
-	 */
 	@NotNull
 	@Size(min = 5, max = 20)
 	private String userName;
 
-	/**
-	 * Comment for <code>time</code>: 过去的某个时间
-	 */
 	@Null
 	@Past
-	private Date time;
+	private Date birthDay;
 
 	@NotNull
-	@Size(min = 5, max = 25)
-	private String password;
+	@Size(min = 10, max = 50)
+	private String address;
 
-	public Spittle(String username, String pwd) {
+	public UserInfo(String username, String address) {
 		this.userName = username;
-		this.password = pwd;
+		this.address = address;
 	}
 
 	/**
@@ -68,36 +62,36 @@ public class Spittle {
 	}
 
 	/**
-	 * @return Returns the {@link #time}.
+	 * @return Returns the {@link #birthDay}.
 	 */
-	public Date getTime() {
-		return time;
+	public Date getBirthDay() {
+		return birthDay;
 	}
 
 	/**
-	 * @param time The {@link #time} to set.
+	 * @param time The {@link #birthDay} to set.
 	 */
-	public void setTime(Date time) {
-		this.time = time;
+	public void setBirthDay(Date birth) {
+		this.birthDay = birth;
 	}
 
 	/**
-	 * @return Returns the {@link #password}.
+	 * @return Returns the {@link #address}.
 	 */
-	public String getPassword() {
-		return password;
+	public String getAddress() {
+		return address;
 	}
 
 	/**
-	 * @param password The {@link #password} to set.
+	 * @param address The {@link #address} to set.
 	 */
-	public void setPassword(String password) {
-		this.password = password;
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 	@Override
 	public String toString() {
-		return "Name is " + this.userName + ", pdd== " + this.password;
+		return "Name is " + this.userName + ", addr== " + this.address;
 	}
 
 }

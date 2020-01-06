@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 
-import com.as1124.spring.web.controller.model.Spittle;
+import com.as1124.spring.web.model.UserInfo;
 
 /**
  * {@link GetMapping} 等价于 {@link RequestMapping} 的GET调用。<br/>
@@ -29,13 +29,13 @@ import com.as1124.spring.web.controller.model.Spittle;
  * <ul>
  * <li>请求路径匹配 {@link RequestMapping}
  * <li>如何获取并处理请求参数：{@link RequestParam}，{@link PathVariable}，
- * <li>如何返回数据：{@link Model}, 或者直接返回
+ * <li>如何返回数据：{@link Model}, {@link ModelAndView} 或者直接返回;  <code>String</code> 类型的方法返回值默认作为视图名称进行解析
  * </ul>
  * </p>
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Controller
-//@RequestMapping(path = { "/" })
+@RequestMapping(path = { "/spring" })
 public class SpringController {
 
 	/**
@@ -62,31 +62,32 @@ public class SpringController {
 	@GetMapping("/user/{userid}")
 	public String pathParams(@PathVariable(value = "userid") String userid) {
 		// 路径参数注解
-		return "中国上海_zh_CN";
+		return "failure";
 	}
 
 	@PostMapping("/user/register")
-	public String formParams(Spittle spittle) {
+	public String formParams(UserInfo spittle) {
 		// 表单参数转对象
 		return "success";
 	}
 
 	/**
 	 * 表单校验：前提是校验对象的待校验属性、字段有相应的校验注解；<code>javax.validation.constraints</code>
-	 * <br/>参考 {@link Spittle}
+	 * <br/>参考 {@link UserInfo}
 	 * @param spittle
 	 * @param errors 校验后的结果
 	 * @return
 	 */
-	@PostMapping(value = "/user/regist_new", consumes = { "application/x-www-form-urlencoded;charset=UTF-8",
+	@PostMapping(value = "/user/registx", consumes = { "application/x-www-form-urlencoded;charset=UTF-8",
 			"application/json;charset=UTF-8" })
-	public String formValidation(@Valid Spittle spittle, Errors errors) {
+	public String formValidation(@Valid UserInfo spittle, Errors errors) {
 		//ATTENTION 为什么一直校验都是没错呢
 		// 表单校验
 		if (errors.hasErrors()) {
 			return "fillForm";
 		} else {
-			return "redirect:/user/" + spittle.getId();
+			// 请求重定向
+			return "redirect:/spring/user/" + spittle.getId();
 		}
 	}
 
@@ -96,7 +97,7 @@ public class SpringController {
 	 */
 	@GetMapping("/demo1")
 	public String testReturnDemo11(Model model2Return) {
-		Spittle spi = new Spittle("ABCSS-1124", "123321");
+		UserInfo spi = new UserInfo("ABCSS-1124", "123321");
 		model2Return.addAttribute("result", spi);
 		return "/home/home.jsp";
 	}

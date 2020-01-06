@@ -17,12 +17,27 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
+			<artifactId>spring-jcl</artifactId>
+			<version>5.2.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
 			<version>5.2.0.RELEASE</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-beans</artifactId>
+			<version>5.2.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-expression</artifactId>
+			<version>5.2.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
 			<version>5.2.0.RELEASE</version>
 		</dependency>
 		<dependency>
@@ -35,6 +50,8 @@
 			<artifactId>spring-context-support</artifactId>
 			<version>5.2.0.RELEASE</version>
 		</dependency>
+
+		<!-- Spring Web MVC 依赖 -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-web</artifactId>
@@ -51,6 +68,18 @@
 			<version>2.0.1.Final</version>
 		</dependency>
 
+		<!-- Spring JDBC 后端处理依赖 -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>5.2.0.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jdbc</artifactId>
+			<version>5.2.0.RELEASE</version>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -58,6 +87,11 @@
 			<version>5.2.0.RELEASE</version>
 		</dependency>
 
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.9</version>
+		</dependency>
 
 	</dependencies>
 	<build>
