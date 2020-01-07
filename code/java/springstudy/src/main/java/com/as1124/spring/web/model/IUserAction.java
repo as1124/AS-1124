@@ -10,13 +10,14 @@ import java.util.List;
  */
 public interface IUserAction {
 
-	public UserInfo findOne(long uid);
+	public UserInfo findOne(int uid);
 
 	public default List<UserInfo> allUsers() {
 		return new ArrayList<>();
 	}
 
-	public void addUser(UserInfo user);
+	public default void addUser(UserInfo user) {
+	}
 
 	public boolean updateUser(UserInfo user);
 

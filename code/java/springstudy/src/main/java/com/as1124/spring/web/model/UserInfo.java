@@ -14,7 +14,7 @@ import javax.validation.constraints.Size;
  */
 public class UserInfo {
 
-	private Long id;
+	private int id;
 
 	@NotNull
 	@Size(min = 5, max = 20)
@@ -36,14 +36,14 @@ public class UserInfo {
 	/**
 	 * @return Returns the {@link #id}.
 	 */
-	public Long getId() {
+	public int getId() {
 		return id;
 	}
 
 	/**
 	 * @param id The {@link #id} to set.
 	 */
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

@@ -26,26 +26,29 @@ public class UserActionImpl implements IUserAction {
 	}
 
 	@Override
-	public UserInfo findOne(long uid) {
+	public UserInfo findOne(int uid) {
 		UserInfo result = null;
 		if (dbOperations != null) {
 			result = dbOperations.queryForObject("select * from user_info where id=?", new Object[] { uid },
-				(rs, rowNum) -> new UserInfo(rs.getString("user_name"), rs.getString("address")));
+				(rs, rowNum) -> {
+					UserInfo one = new UserInfo(rs.getString("user_name"), rs.getString("address"));
+					one.setId(rs.getInt("id"));
+					return one;
+				});
 		}
 		return result;
 	}
 
 	@Override
-	public void addUser(UserInfo user) {
-		if (dbOperations != null) {
-			dbOperations.update("insert into user_info() values()", user.getId(), user.getUserName(),
-				user.getAddress());
-		}
-	}
-
-	@Override
 	public boolean updateUser(UserInfo user) {
-		return false;
+		if (dbOperations != null) {
+			String sql = String.format("update user_info set user_name='%s', address='%s' where id = %d;",
+				user.getUserName(), user.getAddress(), user.getId());
+			int affectedRow = dbOperations.update(sql);
+			return affectedRow > 0;
+		} else {
+			return false;
+		}
 	}
 
 	/**

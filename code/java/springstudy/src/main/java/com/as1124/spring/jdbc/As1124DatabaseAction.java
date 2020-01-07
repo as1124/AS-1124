@@ -19,7 +19,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.as1124.spring.web.model.UserInfo;
 
 /**
- * Spring 数据库操作
+ * Spring 通过JDBC 进行数据库操作；{@link DataSource}, {@link JdbcTemplate}
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -36,7 +36,7 @@ public class As1124DatabaseAction {
 	public DataSource getDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/wxdadong");
+		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/spring");
 		dataSource.setUsername("root");
 		dataSource.setPassword("Root1234");
 		return dataSource;
@@ -53,6 +53,12 @@ public class As1124DatabaseAction {
 		assertNotNull(uAction);
 		UserInfo user = uAction.findOne(1);
 		System.out.println(user == null ? "--" : user.getUserName());
+
+		if (user != null) {
+			user.setUserName("新沙雕");
+			user.setAddress("--11--");
+			uAction.updateUser(user);
+		}
 	}
 
 }
