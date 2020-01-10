@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<context:property-placeholder location="classpath:/config/dbinfo.properties" />
+
+	<bean id="xml-jdbc-injection" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+	</bean>
+
+	<bean id="xml-dbcp-injection" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="${driverClassName}" />
+		<property name="url" value="${url}" />
+		<property name="username" value="${username}" />
+		<property name="password" value="${password}" />
+		<property name="defaultAutoCommit" value="${defaultAutoCommit}" />
+		<property name="initialSize" value="${initialSize}" />
+		<property name="minIdle" value="${minIdle}" />
+		<property name="maxIdle" value="${maxIdle}" />
+		<property name="maxTotal" value="${maxTotal}" />
+		<!-- 连接池不够用时，新请求等待获取连接的超时时间：60s -->
+		<property name="maxWaitMillis" value="${maxWaitMillis}" />
+		<!-- 启动连接超时检测；像MySQL有连接8小时的有效性，超时后连接将无效；配置此参数可以检查connect的有效性 -->
+		<property name="testWhileIdle" value="${testWhileIdle}" />
+		<property name="removeAbandonedOnBorrow" value="${removeAbandonedOnBorrow}" />
+	</bean>
+
+	<!-- <jee:jndi-lookup id="jndi-ds" jndi-name="as1124/" resource-ref="true"></jee:jndi-lookup> -->
+</beans>

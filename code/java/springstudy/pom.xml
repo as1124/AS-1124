@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.as1124</groupId>
@@ -20,6 +19,20 @@
 			<groupId>com.alibaba</groupId>
 			<artifactId>druid</artifactId>
 			<version>1.1.20</version>
+		</dependency>
+
+		<!-- Apache DBCP 数据库连接池 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-dbcp2</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+
+		<!-- C3P0 数据库连接池 -->
+		<dependency>
+			<groupId>com.mchange</groupId>
+			<artifactId>c3p0</artifactId>
+			<version>0.9.5.5</version>
 		</dependency>
 
 		<!-- Spring 基础框架 -->
@@ -93,33 +106,35 @@
 			<version>5.2.0.RELEASE</version>
 		</dependency>
 
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework.data</groupId> -->
-		<!-- <artifactId>spring-data-commons</artifactId> -->
-		<!-- <version>2.2.0.RELEASE</version> -->
-		<!-- </dependency> -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework.data</groupId> -->
-		<!-- <artifactId>spring-data-jpa</artifactId> -->
-		<!-- <version>2.2.0.RELEASE</version> -->
-		<!-- </dependency> -->
-
-		<!-- Hibernate ORM-JPA 框架 -->
 		<dependency>
 			<groupId>javax.persistence</groupId>
 			<artifactId>javax.persistence-api</artifactId>
 			<version>2.2</version>
 		</dependency>
+
+		<!-- Spring Data JPA实现框架 -->
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>5.4.10.Final</version>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+			<version>2.2.0.RELEASE</version>
 		</dependency>
 		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-entitymanager</artifactId>
-			<version>5.4.10.Final</version>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>2.2.0.RELEASE</version>
 		</dependency>
+
+		<!-- Hibernate ORM-JPA 框架 -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.hibernate</groupId> -->
+		<!-- <artifactId>hibernate-core</artifactId> -->
+		<!-- <version>5.4.10.Final</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.hibernate</groupId> -->
+		<!-- <artifactId>hibernate-entitymanager</artifactId> -->
+		<!-- <version>5.4.10.Final</version> -->
+		<!-- </dependency> -->
 
 
 
@@ -128,6 +143,7 @@
 			<artifactId>spring-test</artifactId>
 			<version>5.2.0.RELEASE</version>
 		</dependency>
+
 
 		<dependency>
 			<groupId>mysql</groupId>

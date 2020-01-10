@@ -2,18 +2,22 @@ package com.as1124.spring.web.model;
 
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 /**
- * 基础的POJO测试模型
+ * 基础的POJO测试模型, {@link Entity} 是JPA持久化模型注解
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
+@Entity
 public class UserInfo {
 
+	@Min(0)
 	private int id;
 
 	@NotNull
@@ -22,11 +26,15 @@ public class UserInfo {
 
 	@Null
 	@Past
-	private Date birthDay;
+	private Date birthday;
 
-	@NotNull
 	@Size(min = 10, max = 50)
 	private String address;
+
+	public UserInfo(int uid, String username) {
+		this.id = uid;
+		this.userName = username;
+	}
 
 	public UserInfo(String username, String address) {
 		this.userName = username;
@@ -62,17 +70,17 @@ public class UserInfo {
 	}
 
 	/**
-	 * @return Returns the {@link #birthDay}.
+	 * @return Returns the {@link #birthday}.
 	 */
-	public Date getBirthDay() {
-		return birthDay;
+	public Date getBirthday() {
+		return birthday;
 	}
 
 	/**
-	 * @param time The {@link #birthDay} to set.
+	 * @param time The {@link #birthday} to set.
 	 */
-	public void setBirthDay(Date birth) {
-		this.birthDay = birth;
+	public void setBirthday(Date birth) {
+		this.birthday = birth;
 	}
 
 	/**
