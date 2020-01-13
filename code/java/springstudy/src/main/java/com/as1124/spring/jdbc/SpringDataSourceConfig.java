@@ -1,37 +1,38 @@
 package com.as1124.spring.jdbc;
 
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
-
 import javax.sql.DataSource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.jndi.JndiObjectFactoryBean;
+import org.springframework.stereotype.Controller;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.as1124.spring.web.model.UserInfo;
+import com.mchange.v2.c3p0.PooledDataSource;
 
 /**
  * 常用数据源类型及Spring支持的配置方式：
  * <ul>
  * <li>JDBC 型数据源：XML / JAVA</li>
- * <li>JNDI 型数据源：XML / JAVA （两者都基于Web容器配置的数据源信息进行查找）</li>
+ * <li>JNDI 型数据源：XML / JAVA （两者都基于Web容器上下文环境配置的数据源进行查找）：环境依赖</li>
  * <li>数据库连接池：C3P0, DBCP, 阿里 Druid</li>
  * </ul>
  * 
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = SpringDataSourceConfig.class)
 @ImportResource("classpath:/config/spring-datasource.xml")
 @ComponentScan(basePackages = "com.as1124.spring.jdbc")
+
+@Controller
+@RequestMapping("/jdbc")
 public class SpringDataSourceConfig {
 
 	/**
@@ -39,18 +40,22 @@ public class SpringDataSourceConfig {
 	 */
 	@Autowired
 	@Qualifier("xml-jdbc-injection")
-	private DataSource xmlJdbcDatasource;
+	private DataSource xmlJdbcDataSource;
 
 	/**
 	 * 注入JAVA配置的JDBC数据源
 	 */
 	@Autowired
 	@Qualifier("java-jdbc-injection")
-	private DataSource javaJdbcDatasource;
+	private DataSource javaJdbcDataSource;
 
-	//	private DataSource xmlJndiDatasource;
-	//
-	//	private DataSource javaJndiDatasource;
+	@Autowired(required = false)
+	@Qualifier("xml-jndi-factory")
+	private JndiObjectFactoryBean jndiHolder;
+
+	@Autowired(required = false)
+	@Qualifier("jndi-injection")
+	private DataSource jndiDataSource;
 
 	@Autowired
 	@Qualifier("xml-dbcp-injection")
@@ -61,32 +66,34 @@ public class SpringDataSourceConfig {
 	private BasicDataSource javaDBCP;
 
 	@Autowired
-	private JdbcTemplateUserActionImpl uAction;
+	@Qualifier("xml-c3p0-injection")
+	private PooledDataSource xmlC3p0;
 
-	@Test
-	public void configSpringJdbcDatasource() {
-		assertNotNull(xmlJdbcDatasource);
-		assertNotNull(javaJdbcDatasource);
-		assertNotEquals(xmlJdbcDatasource, javaJdbcDatasource);
+	public void configSpringDatasource() {
+		Assert.assertNotNull(xmlJdbcDataSource);
+		Assert.assertNotNull(javaJdbcDataSource);
+		Assert.assertNotEquals(xmlJdbcDataSource, javaJdbcDataSource);
+
+		Assert.assertNotNull(xmlDBCP);
+		Assert.assertNotNull(javaDBCP);
+		Assert.assertNotEquals(xmlDBCP, javaDBCP);
+
+		Assert.assertNotNull(jndiDataSource);
+		Assert.assertNotNull(jndiHolder);
+		Object obj = jndiHolder.getObject();
+		Assert.assertNotEquals(obj, jndiDataSource);
+
+		Assert.assertNotNull(xmlC3p0);
 	}
 
-	@Test
-	public void configSpringJNDIDatasource() {
-		assertNotNull(xmlDBCP);
-		assertNotNull(javaDBCP);
-		assertNotEquals(xmlDBCP, javaDBCP);
+	@GetMapping("/ways")
+	public void testSpringDataSource() {
+		configSpringDatasource();
 	}
 
-	@Test
-	public void testUserActions() {
-		assertNotNull(uAction);
-		UserInfo user = uAction.findOne(1);
-		System.out.println(user == null ? "--" : user.getUserName());
-
-		if (user != null) {
-			user.setUserName("新沙雕");
-			user.setAddress("--11--");
-			uAction.updateUser(user);
-		}
+	@GetMapping("/jdbctemplate")
+	public void testJdbcTemplatePersistence(@Autowired PersistenceJdbcWay tools) {
+		Assert.assertNotNull(tools);
+		tools.testUserActions();
 	}
 }

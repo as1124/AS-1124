@@ -8,6 +8,7 @@
 
 	<context:property-placeholder location="classpath:/config/dbinfo.properties" />
 
+	<!-- 普通JDBC数据源 -->
 	<bean id="xml-jdbc-injection" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${driverClassName}" />
 		<property name="url" value="${url}" />
@@ -15,6 +16,7 @@
 		<property name="password" value="${password}" />
 	</bean>
 
+	<!-- DBCP 数据库连接池 -->
 	<bean id="xml-dbcp-injection" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${driverClassName}" />
 		<property name="url" value="${url}" />
@@ -32,5 +34,32 @@
 		<property name="removeAbandonedOnBorrow" value="${removeAbandonedOnBorrow}" />
 	</bean>
 
-	<!-- <jee:jndi-lookup id="jndi-ds" jndi-name="as1124/" resource-ref="true"></jee:jndi-lookup> -->
+	<!-- C3P0 数据库连接池 -->
+	<bean id="xml-c3p0-injection" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="${driverClassName}" />
+		<property name="jdbcUrl" value="${url}" />
+		<property name="user" value="${username}" />
+		<property name="password" value="${password}" />
+
+		<property name="autoCommitOnClose" value="${defaultAutoCommit}" />
+		<property name="initialPoolSize" value="${initialSize}" />
+		<property name="minPoolSize" value="${minIdle}" />
+		<property name="maxPoolSize" value="${maxIdle}" />
+		<!-- 连接池不够用时，新请求等待获取连接的超时时间：60s -->
+		<property name="maxIdleTime" value="${maxWaitMillis}" />
+		<!-- 获取连接时检查连接有效性；像MySQL有连接8小时的有效性，超时后连接将无效；配置此参数可以检查connect的有效性 -->
+		<property name="testConnectionOnCheckin" value="${testWhileIdle}" />
+	</bean>
+
+	<!-- JNDI 数据源：下面两种配置是等价的 -->
+	<!-- 方式一 -->
+	<!-- <jee:jndi-lookup id="jndi-ds1" jndi-name="java:comp/env/jdbc/jndi-ds"></jee:jndi-lookup> -->
+
+	<!-- 方式二 -->
+	<bean id="xml-jndi-factory" class="org.springframework.jndi.JndiObjectFactoryBean">
+		<property name="jndiName">
+			<value>java:comp/env/jdbc/jndi-ds</value>
+		</property>
+	</bean>
+
 </beans>

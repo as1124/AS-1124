@@ -3,7 +3,12 @@ package com.as1124.spring.jdbc;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+import javax.sql.DataSource;
+
+import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -28,6 +33,12 @@ public class JdbcTemplateUserActionImpl implements IUserAction {
 
 	public JdbcTemplateUserActionImpl() {
 		// default constructor
+	}
+
+	@Bean
+	public JdbcTemplate jdbcTemplate(@Autowired @Qualifier("java-jdbc-injection") DataSource ds) {
+		Assert.assertNotNull(ds);
+		return new JdbcTemplate(ds);
 	}
 
 	@Override
