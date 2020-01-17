@@ -1,8 +1,8 @@
-package com.as1124.spring.jdbc.hibernate;
+package com.as1124.spring.persistence.hibernate;
 
 /**
- * TODO 此处填写 class 信息
- *
+ * Hibernate JPA实现框架
+ * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 public class PersistenceHibernateWay {

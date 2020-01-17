@@ -53,12 +53,12 @@
 
 	<!-- JNDI 数据源：下面两种配置是等价的 -->
 	<!-- 方式一 -->
-	<!-- <jee:jndi-lookup id="jndi-ds1" jndi-name="java:comp/env/jdbc/jndi-ds"></jee:jndi-lookup> -->
+<!-- 	<jee:jndi-lookup id="xml-jndi-ds1" jndi-name="jdbc/jndids" resource-ref="true"></jee:jndi-lookup> -->
 
 	<!-- 方式二 -->
 	<bean id="xml-jndi-factory" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
-			<value>java:comp/env/jdbc/jndi-ds</value>
+			<value>java:comp/env/jdbc/jndids</value>
 		</property>
 	</bean>
 

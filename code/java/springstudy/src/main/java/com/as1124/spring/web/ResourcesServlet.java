@@ -10,8 +10,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.web.WebApplicationInitializer;
+
 /**
- * 通过{@link WebServlet}进行注册的Servlet和通过Spring进行注册的Servlet，
+ * 通过 @{@link WebServlet} 进行注册的Servlet和在Spring 的 
+ * {@linkplain WebApplicationInitializer#onStartup(javax.servlet.ServletContext)} 进行注册的Servlet，
  * 在URI处理上的策略：<pre><strong>
  * 取并集，两种方法配置的  <code>servlet-mapping</code> 都能正常访问
  * </strong></pre>

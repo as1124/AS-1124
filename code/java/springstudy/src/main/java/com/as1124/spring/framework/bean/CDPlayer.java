@@ -19,7 +19,7 @@ import com.as1124.spring.framework.condition.ConditionUsage;
 public class CDPlayer implements IMediaPlayer {
 
 	@Autowired(required = true)
-	@Qualifier("puShu")
+	@Qualifier("puShuCD")
 	private IMedia cd;
 
 	public CDPlayer() {

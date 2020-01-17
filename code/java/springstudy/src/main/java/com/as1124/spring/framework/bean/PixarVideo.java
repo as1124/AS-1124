@@ -7,7 +7,7 @@ import org.springframework.util.StringUtils;
 import com.as1124.spring.framework.IMedia;
 
 /**
- * Pixar动画电影描述
+ * 皮克斯动画电影描述
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */

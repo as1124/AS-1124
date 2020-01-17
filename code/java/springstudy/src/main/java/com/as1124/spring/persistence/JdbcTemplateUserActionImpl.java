@@ -1,14 +1,11 @@
-package com.as1124.spring.jdbc;
+package com.as1124.spring.persistence;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 import javax.sql.DataSource;
 
-import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Bean;
 import org.springframework.jdbc.core.JdbcOperations;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
@@ -17,7 +14,9 @@ import com.as1124.spring.web.model.IUserAction;
 import com.as1124.spring.web.model.UserInfo;
 
 /**
- * {@link JdbcTemplate} 实现了 {@link JdbcOperations}
+ * {@link JdbcTemplate} 实现了 {@link JdbcOperations}; Spring Java方式将{@link DataSource}装配到 {@link JdbcTemplate} 
+ * 进行数据库 CRUD 操作的示例
+ * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Component
@@ -28,17 +27,11 @@ public class JdbcTemplateUserActionImpl implements IUserAction {
 	/**
 	 * 注入的一般就是 {@link JdbcTemplate}
 	 */
-	@Autowired
+	@Autowired(required = true)
 	private JdbcOperations dbOperations;
 
 	public JdbcTemplateUserActionImpl() {
 		// default constructor
-	}
-
-	@Bean
-	public JdbcTemplate jdbcTemplate(@Autowired @Qualifier("java-jdbc-injection") DataSource ds) {
-		Assert.assertNotNull(ds);
-		return new JdbcTemplate(ds);
 	}
 
 	@Override

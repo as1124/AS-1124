@@ -5,21 +5,22 @@ import static org.junit.Assert.assertNotNull;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.as1124.spring.framework.config.As1124SpringConfig2;
-
 /**
- * 测试Spring自动装配方式二：{@link Bean} 注解
+ * 测试Spring配置，XML文件形式
+ * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = As1124SpringConfig2.class)
-public class BeanAssembleTest2 {
+@ContextConfiguration("/config/spring-config.xml")
+//@ContextConfiguration(classes = SpringConfigWays.class)
+public class SpringBeanConfigTest3 {
 
-	@Autowired(required = false)
+	@Autowired
+	@Qualifier("videoPlayerBean")
 	private IMediaPlayer player;
 
 	@Test
@@ -28,4 +29,3 @@ public class BeanAssembleTest2 {
 		player.startPlay();
 	}
 }
-

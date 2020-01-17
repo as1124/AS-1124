@@ -10,9 +10,9 @@ import com.as1124.spring.framework.IMedia;
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@Component("puShu")
+@Component("puShuCD")
 @Primary
-public class PuShuDisc implements IMedia {
+public class CDisc implements IMedia {
 
 	@Override
 	public void getMediaContent() {
