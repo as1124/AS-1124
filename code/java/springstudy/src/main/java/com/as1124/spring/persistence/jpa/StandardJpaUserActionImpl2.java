@@ -32,19 +32,18 @@ public class StandardJpaUserActionImpl2 implements IUserAction {
 	@Override
 	public int addUser(UserInfo user) {
 		mEntityManager.persist(user);
-		//			mEntityManager.flush();
 		mEntityManager.close();
 		return user.getId();
 	}
 
 	@Override
 	public boolean updateUser(UserInfo user) {
-		//			mEntityManager.getTransaction().begin();
 		mEntityManager.merge(user);
-		//			mEntityManager.flush();
-		//			mEntityManager.getTransaction().commit();
 		mEntityManager.close();
 		return true;
 	}
 
+	public EntityManager getEntityManager() {
+		return this.mEntityManager;
+	}
 }

@@ -9,7 +9,7 @@
 	<context:property-placeholder location="classpath:/config/dbinfo.properties" />
 
 	<!-- 普通JDBC数据源 -->
-	<bean id="xml-jdbc-injection" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<bean id="jdbc-ds-xml-injection" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="${driverClassName}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
@@ -17,7 +17,7 @@
 	</bean>
 
 	<!-- DBCP 数据库连接池 -->
-	<bean id="xml-dbcp-injection" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
+	<bean id="dbcp-ds-xml-injection" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="${driverClassName}" />
 		<property name="url" value="${url}" />
 		<property name="username" value="${username}" />
@@ -35,7 +35,7 @@
 	</bean>
 
 	<!-- C3P0 数据库连接池 -->
-	<bean id="xml-c3p0-injection" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+	<bean id="c3p0-ds-xml-injection" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
 		<property name="driverClass" value="${driverClassName}" />
 		<property name="jdbcUrl" value="${url}" />
 		<property name="user" value="${username}" />
@@ -56,7 +56,7 @@
 <!-- 	<jee:jndi-lookup id="xml-jndi-ds1" jndi-name="jdbc/jndids" resource-ref="true"></jee:jndi-lookup> -->
 
 	<!-- 方式二 -->
-	<bean id="xml-jndi-factory" class="org.springframework.jndi.JndiObjectFactoryBean">
+	<bean id="jndi-ds-xml-factory" class="org.springframework.jndi.JndiObjectFactoryBean">
 		<property name="jndiName">
 			<value>java:comp/env/jdbc/jndids</value>
 		</property>

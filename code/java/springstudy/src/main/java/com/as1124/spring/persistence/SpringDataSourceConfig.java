@@ -34,34 +34,34 @@ public class SpringDataSourceConfig {
 	 * 注入XML配置的JDBC数据源
 	 */
 	@Autowired
-	@Qualifier("xml-jdbc-injection")
+	@Qualifier(IPersistenceConstants.JDBC_XML)
 	private DataSource xmlJdbcDataSource;
 
 	/**
 	 * 注入JAVA配置的JDBC数据源
 	 */
 	@Autowired
-	@Qualifier("java-jdbc-injection")
+	@Qualifier(IPersistenceConstants.JDBC_JAVA)
 	private DataSource javaJdbcDataSource;
 
 	@Autowired(required = false)
-	@Qualifier("xml-jndi-factory")
+	@Qualifier(IPersistenceConstants.JNDI_XML)
 	private JndiObjectFactoryBean jndiHolder;
 
 	@Autowired
-	@Qualifier("java-jndi-injection")
+	@Qualifier(IPersistenceConstants.JNDI_JAVA)
 	private DataSource jndiDataSource;
 
 	@Autowired
-	@Qualifier("xml-dbcp-injection")
+	@Qualifier(IPersistenceConstants.DBCP_XML)
 	private BasicDataSource xmlDBCP;
 
 	@Autowired
-	@Qualifier("java-dbcp-injection")
+	@Qualifier(IPersistenceConstants.DBCP_JAVA)
 	private BasicDataSource javaDBCP;
 
 	@Autowired
-	@Qualifier("xml-c3p0-injection")
+	@Qualifier(IPersistenceConstants.C3P0_XML)
 	private PooledDataSource xmlC3p0;
 
 	public void configSpringDatasource() {

@@ -10,7 +10,6 @@ import javax.sql.DataSource;
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.commons.dbcp2.BasicDataSourceFactory;
 import org.junit.Assert;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ClassPathResource;
@@ -29,7 +28,7 @@ import org.springframework.stereotype.Repository;
 public class DataSourceBeans {
 
 	@Bean
-	public JdbcOperations jdbcTemplate(@Autowired @Qualifier("java-jdbc-injection") DataSource ds) {
+	public JdbcOperations jdbcTemplate(@Qualifier(IPersistenceConstants.DBCP_JAVA) DataSource ds) {
 		Assert.assertNotNull(ds);
 		return new JdbcTemplate(ds);
 	}
@@ -40,7 +39,7 @@ public class DataSourceBeans {
 	 * 
 	 * @return
 	 */
-	@Bean("java-jdbc-injection")
+	@Bean(IPersistenceConstants.JDBC_JAVA)
 	public DataSource createJdbcDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
@@ -55,7 +54,7 @@ public class DataSourceBeans {
 	 * 
 	 * @return
 	 */
-	@Bean("java-jndi-injection")
+	@Bean(IPersistenceConstants.JNDI_JAVA)
 	public DataSource createXmlJndiDataSource() {
 		// 通过 Java 内置 API 查找JNDI数据源
 		try {
@@ -76,7 +75,7 @@ public class DataSourceBeans {
 	 * 
 	 * @return
 	 */
-	@Bean("java-dbcp-injection")
+	@Bean(IPersistenceConstants.DBCP_JAVA)
 	public BasicDataSource createDbcpDataSource() {
 		try {
 			Properties pros = PropertiesLoaderUtils.loadProperties(new ClassPathResource("/config/dbinfo.properties"));
