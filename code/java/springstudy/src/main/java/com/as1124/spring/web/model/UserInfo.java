@@ -30,7 +30,7 @@ public class UserInfo {
 	@Column(name = "id", unique = true)
 
 	@Min(0)
-	private int id;
+	private Integer id;
 
 	@Column(name = "user_name")
 
@@ -66,14 +66,14 @@ public class UserInfo {
 	/**
 	 * @return Returns the {@link #id}.
 	 */
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
 	/**
 	 * @param id The {@link #id} to set.
 	 */
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -121,6 +121,9 @@ public class UserInfo {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (obj == null) {
+			return false;
+		}
 		if (UserInfo.class.isAssignableFrom(obj.getClass())) {
 			UserInfo another = (UserInfo) obj;
 			return ((this.id == another.getId()) && this.userName.equals(another.getUserName()));

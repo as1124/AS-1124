@@ -10,7 +10,6 @@ import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -45,7 +44,7 @@ public class PersistenceAPITest {
 	public void userActionByJDBC() {
 		assertNotNull(uAction);
 		UserInfo user = uAction.findOne(1);
-		System.out.println(user == null ? "--" : user.getUserName());
+		System.out.println(user == null ? "--" : user);
 		if (user != null) {
 			user.setUserName("新沙雕");
 			user.setAddress("--11--");
@@ -56,12 +55,12 @@ public class PersistenceAPITest {
 	@Autowired
 	private StandardJpaUserActionImpl sJpaActionImpl;
 
+	@Autowired
 	private StandardJpaUserActionImpl2 sJpaActionImpl2;
 
 	@GetMapping("/jpa")
 	public void userActionByJpa() {
 		// 测试 PersistenceUnit 行为
-		Assert.assertNotNull(sJpaActionImpl);
 		UserInfo user = sJpaActionImpl.findOne(4);
 		Assert.assertNotNull(user);
 		System.out.println(user.getUserName() + "," + user.getAddress());
@@ -74,14 +73,24 @@ public class PersistenceAPITest {
 		newUser.setBirthday(new Date(System.currentTimeMillis()));
 		System.out.println("新插入的id==" + sJpaActionImpl.addUser(newUser));
 
+		System.out.println("JPA删除结果 == " + sJpaActionImpl.deleteUser(1));
+	}
+
+	@GetMapping("/jpa2")
+	@javax.transaction.Transactional
+	public void userActionByJpa2() {
 		// 测试 PersistenceContext 行为
-		UserInfo userx = sJpaActionImpl2.findOne(5);
+		UserInfo userx = sJpaActionImpl2.findOne(2);
 		if (userx != null) {
 			System.out.println(userx.getUserName() + "," + userx.getAddress());
 			userx.setUserName("----HHHHHHHH--------");
 			userx.setAddress("+++++++Address++++++");
 			sJpaActionImpl2.updateUser(userx);
-			sJpaActionImpl2.addUser(newUser);
+
+			userx.setId(null);
+			sJpaActionImpl2.addUser(userx);
+
+			sJpaActionImpl2.deleteUser(12);
 		}
 	}
 
@@ -105,10 +114,11 @@ public class PersistenceAPITest {
 		System.out.println("新建用户ID==" + saveResult.getId());
 		saveResult.setAddress("Spring-jpa修改地址");
 		springJPA.saveAndFlush(saveResult);
+
+		springJPA.deleteUser(1);
 	}
 
 	@GetMapping("/springjpa2")
-	@Transactional
 	public void userActionBySpring2() {
 		JpaRepositoryFactory repositoryFactory = new JpaRepositoryFactory(sJpaActionImpl2.getEntityManager());
 		SpringJpaFramework springjap2 = repositoryFactory.getRepository(SpringJpaFramework.class);

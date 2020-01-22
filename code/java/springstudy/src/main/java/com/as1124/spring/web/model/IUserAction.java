@@ -44,4 +44,14 @@ public interface IUserAction {
 	 */
 	public boolean updateUser(UserInfo user);
 
+	/**
+	 * 根据主键id删除
+	 * 
+	 * @param uid
+	 * @return
+	 */
+	public default boolean deleteUser(int uid) {
+		return false;
+	}
+
 }

@@ -6,7 +6,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceUnit;
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.as1124.spring.web.model.IUserAction;
 import com.as1124.spring.web.model.UserInfo;
@@ -18,11 +17,14 @@ import com.as1124.spring.web.model.UserInfo;
  * <b>不论以何种方式注入都需要手动关闭close </b></li>
  * <li>EntityManagerFactory 需要自行处理事务开启、提交以及EntityManager的关闭</li>
  * <li>如果是{@linkplain PersistenceContext}由Spring注入的{@linkplain EntityManager}, 不需要手动关闭
+ * <li>Removing a detached instance com.as1124.spring.web.model.UserInfo</li>
+ * 先 <code> EntityManager.merge </code>查出最新数据，然后才能执行 {@link EntityManager#remove(Object)}
+ * <li>UPDATE、DELETE、INSERT 都需要事务处理</li>
  * <ul>
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@Transactional
+@javax.transaction.Transactional
 @Component
 public class StandardJpaUserActionImpl implements IUserAction {
 
@@ -58,14 +60,27 @@ public class StandardJpaUserActionImpl implements IUserAction {
 		EntityManager entityManager = mEMF.createEntityManager();
 		entityManager.getTransaction().begin();
 
-		UserInfo updatedOne = null;
-		updatedOne = entityManager.merge(user);
+		UserInfo updatedOne = entityManager.merge(user);
 
 		entityManager.flush();
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
 		return user.equals(updatedOne);
+	}
+
+	@Override
+	public boolean deleteUser(int uid) {
+		EntityManager entityManager = mEMF.createEntityManager();
+		entityManager.getTransaction().begin();
+
+		UserInfo user = new UserInfo();
+		user.setId(uid);
+		entityManager.remove(entityManager.merge(user));
+
+		entityManager.getTransaction().commit();
+		entityManager.close();
+		return true;
 	}
 
 }

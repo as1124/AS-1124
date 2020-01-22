@@ -4,7 +4,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.as1124.spring.web.model.IUserAction;
 import com.as1124.spring.web.model.UserInfo;
@@ -13,11 +12,12 @@ import com.as1124.spring.web.model.UserInfo;
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@Transactional
+@javax.transaction.Transactional
 @Component
 public class StandardJpaUserActionImpl2 implements IUserAction {
 
-	// ATTENTION  javax.persistence.TransactionRequiredException: No EntityManager with actual transaction available 
+	// ATTENTION  未解决异常 javax.persistence.TransactionRequiredException: 
+	// No EntityManager with actual transaction available 
 	// for current thread - cannot reliably process 'merge' call
 	// SharedEntityManagerCreator.java:298
 
@@ -40,6 +40,13 @@ public class StandardJpaUserActionImpl2 implements IUserAction {
 	public boolean updateUser(UserInfo user) {
 		mEntityManager.merge(user);
 		mEntityManager.close();
+		return true;
+	}
+
+	@Override
+	public boolean deleteUser(int uid) {
+		UserInfo userToDelete = mEntityManager.merge(new UserInfo(uid, ""));
+		mEntityManager.remove(userToDelete);
 		return true;
 	}
 

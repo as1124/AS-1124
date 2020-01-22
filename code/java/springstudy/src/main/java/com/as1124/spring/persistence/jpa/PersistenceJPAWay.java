@@ -16,6 +16,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -23,6 +24,7 @@ import org.springframework.orm.jpa.LocalEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.Database;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.TransactionManager;
+import org.springframework.transaction.support.AbstractPlatformTransactionManager;
 
 import com.as1124.spring.persistence.IPersistenceConstants;
 
@@ -81,17 +83,17 @@ public class PersistenceJPAWay {
 		return jpaVendorAdapter;
 	}
 
-	@Bean("appEMFBean")
-	public LocalEntityManagerFactoryBean applicationEntityManagerFactory(JpaVendorAdapter jpaVendorAdapter) {
-		LocalEntityManagerFactoryBean appEMFBean = new LocalEntityManagerFactoryBean();
-		// persistence.xml 中配置的名称
-		appEMFBean.setPersistenceUnitName("as1124_jpa_mysql");
-		appEMFBean.setJpaVendorAdapter(jpaVendorAdapter);
-
-		// ATTENTION 需要依赖 Hibernate-core：为了提供PersistenceProvider
-
-		return appEMFBean;
-	}
+	//	@Bean("appEMFBean")
+	//	public LocalEntityManagerFactoryBean applicationEntityManagerFactory(JpaVendorAdapter jpaVendorAdapter) {
+	//		LocalEntityManagerFactoryBean appEMFBean = new LocalEntityManagerFactoryBean();
+	//		// persistence.xml 中配置的名称
+	//		appEMFBean.setPersistenceUnitName("as1124_jpa_mysql");
+	//		appEMFBean.setJpaVendorAdapter(jpaVendorAdapter);
+	//
+	//		// ATTENTION 需要依赖 Hibernate-core：为了提供PersistenceProvider
+	//
+	//		return appEMFBean;
+	//	}
 
 	/****************************************************************/
 	// Spring JPA 要求ApplicationContext上下文必须包含名为 entityManagerFactory 的 EntityManagerFactory
@@ -116,6 +118,8 @@ public class PersistenceJPAWay {
 			@Qualifier(IPersistenceConstants.DBCP_JAVA) DataSource dataSource) {
 		JpaTransactionManager transactionManager = new JpaTransactionManager(emf);
 		transactionManager.setDataSource(dataSource);
+		transactionManager.setTransactionSynchronization(
+			AbstractPlatformTransactionManager.SYNCHRONIZATION_ON_ACTUAL_TRANSACTION);
 
 		return transactionManager;
 	}
