@@ -7,19 +7,23 @@ import java.util.List;
 import java.util.Map;
 
 /**
+ * <p>
  * This class is the implementation for the remote Warehouse interface.<br/>
- * 通过继承{@link UnicastRemoteObject}可以方便的暴露远程服务，具体方法请参考其JavaDoc
+ * 通过继承{@link UnicastRemoteObject}可以方便的暴露远程服务，具体方法请参考其JavaDoc. 
+ * UnicastRemoteObject 是单播服务：是指通过产生对单一的IP地址和端口的调用来定位
+ * 远程对象这一事实<br/>
  * 
- *
+ * 单播可以理解为：单一服务器对外服务
+ * </p>
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
-public class WareHouseImpl extends UnicastRemoteObject implements Warehouse {
+public class WareHouseImpl extends UnicastRemoteObject implements IWarehouse {
 
 	private static final long serialVersionUID = 3419605232274679110L;
 
 	private transient Map<String, Product> products = new HashMap<>();
 
-	private transient Warehouse backup = null;
+	private transient IWarehouse backup = null;
 
 	/**
 	 * 调用父类构造方法暴露Remote服务
@@ -30,7 +34,7 @@ public class WareHouseImpl extends UnicastRemoteObject implements Warehouse {
 		super();
 	}
 
-	public WareHouseImpl(Warehouse backup) throws RemoteException {
+	public WareHouseImpl(IWarehouse backup) throws RemoteException {
 		super();
 		this.backup = backup;
 	}
@@ -44,10 +48,11 @@ public class WareHouseImpl extends UnicastRemoteObject implements Warehouse {
 			}
 		}
 
-		if (backup != null)
+		if (backup != null) {
 			return backup.getPrice(description);
-		else
+		} else {
 			return 0;
+		}
 	}
 
 	@Override
@@ -65,16 +70,6 @@ public class WareHouseImpl extends UnicastRemoteObject implements Warehouse {
 	public void add(String keyword, Product product) {
 		product.setLocation(this);
 		products.put(keyword, product);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		return super.equals(obj);
-	}
-
-	@Override
-	public int hashCode() {
-		return super.hashCode();
 	}
 
 }

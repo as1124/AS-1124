@@ -1,0 +1,3 @@
+grant{
+	permission com.volume2.ch9.security.WordCheckPermission "fuck,sb,tmd","avoid";
+};

@@ -56,6 +56,7 @@ public class SynchBankTest {
 		 * @param to
 		 * @param amount
 		 */
+		@SuppressWarnings("unused")
 		public void transfer(int from, int to, double amount) {
 			bankLock.lock();
 			try {

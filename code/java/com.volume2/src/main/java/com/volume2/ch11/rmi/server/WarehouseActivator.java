@@ -1,7 +1,8 @@
-package com.volume2.ch11.rmi;
+package com.volume2.ch11.rmi.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.rmi.AlreadyBoundException;
 import java.rmi.MarshalledObject;
 import java.rmi.activation.Activatable;
 import java.rmi.activation.ActivationDesc;
@@ -9,13 +10,14 @@ import java.rmi.activation.ActivationException;
 import java.rmi.activation.ActivationGroup;
 import java.rmi.activation.ActivationGroupDesc;
 import java.rmi.activation.ActivationGroupID;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
+import com.volume2.ch11.rmi.IWarehouse;
+import com.volume2.ch11.rmi.WarehouseImpl2;
 
 /**
  * This server program instantiates a remote warehouse object, registers it 
@@ -25,31 +27,30 @@ import javax.naming.NamingException;
  */
 public class WarehouseActivator {
 
-	public static void main(String[] args) throws NamingException, IOException, ActivationException {
+	public static void main(String[] args) throws ActivationException, AlreadyBoundException, IOException {
 		System.out.println("Constructing activation descriptors...");
 
+//		System.setProperty("java.security.policy", "rmid.policy");
+//		System.setSecurityManager(new SecurityManager());
 		Properties pros = new Properties();
 		// use the server.policy file in the current directory
-		pros.put("java.security.policy", new File("server.policy").getCanonicalPath());
+//		pros.put("java.security.policy", new File("rmid.policy").getCanonicalPath());
 		ActivationGroupDesc group = new ActivationGroupDesc(pros, null);
 		ActivationGroupID id = ActivationGroup.getSystem().registerGroup(group);
 
 		Map<String, Double> prices = new HashMap<>();
 		prices.put("Blackwell Toaster", 24.95);
 		prices.put("ZapXpress", 49.95);
-		MarshalledObject<Object> param = new MarshalledObject<>(prices);
+		MarshalledObject<Map<String, Double>> param = new MarshalledObject<>(prices);
 
-		String codebase = "";
-
-		//ATTENTION 测试这里的className和location是不是一起配合使用的
-		ActivationDesc desc = new ActivationDesc(id, "WarehouseImpl", codebase, param);
-		Warehouse centralWarehouse = (Warehouse) Activatable.register(desc);
+		String codebase = "file:///Users/work/rmi-service.jar";
+		ActivationDesc desc = new ActivationDesc(id, WarehouseImpl2.class.getName(), codebase, param);
+		IWarehouse centralWarehouse = (IWarehouse) Activatable.register(desc);
 
 		System.out.println("Binding activable implementation to registry...");
-		Context namingContext = new InitialContext();
-		namingContext.bind("rmi://localhost:9090/central_warehouse", centralWarehouse);
-		System.out.println("Exiting...");
-
+		Registry rmiRegistry = LocateRegistry.createRegistry(9090);
+		rmiRegistry.bind("central_warehouse2", centralWarehouse);
+		System.out.println("Activable Waitting for client call...");
 	}
 
 }
