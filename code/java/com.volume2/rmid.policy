@@ -1,7 +1,14 @@
 grant {
 	permission com.sun.rmi.rmid.ExecPermission "${java.home}${/}bin${/}java";
-	permission com.sun.rmi.rmid.ExecOptionPermission "-Djava.sercurity.policy=*";
+	permission com.sun.rmi.rmid.ExecPermission "/Users/huang/work/";
+	
+	permission com.sun.rmi.rmid.ExecOptionPermission "-Djava.security.policy=*";
+	permission com.sun.rmi.rmid.ExecOptionPermission "-Djava.security.debug=*";
+	permission com.sun.rmi.rmid.ExecOptionPermission "-Dsun.rmi.*";
+	
 	permission java.util.PropertyPermission "${user.dir}${/}", "read";
+	permission java.util.PropertyPermission "/Users/huang/work/", "read";
+	
 	permission java.net.SocketPermission "*:9000-65535", "accept";
 	permission java.net.SocketPermission "*:9000-65535", "listen";
 	permission java.net.SocketPermission "*:9000-65535", "resolve";

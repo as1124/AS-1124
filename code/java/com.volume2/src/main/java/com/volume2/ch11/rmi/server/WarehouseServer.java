@@ -1,10 +1,12 @@
 package com.volume2.ch11.rmi.server;
 
 import java.rmi.AlreadyBoundException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.activation.Activatable;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.RemoteRef;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.logging.Level;
 
@@ -16,19 +18,35 @@ import com.java.core.log.JavaCoreLogger;
 import com.volume2.ch11.rmi.Product;
 import com.volume2.ch11.rmi.WareHouseImpl;
 
+import sun.rmi.transport.Transport;
+import sun.rmi.transport.tcp.TCPEndpoint;
+
 /**
- * This server program instantiates a remote warehouse object, registers 
- * it with the naming service, and waits for clients to invoke methods.
- * <br/>
- * <code>RMI</code> 组成: RMI-Registry，RMI-Server，RMI-Client，Proxy
- * <ul>
- * <li>RMI注册表默认：使用1099端口，只支持本地单播服务</li>
- * <li>RMI 注册表2种启动：命令行启动、代码启动 </li>
- * <li>命令行时需要指定 RMI-Server 加载类的codebase：<code>-Djava.rmi.server.codebase</code>
- * <li>{@link InitialContext}，{@link LocateRegistry} 两种方式都可访问 RMI 注册表
- * <li>RMI 服务对象2种实现：1-继承 {@link UnicastRemoteObject} 接口，2-继承{@link Activatable};
- * 其实都是一个 export 的过程
- * </ul>
+ * <b><code>RMI</code> 组成: </b>
+ * <ol>
+ * <li>RMI-Registry：默认监听端口1099，注册表用于服务管理
+ * <li>RMI-Server：远程服务具体实现，通过Proxy（stub）与注册表通信，{@link RemoteRef}
+ * <li>RMI-Client：客户端调用起，通过Stub进行服务交互
+ * <li>底层传输交互：Tcp/IO模型，{@link Transport}、{@link TCPEndpoint}
+ * </ol>
+ * 
+ * <b>RMI 注册表（{@link Registry}）访问方式</b>：
+ * <ol>
+ * <li>两种启动：命令行启动、代码启动；命令行时需要指定 RMI-Server 加载类时的codebase
+ * <code>-Djava.rmi.server.codebase</code>
+ * <li>三种访问途径：{@link InitialContext}，{@link LocateRegistry}，{@link Naming}
+ * </ol>
+ * 
+ * <b>远程服务两种export方式：1-{@link UnicastRemoteObject}，2-{@link Activatable}</b>：
+ * <br/><br/>
+ * <ol>
+ * RMI远程服务激活（Activation）机制
+ * <li>启动RMI注册表
+ * <li>启动RMI激活守护程序 <code>（RMID服务: rmid -J-Djava.security.policy=rmid.policy）</code>,
+ * rmid服务启动需要当前目录下有指定的policy文件
+ * <li>注册并绑定服务
+ * <li>客户端调用
+ * </ol>
  * 
  * @author as-1124(mailto:as1124huang@gmail.com)
  */

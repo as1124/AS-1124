@@ -9,11 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * This class is implementation for the remote warehouse interface.
- * 通过 {@link Activatable} 实现远程服务，
+ * 通过 {@link Activatable} 实现远程服务：
  * 必须有构造函数 {@link #WarehouseImpl2(ActivationID, MarshalledObject)}: 
  * <p>
- * 一个参数为激活器 ID，一个参数是对象编码包 {@linkplain MarshalledObject}
+ * 一个参数为激活器 ID，一个参数是参数编码包 {@linkplain MarshalledObject}
  * </p>
  * 多个参数可以通过Object[]，或者ArrayList 进行组合后再通过 MarshalledObject 编码传递
  * <br/>
@@ -26,12 +25,12 @@ public class WarehouseImpl2 extends Activatable implements IWarehouse {
 
 	private Map<String, Double> prices = null;
 
-	public WarehouseImpl2(ActivationID activationID, MarshalledObject<?> data)
+	public WarehouseImpl2(ActivationID activationID, MarshalledObject<Map<String, Double>> data)
 			throws ClassNotFoundException, IOException {
 		// 让系统自动分配端口是不是有得挂
 		super(activationID, 0);
 
-		prices = (Map<String, Double>) data.get();
+		prices = data.get();
 	}
 
 	@Override

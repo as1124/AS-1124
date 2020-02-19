@@ -18,8 +18,8 @@ import com.volume2.ch11.rmi.IWarehouse;
 import com.volume2.ch11.rmi.Product;
 
 /**
- * A client that invokes a remote method.
- * RMI 注册表访问协议：
+ * RMI 注册表访问协议：<code> rmi://host:port/service-name </code>
+ * 
  * @author as-1124(mailto:as1124huang@gmail.com)
  */
 public class WarehouseClient {

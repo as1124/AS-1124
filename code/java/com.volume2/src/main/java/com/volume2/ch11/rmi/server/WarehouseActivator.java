@@ -2,8 +2,13 @@ package com.volume2.ch11.rmi.server;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.MarshalledObject;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.rmi.activation.Activatable;
 import java.rmi.activation.ActivationDesc;
 import java.rmi.activation.ActivationException;
@@ -11,7 +16,6 @@ import java.rmi.activation.ActivationGroup;
 import java.rmi.activation.ActivationGroupDesc;
 import java.rmi.activation.ActivationGroupID;
 import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -28,13 +32,20 @@ import com.volume2.ch11.rmi.WarehouseImpl2;
 public class WarehouseActivator {
 
 	public static void main(String[] args) throws ActivationException, AlreadyBoundException, IOException {
+		prepareRMIServer();
+
+		try {
+			callFromClient();
+		} catch (MalformedURLException | RemoteException | NotBoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void prepareRMIServer() throws IOException, ActivationException, AlreadyBoundException {
 		System.out.println("Constructing activation descriptors...");
 
-//		System.setProperty("java.security.policy", "rmid.policy");
-//		System.setSecurityManager(new SecurityManager());
 		Properties pros = new Properties();
-		// use the server.policy file in the current directory
-//		pros.put("java.security.policy", new File("rmid.policy").getCanonicalPath());
+		pros.put("java.security.policy", new File("rmid.policy").getCanonicalPath());
 		ActivationGroupDesc group = new ActivationGroupDesc(pros, null);
 		ActivationGroupID id = ActivationGroup.getSystem().registerGroup(group);
 
@@ -48,9 +59,16 @@ public class WarehouseActivator {
 		IWarehouse centralWarehouse = (IWarehouse) Activatable.register(desc);
 
 		System.out.println("Binding activable implementation to registry...");
-		Registry rmiRegistry = LocateRegistry.createRegistry(9090);
-		rmiRegistry.bind("central_warehouse2", centralWarehouse);
-		System.out.println("Activable Waitting for client call...");
+		LocateRegistry.getRegistry(1099).bind("activate_warehouse", centralWarehouse);
+	}
+
+	private static void callFromClient() throws MalformedURLException, RemoteException, NotBoundException {
+		System.out.println("Make a call from client--->");
+		Remote remoteObj = Naming.lookup("rmi://localhost:1099/activate_warehouse");
+		if (remoteObj != null && IWarehouse.class.isAssignableFrom(remoteObj.getClass())) {
+			IWarehouse service = (IWarehouse) remoteObj;
+			System.out.println("--->远程调用结果==" + service.getPrice("ZapXpress"));
+		}
 	}
 
 }

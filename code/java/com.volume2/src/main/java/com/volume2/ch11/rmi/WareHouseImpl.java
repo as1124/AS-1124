@@ -8,10 +8,9 @@ import java.util.Map;
 
 /**
  * <p>
- * This class is the implementation for the remote Warehouse interface.<br/>
  * 通过继承{@link UnicastRemoteObject}可以方便的暴露远程服务，具体方法请参考其JavaDoc. 
- * UnicastRemoteObject 是单播服务：是指通过产生对单一的IP地址和端口的调用来定位
- * 远程对象这一事实<br/>
+ * UnicastRemoteObject 是单播服务：指通过产生对单一的IP地址和端口的调用来定位远程对象这一事实
+ * <br/>
  * 
  * 单播可以理解为：单一服务器对外服务
  * </p>
