@@ -25,7 +25,7 @@ import org.springframework.stereotype.Repository;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Repository
-public class DataSourceBeans {
+public class DataSourceJavaBeans {
 
 	@Bean
 	public JdbcOperations jdbcTemplate(@Qualifier(IPersistenceConstants.DBCP_JAVA) DataSource ds) {
@@ -43,7 +43,7 @@ public class DataSourceBeans {
 	public DataSource createJdbcDataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.mysql.jdbc.Driver");
-		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/spring");
+		dataSource.setUrl("jdbc:mysql://127.0.0.1:3306/spring?characterEncoding=utf8");
 		dataSource.setUsername("root");
 		dataSource.setPassword("Root1234");
 		return dataSource;

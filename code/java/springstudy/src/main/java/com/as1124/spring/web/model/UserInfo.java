@@ -1,5 +1,6 @@
 package com.as1124.spring.web.model;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -21,7 +22,9 @@ import javax.validation.constraints.Size;
  */
 @Entity
 @Table(name = "user_info")
-public class UserInfo {
+public class UserInfo implements Serializable {
+
+	private static final long serialVersionUID = 2258011765463964727L;
 
 	//	GenerationType.SEQUENCE/TABLE 都依赖于数据库，即：创建表时需要设置主键自增策略
 

@@ -48,11 +48,11 @@ public class SpringDataSourceConfig {
 	@Qualifier(IPersistenceConstants.JNDI_XML)
 	private JndiObjectFactoryBean jndiHolder;
 
-	@Autowired
+	@Autowired(required = false)
 	@Qualifier(IPersistenceConstants.JNDI_JAVA)
 	private DataSource jndiDataSource;
 
-	@Autowired
+	@Autowired(required = false)
 	@Qualifier(IPersistenceConstants.DBCP_XML)
 	private BasicDataSource xmlDBCP;
 

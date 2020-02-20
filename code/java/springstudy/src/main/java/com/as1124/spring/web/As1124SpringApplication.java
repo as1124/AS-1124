@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 /**
  * Spring MVC Java配置方式
  * {@linkplain AbstractAnnotationConfigDispatcherServletInitializer} 就是 {@linkplain WebApplicationInitializer}的实现
+ * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 public class As1124SpringApplication extends AbstractAnnotationConfigDispatcherServletInitializer {

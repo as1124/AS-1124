@@ -51,15 +51,11 @@
 		<property name="testConnectionOnCheckin" value="${testWhileIdle}" />
 	</bean>
 
-	<!-- JNDI 数据源：下面两种配置是等价的 -->
-	<!-- 方式一 -->
-<!-- 	<jee:jndi-lookup id="xml-jndi-ds1" jndi-name="jdbc/jndids" resource-ref="true"></jee:jndi-lookup> -->
-
-	<!-- 方式二 -->
-	<bean id="jndi-ds-xml-factory" class="org.springframework.jndi.JndiObjectFactoryBean">
-		<property name="jndiName">
-			<value>java:comp/env/jdbc/jndids</value>
-		</property>
-	</bean>
+	<!-- JNDI数据源 -->
+<!-- 	<bean id="jndi-ds-xml-factory" class="org.springframework.jndi.JndiObjectFactoryBean"> -->
+<!-- 		<property name="jndiName"> -->
+<!-- 			<value>java:comp/env/jdbc/jndids</value> -->
+<!-- 		</property> -->
+<!-- 	</bean> -->
 
 </beans>
