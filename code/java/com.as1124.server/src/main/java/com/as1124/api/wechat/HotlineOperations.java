@@ -313,7 +313,7 @@ public class HotlineOperations {
 	 * @param token
 	 * @return
 	 */
-	// ATTENTION 未完成
+	// TODO 未完成
 	public static List<String> getWaitFans(AbstractAccessToken token) {
 		String uri = "https://api.weixin.qq.com/customservice/kfsession/getwaitcase";
 		ArrayList<NameValuePair> queryStr = new ArrayList<>();

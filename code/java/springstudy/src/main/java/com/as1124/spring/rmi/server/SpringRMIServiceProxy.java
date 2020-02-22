@@ -1,5 +1,6 @@
 package com.as1124.spring.rmi.server;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -16,9 +17,12 @@ import com.as1124.spring.rmi.UserRMIServiceImpl;
 /**
  * 通过Spring 绑定并导出RMI服务
  * <br/>
- * ---1.创建ServiceExporter 并绑定服务，底层也是通过{@link UnicastRemoteObject#exportObject(java.rmi.Remote, int)}实现的
+ * ---1.创建ServiceExporter 将普通对象导出为RMI服务并绑定到RMI注册表上，
+ * 底层也是通过{@link UnicastRemoteObject#exportObject(java.rmi.Remote, int)}实现的
  * <br/>
  * ---2.装配RMI服务到Spring-Context中，以便依赖注入是可以调用
+ * <br/>
+ * ---3.RMI 数据传输基于java序列化, 记得实现{@link Serializable} 接口
  * <br/><br/>
  * <ul>
  * <b>问题</b>

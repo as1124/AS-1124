@@ -141,7 +141,7 @@ public class MediaOperations {
 		getTempMedia(token, mediaID, savePath);
 	}
 
-	// ATTENTION 这里有一种通过JSSDK上传的语音素材没处理
+	// TODO 这里有一种通过JSSDK上传的语音素材没处理
 
 	public static void getTempVoice(AbstractAccessToken token, String mediaID, String savePath) throws IOException {
 		getTempMedia(token, mediaID, savePath);

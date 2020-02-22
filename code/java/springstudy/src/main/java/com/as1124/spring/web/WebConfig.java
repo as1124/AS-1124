@@ -33,6 +33,15 @@ public class WebConfig implements WebMvcConfigurer {
 		return resolver;
 	}
 
+	/**
+	 * 启用J2EE 容器中的默认Servlet处理机制；例如Tomcat默认的web.xml中有配置一个 <code>default</code> 名称
+	 * 的Servlet, {@linkplain org.apache.catalina.servlets.DefaultServlet}
+	 * <br/>
+	 * <h2>
+	 * <b>对静态资源的请求转发到默认Servlet进行处理，而不是使用DispatcherServlet进行处理;
+	 * 例如请求 JSP 界面转到tomcat容器进行处理<b/>，不然就会出现找不到页面的情况
+	 * </h2>
+	 */
 	@Override
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		// 对静态资源的请求转发到Servlet容器中的默认Servlet进行处理，而不是使用DispatcherServlet进行处理

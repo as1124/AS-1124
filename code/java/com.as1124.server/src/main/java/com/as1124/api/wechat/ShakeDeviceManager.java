@@ -111,7 +111,7 @@ public class ShakeDeviceManager {
 			throw new ThirdPartyRequestExceprion("[WechatDeviceManager#bindDeviceWithPoi]" + result);
 	}
 
-	//ATTENTION 查询设备列表未完成
+	//TODO 查询设备列表未完成
 	public static boolean queryDeviceList(String accessToken, DeviceIdentify deviceIdentifier)
 			throws IOException, ThirdPartyRequestExceprion {
 		String uri = "https://api.weixin.qq.com/shakearound/device/bindloacation";
