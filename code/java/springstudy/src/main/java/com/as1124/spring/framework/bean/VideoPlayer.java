@@ -12,6 +12,7 @@ public class VideoPlayer implements IMediaPlayer {
 	private IMedia video;
 
 	public VideoPlayer() {
+		// default constructor
 	}
 
 	public VideoPlayer(IMedia media) {
@@ -25,9 +26,6 @@ public class VideoPlayer implements IMediaPlayer {
 		}
 	}
 
-	/**
-	 * @param video The video to set.
-	 */
 	public void setVideo(IMedia video) {
 		this.video = video;
 	}

@@ -26,7 +26,7 @@ public class ConditionUsage implements Condition {
 		if (beanRegistry.isAlias("puShu") || beanRegistry.isBeanNameInUse("puShu")) {
 			System.out.println("PuShuDisc 加载了");
 		} else {
-			System.out.println("没有 Disc-Bean");
+			System.out.println("没有 PuShuDisc-Bean");
 		}
 
 		ConfigurableBeanFactory beanFactory = context.getBeanFactory();
@@ -35,8 +35,9 @@ public class ConditionUsage implements Condition {
 			if (obj == null) {
 				obj = beanFactory.getBean(IMedia.class);
 			}
+			System.out.println("IMedia-Bean = " + obj.getClass().getName());
 		} catch (Exception e) {
-			System.out.println("Bean Factory 还没有创建Bean!!");
+			System.out.println("Bean Factory 还没有创建IMedia-Bean!!");
 		}
 
 		if (metadata instanceof AnnotationMetadata) {

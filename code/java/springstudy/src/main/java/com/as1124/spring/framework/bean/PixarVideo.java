@@ -63,16 +63,10 @@ public class PixarVideo implements IMedia {
 		this.pictureTitle = pictureTitle;
 	}
 
-	/**
-	 * @param publishYear The {@lin #publishYear} to set.
-	 */
 	public void setPublishYear(int publishYear) {
 		this.publishYear = publishYear;
 	}
 
-	/**
-	 * @param director The {@link #director} to set.
-	 */
 	public void setDirector(String director) {
 		this.director = director;
 	}

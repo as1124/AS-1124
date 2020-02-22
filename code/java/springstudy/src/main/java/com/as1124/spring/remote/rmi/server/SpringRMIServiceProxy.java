@@ -1,4 +1,4 @@
-package com.as1124.spring.rmi.server;
+package com.as1124.spring.remote.rmi.server;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.remoting.rmi.RmiServiceExporter;
 import org.springframework.stereotype.Repository;
 
-import com.as1124.spring.rmi.IUserRMIService;
-import com.as1124.spring.rmi.UserRMIServiceImpl;
+import com.as1124.spring.remote.rmi.IUserRMIService;
+import com.as1124.spring.remote.rmi.UserRMIServiceImpl;
 
 /**
  * 通过Spring 绑定并导出RMI服务

@@ -20,7 +20,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class SpringBeanConfigTest3 {
 
 	@Autowired
-	@Qualifier("videoPlayerBean")
+	@Qualifier("pixarPlayerBean")
 	private IMediaPlayer player;
 
 	@Test

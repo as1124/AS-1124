@@ -11,27 +11,28 @@
 	<context:component-scan
 		base-package="com.as1124.spring.framework.bean" />
 
-<!-- 	<beans profile="dev"></beans> -->
-<!-- 	<beans profile="product"> -->
-		<bean id="pixarBean"
-			class="com.as1124.spring.framework.bean.PixarVideo">
-			<constructor-arg type="java.lang.String"
-				value="Wall.E, A love story." />
-			<constructor-arg>
-				<list>
-					<value>Wall.E</value>
-					<value>Eve</value>
-				</list>
-			</constructor-arg>
+	<!-- <beans profile="dev"></beans> -->
+	<!-- <beans profile="product"> -->
+	<bean id="pixarBean"
+		class="com.as1124.spring.framework.bean.PixarVideo">
+		<constructor-arg type="java.lang.String"
+			value="Wall.E, A love story." />
+		<constructor-arg>
+			<list>
+				<value>Wall.E</value>
+				<value>Eve</value>
+			</list>
+		</constructor-arg>
 
-			<!-- 配置Bean中的property字段，对应的属性必须具有 set 方法 -->
-			<property name="publishYear" value="1992"></property>
-			<property name="director" value="Somebody"></property>
-		</bean>
+		<!-- 配置Bean中的property字段，对应的属性必须具有 set 方法 -->
+		<property name="publishYear" value="1992" />
+		<property name="director"
+			value="Somebody That I Used to Know" />
+	</bean>
 
-		<bean id="videoPlayerBean"
-			class="com.as1124.spring.framework.bean.VideoPlayer" primary="true">
-			<constructor-arg ref="pixarBean" />
-		</bean>
-<!-- 	</beans> -->
+	<bean id="pixarPlayerBean"
+		class="com.as1124.spring.framework.bean.VideoPlayer" primary="true">
+		<constructor-arg ref="pixarBean" />
+	</bean>
+	<!-- </beans> -->
 </beans>

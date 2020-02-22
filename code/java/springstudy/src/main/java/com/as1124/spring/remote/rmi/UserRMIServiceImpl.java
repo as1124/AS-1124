@@ -1,4 +1,4 @@
-package com.as1124.spring.rmi;
+package com.as1124.spring.remote.rmi;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.as1124.spring.rmi;
+package com.as1124.spring.remote.rmi;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;

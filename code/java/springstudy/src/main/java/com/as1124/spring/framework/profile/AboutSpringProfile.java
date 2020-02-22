@@ -4,7 +4,9 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
+import org.springframework.stereotype.Repository;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,8 +23,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = LovedHerosConfig.class)
-@ActiveProfiles(profiles = "SD")
+@ContextConfiguration(classes = AboutSpringProfile.class)
+
+@ActiveProfiles(profiles = "REAL")
+@Repository
 public class AboutSpringProfile {
 
 	@Autowired
@@ -32,5 +36,23 @@ public class AboutSpringProfile {
 	public void testProfile() {
 		Assert.assertNotNull(hero);
 		System.out.println(hero.getName() + "----" + hero.getStory());
+	}
+
+	@Bean
+	@Profile("REAL")
+	public LovedHeros chinaHeros() {
+		LovedHeros h = new LovedHeros();
+		h.setName("秦惠文王");
+		h.setStory("纵横捭阖");
+		return h;
+	}
+
+	@Bean
+	@Profile("SD")
+	public LovedHeros marvelHeros() {
+		LovedHeros h = new LovedHeros();
+		h.setName("Thor");
+		h.setStory("A fatty Man!!");
+		return h;
 	}
 }

@@ -1,4 +1,4 @@
-package com.as1124.spring.rmi.client;
+package com.as1124.spring.remote.rmi.client;
 
 import java.net.MalformedURLException;
 import java.rmi.Naming;
@@ -15,7 +15,7 @@ import org.springframework.remoting.rmi.RmiInvocationHandler;
 import org.springframework.remoting.rmi.RmiProxyFactoryBean;
 import org.springframework.stereotype.Repository;
 
-import com.as1124.spring.rmi.IUserRMIService;
+import com.as1124.spring.remote.rmi.IUserRMIService;
 
 /**
  * Spring RMI 服务测试
