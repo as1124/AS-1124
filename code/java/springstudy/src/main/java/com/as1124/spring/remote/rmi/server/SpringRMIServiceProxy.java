@@ -58,7 +58,6 @@ public class SpringRMIServiceProxy {
 		RmiServiceExporter rmiExporter = new RmiServiceExporter();
 
 		//		rmiExporter.setRegistryHost("localhost");
-
 		rmiExporter.setRegistryPort(9090);
 		rmiExporter.setServicePort(9099);
 		rmiExporter.setServiceName("rmiUserService");

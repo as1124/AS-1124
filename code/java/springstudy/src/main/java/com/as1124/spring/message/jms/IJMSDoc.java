@@ -8,6 +8,7 @@ import javax.jms.ConnectionFactory;
 import javax.jms.Destination;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
+import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.Queue;
 import javax.jms.Session;
@@ -17,6 +18,8 @@ import org.apache.activemq.spring.ActiveMQConnectionFactory;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessagePostProcessor;
 import org.springframework.jms.listener.MessageListenerContainer;
+import org.springframework.jms.remoting.JmsInvokerProxyFactoryBean;
+import org.springframework.jms.remoting.JmsInvokerServiceExporter;
 import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
 import org.springframework.jms.support.converter.MessageConverter;
 import org.springframework.jms.support.converter.SimpleMessageConverter;
@@ -48,9 +51,20 @@ import org.springframework.jms.support.converter.SimpleMessageConverter;
  * <li>{@link MappingJackson2MessageConverter} 支持JSON形式对象序列化，但是需要指定<code>typeIdPropertyName 或 typeIdMappings</code>；
  * 也就意味着不能自动进行Class 类型推断，需要在传输消息的时候通过 {@link MessagePostProcessor} 写出 Property
  * </ul>
+ * 三、JMS 远程消息服务调用
+ * <br/>
+ * 构造场景：服务端有向MQ中间件发送消息的服务，客户端希望直接调用服务发送消息而不是和MQ进行交互
+ * <ul>
+ * <li>方法的调用过程是基于 JMS 消息进行的，而不是说通过Exporter发布服务对象就是发布消息
+ * <li>此时场景已经是 RPC 调用了（调用协议走的是JMS），所以交互过程是阻塞的
+ * <li>Server：{@link JmsInvokerServiceExporter} 导出JMS消息服务
+ * <li>Client：{@link JmsInvokerProxyFactoryBean} 通过DI自动绑定服务，然后调用
+ * <li>协议：每一个RPC过程都会产生一条消息通过 MQ 发送，在 MQ 控制台可以观察到
+ * <li>基必须指定{@link JmsInvokerServiceExporter#onMessage(Message, Session)} 作为消息处理机，否则调用过程无法完成; 指定为 {@link MessageListener}
+ * </ul>
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-public interface IMessageDoc {
+public interface IJMSDoc {
 
 }
