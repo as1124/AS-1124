@@ -1,4 +1,4 @@
-package com.as1124.spring.rest;
+package com.as1124.spring.rest.pojo;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -12,7 +12,7 @@ public class BookXMLPojo {
 	@XmlElement
 	private String name;
 
-	@XmlElement
+	@XmlElement(name = "publish-date")
 	private String publishDate;
 
 	public BookXMLPojo() {

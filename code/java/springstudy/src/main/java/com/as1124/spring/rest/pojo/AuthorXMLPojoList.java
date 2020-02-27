@@ -1,4 +1,4 @@
-package com.as1124.spring.rest;
+package com.as1124.spring.rest.pojo;
 
 import java.util.List;
 

@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  */
 @Configuration
 @ComponentScan(basePackages = { "com.as1124.spring.web.business", "com.as1124.spring.persistence",
-		"com.as1124.spring.rest" }, excludeFilters = {
+		"com.as1124.spring.rest", "com.as1124.spring.message" }, excludeFilters = {
 				@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
 public class RootConfig {
 

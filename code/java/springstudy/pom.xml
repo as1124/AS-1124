@@ -127,6 +127,12 @@
 			<version>5.4.10.Final</version>
 		</dependency>
 
+		<!-- Java异步消息处理框架 -->
+		<dependency>
+			<groupId>org.apache.activemq</groupId>
+			<artifactId>activemq-all</artifactId>
+			<version>5.15.11</version>
+		</dependency>
 
 
 
