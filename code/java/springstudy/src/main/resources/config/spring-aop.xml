@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans.xsd 
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<aop:aspectj-autoproxy expose-proxy="false"></aop:aspectj-autoproxy>
+
+	<bean id="performanceAspect"
+		class="com.as1124.spring.aop.PerformanceImpl" />
+	<bean id="ticketSalerPointCut"
+		class="com.as1124.spring.aop.AspectTicketSaler.TicketSalerImpl" />
+
+	<aop:config>
+		<aop:aspect ref="performanceAspect">
+			<aop:pointcut id="showPointCut"
+				expression="execution(* com.as1124.spring.aop.AspectTicketSaler.TicketSalerImpl.getAvailableTickets(..))" />
+			<aop:after method="broadcastShowName"
+				pointcut-ref="showPointCut" />
+			<aop:after method="perform" pointcut-ref="showPointCut" />
+			<!-- <aop:declare-parents -->
+			<!-- types-matching="com.as1124.spring.framework.aop.AspectTicketSaler.TicketSalerImpl+" -->
+			<!-- implement-interface="" default-impl="" /> -->
+		</aop:aspect>
+	</aop:config>
+</beans>

@@ -10,6 +10,7 @@ import javax.jms.MessageProducer;
 import javax.jms.Session;
 import javax.jms.TextMessage;
 
+import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.command.ActiveMQQueue;
 import org.springframework.jms.support.JmsUtils;
 
@@ -19,6 +20,8 @@ import org.springframework.jms.support.JmsUtils;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 public class StandardJMSUsageDemo {
+
+	protected static final String QUEUE_NAME = "activemq.queqe";
 
 	public static void main(String[] args) {
 		String instanceURL = "tcp://localhost:61616";
@@ -30,14 +33,14 @@ public class StandardJMSUsageDemo {
 	 * 标准JMS框架联接消息服务器
 	 */
 	public static void jmsProducer(String instanceURL) {
-		ConnectionFactory cf = new org.apache.activemq.ActiveMQConnectionFactory(instanceURL);
+		ConnectionFactory cf = new ActiveMQConnectionFactory(instanceURL);
 		Connection conn = null;
 		Session session = null;
 		MessageProducer producer = null;
 		try {
 			conn = cf.createConnection();
 			session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			Destination destination = new ActiveMQQueue("activemq.queqe");
+			Destination destination = new ActiveMQQueue(QUEUE_NAME);
 			// 创建到消息队列的消息生产者
 			producer = session.createProducer(destination);
 			Message msg = session.createTextMessage("Hello JMS!! 我是欢哥");
@@ -58,7 +61,7 @@ public class StandardJMSUsageDemo {
 	}
 
 	public static void jmsConsumer(String instanceURL) {
-		ConnectionFactory cf = new org.apache.activemq.ActiveMQConnectionFactory("tcp://localhost:61616");
+		ConnectionFactory cf = new ActiveMQConnectionFactory(instanceURL);
 		Connection conn = null;
 		Session session = null;
 		MessageConsumer consumer = null;
@@ -67,7 +70,7 @@ public class StandardJMSUsageDemo {
 			//HUANG 读取消息必须要调用 start()
 			conn.start();
 			session = conn.createSession(false, Session.AUTO_ACKNOWLEDGE);
-			Destination destination = new ActiveMQQueue("activemq.queqe");
+			Destination destination = new ActiveMQQueue(QUEUE_NAME);
 			// 创建到消息队列的消息生产者
 			consumer = session.createConsumer(destination);
 			Message msg = consumer.receive();

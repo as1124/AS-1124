@@ -30,7 +30,7 @@ import org.springframework.jms.support.converter.SimpleMessageConverter;
  * <br/>
  * —> 同步消息：RMI，JAX-WS，HTTP 消息处理都是同步的
  * <br/>
- * —> 异步消息协议：JMS(Java Message Service)，Advance Message Queue Protocol；处理框架：ActiveMQ，RabbitMQ，RocketMQ
+ * —> 异步消息协议：JMS(Java Message Service)，Advance Message Queue Protocol；处理框架：ActiveMQ（JMS），RabbitMQ（AMQP），RocketMQ
  * <br/>
  * </p>
  * 一、标准 JMS

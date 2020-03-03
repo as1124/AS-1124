@@ -11,8 +11,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Configuration
-@ComponentScan(basePackages = { "com.as1124.spring.web.business", "com.as1124.spring.persistence",
-		"com.as1124.spring.rest", "com.as1124.spring.message" }, excludeFilters = {
+@ComponentScan(basePackages = { "com.as1124.spring.web", "com.as1124.spring.persistence",
+		"com.as1124.spring.rest" }, excludeFilters = {
 				@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
 public class RootConfig {
 
