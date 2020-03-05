@@ -25,7 +25,7 @@ import org.springframework.jmx.support.JmxUtils;
  * </ul>
  * MBean注册时命名冲突解决
  * <ul>
- * 
+ * <li>策略：FAIL_ON_EXISTING、IGNORE_EXISTING、REPLACING_EXISTING
  * </ul>
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)

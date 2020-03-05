@@ -7,13 +7,12 @@ import javax.management.MBeanServer;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.jmx.export.MBeanExporter;
-import org.springframework.jmx.export.assembler.InterfaceBasedMBeanInfoAssembler;
 import org.springframework.jmx.export.assembler.MBeanInfoAssembler;
 import org.springframework.jmx.export.assembler.MethodExclusionMBeanInfoAssembler;
 import org.springframework.jmx.support.MBeanServerFactoryBean;
+import org.springframework.jmx.support.RegistrationPolicy;
 import org.springframework.stereotype.Repository;
 
-import com.as1124.spring.web.model.IUserAction;
 import com.as1124.spring.web.model.UserInfo;
 
 /**
@@ -60,7 +59,10 @@ public class SpringJmxRepository {
 		exporter.setAllowEagerInit(true);
 		// 设置需要导出为MBean的对象
 		exporter.setBeans(beans);
+		// 设置MBeanInfo的组装器 => 过滤效果
 		exporter.setAssembler(assembler);
+		// 设置MBean名称冲突时的处理策略
+		exporter.setRegistrationPolicy(RegistrationPolicy.REPLACE_EXISTING);
 		exporter.setServer(mbeanServer);
 
 		return exporter;
@@ -70,20 +72,16 @@ public class SpringJmxRepository {
 	 * 创建MBean托管属性、方法的过滤器
 	 * @return
 	 */
-	//	@Bean
+	@Bean
 	public MBeanInfoAssembler createMBeanInfoFilter() {
 		MethodExclusionMBeanInfoAssembler assembler = new MethodExclusionMBeanInfoAssembler();
-		assembler.setExposeClassDescriptor(true);
+
+		//		InterfaceBasedMBeanInfoAssembler assembler = new InterfaceBasedMBeanInfoAssembler();
+		//		assembler.setManagedInterfaces(IUserAction.class);
+
 		// 不托管 toString、equals方法
 		assembler.setIgnoredMethods("toString", "equals");
-		return assembler;
-	}
-
-	@Bean
-	public MBeanInfoAssembler createMBeanInfoFilter2() {
-		InterfaceBasedMBeanInfoAssembler assembler = new InterfaceBasedMBeanInfoAssembler();
 		assembler.setExposeClassDescriptor(true);
-		assembler.setManagedInterfaces(IUserAction.class);
 		return assembler;
 	}
 
