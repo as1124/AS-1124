@@ -8,12 +8,13 @@ import java.util.Optional;
 
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 
+import com.as1124.spring.persistence.jdbc.JdbcTemplateUserActionImpl;
 import com.as1124.spring.persistence.jpa.SpringJpaFramework;
 import com.as1124.spring.persistence.jpa.StandardJpaUserActionImpl;
 import com.as1124.spring.persistence.jpa.StandardJpaUserActionImpl2;
@@ -24,32 +25,31 @@ import com.as1124.spring.web.model.UserInfo;
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@EnableWebMvc
 @Controller
 @RequestMapping("/persistence")
-public class PersistenceAPITest {
+public class SpringPersistenceController {
 
 	@Autowired
-	private JdbcTemplateUserActionImpl uAction;
-
-	@Autowired
-	private SpringDataSourceConfig dsConfig;
+	private AbstractApplicationContext springCtx;
 
 	@GetMapping("/datasource")
 	public void testSpringDataSource() {
-		dsConfig.configSpringDatasource();
+		springCtx.getBean(SpringDataSourceDemo.class).configSpringDatasource();
 	}
 
 	@GetMapping("/jdbctemplate")
 	public void userActionByJDBC() {
+		JdbcTemplateUserActionImpl uAction = springCtx.getBean(JdbcTemplateUserActionImpl.class);
 		assertNotNull(uAction);
 		UserInfo user = uAction.findOne(1);
 		System.out.println(user == null ? "--" : user);
 		if (user != null) {
 			user.setUserName("新沙雕");
-			user.setAddress("--11--");
-			System.out.println("更新结果 = " + uAction.updateUser(user));
+			System.out.println("Update = " + uAction.updateUser(user));
 		}
+		UserInfo newUser = new UserInfo("新用户", "测试插入");
+		newUser.setBirthday(new Date());
+		System.out.println("Insert = " + uAction.addUser(newUser));
 	}
 
 	@Autowired
@@ -58,7 +58,10 @@ public class PersistenceAPITest {
 	@Autowired
 	private StandardJpaUserActionImpl2 sJpaActionImpl2;
 
-	@GetMapping("/jpa")
+	@Autowired
+	private SpringJpaFramework springJPA;
+
+	@GetMapping("/jpa-unit")
 	public void userActionByJpa() {
 		// 测试 PersistenceUnit 行为
 		UserInfo user = sJpaActionImpl.findOne(4);
@@ -76,7 +79,7 @@ public class PersistenceAPITest {
 		System.out.println("JPA删除结果 == " + sJpaActionImpl.deleteUser(1));
 	}
 
-	@GetMapping("/jpa2")
+	@GetMapping("/jpa-context")
 	@javax.transaction.Transactional
 	public void userActionByJpa2() {
 		// 测试 PersistenceContext 行为
@@ -93,9 +96,6 @@ public class PersistenceAPITest {
 			sJpaActionImpl2.deleteUser(12);
 		}
 	}
-
-	@Autowired
-	private SpringJpaFramework springJPA;
 
 	@GetMapping("/springjpa")
 	public void userActionBySpring() {
