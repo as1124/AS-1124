@@ -1,4 +1,4 @@
-package com.as1124.spring.message.jms;
+package com.as1124.spring.jms;
 
 import java.util.Date;
 

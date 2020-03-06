@@ -1,4 +1,4 @@
-package com.as1124.spring.message.rpcserver;
+package com.as1124.spring.jms.activemq;
 
 import org.junit.Assert;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -10,7 +10,7 @@ import org.springframework.jms.remoting.JmsInvokerServiceExporter;
 import org.springframework.remoting.support.RemoteExporter;
 import org.springframework.stereotype.Repository;
 
-import com.as1124.spring.message.jms.MessageServiceFrameworkRepository;
+import com.as1124.spring.jms.MessageServiceFrameworkRepository;
 import com.as1124.spring.web.model.IUserAction;
 import com.as1124.spring.web.model.UserInfo;
 

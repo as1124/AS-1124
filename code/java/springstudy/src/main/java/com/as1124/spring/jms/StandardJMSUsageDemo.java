@@ -1,4 +1,4 @@
-package com.as1124.spring.message.jms;
+package com.as1124.spring.jms;
 
 import javax.jms.Connection;
 import javax.jms.ConnectionFactory;

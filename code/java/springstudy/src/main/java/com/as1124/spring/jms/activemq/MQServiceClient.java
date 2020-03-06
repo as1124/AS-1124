@@ -1,4 +1,4 @@
-package com.as1124.spring.message.rpcclient;
+package com.as1124.spring.jms.activemq;
 
 import javax.jms.JMSException;
 import javax.jms.Message;

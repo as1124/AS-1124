@@ -1,4 +1,4 @@
-package com.as1124.spring.message.amqp;
+package com.as1124.spring.jms.amqp;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
