@@ -14,7 +14,9 @@ public final class IPersistenceConstants {
 
 	public static final String JDBC_XML = "jdbc-ds-xml-injection";
 
-	public static final String JNDI_JAVA = "jndi-ds-java-injection";
+	public static final String JNDI_JAVA1 = "jndi-ds-java-lookup";
+
+	public static final String JNDI_JAVA2 = "jndi-ds-java-injection";
 
 	public static final String JNDI_XML = "jndi-ds-xml-factory";
 

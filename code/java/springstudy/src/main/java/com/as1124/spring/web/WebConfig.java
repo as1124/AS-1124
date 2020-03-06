@@ -24,7 +24,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.as1124.spring.web", "com.as1124.spring.persistence" }, includeFilters = {
+@ComponentScan(basePackages = { "com.as1124.spring.web" }, includeFilters = {
 		@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
 public class WebConfig implements WebMvcConfigurer {
 
@@ -80,5 +80,5 @@ public class WebConfig implements WebMvcConfigurer {
 			//			converters.add(xmlConverter);
 		}
 	}
-	
+
 }

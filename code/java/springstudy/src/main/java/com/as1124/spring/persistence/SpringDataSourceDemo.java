@@ -7,9 +7,12 @@ import org.apache.commons.dbcp2.BasicDataSource;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.ImportResource;
+import org.springframework.jdbc.core.JdbcOperations;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jndi.JndiObjectFactoryBean;
-import org.springframework.stereotype.Component;
 
 import com.mchange.v2.c3p0.PooledDataSource;
 
@@ -27,8 +30,8 @@ import com.mchange.v2.c3p0.PooledDataSource;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @ImportResource("classpath:/config/spring-datasource.xml")
-@Component
-public class SpringDataSourceConfig {
+@Configuration
+public class SpringDataSourceDemo {
 
 	/**
 	 * 注入XML配置的JDBC数据源
@@ -49,8 +52,12 @@ public class SpringDataSourceConfig {
 	private JndiObjectFactoryBean jndiHolder;
 
 	@Autowired(required = false)
-	@Qualifier(IPersistenceConstants.JNDI_JAVA)
+	@Qualifier(IPersistenceConstants.JNDI_JAVA1)
 	private DataSource jndiDataSource;
+
+	@Autowired(required = false)
+	@Qualifier(IPersistenceConstants.JNDI_JAVA2)
+	private JndiObjectFactoryBean jndiHolder2;
 
 	@Autowired(required = false)
 	@Qualifier(IPersistenceConstants.DBCP_XML)
@@ -64,6 +71,12 @@ public class SpringDataSourceConfig {
 	@Qualifier(IPersistenceConstants.C3P0_XML)
 	private PooledDataSource xmlC3p0;
 
+	@Bean
+	public JdbcOperations jdbcTemplate(@Qualifier(IPersistenceConstants.DBCP_JAVA) DataSource ds) {
+		Assert.assertNotNull(ds);
+		return new JdbcTemplate(ds);
+	}
+
 	public void configSpringDatasource() {
 		Assert.assertNotNull(xmlJdbcDataSource);
 		Assert.assertNotNull(javaJdbcDataSource);
@@ -75,9 +88,11 @@ public class SpringDataSourceConfig {
 
 		Assert.assertNotNull(jndiDataSource);
 		Assert.assertNotNull(jndiHolder);
-		Object obj = jndiHolder.getObject();
+		Assert.assertNotNull(jndiHolder2);
 		// 理论上应该是同一个对象，因为都是对当前J2EE容器的数据源对象的引用
-		Assert.assertEquals(obj, jndiDataSource);
+		Assert.assertEquals(jndiDataSource, jndiHolder.getObject());
+		// 后者的Class 是Proxy类型，所以不匹配
+		Assert.assertNotEquals(jndiDataSource, jndiHolder2.getObject());
 
 		Assert.assertNotNull(xmlC3p0);
 	}

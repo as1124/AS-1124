@@ -1,4 +1,4 @@
-package com.as1124.spring.persistence;
+package com.as1124.spring.persistence.jdbc;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -27,7 +27,7 @@ public class JdbcTemplateUserActionImpl implements IUserAction {
 	/**
 	 * 注入的一般就是 {@link JdbcTemplate}
 	 */
-	@Autowired(required = true)
+	@Autowired
 	private JdbcOperations dbOperations;
 
 	public JdbcTemplateUserActionImpl() {
@@ -47,6 +47,16 @@ public class JdbcTemplateUserActionImpl implements IUserAction {
 				});
 		}
 		return result;
+	}
+
+	@Override
+	public int addUser(UserInfo user) {
+		if (dbOperations != null) {
+			return dbOperations.update("insert into user_info(user_name,birthday,address) values(?,?,?)",
+				user.getUserName(), user.getBirthday(), user.getAddress());
+		} else {
+			return 0;
+		}
 	}
 
 	@Override

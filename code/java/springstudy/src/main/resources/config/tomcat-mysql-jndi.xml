@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<context>
+	<!-- 表示由容器负责资源的连接 -->
+	<Resource name="jdbc/jndids" auth="Container"
+		type="javax.sql.DataSource" maxActive="100" maxIdle="30"
+		maxWait="10000" username="root" password="Root1234"
+		driverClassName="com.mysql.jdbc.Driver"
+		url="jdbc:mysql://127.0.0.1:3306/spring?characterEncoding=utf8" />
+</context>
