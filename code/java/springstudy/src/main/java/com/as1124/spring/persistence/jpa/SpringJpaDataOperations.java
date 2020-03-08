@@ -12,10 +12,11 @@ import com.as1124.spring.web.model.UserInfo;
 /**
  * Spring-Data-JPA 框架
  * <br/>这里使用的是 Spring 上下文中的<b><code> Transactional </code></b>
+ * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @org.springframework.transaction.annotation.Transactional
-public interface SpringJpaFramework extends JpaRepository<UserInfo, Integer> {
+public interface SpringJpaDataOperations extends JpaRepository<UserInfo, Integer>, ISpringJpaExtQuery {
 
 	/**
 	 * 利用Spring-JPA中默认语法进行查询
@@ -31,6 +32,7 @@ public interface SpringJpaFramework extends JpaRepository<UserInfo, Integer> {
 	 * @param userName
 	 * @return
 	 */
+	//ATTENTION 不能写 Select *
 	@Query("select s from UserInfo s where s.userName like ?1")
 	public List<UserInfo> queryUserByName(String userName);
 

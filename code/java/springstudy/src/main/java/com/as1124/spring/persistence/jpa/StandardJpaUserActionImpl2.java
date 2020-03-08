@@ -20,6 +20,7 @@ public class StandardJpaUserActionImpl2 implements IUserAction {
 	// No EntityManager with actual transaction available 
 	// for current thread - cannot reliably process 'merge' call
 	// SharedEntityManagerCreator.java:298
+	// FIXED：确定上下文Context使用合理且正确的 Transactional 注解
 
 	@PersistenceContext
 	private EntityManager mEntityManager;

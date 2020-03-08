@@ -7,6 +7,7 @@ import org.hibernate.jpa.HibernatePersistenceProvider;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -23,12 +24,18 @@ import com.as1124.spring.persistence.IPersistenceConstants;
 
 /**
  * JPA 使用示例
+ * <br/>
+ * <b>使用Spring JPA时，需要向Spring-Context 提供命名为 <code>entityManagerFactory、transactionManager</code>
+ * 的 {@link EntityManagerFactory}、{@link PlatformTransactionManager}
+ * </b>
+ * 原因在于 {@link EnableJpaRepositories#entityManagerFactoryRef()}、{@link EnableJpaRepositories#transactionManagerRef()} 要求，
+ * 也可以修改限制的名称
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
+@EnableJpaRepositories(basePackages = "com.as1124.spring.persistence.jpa")
 @EnableTransactionManagement
 @Repository
-//@EnableJpaRepositories(basePackages = "com.as1124.spring.persistence.jpa")
 public class JPARepository {
 
 	// 标准 JPA 只是一套规范，没有提供具体实现
@@ -57,8 +64,9 @@ public class JPARepository {
 	}
 
 	/****************************************************************/
-	// Spring JPA 要求ApplicationContext上下文必须包含名为 entityManagerFactory 的 EntityManagerFactory
+	// ATTENTION Spring JPA 要求ApplicationContext上下文必须包含名为 entityManagerFactory 的 EntityManagerFactory
 	// Spring JAP 要求ApplicationContext上下文必须包含名为 transactionManager 的 TransactionManager
+	// FIXED EnableJpaRepositories 注解的强制限制
 
 	@Primary
 	@Bean("entityManagerFactory")

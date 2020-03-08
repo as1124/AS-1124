@@ -3,7 +3,6 @@ package com.as1124.spring.persistence;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.Assert;
@@ -16,7 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.as1124.spring.persistence.jdbc.JdbcTemplateUserActionImpl;
-import com.as1124.spring.persistence.jpa.SpringJpaFramework;
+import com.as1124.spring.persistence.jpa.SpringJpaDataOperations;
 import com.as1124.spring.persistence.jpa.StandardJpaUserActionImpl2;
 import com.as1124.spring.web.model.IUserAction;
 import com.as1124.spring.web.model.UserInfo;
@@ -62,7 +61,7 @@ public class SpringPersistenceController {
 	private IUserAction sJpaActionImpl2;
 
 	@Autowired(required = false)
-	private SpringJpaFramework springJPA;
+	private SpringJpaDataOperations springJPA;
 
 	@GetMapping("/jpa-unit")
 	public void userActionByJpa() {
@@ -98,7 +97,13 @@ public class SpringPersistenceController {
 	@GetMapping("/springjpa")
 	public void userActionBySpring() {
 		// 增删改查成功，不需要 @Transactional 注释
-		Assert.assertNotNull(springJPA);
+
+		if (springJPA == null) {
+			// 也可以通过 JpaRepositoryFactory 进行手工创建
+			JpaRepositoryFactory repositoryFactory = new JpaRepositoryFactory(
+					((StandardJpaUserActionImpl2) sJpaActionImpl2).getEntityManager());
+			springJPA = repositoryFactory.getRepository(SpringJpaDataOperations.class);
+		}
 		Optional<UserInfo> user = springJPA.findById(5);
 		if (user.isPresent()) {
 			System.out.println(user.get());
@@ -107,34 +112,14 @@ public class SpringPersistenceController {
 		springJPA.queryUserByName("%Huang%").forEach(System.out::println);
 		springJPA.queryUserByAddress("%上海%").forEach(u -> System.out.println(u));
 
-		UserInfo newUser = new UserInfo("Spring-JPA创建", "地球天朝");
+		UserInfo newUser = new UserInfo("Spring-Data-JPA创建", "地球天朝");
 		UserInfo saveResult = springJPA.save(newUser);
 		System.out.println("新建用户ID==" + saveResult.getId());
 		saveResult.setAddress("Spring-jpa修改地址");
 		springJPA.saveAndFlush(saveResult);
-
 		springJPA.deleteUser(1);
+
+		springJPA.allUserData().forEach(System.out::println);
 	}
 
-	@GetMapping("/springjpa2")
-	public void userActionBySpring2() {
-		JpaRepositoryFactory repositoryFactory = new JpaRepositoryFactory(
-				((StandardJpaUserActionImpl2) sJpaActionImpl2).getEntityManager());
-		SpringJpaFramework springjap2 = repositoryFactory.getRepository(SpringJpaFramework.class);
-		Optional<UserInfo> user = springjap2.findById(6);
-		if (user.isPresent()) {
-			System.out.println(user.get());
-		}
-		List<UserInfo> result = springjap2.queryUserByName("%JPA%");
-		result.forEach(u -> System.out.println(u.getAddress()));
-		result = springjap2.findByUserNameLike("%JPA%");
-		result.forEach(u -> System.out.println(u.getAddress()));
-
-		UserInfo newUser = new UserInfo("Spring-JPA创建", "地球天朝");
-		UserInfo saveResult = springjap2.save(newUser);
-		System.out.println("新建用户ID==" + saveResult.getId());
-
-		saveResult.setAddress("Spring-jpa修改地址");
-		springjap2.saveAndFlush(saveResult);
-	}
 }

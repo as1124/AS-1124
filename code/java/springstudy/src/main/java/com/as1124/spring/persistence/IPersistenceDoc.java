@@ -71,6 +71,8 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * 的{@linkplain Query 自定义查询}需要注意
  * </li>
  * 
+ * <li>{@link PersistenceCotext} 能保证线程安全，{@link PersistenceUnit} 线程不安全</li>
+ * 
  * <li>JPA 事物处理</li>
  * ~ 使用{@link PersistenceUnit} 注解的 Application 类型的 EntityManagerFactory时，事物处理是jdk的事物处理 => {@link javax.transaction.Transactional}
  * <br/>
@@ -87,7 +89,10 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * 需要向 <code>configuration</code>  注册 {@link EnableJpaRepositories}, 以便Spring启动时扫描 {@linkplain JpaRepository}
  * 的实现接口；此配置不会扫描子包<br/>
  * ~ 上下文需要注册名为<code> entityManagerFactory </code>的 EntityManagerFactory-Bean <br/>
- * ~ 上下文需要注册名为<code> transactionManager </code>的 TransactionManager-Bean
+ * ~ 上下文需要注册名为<code> transactionManager </code>的 TransactionManager-Bean <br/>
+ * ~ 查询方式：<code> findByUsername(DML)、@Query、混合查询(Impl 结尾) </code> <br/>
+ * ~ select s from UserInfo s where s.id >= ?1
+ * ~ select s from UserInfo s where s.id >= :uid
  * </ol>
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
