@@ -1,14 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd ">
 
 	<persistence-unit name="as1124_jpa_mysql">
 		<!-- class：指定JPA映射的实体 -->
 		<class>com.as1124.spring.web.model.UserInfo</class>
 		<properties>
+			<!-- 使用的是Hibernate的JPA实现框架，指定数据源配置 -->
+			<!-- 方式一：提供ConnectionProvider 的实现，优先级高 -->
+			<property name="hibernate.connection.provider_class"
+				value="com.as1124.spring.persistence.hibernate.HibernateJpaConnectionProvider" />
+
+			<!-- 使用Hibernate内置数据源配置管理 -->
+			<property name="hibernate.connection.url" value="jdbc:mysql://127.0.0.1:3306/spring?characterEncoding=utf8" />
+			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
+			<property name="hibernate.connection.username" value="root" />
+			<property name="hibernate.connection.password" value="Root1234" />
+			<property name="hibernate.connection.autocommit" value="true" />
+
+
 			<property name="driverClassName" value="com.mysql.jdbc.Driver" />
-			<property name="url" value="jdbc:mysql://127.0.0.1:3306/spring" />
+			<property name="url" value="jdbc:mysql://127.0.0.1:3306/spring?characterEncoding=utf8" />
 			<property name="username" value="root" />
 			<property name="password" value="Root1234" />
 		</properties>

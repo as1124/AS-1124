@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.as1124.spring.persistence.jdbc.JdbcTemplateUserActionImpl;
 import com.as1124.spring.persistence.jpa.SpringJpaFramework;
-import com.as1124.spring.persistence.jpa.StandardJpaUserActionImpl;
 import com.as1124.spring.persistence.jpa.StandardJpaUserActionImpl2;
+import com.as1124.spring.web.model.IUserAction;
 import com.as1124.spring.web.model.UserInfo;
 
 /**
@@ -53,48 +54,45 @@ public class SpringPersistenceController {
 	}
 
 	@Autowired
-	private StandardJpaUserActionImpl sJpaActionImpl;
+	@Qualifier("StandardJpaUserActionImpl")
+	private IUserAction sJpaActionImpl;
 
 	@Autowired
-	private StandardJpaUserActionImpl2 sJpaActionImpl2;
+	@Qualifier("StandardJpaUserActionImpl2")
+	private IUserAction sJpaActionImpl2;
 
-	@Autowired
+	@Autowired(required = false)
 	private SpringJpaFramework springJPA;
 
 	@GetMapping("/jpa-unit")
 	public void userActionByJpa() {
 		// 测试 PersistenceUnit 行为
+		UserInfo newUser = new UserInfo("StandardJPATest 插入", "傻狗一号");
+		newUser.setBirthday(new Date(System.currentTimeMillis()));
+		System.out.println("Insert result userId = " + sJpaActionImpl.addUser(newUser));
+
 		UserInfo user = sJpaActionImpl.findOne(4);
 		Assert.assertNotNull(user);
-		System.out.println(user.getUserName() + "," + user.getAddress());
-
-		user.setUserName("JPA 更新");
+		System.out.println(user);
+		user.setUserName("Standard JPA 更新");
 		user.setAddress("嘿嘿嘿哈哈哈");
-		System.out.println("JPA 更新结果 == " + sJpaActionImpl.updateUser(user));
+		System.out.println("Update result = " + sJpaActionImpl.updateUser(user));
 
-		UserInfo newUser = new UserInfo("JPA 插入", "中国上海宜山路");
-		newUser.setBirthday(new Date(System.currentTimeMillis()));
-		System.out.println("新插入的id==" + sJpaActionImpl.addUser(newUser));
-
-		System.out.println("JPA删除结果 == " + sJpaActionImpl.deleteUser(1));
+		System.out.println("Delete result = " + sJpaActionImpl.deleteUser(1));
 	}
 
 	@GetMapping("/jpa-context")
-	@javax.transaction.Transactional
 	public void userActionByJpa2() {
 		// 测试 PersistenceContext 行为
 		UserInfo userx = sJpaActionImpl2.findOne(2);
-		if (userx != null) {
-			System.out.println(userx.getUserName() + "," + userx.getAddress());
-			userx.setUserName("----HHHHHHHH--------");
-			userx.setAddress("+++++++Address++++++");
-			sJpaActionImpl2.updateUser(userx);
-
-			userx.setId(null);
-			sJpaActionImpl2.addUser(userx);
-
-			sJpaActionImpl2.deleteUser(12);
-		}
+		System.out.println("Query result = " + userx);
+		Assert.assertNotNull(userx);
+		userx.setUserName("StandardJpaTest2----HHHHHHHH--------");
+		userx.setAddress("+++++++Address+++傻狗二号+++");
+		System.out.println("Update result = " + sJpaActionImpl2.updateUser(userx));
+		userx.setId(null);
+		System.out.println("Insert result = " + sJpaActionImpl2.addUser(userx));
+		System.out.println("Delete result = " + sJpaActionImpl2.deleteUser(12));
 	}
 
 	@GetMapping("/springjpa")
@@ -120,7 +118,8 @@ public class SpringPersistenceController {
 
 	@GetMapping("/springjpa2")
 	public void userActionBySpring2() {
-		JpaRepositoryFactory repositoryFactory = new JpaRepositoryFactory(sJpaActionImpl2.getEntityManager());
+		JpaRepositoryFactory repositoryFactory = new JpaRepositoryFactory(
+				((StandardJpaUserActionImpl2) sJpaActionImpl2).getEntityManager());
 		SpringJpaFramework springjap2 = repositoryFactory.getRepository(SpringJpaFramework.class);
 		Optional<UserInfo> user = springjap2.findById(6);
 		if (user.isPresent()) {

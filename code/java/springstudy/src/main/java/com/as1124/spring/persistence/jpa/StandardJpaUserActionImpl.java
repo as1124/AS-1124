@@ -25,7 +25,7 @@ import com.as1124.spring.web.model.UserInfo;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @javax.transaction.Transactional
-@Component
+@Component("StandardJpaUserActionImpl")
 public class StandardJpaUserActionImpl implements IUserAction {
 
 	@PersistenceUnit
@@ -34,14 +34,20 @@ public class StandardJpaUserActionImpl implements IUserAction {
 	@Override
 	public int addUser(UserInfo user) {
 		// EntityManagerFactory 需要自行处理事务开启、提交以及EntityManager的关闭
-		EntityManager entityManager = mEMF.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager entityManager = null;
+		try {
+			entityManager = mEMF.createEntityManager();
+			entityManager.getTransaction().begin();
 
-		entityManager.persist(user);
+			entityManager.persist(user);
 
-		entityManager.flush();
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.flush();
+			entityManager.getTransaction().commit();
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
 		return user.getId();
 	}
 
@@ -57,29 +63,40 @@ public class StandardJpaUserActionImpl implements IUserAction {
 
 	@Override
 	public boolean updateUser(UserInfo user) {
-		EntityManager entityManager = mEMF.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager entityManager = null;
+		try {
+			entityManager = mEMF.createEntityManager();
+			entityManager.getTransaction().begin();
 
-		UserInfo updatedOne = entityManager.merge(user);
+			UserInfo updatedOne = entityManager.merge(user);
 
-		entityManager.flush();
-		entityManager.getTransaction().commit();
-		entityManager.close();
-
-		return user.equals(updatedOne);
+			entityManager.flush();
+			entityManager.getTransaction().commit();
+			return user.equals(updatedOne);
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
 	}
 
 	@Override
 	public boolean deleteUser(int uid) {
-		EntityManager entityManager = mEMF.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager entityManager = null;
+		try {
+			entityManager = mEMF.createEntityManager();
+			entityManager.getTransaction().begin();
 
-		UserInfo user = new UserInfo();
-		user.setId(uid);
-		entityManager.remove(entityManager.merge(user));
+			UserInfo user = new UserInfo();
+			user.setId(uid);
+			entityManager.remove(entityManager.merge(user));
 
-		entityManager.getTransaction().commit();
-		entityManager.close();
+			entityManager.getTransaction().commit();
+		} finally {
+			if (entityManager != null) {
+				entityManager.close();
+			}
+		}
 		return true;
 	}
 

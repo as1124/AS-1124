@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/beans"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd 
@@ -8,15 +7,12 @@
 	http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- 自动组件扫描配置 -->
-	<context:component-scan
-		base-package="com.as1124.spring.framework.bean" />
+	<context:component-scan base-package="com.as1124.spring.framework.bean" />
 
 	<!-- <beans profile="dev"></beans> -->
 	<!-- <beans profile="product"> -->
-	<bean id="pixarBean"
-		class="com.as1124.spring.framework.bean.PixarVideo">
-		<constructor-arg type="java.lang.String"
-			value="Wall.E, A love story." />
+	<bean id="pixarBean" class="com.as1124.spring.framework.bean.PixarVideo">
+		<constructor-arg type="java.lang.String" value="Wall.E, A love story." />
 		<constructor-arg>
 			<list>
 				<value>Wall.E</value>
@@ -26,12 +22,10 @@
 
 		<!-- 配置Bean中的property字段，对应的属性必须具有 set 方法 -->
 		<property name="publishYear" value="1992" />
-		<property name="director"
-			value="Somebody That I Used to Know" />
+		<property name="director" value="Somebody That I Used to Know" />
 	</bean>
 
-	<bean id="pixarPlayerBean"
-		class="com.as1124.spring.framework.bean.VideoPlayer" primary="true">
+	<bean id="pixarPlayerBean" class="com.as1124.spring.framework.bean.VideoPlayer" primary="true">
 		<constructor-arg ref="pixarBean" />
 	</bean>
 	<!-- </beans> -->

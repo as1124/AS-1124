@@ -12,8 +12,8 @@ import com.as1124.spring.web.model.UserInfo;
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@javax.transaction.Transactional
-@Component
+@org.springframework.transaction.annotation.Transactional
+@Component("StandardJpaUserActionImpl2")
 public class StandardJpaUserActionImpl2 implements IUserAction {
 
 	// ATTENTION  未解决异常 javax.persistence.TransactionRequiredException: 
@@ -32,14 +32,12 @@ public class StandardJpaUserActionImpl2 implements IUserAction {
 	@Override
 	public int addUser(UserInfo user) {
 		mEntityManager.persist(user);
-		mEntityManager.close();
 		return user.getId();
 	}
 
 	@Override
 	public boolean updateUser(UserInfo user) {
 		mEntityManager.merge(user);
-		mEntityManager.close();
 		return true;
 	}
 

@@ -31,24 +31,20 @@ public class UserInfo implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true)
-
 	@Min(0)
 	private Integer id;
 
 	@Column(name = "user_name")
-
 	@NotNull
 	@Size(min = 5, max = 20)
 	private String userName;
 
 	@Column(name = "birthday")
-
 	@Null
 	@Past
 	private Date birthday;
 
 	@Column(name = "address")
-
 	@Size(min = 10, max = 50)
 	private String address;
 
@@ -66,58 +62,34 @@ public class UserInfo implements Serializable {
 		this.address = address;
 	}
 
-	/**
-	 * @return Returns the {@link #id}.
-	 */
 	public Integer getId() {
 		return id;
 	}
 
-	/**
-	 * @param id The {@link #id} to set.
-	 */
 	public void setId(Integer id) {
 		this.id = id;
 	}
 
-	/**
-	 * @return Returns the {@link #userName}.
-	 */
 	public String getUserName() {
 		return userName;
 	}
 
-	/**
-	 * @param userName The {@link #userName} to set.
-	 */
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
 
-	/**
-	 * @return Returns the {@link #birthday}.
-	 */
 	public Date getBirthday() {
 		return birthday;
 	}
 
-	/**
-	 * @param time The {@link #birthday} to set.
-	 */
 	public void setBirthday(Date birth) {
 		this.birthday = birth;
 	}
 
-	/**
-	 * @return Returns the {@link #address}.
-	 */
 	public String getAddress() {
 		return address;
 	}
 
-	/**
-	 * @param address The {@link #address} to set.
-	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
