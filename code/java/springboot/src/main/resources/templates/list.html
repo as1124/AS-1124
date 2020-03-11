@@ -6,21 +6,21 @@
 </head>
 <body>
 	<h2>Spring Boot Author Demo</h2>
-	<form method="GET">
-		<label lang="authorId">ID：</label> <input type="text" name="authorId" />
+	<form method="POST">
+		<label for="authorId">ID：</label> <input type="text" name="authorId" />
 		<br /> 
-		<label lang="name">作者姓名：</label> <input type="text" name="name" />
+		<label for="name">作者姓名：</label> <input type="text" name="name" />
 		<br />
-		<label lang="address">作者住址：</label> <input type="text" name="address" />
+		<label for="address">作者住址：</label> <input type="text" name="address" />
 		<br />
 		<input type="submit"></input>
 	</form>
 	
-	<ul th:each="author:${authors}">
+	<ul th:each="author : ${authors}">
 		<li>
-			<span th:text="${author.authorId}"> A</span>
-			<span th:text="${author.name}"> B</span>
-			<span th:text="${author.address}"> C</span>
+			<span th:text="${author.authorId}">Author-ID is: </span>
+			<span th:text="${author.name}">Author Name is</span>
+			<span th:text="${author.address}">Author Address = </span>
 		</li>
 	</ul>
 </body>

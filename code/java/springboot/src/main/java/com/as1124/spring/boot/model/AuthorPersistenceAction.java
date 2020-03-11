@@ -2,7 +2,6 @@ package com.as1124.spring.boot.model;
 
 import java.util.List;
 
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 
 import com.as1124.spring.boot.IDataAction;
@@ -11,7 +10,6 @@ import com.as1124.spring.boot.IDataAction;
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-//@Component("authorAction")
 @Repository
 public class AuthorPersistenceAction implements IDataAction<Author> {
 

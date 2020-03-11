@@ -4,9 +4,9 @@ create table author(
 	address varchar(128)
 );
 
-create table book(
-	id int primary key,
-	book_name varchar(64),
-	price double,
-	author_id int forgien key
-);
+--create table book(
+--	id int primary key,
+--	book_name varchar(64),
+--	price double,
+--	author_id int foreign key
+--);

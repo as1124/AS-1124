@@ -1,15 +1,14 @@
 package com.as1124.spring.boot;
 
-import java.util.List;
-
 import javax.websocket.server.PathParam;
 
-import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.as1124.spring.boot.model.Author;
 
@@ -17,30 +16,33 @@ import com.as1124.spring.boot.model.Author;
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@RestController
-@RequestMapping(value = "/user", produces = "appliction/json;charset=utf-8")
+//@RestController
+//@RequestMapping(value = "/user", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
+//		MediaType.APPLICATION_JSON_VALUE }, produces = "appliction/json;charset=utf-8")
 
-//@Controller
-//@RequestMapping(value = "/user")
+@Controller
+@RequestMapping(value = "/user")
 public class AuthorRestController {
 
 	private IDataAction<Author> userAction;
 
+	@Autowired
 	public AuthorRestController(IDataAction<Author> dataAction) {
 		this.userAction = dataAction;
 	}
 
-	//	@GetMapping(value = "/all")
-	//	public ModelAndView showAll(ModelAndView mv) {
-	//		mv.addObject("authors", userAction.findAll());
-	//		mv.setViewName("list");
-	//		return mv;
-	//	}
-
 	@GetMapping(value = "/all")
-	public List<Author> showAll() {
-		return userAction.findAll();
+	public ModelAndView showAll() {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("authors", userAction.findAll());
+		mv.setViewName("list");
+		return mv;
 	}
+
+	//	@GetMapping(value = "/all")
+	//	public List<Author> showAll() {
+	//		return userAction.findAll();
+	//	}
 
 	@GetMapping(value = "/{udi}")
 	public Author showDetail(@PathParam("uid") Integer uid) {
@@ -48,8 +50,9 @@ public class AuthorRestController {
 	}
 
 	@PostMapping(value = "/save")
-	public void submitData(Author user) {
+	public String submitData(Author user) {
 		userAction.saveData(user);
+		return "redirect:/";
 	}
 
 	@DeleteMapping(value = "/{uid}")
