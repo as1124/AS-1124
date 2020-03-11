@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.as1124</groupId>
@@ -37,19 +36,14 @@
 		</dependency>
 
 		<!-- Spring 基础框架 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-core</artifactId>
-			<version>5.2.0.RELEASE</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework</groupId> -->
+		<!-- <artifactId>spring-core</artifactId> -->
+		<!-- <version>5.2.0.RELEASE</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
-			<version>5.2.0.RELEASE</version>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-context-support</artifactId>
 			<version>5.2.0.RELEASE</version>
 		</dependency>
 
@@ -96,11 +90,11 @@
 		</dependency>
 
 		<!-- Spring JDBC 后端处理依赖 -->
-		<dependency>
-			<groupId>org.springframework</groupId>
-			<artifactId>spring-tx</artifactId>
-			<version>5.2.0.RELEASE</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>org.springframework</groupId> -->
+		<!-- <artifactId>spring-tx</artifactId> -->
+		<!-- <version>5.2.0.RELEASE</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
@@ -138,12 +132,41 @@
 			<version>5.4.10.Final</version>
 		</dependency>
 
+		<!-- Spring Data for MangoDB -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-mongodb</artifactId>
+			<version>2.2.0.RELEASE</version>
+		</dependency>
+
+
 		<!-- Java异步消息处理框架：JMS、AMQP -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.activemq</groupId> -->
+		<!-- <artifactId>activemq-core</artifactId> -->
+		<!-- <version>5.15.11</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.activemq</groupId> -->
+		<!-- <artifactId>activemq-client</artifactId> -->
+		<!-- <version>5.15.11</version> -->
+		<!-- </dependency> -->
+		<!-- <dependency> -->
+		<!-- <groupId>org.apache.activemq</groupId> -->
+		<!-- <artifactId>activemq-broker</artifactId> -->
+		<!-- <version>5.15.11</version> -->
+		<!-- </dependency> -->
 		<dependency>
 			<groupId>org.apache.activemq</groupId>
-			<artifactId>activemq-all</artifactId>
+			<artifactId>activemq-spring</artifactId>
 			<version>5.15.11</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-jms</artifactId>
+			<version>5.2.0.RELEASE</version>
+		</dependency>
+
 		<dependency>
 			<groupId>com.rabbitmq</groupId>
 			<artifactId>amqp-client</artifactId>
