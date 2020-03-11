@@ -24,8 +24,8 @@ import org.springframework.web.context.WebApplicationContext;
  * <ol>
  * <li><strong>自动装配方式：隐式装配</strong><br/>
  * {@link Autowired}：注解用于自动装配bean, 扫描完 <code>@</code>{@linkplain Component} 后自动进行类型匹配, 
- * 设置<code>required = false </code>取消强制自动装配，失败时不抛出Exception。所以自动装配依赖于 <code>@Component</code> 注解，
- * 没有注解的类就无法被自动装配
+ * 设置<code>required = false </code>取消强制自动装配，失败时不抛出Exception。所有自动装配依赖于 <code>@Component</code> 注解
+ * 或者XML显示申明Bean，  没有注解的类或预先声明的Bean就无法被自动装配
  * </li>
  * <li><strong>Java装配方式：显示装配</strong><br/>
  * {@link Bean} 注解, 提供方法创建Bean
@@ -67,10 +67,11 @@ import org.springframework.web.context.WebApplicationContext;
  * 问题根源：默认情况下Spring中的Bean都是单例存在的，然而很多时候需要对象的状态，
  * 此时单例重用就会造成对象污染
  * <ol>
- * <li>{@link ConfigurableBeanFactory#SCOPE_SINGLETON} ：整个应用中单例作用域</li>
+ * <li>{@link ConfigurableBeanFactory#SCOPE_SINGLETON} ：整个应用中单例作用域，Spring默认情况</li>
  * <li>{@link ConfigurableBeanFactory#SCOPE_PROTOTYPE} ：原型作用域, 每次都创建新的实例
- * <li>{@link WebApplicationContext#SCOPE_SESSION} :在Web应用中为每个会话创建一个Bean实例
- * <li>{@link WebApplicationContext#SCOPE_REQUEST} :在Web应用中为每个请求创建一个Bean实例
+ * <li>{@link WebApplicationContext#SCOPE_SESSION}：在Web应用中为每个会话创建一个Bean实例，生命周期与Session同步
+ * <li>{@link WebApplicationContext#SCOPE_REQUEST}：在Web应用中为每个请求创建一个Bean实例
+ * <li>{@link WebApplicationContext#SCOPE_APPLICATION}：WebApplicationContext时存在，生命周期与ServletContext同步
  * </ol>
  * 
  * 
