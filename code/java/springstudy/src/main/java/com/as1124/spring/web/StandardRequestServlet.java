@@ -2,6 +2,7 @@ package com.as1124.spring.web;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.WebApplicationInitializer;
 
 /**
@@ -20,35 +22,38 @@ import org.springframework.web.WebApplicationInitializer;
  * </strong></pre>
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@WebServlet("/resource/test/*")
-public class ResourcesServlet extends HttpServlet {
+@WebServlet(name = StandardRequestServlet.SERVLET_ANME, value = "/resource/test/*")
+public class StandardRequestServlet extends HttpServlet {
+
+	public static final String SERVLET_ANME = "standardJavaxServlet";
 
 	private static final long serialVersionUID = 1L;
 
-	public ResourcesServlet() {
+	private String defaultCharset;
+
+	public StandardRequestServlet() {
 		super();
 	}
 
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+		defaultCharset = config.getInitParameter("charset");
+		if (StringUtils.isEmpty(defaultCharset)) {
+			defaultCharset = StandardCharsets.UTF_8.name();
+		}
 	}
 
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		request.setCharacterEncoding(defaultCharset);
 		try (Writer writer = response.getWriter()) {
 			writer.append("Served at: ").append(request.getRequestURI());
 			writer.flush();
 		} catch (IOException e) {
 			// nothing to do 
 		}
-	}
-
-	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

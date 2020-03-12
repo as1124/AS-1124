@@ -1,4 +1,4 @@
-package com.as1124.spring.web;
+package com.as1124.spring.web.config;
 
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
@@ -15,7 +15,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-public class As1124SpringApplication extends AbstractAnnotationConfigDispatcherServletInitializer {
+public class As1124DispatcherServletConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
 	/* 
 	 * Spring Bean 配置类
@@ -48,9 +48,9 @@ public class As1124SpringApplication extends AbstractAnnotationConfigDispatcherS
 
 	@Override
 	protected void customizeRegistration(Dynamic registration) {
+		// registration 实际就是向ServletContext注册DispatcherServlet之后得到的封装对象
+		// 其中包含了Tomcat的上下文Application以及请求Wrapper
 		registration.setMultipartConfig(new MultipartConfigElement("/resources/uploaded"));
-
-		super.customizeRegistration(registration);
 	}
 
 }

@@ -1,4 +1,4 @@
-package com.as1124.spring.web;
+package com.as1124.spring.web.config;
 
 import java.nio.charset.Charset;
 import java.util.List;

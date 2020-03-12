@@ -1,4 +1,4 @@
-package com.as1124.spring.web;
+package com.as1124.spring.web.config;
 
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;

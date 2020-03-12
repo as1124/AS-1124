@@ -13,11 +13,11 @@ import org.springframework.web.servlet.DispatcherServlet;
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-public class As1124ServletInitializer implements WebApplicationInitializer {
+public class SpringWebApplicationInitializer implements WebApplicationInitializer {
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		Dynamic servlet = servletContext.addServlet("resource-servlet", ResourcesServlet.class);
+		Dynamic servlet = servletContext.addServlet("resource-servlet", StandardRequestServlet.class);
 		servlet.addMapping("/resource/action/*");
 	}
 

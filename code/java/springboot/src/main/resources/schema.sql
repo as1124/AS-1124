@@ -1,12 +1,13 @@
 create table author(
-	id int primary key,
-	name varchar(64),
-	address varchar(128)
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	name VARCHAR(64) NOT NULL,
+	address VARCHAR(128)
 );
 
---create table book(
---	id int primary key,
---	book_name varchar(64),
---	price double,
---	author_id int foreign key
---);
+create table book(
+	id INT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
+	book_name VARCHAR(64) NOT NULL,
+	price DOUBLE,
+	author_id INT UNSIGNED, 
+	FOREIGN KEY(author_id) REFERENCES author(id)
+);
