@@ -4,6 +4,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.junit.Assert;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.servlet.DispatcherServlet;
@@ -17,7 +18,8 @@ public class SpringWebApplicationInitializer implements WebApplicationInitialize
 
 	@Override
 	public void onStartup(ServletContext servletContext) throws ServletException {
-		Dynamic servlet = servletContext.addServlet("resource-servlet", StandardRequestServlet.class);
+		Dynamic servlet = servletContext.addServlet("spring-standard-servlet", StandardRequestServlet.class);
+		Assert.assertNotNull("不能重复向ServletContext注册同名Servlet", servlet);
 		servlet.addMapping("/resource/action/*");
 	}
 

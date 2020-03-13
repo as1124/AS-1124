@@ -3,6 +3,8 @@ package com.as1124.spring.web.config;
 import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletRegistration.Dynamic;
 
+import org.springframework.context.ApplicationContextInitializer;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
@@ -26,7 +28,19 @@ public class As1124DispatcherServletConfig extends AbstractAnnotationConfigDispa
 	 * {@link ContextLoaderListener} 通常负责加载如： 驱动应用的中间层、数据层的组件
 	 */
 	protected Class<?>[] getRootConfigClasses() {
-		return new Class<?>[] { RootConfig.class };
+		return new Class<?>[] { RootContextConfig.class };
+	}
+
+	@Override
+	protected ApplicationContextInitializer<?>[] getRootApplicationContextInitializers() {
+		ApplicationContextInitializer<?>[] initializer = new ApplicationContextInitializer<?>[1];
+		initializer[0] = (ConfigurableApplicationContext context) -> {
+			System.out.println("[As1124RootContextInitializer] Spring Root Context id = " + context.getId());
+			System.out.println("[As1124RootContextInitializer] Spring Root Context hashCode = " + context.hashCode());
+			context.addApplicationListener(new ApplicationContextListener());
+			System.out.println("[As1124RootContextInitializer] Add ApplicationListener to Root Context");
+		};
+		return initializer;
 	}
 
 	/**
@@ -35,7 +49,19 @@ public class As1124DispatcherServletConfig extends AbstractAnnotationConfigDispa
 	 * {@link DispatcherServlet}负责加载如：控制器、视图解析器、处理映射器等 bean
 	 */
 	protected Class<?>[] getServletConfigClasses() {
-		return new Class<?>[] { WebConfig.class };
+		return new Class<?>[] { WebContextConfig.class };
+	}
+
+	@Override
+	protected ApplicationContextInitializer<?>[] getServletApplicationContextInitializers() {
+		ApplicationContextInitializer<?>[] initializer = new ApplicationContextInitializer<?>[1];
+		initializer[0] = (ConfigurableApplicationContext context) -> {
+			System.out.println("[As1124WebContextInitializer] Spring Root Context id = " + context.getId());
+			System.out.println("[As1124WebtContextInitializer] Spring Root Context hashCode = " + context.hashCode());
+			context.addApplicationListener(new ApplicationContextListener());
+			System.out.println("[As1124WebtContextInitializer] Add ApplicationListener to Web Context");
+		};
+		return initializer;
 	}
 
 	/* 

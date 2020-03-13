@@ -22,10 +22,8 @@ import org.springframework.web.WebApplicationInitializer;
  * </strong></pre>
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-@WebServlet(name = StandardRequestServlet.SERVLET_ANME, value = "/resource/test/*")
+@WebServlet(name = "javax-standard-servlet", value = "/resource/test/*")
 public class StandardRequestServlet extends HttpServlet {
-
-	public static final String SERVLET_ANME = "standardJavaxServlet";
 
 	private static final long serialVersionUID = 1L;
 

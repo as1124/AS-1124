@@ -19,14 +19,15 @@ import org.springframework.web.servlet.view.InternalResourceView;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
- *
+ * Spring WVC 中Web-Context相关Bean配置信息
+ * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = { "com.as1124.spring.web" }, includeFilters = {
 		@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
-public class WebConfig implements WebMvcConfigurer {
+public class WebContextConfig implements WebMvcConfigurer {
 
 	@Bean("jspViewResolver")
 	public ViewResolver getViewResolver() {
