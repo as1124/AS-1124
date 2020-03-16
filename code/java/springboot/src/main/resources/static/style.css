@@ -7,3 +7,16 @@ label {
 	width: 120px;
 	text-align: right;
 }
+
+.bookHeadline {
+	font-size: 12pt;
+	font-weight: bold;
+}
+
+.bookDescription {
+	font-size: 10pt;
+}
+
+label {
+	font-weight: bold;
+}

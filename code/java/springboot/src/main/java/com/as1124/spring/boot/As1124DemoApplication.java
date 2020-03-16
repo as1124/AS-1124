@@ -8,7 +8,6 @@ public class As1124DemoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(As1124DemoApplication.class, args);
-		System.out.println("stop");
 	}
 
 }

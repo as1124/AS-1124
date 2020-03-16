@@ -32,6 +32,8 @@ public class JdkInvocationHandler implements InvocationHandler {
 	}
 
 	public static void main(String[] args) {
+		// 设置系统属性：保存动态生成的代理类；会生成在项目的根目录下 => com/sun/proxy/...
+		System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
 		InvocationHandler proxyHandler = new JdkInvocationHandler(new BankServiceImpl());
 		Class<?> proxyClass = Proxy.getProxyClass(Thread.currentThread().getContextClassLoader(), IBankStaff.class,
 			IBankService.class);
