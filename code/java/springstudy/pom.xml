@@ -7,6 +7,7 @@
 	<name>As1124 Spring Study Lesson</name>
 	<url>http://maven.apache.org</url>
 	<properties>
+		<java.version>1.8</java.version>
 		<maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
@@ -36,11 +37,11 @@
 		</dependency>
 
 		<!-- Spring 基础框架 -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-core</artifactId> -->
-		<!-- <version>5.2.0.RELEASE</version> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<version>5.2.0.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-context</artifactId>
@@ -90,11 +91,11 @@
 		</dependency>
 
 		<!-- Spring JDBC 后端处理依赖 -->
-		<!-- <dependency> -->
-		<!-- <groupId>org.springframework</groupId> -->
-		<!-- <artifactId>spring-tx</artifactId> -->
-		<!-- <version>5.2.0.RELEASE</version> -->
-		<!-- </dependency> -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<version>5.2.0.RELEASE</version>
+		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-jdbc</artifactId>
