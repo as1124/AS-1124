@@ -84,6 +84,7 @@ public class SpringController {
 		//ATTENTION 为什么一直校验都是没错呢
 		// 表单校验
 		if (errors.hasErrors()) {
+			System.out.println("表单校验错误 = " + errors.getErrorCount());
 			return "fillForm";
 		} else {
 			// 请求重定向

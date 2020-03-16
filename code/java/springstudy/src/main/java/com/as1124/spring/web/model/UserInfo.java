@@ -31,12 +31,12 @@ public class UserInfo implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true)
-	@Min(0)
+	@Min(value = 2, message = "最小值不能小于2")
 	private Integer id;
 
 	@Column(name = "user_name")
 	@NotNull
-	@Size(min = 5, max = 20)
+	@Size(min = 5, max = 20, message = "名称长度超限")
 	private String userName;
 
 	@Column(name = "birthday")

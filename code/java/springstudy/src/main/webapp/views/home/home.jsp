@@ -8,21 +8,18 @@
 </head>
 <body>
 	<h1>Welcome to Spring</h1>
-	<form id="spitter" action="/user/register" method="POST">
-		First Name: <input id="firstName" name="firstName" type="text" /> <br />
-		Last Name: <input id="lastName" name="lastName" type="text" /> <br />
-		Email: <input id="email" name="email" type="text" /> <br />
-		Username: <input id="username" name="username" type="text" /> <br />
-		Password: <input id="password" name="password" type="password" /> <br />
+	<form id="spitter" action="/springstudy/spring/user/registx" method="POST">
+		User-ID: <input id="id" name="id" type="text" /> <br /> 
+		User-Name: <input id="userName" name="userName" type="text" /> <br />
+		Birthday: <input id="birthday" name="birthday" type="text" /> <br />
+		Address: <input id="address" name="address" type="text" /> <br />
 		<input type="submit" value="Register" />
 	</form>
 	<%
 		out.write("哈哈哈哈，This is JSP\r\n");
 	%>
 
-	<br />
-	
-	${result}
+	<br /> ${result}
 </body>
 </html>
 

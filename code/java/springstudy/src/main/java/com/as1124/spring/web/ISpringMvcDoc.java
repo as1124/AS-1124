@@ -7,6 +7,8 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.HandlesTypes;
 
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.web.SpringServletContainerInitializer;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
@@ -35,8 +37,14 @@ import org.springframework.web.servlet.support.AbstractDispatcherServletInitiali
  * 
  * <ul>
  * Spring Bean 加载
- * <li>
+ * <li>{@link ConfigurableApplicationContext#refresh()} 进行加载，先父Context的Bean然后再child-context的Bean
+ * <li>Tomcat调用起{@link ContextLoaderListener}，在{@link AbstractApplicationContext#refresh()}中有详细过程
+ * </ul>
  * 
+ * <ul>
+ * 事件、回调处理
+ * <li>所有 <code>**Processor</code> 调用优先于 <code>**Aware</code>
+ * <li>创建ApplicationContext -> ApplicationContextInitializer -> BeanFactory -> Bean -> ApplicationContextEvent -> initServlet
  * </ul>
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)

@@ -7,8 +7,6 @@ import org.springframework.beans.factory.config.BeanFactoryPostProcessor;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.ComponentScan.Filter;
@@ -21,23 +19,33 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Configuration
-//@ComponentScan(basePackages = { "com.as1124.spring.web", "com.as1124.spring.persistence",
-//		"com.as1124.spring.rest" }, excludeFilters = {
-//				@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
-@ComponentScan(basePackages = { "com.as1124.spring" }, excludeFilters = {
-		@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
+@ComponentScan(basePackages = { "com.as1124.spring.web", "com.as1124.spring.persistence",
+		"com.as1124.spring.rest" }, excludeFilters = {
+				@Filter(type = FilterType.ANNOTATION, value = EnableWebMvc.class) })
 public class RootContextConfig {
 
-	@Bean("As1124RootContextInitializer")
-	public ApplicationContextInitializer<ConfigurableApplicationContext> createRootContextInitializer() {
-		return (ConfigurableApplicationContext context) -> {
-			System.out.println("[As1124RootContextInitializer] Spring Root Context id = " + context.getId());
-			System.out.println("[As1124RootContextInitializer] Spring Root Context hashCode = " + context.hashCode());
-			context.addApplicationListener(new ApplicationContextListener());
-			System.out.println("[As1124RootContextInitializer] Add ApplicationListener to Root Context");
-		};
+	/**
+	 * 关注于 BeanFactory的生命周期
+	 * @return
+	 */
+	@Bean("As1124BeanFactoryProcessor")
+	public BeanFactoryPostProcessor createBeanFactoryProcessor() {
+		return beanFactory -> System.out.println("[BeanFactoryProcessor] " + beanFactory.toString());
 	}
 
+	/**
+	 * 关注于 Bean 的生命周期
+	 * @return
+	 */
+	@Bean("As1124BeanProcessor")
+	public BeanPostProcessor createBeanProcessor() {
+		return new RootContextBeanPostProcessor();
+	}
+
+	/**
+	 * ApplicationContext 初始化完成后，状态是active可用后才会调用，设置给开发者获取
+	 * @return
+	 */
 	@Bean("As1124ApplicationContextAware")
 	public ApplicationContextAware createContextAware() {
 		return (ApplicationContext context) -> {
@@ -50,7 +58,7 @@ public class RootContextConfig {
 	@Bean("As1124BeanFactoryAware")
 	public BeanFactoryAware crateBeanFactoryAware() {
 		return (BeanFactory beanFactory) -> {
-			System.out.println("[BeanFactoryAware]" + beanFactory.toString());
+			System.out.println("[BeanFactoryAware] " + beanFactory.toString());
 			System.out.println(String.format("[BeanFactoryAware] class is %s, hashCode is %d",
 				beanFactory.getClass().getName(), beanFactory.hashCode()));
 		};
@@ -58,17 +66,7 @@ public class RootContextConfig {
 
 	@Bean("As1124BeanNameAware")
 	public BeanNameAware createBeanNameAware() {
-		return beanName -> System.out.println("[BeanNameAware] Create Bean +" + beanName);
-	}
-
-	@Bean("As1124BeanFactoryProcessor")
-	public BeanFactoryPostProcessor createBeanFactoryProcessor() {
-		return beanFactory -> System.out.println("[BeanFactoryProcessor] " + beanFactory.toString());
-	}
-
-	@Bean("As1124BeanProcessor")
-	public BeanPostProcessor createBeanProcessor() {
-		return new RootContextBeanPostProcessor();
+		return beanName -> System.out.println("[BeanNameAware] Create Bean " + beanName);
 	}
 
 }

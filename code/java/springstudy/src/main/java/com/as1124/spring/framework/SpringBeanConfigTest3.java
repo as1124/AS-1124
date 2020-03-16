@@ -15,7 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration("/config/spring-config.xml")
+@ContextConfiguration("classpath:/config/spring-config.xml")
 //@ContextConfiguration(classes = SpringConfigWays.class)
 public class SpringBeanConfigTest3 {
 
