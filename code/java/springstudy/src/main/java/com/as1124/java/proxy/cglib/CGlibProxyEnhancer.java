@@ -26,7 +26,9 @@ public class CGlibProxyEnhancer implements MethodInterceptor {
 	public Object intercept(Object proxy, Method method, Object[] arguments, MethodProxy methodProxy) throws Throwable {
 		String methodName = method.getDeclaringClass().getName() + "#" + method.getName();
 		System.out.println("\n[CGlibProxyEnhancer] brefore invoke = " + methodName);
-		Object result = method.invoke(invokeTarget, arguments);
+		System.out.println("[CGlibProxyEnhancer] method proxy by cglib = " + methodProxy.getSuperName());
+		// ATTENTION 这里和JDK 动态代理不通：调用的是cglib的代理方法
+		Object result = methodProxy.invoke(invokeTarget, arguments);
 		System.out.println("[CGlibProxyEnhancer] finished " + methodName);
 		return result;
 	}
