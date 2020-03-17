@@ -10,7 +10,6 @@ create table book(
 	reader VARCHAR(128),
 	isbn VARCHAR(64),
 	title VARCHAR(64) NOT NULL,
-	author VARCHAR(64),
 	price DOUBLE,
 	description VARCHAR(64),
 	author_id INT UNSIGNED, 

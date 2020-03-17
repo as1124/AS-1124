@@ -1,22 +1,15 @@
 package com.as1124.spring.boot.config;
 
-import java.util.Arrays;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.PersistenceUnit;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.codec.Hex;
+import org.springframework.security.crypto.password.AbstractPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 
 import com.as1124.spring.boot.IDataAction;
 import com.as1124.spring.boot.model.Author;
@@ -30,7 +23,18 @@ import com.as1124.spring.boot.model.Author;
 @EnableWebSecurity
 public class As1124WebSecurityConfiger extends WebSecurityConfigurerAdapter {
 
-	private PasswordEncoder passwordEncoder = new SCryptPasswordEncoder();
+	private PasswordEncoder passwordEncoder = new AbstractPasswordEncoder() {
+
+		public boolean matches(CharSequence rawPassword, String encodedPassword) {
+			String decodeStr = new String(Hex.decode(encodedPassword));
+			return decodeStr.equals(rawPassword);
+		};
+
+		@Override
+		protected byte[] encode(CharSequence rawPassword, byte[] salt) {
+			return rawPassword.toString().getBytes();
+		}
+	};
 
 	@Autowired
 	private IDataAction<Author> authorAction;
@@ -48,15 +52,11 @@ public class As1124WebSecurityConfiger extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		UserDetailsService userService = (String username) -> {
 			// 自定义控制登录用户信息
-			//			Author author = authorAction.findOne(1);
-			//			if (author != null) {
-			//				return new User(author.getName(), author.getName(), null);
-			//			} else {
-			//				return null;
-			//			}
-			if ("root".equals(username)) {
-				return new User("root", passwordEncoder.encode("root"),
-						Arrays.asList(new SimpleGrantedAuthority("EDIT")));
+			Author author = authorAction.findOne(1);
+			if (author != null) {
+				String encodePwd = new String(Hex.encode("root".getBytes()));
+				author.setPassword(encodePwd);
+				return author;
 			} else {
 				return null;
 			}

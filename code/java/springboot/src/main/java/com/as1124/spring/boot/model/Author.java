@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
@@ -27,16 +28,20 @@ public class Author implements UserDetails {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer authorId;
 
 	@Column(name = "user_name", nullable = true)
 	private String userName;
 
+	@Column(name = "password")
 	private String password;
 
+	@Column(name = "address")
 	private String address;
 
-//	private List<Book> books;
+	@OneToMany(targetEntity = Book.class)
+	private List<Book> books;
 
 	public Author() {
 		// default constructor
@@ -79,13 +84,13 @@ public class Author implements UserDetails {
 		this.address = address;
 	}
 
-//	public List<Book> getBooks() {
-//		return books;
-//	}
-//
-//	public void setBooks(List<Book> books) {
-//		this.books = books;
-//	}
+	public List<Book> getBooks() {
+		return books;
+	}
+
+	public void setBooks(List<Book> books) {
+		this.books = books;
+	}
 
 	@Override
 	public String toString() {

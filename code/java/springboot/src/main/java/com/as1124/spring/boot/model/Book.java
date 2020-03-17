@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -17,6 +19,7 @@ public class Book {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private Integer bookID;
 
 	@Column(name = "reader")
@@ -28,11 +31,15 @@ public class Book {
 	@Column(name = "title")
 	private String title;
 
-	private String author;
-
+	@Column(name = "price")
 	private double price;
 
+	@Column(name = "description")
 	private String description;
+
+	@ManyToOne(targetEntity = Author.class)
+	@JoinColumn(name = "author_id")
+	private Author author;
 
 	public Book() {
 		// default constructor
@@ -75,11 +82,11 @@ public class Book {
 		this.title = title;
 	}
 
-	public String getAuthor() {
+	public Author getAuthor() {
 		return author;
 	}
 
-	public void setAuthor(String author) {
+	public void setAuthor(Author author) {
 		this.author = author;
 	}
 
