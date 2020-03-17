@@ -16,10 +16,6 @@ import com.as1124.spring.boot.model.Author;
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-//@RestController
-//@RequestMapping(value = "/user", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE,
-//		MediaType.APPLICATION_JSON_VALUE }, produces = "appliction/json;charset=utf-8")
-
 @Controller
 @RequestMapping(value = "/user")
 public class AuthorRestController {
@@ -38,11 +34,6 @@ public class AuthorRestController {
 		mv.setViewName("list");
 		return mv;
 	}
-
-	//	@GetMapping(value = "/all")
-	//	public List<Author> showAll() {
-	//		return userAction.findAll();
-	//	}
 
 	@GetMapping(value = "/{udi}")
 	public Author showDetail(@PathParam("uid") Integer uid) {

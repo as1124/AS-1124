@@ -17,7 +17,8 @@ import org.springframework.cglib.proxy.MethodInterceptor;
  * <li>JDK 8及之后动态代理效率高于CGLib；CGlib在创建 <code>Enhancer</code> 对象时较慢，以为是动态生成字节码的
  * <li>JDK基于反射机制，接口编程；代理类的类定义 => class $Proxy0 extends Proxy implements InterfaceA,... ;
  * 因此在Spring中wired时无法将JDK代理类型的bean装配给接口实现的类型
- * <li>CGlib 基于类继承机制，实现指定类的一个子类；=> $$EnhancerByCGLIB$$ extends SuperClass
+ * <li>CGlib 基于类继承机制，底层是基于asm框架实现，通过实现实现指定类的一个子类；=> $$EnhancerByCGLIB$$ extends SuperClass；
+ * 所以不能是final修饰的类或方法
  * </ol>
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)

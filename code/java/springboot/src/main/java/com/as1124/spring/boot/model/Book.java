@@ -1,5 +1,6 @@
 package com.as1124.spring.boot.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -18,10 +19,13 @@ public class Book {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer bookID;
 
+	@Column(name = "reader")
 	private String reader;
 
+	@Column(name = "isbn")
 	private String isbn;
 
+	@Column(name = "title")
 	private String title;
 
 	private String author;
@@ -97,6 +101,6 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return String.format("Book named {0}-{1}, price is {2}", this.bookID, this.title, this.price);
+		return String.format("Book named %d-%s, price is %d", this.bookID, this.title, this.price);
 	}
 }
