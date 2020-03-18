@@ -8,7 +8,7 @@ import java.util.List;
  * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
-public interface IDataAction<T> {// extends JpaRepository<T, Integer> {
+public interface IDataAction<T> {
 
 	public T findOne(Integer uid);
 

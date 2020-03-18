@@ -17,7 +17,9 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- *
+ * OneToMany 一对多关联映射的三种方式在{@link OneToMany API文档}里面描述的很清楚共有三种方式 ；
+ * <br/> 不能 transient 关联属性，否则映射关系对象查出来无数据
+ * 
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
 @Entity(name = "Author")
@@ -32,7 +34,7 @@ public class Author implements UserDetails {
 	private Integer authorId;
 
 	@Column(name = "user_name", nullable = true)
-	private String userName;
+	private String username;
 
 	@Column(name = "password")
 	private String password;
@@ -40,7 +42,13 @@ public class Author implements UserDetails {
 	@Column(name = "address")
 	private String address;
 
-	@OneToMany(targetEntity = Book.class)
+	// 方式一：只用在一端添加就好
+	//	@OneToMany(orphanRemoval = true)
+	//	@JoinColumn(name = "author_id")
+
+	// 方式二：mappedBy 指定的是 N 端的属性名称
+	// ATTENTION 不能 transient 这个属性，否则映射关系查出来无数据
+	@OneToMany(targetEntity = Book.class, mappedBy = "author")
 	private List<Book> books;
 
 	public Author() {
@@ -51,9 +59,9 @@ public class Author implements UserDetails {
 		this.authorId = id;
 	}
 
-	public Author(String name, String address) {
-		this.userName = name;
-		this.address = address;
+	public Author(String name, String pwd) {
+		this.username = name;
+		this.password = pwd;
 	}
 
 	public Integer getAuthorId() {
@@ -64,8 +72,8 @@ public class Author implements UserDetails {
 		this.authorId = authorId;
 	}
 
-	public void setUserName(String name) {
-		this.userName = name;
+	public void setUsername(String name) {
+		this.username = name;
 	}
 
 	public String getPassword() {
@@ -94,7 +102,7 @@ public class Author implements UserDetails {
 
 	@Override
 	public String toString() {
-		return String.format("Author(%d) name is %s, address is %s", this.authorId, this.userName, this.address);
+		return String.format("Author(%d) name is %s, address is %s", this.authorId, this.username, this.address);
 	}
 
 	@Override
@@ -104,7 +112,7 @@ public class Author implements UserDetails {
 
 	@Override
 	public String getUsername() {
-		return this.userName;
+		return this.username;
 	}
 
 	@Override

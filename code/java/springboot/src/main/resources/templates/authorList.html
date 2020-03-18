@@ -1,0 +1,37 @@
+<html>
+<head>
+<title>Author Info</title>
+<link rel="stylesheet" th:href="@{/style.css}"></link>
+</head>
+<body>
+	<h2>当前所在书店 =>
+		<div th:if="${bookStore}">
+			<span th:text="${bookStore.storeName}"></span>
+		</div>
+	</h2>
+	<div th:unless="${#lists.isEmpty(authors)}">
+		<dl th:each="author : ${authors}">
+			<dt class="bookHeadline">
+				<span th:text="${author.authorId}">ID</span>
+				<span th:text="${author.username}">Name</span>
+				<span th:text="${author.address}">Address</span>
+			</dt>
+		</dl>
+	</div>
+	<div th:if="${#lists.isEmpty(authors)}">
+		<p>No author data</p>
+	</div>
+	<hr />
+	<h3>Add a Author</h3>
+	<form method="POST">
+		<label for="username">name:</label><input type="text" name="username" size="50" />
+		<br />
+		<label for="password">password:</label><input type="text" name="password" size="50" />
+		<br />
+		<label for="address">address:</label><input type="text" name="address" size="15" />
+		<br />
+		<br />
+		<input type="submit" />
+	</form>
+</body>
+</html>

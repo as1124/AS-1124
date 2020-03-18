@@ -1,12 +1,7 @@
 package com.as1124.spring.boot.model;
 
-import com.as1124.spring.boot.IDataAction;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public class BookPersistenceAction implements IDataAction<Book> {
-
-	@Override
-	public Book findOne(Integer uid) {
-		return null;
-	}
+public interface BookPersistenceAction extends JpaRepository<Book, Integer> {
 
 }
