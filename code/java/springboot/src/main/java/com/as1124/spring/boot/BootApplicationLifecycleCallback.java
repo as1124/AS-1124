@@ -3,7 +3,7 @@ package com.as1124.spring.boot;
 import javax.annotation.PreDestroy;
 
 /**
- * TODO 此处填写 class 信息
+ * lifecycle listener
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
  */
