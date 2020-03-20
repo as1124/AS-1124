@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>Success</title>
+<link rel="stylesheet" th:href="@{/style.css}"></link>
+</head>
+<body>
+	<div class="errofPage">
+		<p>
+			Request OK => <span th:text="${path}"></span>
+		</p>
+		<p th:text="${'Details: ' + message}"></p>
+	</div>
+
+</body>
+</html>

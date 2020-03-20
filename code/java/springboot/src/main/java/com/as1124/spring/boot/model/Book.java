@@ -5,9 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 /**
  *
@@ -37,8 +36,14 @@ public class Book {
 	@Column(name = "description")
 	private String description;
 
-	@ManyToOne(targetEntity = Author.class)
-	@JoinColumn(name = "author_id")
+	@Column(name = "author_id")
+	private String authorId;
+
+	// ATTENTION: 如果两边都设置关联查询的话在解析成JSON、XML传递到客户端就出现循环解析了，
+	// 此时内存也就 StackOverFlow 了；所以这里通过 @Transient注解使其不参与持久化
+	//	@ManyToOne(targetEntity = Author.class)
+	//	@JoinColumn(name = "author_id")
+	@Transient
 	private Author author;
 
 	public Book() {
@@ -80,6 +85,14 @@ public class Book {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getAuthorId() {
+		return authorId;
+	}
+
+	public void setAuthorId(String authorId) {
+		this.authorId = authorId;
 	}
 
 	public Author getAuthor() {

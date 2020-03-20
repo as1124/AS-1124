@@ -6,10 +6,10 @@
 <body>
 	<div class="errofPage">
 		<span class="oops" th:text="${'Oops !! ' + status}"></span> <br />
-		<!-- 		<img alt="" src=""></img> -->
+		<img alt="" src="/static/welcome_pic.png"></img>
 		<p>
-			There seems to be a problem with the page you requested => <span
-				th:text="${path}"></span>
+			There seems to be a problem with the page you requested =>
+			<span th:text="${path}"></span>
 		</p>
 		<p th:text="${'Details: ' + message}"></p>
 	</div>

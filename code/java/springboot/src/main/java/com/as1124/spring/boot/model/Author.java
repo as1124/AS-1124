@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -42,13 +43,13 @@ public class Author implements UserDetails {
 	@Column(name = "address")
 	private String address;
 
-	// 方式一：只用在一端添加就好
-	//	@OneToMany(orphanRemoval = true)
-	//	@JoinColumn(name = "author_id")
-
-	// 方式二：mappedBy 指定的是 N 端的属性名称
+	// 方式一：mappedBy 指定的是 N 端的属性名称
 	// ATTENTION 不能 transient 这个属性，否则映射关系查出来无数据
-	@OneToMany(targetEntity = Book.class, mappedBy = "author")
+	// @OneToMany(targetEntity = Book.class, mappedBy = "author")
+
+	// 方式二：只用在一端添加就好
+	@OneToMany(orphanRemoval = true)
+	@JoinColumn(name = "author_id")
 	private List<Book> books;
 
 	public Author() {

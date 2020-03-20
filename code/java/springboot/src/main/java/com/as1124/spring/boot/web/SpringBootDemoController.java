@@ -1,8 +1,13 @@
 package com.as1124.spring.boot.web;
 
+import java.lang.ref.WeakReference;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
+import javax.servlet.FilterRegistration;
+import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.support.JpaRepositoryFactory;
@@ -14,8 +19,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.ConfigurableWebApplicationContext;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.as1124.spring.boot.model.Author;
@@ -26,7 +33,8 @@ import com.as1124.spring.boot.properties.As1124BootProperties;
 
 @Controller
 @RequestMapping(value = "/")
-public class SpringBootDemoController {
+@org.springframework.transaction.annotation.Transactional
+public class SpringBootDemoController implements ServletContextAware {
 
 	@Autowired
 	private As1124BootProperties bookStore;
@@ -38,6 +46,8 @@ public class SpringBootDemoController {
 
 	@Autowired
 	private ConfigurableWebApplicationContext context;
+
+	private WeakReference<ServletContext> servletContextRef;
 
 	@Autowired
 	public SpringBootDemoController(EntityManager entityM) {
@@ -53,8 +63,8 @@ public class SpringBootDemoController {
 		return mv;
 	}
 
-	@GetMapping(value = "/author/{uid}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public @ResponseBody Author showDetail(@PathVariable("uid") Integer uid) {
+	@GetMapping(value = "/author", produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody Author showDetail(@RequestParam("uid") Integer uid) {
 		Optional<Author> result = authorAction.findById(uid);
 		if (result.isPresent()) {
 			return result.get();
@@ -63,13 +73,27 @@ public class SpringBootDemoController {
 		}
 	}
 
-	@PostMapping(value = "/author/save")
-	public String submitData(@RequestBody Author author) {
-		authorAction.save(author);
-		return "redirect:/";
+	@PostMapping(value = "/author/save", consumes = "application/json;charset=utf-8")
+	public ModelAndView submitData(@RequestBody Author author) {
+		ModelAndView mv = new ModelAndView();
+		int bookCount = author.getBooks().size();
+		BookPersistenceAction bookActions = mJpaFactory.getRepository(BookPersistenceAction.class);
+		for (int i = 0; i < bookCount; i++) {
+			bookActions.save(author.getBooks().get(i));
+		}
+		// 很神奇 => 先保存Book, 此时Book中并没有authorId, 保存Author之后book中便有值了
+		Author result = authorAction.save(author);
+		if (result.getAuthorId() >= 1) {
+			mv.addObject("message", "保存 Author 成功 = " + result.getAuthorId());
+			mv.setViewName("success");
+		} else {
+			mv.setViewName("error");
+		}
+		return mv;
 	}
 
 	@DeleteMapping(value = "/author/{uid}")
+	@ResponseBody
 	public boolean deleteData(@PathVariable("uid") Integer uid) {
 		try {
 			authorAction.deleteById(uid);
@@ -93,8 +117,29 @@ public class SpringBootDemoController {
 	}
 
 	@GetMapping(path = "/beans", produces = MediaType.APPLICATION_JSON_VALUE)
-	public String[] getBeanNames() {
+	public @ResponseBody String[] getBeanNames() {
 		return context.getBeanDefinitionNames();
+	}
+
+	@GetMapping(path = "/filters")
+	public @ResponseBody String[] getFilterNames() {
+		if (servletContextRef != null && servletContextRef.get() != null) {
+			ServletContext servletContext = servletContextRef.get();
+			Map<String, ? extends FilterRegistration> filterMaps = servletContext.getFilterRegistrations();
+			Iterator<String> its = filterMaps.keySet().iterator();
+			while (its.hasNext()) {
+				String key = its.next();
+				filterMaps.get(key);
+			}
+			return new String[0];
+		} else {
+			return new String[0];
+		}
+	}
+
+	@Override
+	public void setServletContext(ServletContext servletContext) {
+		servletContextRef = new WeakReference<>(servletContext);
 	}
 
 }
