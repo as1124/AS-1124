@@ -23,18 +23,15 @@ public class ConditionUsage implements Condition {
 		Environment springEnv = context.getEnvironment();
 		springEnv.getDefaultProfiles();
 		BeanDefinitionRegistry beanRegistry = context.getRegistry();
-		if (beanRegistry.isAlias("puShu") || beanRegistry.isBeanNameInUse("puShu")) {
-			System.out.println("PuShuDisc 加载了");
+		if (beanRegistry.containsBeanDefinition("puShu")) {
+			System.out.println("已经初始化Bean 定义：PushuDisc");
 		} else {
-			System.out.println("没有 PuShuDisc-Bean");
+			System.out.println("没有初始化Bean定义： PuShuDisc-Bean");
 		}
 
 		ConfigurableBeanFactory beanFactory = context.getBeanFactory();
 		try {
-			Object obj = beanFactory.getBean("puShu");
-			if (obj == null) {
-				obj = beanFactory.getBean(IMedia.class);
-			}
+			IMedia obj = beanFactory.getBean("puShu", IMedia.class);
 			System.out.println("IMedia-Bean = " + obj.getClass().getName());
 		} catch (Exception e) {
 			System.out.println("Bean Factory 还没有创建IMedia-Bean!!");
@@ -43,7 +40,8 @@ public class ConditionUsage implements Condition {
 		if (metadata instanceof AnnotationMetadata) {
 			System.out.println("当前准备Bean== " + ((AnnotationMetadata) metadata).getClassName());
 		} else if (metadata instanceof MethodMetadata) {
-			System.out.println("当前准备Bean== " + ((MethodMetadata) metadata).getReturnTypeName());
+			MethodMetadata typeData = (MethodMetadata) metadata;
+			System.out.println("当前准备Bean== " + typeData.getMethodName() + "#" + typeData.getReturnTypeName());
 		}
 
 		return true;
