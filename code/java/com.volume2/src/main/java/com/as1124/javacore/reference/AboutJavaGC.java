@@ -1,4 +1,4 @@
-package com.java.core.reference;
+package com.as1124.javacore.reference;
 
 import java.lang.ref.SoftReference;
 

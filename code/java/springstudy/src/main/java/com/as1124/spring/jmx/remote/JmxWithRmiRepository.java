@@ -4,9 +4,6 @@ import java.net.MalformedURLException;
 import java.rmi.Naming;
 import java.rmi.RemoteException;
 
-import javax.management.MBeanServer;
-import javax.management.MBeanServerConnection;
-
 import org.junit.Assert;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;

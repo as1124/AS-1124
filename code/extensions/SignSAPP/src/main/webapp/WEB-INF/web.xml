@@ -13,7 +13,7 @@
 
 	<filter>
 		<filter-name>original-filter</filter-name>
-		<filter-class>com.as1124.server.wxsapp.access.OriginalFilter</filter-class>
+		<filter-class>com.as1124.wxsapp.access.OriginalFilter</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>original-filter</filter-name>

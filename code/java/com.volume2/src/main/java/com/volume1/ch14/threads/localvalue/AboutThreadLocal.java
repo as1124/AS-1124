@@ -12,9 +12,6 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public class AboutThreadLocal {
 
-	public AboutThreadLocal() {
-	}
-
 	/**
 	 * <ul>
 	 * <li>如果一个变量是成员变量，那么多线程对同一个对象的成员变量进行操作时 改成员变量的操作彼此相互影响；即：一个线程对一个成员变量的操作会影响到
@@ -27,21 +24,17 @@ public class AboutThreadLocal {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		{
-			Runnable r1 = new MySharedRunnable();
-			Thread t1 = new Thread(r1, "tt1");
-			Thread t2 = new Thread(r1, "tt2");
-			t1.start();
-			t2.start();
-		}
-		{
-			Runnable r2 = new MyThreadLocal();
-			Thread tt21 = new Thread(r2, "local-thread1");
-			Thread tt22 = new Thread(r2, "local-thread2");
-			tt21.start();
-			tt22.start();
-		}
+		Runnable r1 = new MySharedRunnable();
+		Thread t1 = new Thread(r1, "tt1");
+		Thread t2 = new Thread(r1, "tt2");
+		t1.start();
+		t2.start();
 
+		Runnable r2 = new MyThreadLocal();
+		Thread tt21 = new Thread(r2, "local-thread1");
+		Thread tt22 = new Thread(r2, "local-thread2");
+		tt21.start();
+		tt22.start();
 	}
 
 	static class MySharedRunnable implements Runnable {
@@ -61,14 +54,12 @@ public class AboutThreadLocal {
 				try {
 					Thread.sleep((long) Math.random() * 1000);
 				} catch (InterruptedException e) {
-					// not care
+					Thread.currentThread().interrupt();
 				}
-
 				if (i >= 10 && j >= 10) {
 					break;
 				}
 			}
-
 		}
 
 	}
@@ -80,9 +71,10 @@ public class AboutThreadLocal {
 		 */
 		private ThreadLocal<AtomicInteger> localID = new ThreadLocal<AtomicInteger>() {
 
+			@Override
 			protected AtomicInteger initialValue() {
 				return new AtomicInteger(0);
-			};
+			}
 
 		};
 
@@ -93,14 +85,14 @@ public class AboutThreadLocal {
 				try {
 					Thread.sleep((long) Math.random() * 1000);
 				} catch (InterruptedException e) {
-					// not care
+					Thread.currentThread().interrupt();
 				}
 
 				if (localID.get().get() >= 10) {
 					break;
 				}
 			}
+			localID.remove();
 		}
-
 	}
 }
