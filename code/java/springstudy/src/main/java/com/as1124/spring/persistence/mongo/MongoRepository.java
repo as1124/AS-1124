@@ -1,4 +1,4 @@
-package com.as1124.spring.persistence.nosql;
+package com.as1124.spring.persistence.mongo;
 
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoOperations;

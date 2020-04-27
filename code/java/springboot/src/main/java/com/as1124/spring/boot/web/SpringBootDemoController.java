@@ -31,6 +31,8 @@ import com.as1124.spring.boot.model.Book;
 import com.as1124.spring.boot.model.BookPersistenceAction;
 import com.as1124.spring.boot.properties.As1124BootProperties;
 
+import io.micrometer.core.annotation.Counted;
+
 @Controller
 @RequestMapping(value = "/")
 @org.springframework.transaction.annotation.Transactional
@@ -54,6 +56,7 @@ public class SpringBootDemoController implements ServletContextAware {
 		this.mJpaFactory = new JpaRepositoryFactory(entityM);
 	}
 
+	@Counted(value = "authors")
 	@GetMapping(value = "/author/all")
 	public ModelAndView showAll() {
 		ModelAndView mv = new ModelAndView();
