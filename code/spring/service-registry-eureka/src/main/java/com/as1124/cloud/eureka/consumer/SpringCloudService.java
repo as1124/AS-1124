@@ -1,4 +1,4 @@
-package com.as1124.spring.eureka.consumer;
+package com.as1124.cloud.eureka.consumer;
 
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.context.annotation.Bean;

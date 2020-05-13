@@ -1,4 +1,4 @@
-package com.as1124.spring.eureka;
+package com.as1124.cloud.eureka;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

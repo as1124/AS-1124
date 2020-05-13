@@ -1,4 +1,4 @@
-package com.as1124.spring.eureka.consumer;
+package com.as1124.cloud.eureka.consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -18,7 +18,6 @@ public class Spring5BookServiceConsumer {
     @LoadBalanced
     @Autowired
     private RestTemplate template;
-
 
     @GetMapping(path = "/book/{bookID}")
     public Object consumerBookService(@PathVariable("bookID") Integer bookID) {

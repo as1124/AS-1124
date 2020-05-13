@@ -8,15 +8,21 @@
         <outputRelativeToContentRoot value="true" />
         <module name="spring5" />
         <module name="service-registry-eureka" />
+        <module name="service-client-eureka" />
+        <module name="service-config-server" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="service-client-eureka" target="1.8" />
+      <module name="service-config-server" target="1.8" />
       <module name="service-registry-eureka" target="1.8" />
       <module name="spring5" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="service-client-eureka" options="-parameters" />
+      <module name="service-config-server" options="-parameters" />
       <module name="service-registry-eureka" options="-parameters" />
       <module name="spring5" options="-parameters" />
     </option>

@@ -8,30 +8,23 @@
         <version>2.2.7.RELEASE</version>
         <relativePath/>
     </parent>
-    <groupId>com.as1124.cloud</groupId>
-    <artifactId>service-registry-eureka</artifactId>
+    <groupId>com.as1124</groupId>
+    <artifactId>service-client-eureka</artifactId>
     <version>1.0.0</version>
-    <name>service-registry-eureka</name>
-    <description>Spring Cloud Study: Service Registry using Eureka</description>
+    <name>service-client-eureka</name>
+    <description>Eureka Client</description>
 
     <properties>
         <java.version>1.8</java.version>
-        <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-cloud.version>Hoxton.SR4</spring-cloud.version>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-        <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
         </dependency>
+
     </dependencies>
 
     <dependencyManagement>
