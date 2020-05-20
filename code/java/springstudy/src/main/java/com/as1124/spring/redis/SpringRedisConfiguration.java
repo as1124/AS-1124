@@ -1,4 +1,4 @@
-package com.as1124.spring.persistence.redis;
+package com.as1124.spring.redis;
 
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
