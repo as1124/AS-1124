@@ -12,9 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
-
 /**
  *
  * @author As-1124 (mailto:as1124huang@gmail.com)
@@ -29,8 +26,8 @@ public class HystrixService {
 	 * @param uid
 	 * @return
 	 */
-	@HystrixCommand(fallbackMethod = "getUserInfoFallback", commandProperties = {
-			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000") })
+//	@HystrixCommand(fallbackMethod = "getUserInfoFallback", commandProperties = {
+//			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000") })
 	@GetMapping(path = "/user/{userid}")
 	public Object getUserInfo(@PathVariable("userid") Integer uid) {
 		RestTemplate template = new RestTemplate();
