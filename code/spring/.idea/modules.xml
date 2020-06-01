@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/service-client-eureka/service-client-eureka.iml" filepath="$PROJECT_DIR$/service-client-eureka/service-client-eureka.iml" />
       <module fileurl="file://$PROJECT_DIR$/service-config-server/service-config-server.iml" filepath="$PROJECT_DIR$/service-config-server/service-config-server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/service-registry-eureka/service-registry-eureka.iml" filepath="$PROJECT_DIR$/service-registry-eureka/service-registry-eureka.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/spring.iml" filepath="$PROJECT_DIR$/.idea/spring.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-consumer/service-consumer.iml" filepath="$PROJECT_DIR$/service-consumer/service-consumer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-provider/service-provider.iml" filepath="$PROJECT_DIR$/service-provider/service-provider.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service-registry/service-registry.iml" filepath="$PROJECT_DIR$/service-registry/service-registry.iml" />
       <module fileurl="file://$PROJECT_DIR$/spring5/spring5.iml" filepath="$PROJECT_DIR$/spring5/spring5.iml" />
     </modules>
   </component>
