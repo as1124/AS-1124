@@ -1,0 +1,4 @@
+spring:
+  cloud:    config:      uri: http://localhost:8888 #指定注册中心，从注册中心获取配置信息
+    discovery:      enabled: true
+management:  endpoints:    web:      exposure:        include: '*'

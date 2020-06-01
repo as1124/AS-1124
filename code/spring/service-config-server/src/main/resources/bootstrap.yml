@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: spring-config-server
+  profiles:    active: native
+server:  port: 8888
+eureka:  client:
+    fetch-registry: false    register-with-eureka: true

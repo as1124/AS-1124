@@ -1,0 +1,14 @@
+server:
+  port: 8762
+spring:
+  application:
+    name: eureka-server-2
+eureka:  instance:    hostname: localhost    prefer-ip-address: false
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka,http://localhost:8763/eureka
+  server:
+    enable-self-preservation: true
+    wait-time-in-ms-when-sync-empty: 0

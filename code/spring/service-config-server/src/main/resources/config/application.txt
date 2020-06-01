@@ -1,5 +1,5 @@
 
-server.port=8888
+server.port=8880
 spring.application.name=Spring-Config-Center
 spring.cloud.config.server.git.uri=https://github.com/as1124/AS-1124.git
 ## Set the directory of where the config-files in
