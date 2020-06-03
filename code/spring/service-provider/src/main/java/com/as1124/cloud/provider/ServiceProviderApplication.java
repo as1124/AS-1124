@@ -11,7 +11,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 //@EnableHystrix
 //@EnableHystrixDashboard
-@EnableDiscoveryClient
+//@EnableDiscoveryClient
 @SpringBootApplication
 public class ServiceProviderApplication {
 
