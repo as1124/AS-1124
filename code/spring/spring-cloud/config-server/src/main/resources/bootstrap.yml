@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: native
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        prefix: config-center
+server:
+  port: 8888

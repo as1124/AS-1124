@@ -1,0 +1,24 @@
+server:
+  port: 8762
+spring:
+  application:
+    name: eureka-server
+eureka:
+  client:
+    enabled: true
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      zone1: http://localhost:8761/eureka, http://localhost:8762/eureka
+      zone2: http://localhost:8763/eureka, http://localhost:8764/eureka
+    region: china-east #设置region
+    availability-zones:
+      china-east: zone1, zone2 #设置region下可对应的Zone
+  instance:
+    hostname: localhost
+    prefer-ip-address: true
+    metadata-map:
+      zone: zone1
+  server:
+    enable-self-preservation: false
+    wait-time-in-ms-when-sync-empty: 0
