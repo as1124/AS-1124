@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Topic5_UI</string>
 
+    <string name="dialog_title">标题</string>
+
+    <integer name="aaa">1111</integer>
 
 </resources>

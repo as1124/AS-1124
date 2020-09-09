@@ -1,6 +1,7 @@
 package com.as1124.ui.handler;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -93,6 +94,8 @@ public class AboutHandlerActivity extends Activity implements View.OnClickListen
         findViewById(R.id.btn_handler_stop).setOnClickListener(this);
         findViewById(R.id.btn_handler_messenger).setOnClickListener(this);
         findViewById(R.id.btn_handler_msg2server).setOnClickListener(this);
+
+
     }
 
     @Override
