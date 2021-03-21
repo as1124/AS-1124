@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.as1124.spring5.mybatis.mapper.DeviceArpMapper">
+
+    <select id="getByDevice" parameterType="string" resultType="DeviceArp">
+        select *
+        from device_arp
+        where source_device = #{mgmtIp};
+    </select>
+
+    <select id="getAll" resultType="DeviceArp">
+        select *
+        from device_arp;
+    </select>
+
+    <select id="getAllByPage" resultType="DeviceArp">
+        select *
+        from device_arp;
+    </select>
+
+    <insert id="save" parameterType="DeviceArp" keyProperty="id" useGeneratedKeys="true">
+        insert into device_arp(source_device, device_ip, device_mac, type, update_time)
+        values (#{sourceDevice}, #{deviceIp}, #{deviceMac}, #{type}, now());
+    </insert>
+</mapper>

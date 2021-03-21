@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <settings>
+        <setting name="cacheEnabled" value="true"/>
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
+
+    <!--	<environments default="development">-->
+    <!--		<environment id="product">-->
+    <!--			<transactionManager type="JDBC" />-->
+    <!--			<dataSource type="POOLED">-->
+    <!--				<property name="driver" value="com.mysql.jdbc.Driver" />-->
+    <!--				<property name="url" value="" />-->
+    <!--				<property name="username" value="root" />-->
+    <!--				<property name="password" value="Fsmwy951208" />-->
+    <!--				<property name="driver.encoding" value="UTF-8" />-->
+    <!--			</dataSource>-->
+    <!--		</environment>-->
+    <!--	</environments>-->
+
+    <!-- 指定JavaBean所在包 -->
+    <!--	<typeAliases>-->
+    <!--		<package name="com.as1124.server.wxsapp.resources" />-->
+    <!--	</typeAliases>-->
+
+    <!--	查询语句所在包 &ndash;&gt;-->
+    <!--	<mappers>-->
+    <!--		<package name="com.as1124.server.wxsapp.database.mapper" />-->
+    <!--	</mappers>-->
+</configuration>
